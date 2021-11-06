@@ -1,0 +1,7 @@
+Saludos.
+
+Soy Victoria Yuan Chen y vivo en Cali.
+En el proyecto del ciclo 4 tendré el rol de analista y desarrollador.
+
+Tecnologías en aprendizaje: ReactJS, CSS, HTML, MongoDB, Python, Java, entre otras.
+
