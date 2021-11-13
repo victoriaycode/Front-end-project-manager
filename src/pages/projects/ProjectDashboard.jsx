@@ -4,7 +4,7 @@ import React from 'react'
 const ProjectDashboard = () => {
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden " >
-            <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6">
+            <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6 border-b-2 ">
                 <span className="text-lg text-blue-800 text-3xl ml-8  font-bold">Proyectos</span>
 
             </div>
@@ -46,7 +46,7 @@ const ProjectDashboard = () => {
                 
             </div>
           
-            <div className="flex overflow-y-scroll ">
+            <div className="flex flex-auto overflow-y-scroll ">
 
                 <div className="flex-auto grid lg:grid-cols-4 mg:grid-cols-2 sd:grid-cols-1 pt-8 mt-0 gap-y-10 gap-x-5 md:pl-14  pt-2 align-center justify-center ">
                     <ProjectCard></ProjectCard>

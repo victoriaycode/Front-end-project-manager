@@ -11,6 +11,10 @@ import ProjectDashboard from 'pages/projects/ProjectDashboard';
 import Project from 'pages/projects/Project';
 import Profile from 'pages/my_profile/Profile';
 import UsersDashboard from 'pages/users/UsersDashboard';
+import AdvancesDashboard from 'pages/projects/advances/AdvancesDashboard';
+import Information from 'pages/projects/Information';
+import Students from 'pages/projects/Students';
+
 
 // import PrivateRoute from 'components/PrivateRoute';
 
@@ -32,6 +36,10 @@ function App() {
               <Route path='/usuarios' element={<UsersDashboard />} />
               <Route path='/proyectos' element={<ProjectDashboard />} />
               <Route path='/proyectos/proyecto' element={<Project />} />
+              <Route path='/proyectos/proyecto/avances' element={<AdvancesDashboard />} />
+              <Route path='/proyectos/proyecto/informacion' element={<Information />} />
+              <Route path='/proyectos/proyecto/estudiantes' element={<Students />} />
+              
               <Route path='/mi_perfil' element={< Profile/>} />
             </Route>
           </Routes>

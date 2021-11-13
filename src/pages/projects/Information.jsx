@@ -1,12 +1,14 @@
 import ProjectNavbar from 'components/ProjectNavbar'
 import React from 'react'
 
-const Project = () => {
+const Information = () => {
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden " >
-       <ProjectNavbar></ProjectNavbar>
-        </div>
+            
+        <ProjectNavbar/>
+        
+         </div>
     )
 }
 
-export default Project
+export default Information
