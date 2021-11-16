@@ -13,11 +13,11 @@ const ProjectCard = () => {
             
             <div className="h20 flex flex-col bg-white ">
                 <div className="flex flex-row text-lg  text-1xl mx-2 font-light ">
-            <span className="text-gray-400">Estado : </span>
+                    <span className="text-gray-400">Estado : </span>
 
-            <span className={` pl-2 text-${colorState}-300 font-semibold `}>{card.estado} </span>
+                    <span className={` pl-2 text-${colorState}-300 font-semibold `}>{card.estado} </span>
 
-          </div>
+                </div>
           
             </div>
         
