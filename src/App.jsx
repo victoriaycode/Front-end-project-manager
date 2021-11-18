@@ -7,6 +7,7 @@ import Index from 'pages/Index';
 
 import 'styles/globals.css';
 import 'styles/sidebarnav.css';
+import 'styles/tablausuarios.css';
 import ProjectDashboard from 'pages/projects/ProjectDashboard';
 import Project from 'pages/projects/Project';
 import Profile from 'pages/my_profile/Profile';

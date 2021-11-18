@@ -45,26 +45,60 @@ const UsersDashboard = () => {
                
             </div>
 
-            <div className="flex-auto w-full h-full justify-center align-center mt-8 pl-10 pr-10"> 
+            <div className="flex w-full h-full items-start justify-center align-center mt-8 pl-10 pr-10"> 
                 
-                <table className="w-full border-gray-200 bg-white justify-center align-center ">
-                  <thead className="h-10 bg-blue-100">
+                <table className='tabla'>
+                  <thead>
                     <th >Nombre</th>
                     <th>Correo</th>
                     <th>Rol</th>
                     <th>Aprobar</th>
                   </thead>
-                  <tbody className="w-full   bg-white justify-center align-center">
-                  <tr className="h-10 ">
-                      <td className="pl-10 ">Ana Diaz Suarez</td>
-                      <td>anadiaz99@gmail.com</td>
+                  <tbody>
+                  <tr>
+                      <td>Yeison Buitrago</td>
+                      <td>yeison_buitragos@hotmail.com</td>
 
                       <td>Estudiante</td>
-                      <td>Aprobado</td>
+                      <td>
+                            <input type="checkbox"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Laura Rojas</td>
+                      <td>anadiaz99@gmail.com</td>
+
+                      <td>Administrador</td>
+                      <td><input type="checkbox"/></td>
+                    </tr>
+
+                    <tr>
+                      <td>Victoria Yuan</td>
+                      <td>anadiaz99@gmail.com</td>
+
+                      <td>Lider</td>
+                      <td><input type="checkbox"/></td>
+                    </tr>
+
+                    <tr>
+                      <td>Felipe Sierra</td>
+                      <td>anadiaz99@gmail.com</td>
+
+                      <td>Lider</td>
+                      <td><input type="checkbox"/></td>
+                    </tr>
+
+                    <tr>
+                      <td>Juan Diego Pineda</td>
+                      <td>anadiaz99@gmail.com</td>
+
+                      <td>Administrador</td>
+                      <td><input type="checkbox"/></td>
                     </tr>
                   </tbody>
                 </table>
-                </div>
+            </div>
   </div>
   )
 }
