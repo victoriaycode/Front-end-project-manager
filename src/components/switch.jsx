@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 const Switch = ({setEstado, estado}) => {
     //const [estado, setEstado] = useState(false)
@@ -17,8 +17,7 @@ const Switch = ({setEstado, estado}) => {
                 appearance-none
                 cursor-pointer
                 "
-            />  
-            {console.log(estado)}      
+            />       
             <label
                 for="toggle"
                 className="

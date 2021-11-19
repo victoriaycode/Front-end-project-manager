@@ -4,7 +4,7 @@ import Switch from 'components/switch'
 
 const UsersDashboard = () => {
 
-  const [estado, setEstado] = useState(false)
+  const [estado, setEstado] = useState(null)
   const [textoEstado, setTextoEstado] = useState('Pendiente')
 
   useEffect(() => {  
@@ -87,8 +87,8 @@ const UsersDashboard = () => {
                       <td>anadiaz99@gmail.com</td>
 
                       <td>Administrador</td>
-                      <td>Pendiente</td>
-                      <td><Switch ></Switch></td>
+                      <td>{textoEstado}</td>
+                      <td><Switch estado={estado} setEstado={setEstado}></Switch></td>
                     </tr>
 
                     <tr>
@@ -96,8 +96,8 @@ const UsersDashboard = () => {
                       <td>anadiaz99@gmail.com</td>
 
                       <td>Lider</td>
-                      <td>Pendiente</td>
-                      <td><Switch ></Switch></td>
+                      <td>{textoEstado}</td>
+                      <td><Switch estado={estado} setEstado={setEstado}></Switch></td>
                     </tr>
 
                     <tr>
@@ -105,8 +105,8 @@ const UsersDashboard = () => {
                       <td>anadiaz99@gmail.com</td>
 
                       <td>Lider</td>
-                      <td>Pendiente</td>
-                      <td><Switch ></Switch></td>
+                      <td>{textoEstado}</td>
+                      <td><Switch estado={estado} setEstado={setEstado}></Switch></td>
                     </tr>
 
                     <tr>
@@ -114,8 +114,8 @@ const UsersDashboard = () => {
                       <td>anadiaz99@gmail.com</td>
 
                       <td>Administrador</td>
-                      <td>Pendiente</td>
-                      <td><Switch ></Switch></td>
+                      <td>{textoEstado}</td>
+                      <td><Switch estado={estado} setEstado={setEstado}></Switch></td>
                     </tr>
                   </tbody>
                 </table>
