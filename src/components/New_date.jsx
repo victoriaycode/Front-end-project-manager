@@ -7,9 +7,9 @@ const New_date = () => {
  
   
     return (
-        <>
-            {day}
-        </>
+    
+            day
+       
     )
 }
 

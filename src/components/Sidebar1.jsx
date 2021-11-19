@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const SidebarLinks = () => {
     return (
-      <ul class="flex flex-col space-y-2 w-full items-center pt-5 mt-10">
+      <ul className="flex flex-col space-y-2 w-full items-center pt-5 mt-10">
         
       <SidebarRoute1 to='' title='Inicio' icon="fas fa-home fa-lg"/>
       <SidebarRoute1 to='/proyectos' title='Proyectos' icon="fas fa-folder fa-lg"/>
@@ -63,7 +63,7 @@ const SidebarRoute1 = ({ to, title, icon }) => {
             ? 'sidebar-route text-blue-500 bg-gray-100 rounded-2xl '
             : 'sidebar-route text-gray-400'
         }>
-          <div class=" relative flex flex-col w-full h-16 flex justify-center items-center   
+          <div className=" relative flex flex-col w-full h-16 flex justify-center items-center   
          hover:text-blue-400  cursor-pointer transform transition duration-200 ">
         <i className={icon} />
         <span className="text-xs mt-1">{title}</span> 
