@@ -16,6 +16,7 @@ import AdvancesDashboard from 'pages/projects/advances/AdvancesDashboard';
 import Students from 'pages/projects/Students';
 import ProjectsList from 'components/ProjectsList';
 import Advance from 'pages/projects/advances/Advance';
+import New_project from 'pages/projects/New_project';
 
 
 // import PrivateRoute from 'components/PrivateRoute';
@@ -39,6 +40,7 @@ function App() {
               <Route path='/proyectos' element={<ProjectsList />} />
               <Route path='/proyectos/misproyectos' element={<ProjectDashboard />} />
               <Route path='/proyectos/proyecto' element={<Project />} />
+              <Route path='/proyectos/nuevo' element={<New_project />} />
               <Route path='/proyectos/proyecto/avances' element={<AdvancesDashboard />} />
               <Route path='/proyectos/proyecto/avances/avance' element={<Advance />} />
               <Route path='/proyectos/proyecto/info' element={<Project />} />
