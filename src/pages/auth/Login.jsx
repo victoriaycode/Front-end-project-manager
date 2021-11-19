@@ -2,28 +2,34 @@
 
 function Login() {
   return (
-    <div className='flex flex-col md:flex-row flex-no-wrap h-screen bg-yellow-500'> 
-        <div className='flex w-full h-full bg-red-200'>
-            <h1>¡Bienvenido!</h1>
-            <p>Ingresa tus datos.</p><br></br>
-            <form>
-                <label for="email">Correo</label><br/>
-                <input type="email"  placeholder="nombre@ejemplo.com"></input><br/>
-                <label for="password">Contraseña</label><br />
-                <input type="password"></input><br /> 
-                
+    <div className='flex h-screen bg-red-200'> 
+        <div className='flex flex-col h-screen bg-white text-blue-900'>
+            <h1 className='mt-36 ml-8'>¡Bienvenido!</h1>
+            <p className='ml-8'>Ingresa tus datos.</p>
+            <form className='mt-12 ml-8'>
+                <label>Correo</label><br/>
+                <input type="email"  placeholder="nombre@ejemplo.com"
+                className='rounded-lg p-2 w-80 cursor-auto border-2 border-blue-900 hover:border-yellow-700'>
+                </input><br/><br />
+                <label>Contraseña</label><br /> 
+                <input type="password"
+                className='rounded-lg p-2 w-80 cursor-auto border-2 border-blue-900 hover:border-yellow-700'></input><br /> 
+
                 {/* <Link to='/'> */}
-                <button className="botonlogin" type="submit">Ingresar</button><br></br> 
-                <span className="auth">Olvidé mi contraseña</span>
+                <button className='bg-yellow-300 p-2 w-80 border-none text-white rounded-lg h-auto my-4 cursor-pointer text-2xl' type="submit">
+                  Ingresar
+                  </button><br />
                 {/* <Link/> */}
-                <span className="auth">¿No tienes cuenta?</span><span class="register">Regístrate!</span>
+                <span className="auth">¿Aun no tienes cuenta?</span><br/>
                 {/* <Link to='/Auth/register'> */}
-                <button className="botonlogin">Registrarme</button>
+                <button className='bg-yellow-300 border-none text-white rounded-lg h-auto p-2 w-auto my-4 cursor-pointer text-2xl' type="submit">Registrarme</button>
                   {/* <Link/> */}
             </form>  
-          <p>Equipo devOcean/Grupo4/Ciclo4/UdeA/MisionTic 2022</p>            
+          <p className='absolut mt-auto'>Equipo devOcean/Grupo4/Ciclo4/UdeA/MisionTic 2022</p>            
         </div>
+       <div>
         <h1>devOcean</h1> 
+       </div>
     </div>
   );
 };
