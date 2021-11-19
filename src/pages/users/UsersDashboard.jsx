@@ -1,7 +1,21 @@
 
-import React from 'react'
+import React, {useEffect, useState, useRef} from 'react'
+import Switch from 'components/switch'
 
 const UsersDashboard = () => {
+
+  const [estado, setEstado] = useState(false)
+  const [textoEstado, setTextoEstado] = useState('Pendiente')
+
+  useEffect(() => {  
+    if (estado){
+      setTextoEstado('Autorizado') 
+    } else if(estado===false){
+      setTextoEstado('No Autorizado') 
+    }else{
+      setTextoEstado('Pendiente') 
+    }
+}, [estado])  
   return (
     <div className="w-full h-full flex flex-col overflow-y-hidden " >
   <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6">
@@ -52,7 +66,8 @@ const UsersDashboard = () => {
                     <th >Nombre</th>
                     <th>Correo</th>
                     <th>Rol</th>
-                    <th>Aprobar</th>
+                    <th>Estado</th>
+                    <th>Autorizar</th>
                   </thead>
                   <tbody>
                   <tr>
@@ -60,8 +75,10 @@ const UsersDashboard = () => {
                       <td>yeison_buitragos@hotmail.com</td>
 
                       <td>Estudiante</td>
+                      <td>{textoEstado}</td>
                       <td>
-                            <input type="checkbox"/>
+                           <Switch estado={estado} setEstado={setEstado}></Switch>
+                          
                       </td>
                     </tr>
 
@@ -70,7 +87,8 @@ const UsersDashboard = () => {
                       <td>anadiaz99@gmail.com</td>
 
                       <td>Administrador</td>
-                      <td><input type="checkbox"/></td>
+                      <td>Pendiente</td>
+                      <td><Switch ></Switch></td>
                     </tr>
 
                     <tr>
@@ -78,7 +96,8 @@ const UsersDashboard = () => {
                       <td>anadiaz99@gmail.com</td>
 
                       <td>Lider</td>
-                      <td><input type="checkbox"/></td>
+                      <td>Pendiente</td>
+                      <td><Switch ></Switch></td>
                     </tr>
 
                     <tr>
@@ -86,7 +105,8 @@ const UsersDashboard = () => {
                       <td>anadiaz99@gmail.com</td>
 
                       <td>Lider</td>
-                      <td><input type="checkbox"/></td>
+                      <td>Pendiente</td>
+                      <td><Switch ></Switch></td>
                     </tr>
 
                     <tr>
@@ -94,7 +114,8 @@ const UsersDashboard = () => {
                       <td>anadiaz99@gmail.com</td>
 
                       <td>Administrador</td>
-                      <td><input type="checkbox"/></td>
+                      <td>Pendiente</td>
+                      <td><Switch ></Switch></td>
                     </tr>
                   </tbody>
                 </table>
