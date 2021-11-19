@@ -60,11 +60,11 @@ const SidebarRoute1 = ({ to, title, icon }) => {
         to={to}
         className={({ isActive }) =>
           isActive
-            ? 'sidebar-route text-blue-500 bg-gray-100 ml-4 '
+            ? 'sidebar-route text-blue-500 bg-gray-100 rounded-2xl '
             : 'sidebar-route text-gray-400'
         }>
           <div class=" relative flex flex-col w-full h-16 flex justify-center items-center   
-         hover:text-blue-400  cursor-pointer transform transition duration-300 ">
+         hover:text-blue-400  cursor-pointer transform transition duration-200 ">
         <i className={icon} />
         <span className="text-xs mt-1">{title}</span> 
         </div>
