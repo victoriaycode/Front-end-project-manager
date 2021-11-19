@@ -15,7 +15,16 @@ const ProjectNavbar = () => {
            
         
             <nav class="flex flex-col sm:flex-row ml-5 text-lg gap-1">
-           
+            <NavLink to ='/proyectos/proyecto/info'  
+         className={({ isActive }) =>
+         isActive
+           ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
+           : 'text-gray-600 border-b-4 '
+       }>
+        <button class=" py-4 px-6 block hover:text-blue-800 focus:outline-none  font-medium">
+         <i class="fas fa-info-circle"></i> Información
+        </button>  
+        </NavLink> 
             <NavLink to ='/proyectos/proyecto/avances'
            className={({ isActive }) =>
            isActive
@@ -26,16 +35,7 @@ const ProjectNavbar = () => {
         <i class="far fa-file-alt"></i>   Avances
         </button>
         </NavLink>
-        <NavLink to ='/proyectos/proyecto/informacion'  
-         className={({ isActive }) =>
-         isActive
-           ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
-           : 'text-gray-600 border-b-4 '
-       }>
-        <button class=" py-4 px-6 block hover:text-blue-800 focus:outline-none  font-medium">
-         <i class="fas fa-info-circle"></i> Información
-        </button>  
-        </NavLink> 
+        
         <NavLink to ='/proyectos/proyecto/estudiantes'
          className={({ isActive }) =>
          isActive
