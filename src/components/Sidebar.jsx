@@ -4,10 +4,10 @@ import { NavLink } from 'react-router-dom';
 const SidebarLinks = () => {
   return (
     <ul className='mt-12'>
-      <SidebarRoute to='' title='Inicio' icon='fas fa-home' />
-      <SidebarRoute to='/page2' title='Pagina2' icon='fas fa-smile-wink' />
-      <SidebarRoute to='/category1' title='Catego 1' icon='fab fa-amazon' />
-      <SidebarRoute to='/category1/page1' title='Test' icon='fas fa-car' />
+      <SidebarRoute to='' title='Inicio' icon='fas fa-home fa-lg' />
+      <SidebarRoute to='/page2' title='Pagina2' icon='fas fa-home fa-lg' />
+      <SidebarRoute to='/category1' title='Catego 1' icon='fas fa-home fa-lg' />
+      <SidebarRoute to='/category1/page1' title='Test' icon='fas fa-home fa-lg' />
     </ul>
   );
 };
@@ -24,10 +24,10 @@ const Logo = () => {
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   return (
-    <div className='flex flex-col md:flex-row flex-no-wrap md:h-full'>
+    <div className='flex flex-col md:flex-row flex-no-wrap '>
       {/* Sidebar starts */}
 
-      <div className='sidebar hidden md:flex'>
+      <div className='sidebar  '>
         <div className='px-8'>
           <Logo />
           <SidebarLinks />
