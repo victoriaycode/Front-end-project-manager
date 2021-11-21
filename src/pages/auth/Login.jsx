@@ -1,8 +1,9 @@
 //import { Link } from "react-router-dom";
 
+
 function Login() {
   return (
-    <div className='flex h-screen bg-red-200'> 
+    <div className='flex h-screen'> 
         <div className='flex flex-col h-screen bg-white text-blue-900'>
             <h1 className='mt-36 ml-8'>¡Bienvenido!</h1>
             <p className='ml-8'>Ingresa tus datos.</p>
@@ -22,13 +23,14 @@ function Login() {
                 {/* <Link/> */}
                 <span className="auth">¿Aun no tienes cuenta?</span><br/>
                 {/* <Link to='/Auth/register'> */}
-                <button className='bg-yellow-300 border-none text-white rounded-lg h-auto p-2 w-auto my-4 cursor-pointer text-2xl' type="submit">Registrarme</button>
+                <button className='bg-yellow-300 border-none text-white rounded-lg h-auto p-2 w-auto my-4 cursor-pointer text-2xl' type="submit">
+                  Regístrate</button>
                   {/* <Link/> */}
             </form>  
           <p className='absolut mt-auto'>Equipo devOcean/Grupo4/Ciclo4/UdeA/MisionTic 2022</p>            
         </div>
        <div>
-        <h1>devOcean</h1> 
+        <img src="./media/logo.jpg" alt="devOcean" />
        </div>
     </div>
   );
