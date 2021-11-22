@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const Register = () => {
     
@@ -38,55 +39,55 @@ const Register = () => {
     };*/
     
     return (
-    <div> 
-        <div>
-            {/* <Link to ='/auth/login'> */}
-            <button>                
+    <div>       
+        <div className='bg-blue-800 flex flex-col h-screen text-white'>
+        <div className='ml-96'> 
+        <Link to ='/auth/login'>
+            <button className='bg-yellow-500 hover:bg-yellow-600 p-2 w-96 border-none text-white rounded-lg h-auto my-8 cursor-pointer text-2xl'>                
             Volver a Login
             </button>
-            {/* </Link> */}
-        </div>
+        </Link>
+            <h1 className='text-3xl font-bold '>Registrar nuevo usuario</h1>
+            <p className='text-2xl mt-2'>Ingresa los datos del nuevo usuario→</p>
+            <form className='flex flex-col mt-16'> 
+                
+                <label className='font-bold text-xl' htmlFor="NombreUsuario">Nombres</label>
+                <input type="text" name="nombre" 
+                className='mt-2 rounded-lg p-2 h-12 w-96 cursor-auto outline-none text-blue-900 text-xl'
+                placeholder="Ingresa nombre completo" required/><br/>
 
-            <span>Registrar nuevo Usuario</span>
-            <span className="descripcionSeccion">Ingresa los datos del nuevo Usuario.</span>
+                <label className='font-bold text-xl' htmlFor="ApellidorUsuario">Apellidos </label>
+                <input type="text" name="apellido"
+                className='mt-2 rounded-lg p-2 h-12 w-96 cursor-auto outline-none text-blue-900 text-xl'
+                required/><br/>
+               
+                <label className='font-bold text-xl' htmlFor="id">Cédula</label>
+                <input type="numer" name="identificacion"
+                className='mt-2 rounded-lg p-2 h-12 w-96 cursor-auto outline-none text-blue-900 text-xl'
+                required/><br/>
 
-            <form>
-
-            
-                <label htmlFor="NombreUsuario">Nombres
-                <input type="text" name="given_name"
-                placeholder="Ingresa nombre completo..." required/>
-                </label>
-
-                <label htmlFor="ApellidorUsuario">Apellidos
-                <input type="text" name="family_name"
-                placeholder="Ingresa apellidos..." required/>
-                </label>
-
-                <label htmlFor="id">Cédula
-                <input type="text" name="id_usuario"
-                placeholder="Ingresa número cedula sin puntos ni comas, Ej:10999009"
-                required/>
-                </label>
-                <label htmlFor="emailUsuario">Correo
-                <input type="email" id="email" name="email"
-                placeholder="Ejemplo: hola@hotmail.com" required/>
-                </label>
-                <br/>
-                <label htmlFor="rolUsuario">Rol del Usuario
-                    <select name="rol" required defaultValue={0} >
+                <label className='font-bold text-xl' htmlFor="emailUsuario">Correo</label>
+                <input type="email" id="email" name="correo"
+                className='mt-2 rounded-lg p-2 h-12 w-96 cursor-auto outline-none text-blue-900 text-xl'
+                placeholder="Ejemplo: hola@hotmail.com" required/><br/>
+                
+                <label className='font-bold text-xl' htmlFor="rolUsuario">Rol del Usuario</label>
+                    <select className='mt-2 rounded-lg p-2 h-12 w-96 cursor-auto outline-none text-blue-900 text-xl'
+                    name="rol" required defaultValue={0} >
                         <option disabled value={0}> Selecciona un rol</option>
                         <option>Administrador</option>
                         <option>Líder</option>
                         <option>Estudiante</option>
-                    </select>
-                </label>
+                    </select><br/>
 
                 <input id="input_ventas" type="hidden" name="estado" value="Pendiente" required/>
                 
-                <button type="submit"> Guardar nuevo Usuario </button>
+                <button type="submit" className='bg-yellow-500 hover:bg-yellow-600 p-2 w-96 border-none text-white rounded-lg h-auto my-8 cursor-pointer text-2xl'
+                > Registrarme! </button>
                 </form>
              {/* <ToastContainer position='bottom-center' autoClose={4000} />     */}
+        </div>
+        </div>
     </div>
     )
 }
