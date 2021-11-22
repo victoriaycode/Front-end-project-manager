@@ -4,10 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { UserContext } from 'context/userContext';
 import Login from 'pages/auth/Login';
-import Index from 'pages/Index';
-import Page2 from 'pages/Page2';
-import IndexCategory1 from 'pages/category1/Index';
-import Category1 from 'pages/category1/CategoryPage1';
+import Register from 'pages/auth/Register';
 import 'styles/globals.css';
 
 // import PrivateRoute from 'components/PrivateRoute';
@@ -26,6 +23,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/auth/login' element={<Login/>}/>
+            <Route path='/auth/register' element={<Register/>}/>
+            
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
