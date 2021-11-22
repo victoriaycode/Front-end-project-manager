@@ -1,37 +1,37 @@
 //import { Link } from "react-router-dom";
-
+import logo from "media/logo.png"
 
 function Login() {
   return (
-    <div className='flex h-screen'> 
-        <div className='flex flex-col h-screen bg-white text-blue-900'>
-            <h1 className='mt-36 ml-8'>¡Bienvenido!</h1>
-            <p className='ml-8'>Ingresa tus datos.</p>
-            <form className='mt-12 ml-8'>
-                <label>Correo</label><br/>
+    <div className='flex h-screen bg-blue-900'> 
+        <div className='flex flex-col h-screen bg-blue-800 text-white'>
+            <img className='h-48 w-48 ml-64 mt-20' src={logo} alt="devOcean" />
+            <form className='mt-12 mx-32'>
+                <h1 className='text-3xl'>¡Bienvenido!</h1>
+                <p className='mt-2 mb-8 font-bold text-2xl'>Ingresa tus datos →</p>
+                <label className='font-bold text-xl'>Correo</label><br/>
                 <input type="email"  placeholder="nombre@ejemplo.com"
-                className='rounded-lg p-2 w-80 cursor-auto border-2 border-blue-900 hover:border-yellow-700'>
+                className='mt-2 rounded-lg p-2 h-12 w-96 cursor-auto outline-none text-blue-900 text-xl'>
                 </input><br/><br />
-                <label>Contraseña</label><br /> 
+                <label className='font-bold text-xl' >Contraseña</label><br /> 
                 <input type="password"
-                className='rounded-lg p-2 w-80 cursor-auto border-2 border-blue-900 hover:border-yellow-700'></input><br /> 
-
+                className='mt-2 rounded-lg p-2 h-12 w-96 cursor-auto outline-none text-blue-900 text-xl'></input><br /> 
                 {/* <Link to='/'> */}
-                <button className='bg-yellow-300 p-2 w-80 border-none text-white rounded-lg h-auto my-4 cursor-pointer text-2xl' type="submit">
+                <button className='bg-yellow-500 hover:bg-yellow-600 p-2 w-96 border-none text-white rounded-lg h-auto my-8 cursor-pointer text-2xl' type="submit">
                   Ingresar
                   </button><br />
+            </form>  
                 {/* <Link/> */}
-                <span className="auth">¿Aun no tienes cuenta?</span><br/>
+                <span className='text-xl ml-52'>¿Aun no tienes cuenta?</span><br/>
                 {/* <Link to='/Auth/register'> */}
-                <button className='bg-yellow-300 border-none text-white rounded-lg h-auto p-2 w-auto my-4 cursor-pointer text-2xl' type="submit">
+                <button className='bg-none hover:bg-yellow-600 hover:text-white border-2 border-white text-white rounded-lg h-auto p-2 w-48 ml-52 cursor-pointer text-2xl' type="submit">
                   Regístrate</button>
                   {/* <Link/> */}
-            </form>  
-          <p className='absolut mt-auto'>Equipo devOcean/Grupo4/Ciclo4/UdeA/MisionTic 2022</p>            
+          <p className='absolut mt-auto mx-32 text-l'>Equipo devOcean/Grupo4/Ciclo4/UdeA/MisionTic 2022</p>            
         </div>
-       <div>
-        <img src="./media/logo.jpg" alt="devOcean" />
-       </div>
+        <div className='flex justify-items-center pt-96'>
+          <h1 className='text-white text-9xl text-center mx-96'>devOcean</h1>
+        </div>
     </div>
   );
 };

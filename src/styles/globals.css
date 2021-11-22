@@ -9,3 +9,17 @@
 .sidebar-route {
   @apply rounded-md flex w-full justify-between cursor-pointer items-center m-3 p-3;
 }
+
+@layer base {
+  input, p, label, span{
+    font-family: 'Roboto', sans-serif;
+    font-weight:300;
+    }
+  button{
+    font-weight:500; 
+  }
+  h1,h2{
+    font-family: 'Roboto', sans-serif;
+    font-weight:700;
+  }
+  }
