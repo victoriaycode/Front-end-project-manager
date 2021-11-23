@@ -17,7 +17,7 @@ import Students from 'pages/projects/Students';
 import ProjectsList from 'pages/projects/ProjectsList';
 import Advance from 'pages/projects/advances/Advance';
 import New_project from 'pages/projects/New_project';
-import { ApolloProvider, ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import My_projects from 'pages/projects/My_projects';
 
 const client = new ApolloClient({
