@@ -19,7 +19,7 @@ import ProjectsList from 'pages/projects/ProjectsList';
 import Advance from 'pages/projects/advances/Advance';
 import New_project from 'pages/projects/New_project';
 import My_projects from 'pages/projects/My_projects';
-import Register from 'pages/auth/register';
+
 
 
 // import PrivateRoute from 'components/PrivateRoute';
@@ -38,7 +38,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<PrivateLayout />}>
-              <Route path='/' element={<Index />} />
+              <Route path='/inicio' element={<Index />} />
               <Route path='/usuarios' element={<UsersDashboard />} />
               <Route path='/proyectos' element={<ProjectsList />} />
               <Route path='/proyectos/misproyectos' element={<My_projects />} />
@@ -48,11 +48,12 @@ function App() {
               <Route path='/proyectos/proyecto/avances/avance' element={<Advance />} />
               <Route path='/proyectos/proyecto/info' element={<Project />} />
               <Route path='/proyectos/proyecto/estudiantes' element={<Students />} />
-              <Route path='/auth/login' element={<Login/>}/>
-              <Route path='/auth/register' element={<Register/>}/>
-              <Route path='/mi_perfil' element={< Profile/>} />
-            </Route>
            
+              <Route path='/mi_perfil' element={< Profile/>} />
+             </Route>
+            
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/register' element={<Register/>}/>
             
           </Routes>
         </BrowserRouter>
