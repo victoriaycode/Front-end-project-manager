@@ -5,6 +5,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import { UserContext } from 'context/userContext';
 import Index from 'pages/Index';
 
+import Login from 'pages/auth/Login';
+import Register from 'pages/auth/Register';
 import 'styles/globals.css';
 import 'styles/tablausuarios.css';
 import Project from 'pages/projects/Project';
@@ -17,6 +19,7 @@ import ProjectsList from 'pages/projects/ProjectsList';
 import Advance from 'pages/projects/advances/Advance';
 import New_project from 'pages/projects/New_project';
 import My_projects from 'pages/projects/My_projects';
+import Register from 'pages/auth/register';
 
 
 // import PrivateRoute from 'components/PrivateRoute';
@@ -45,9 +48,12 @@ function App() {
               <Route path='/proyectos/proyecto/avances/avance' element={<Advance />} />
               <Route path='/proyectos/proyecto/info' element={<Project />} />
               <Route path='/proyectos/proyecto/estudiantes' element={<Students />} />
-              
+              <Route path='/auth/login' element={<Login/>}/>
+              <Route path='/auth/register' element={<Register/>}/>
               <Route path='/mi_perfil' element={< Profile/>} />
             </Route>
+           
+            
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
