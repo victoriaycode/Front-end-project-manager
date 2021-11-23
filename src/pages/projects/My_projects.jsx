@@ -1,14 +1,13 @@
 import ProjectCard from 'components/ProjectCard'
 import Search_input from 'components/Search_input'
+import Title_page from 'components/Title_page'
+
 import React from 'react'
 
-const ProjectDashboard = () => {
+const My_projects = () => {
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden " >
-            <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6 border-b-2 ">
-                <span className="text-lg text-blue-800 text-3xl ml-8  font-bold">Proyectos</span>
-
-            </div>
+            <Title_page title={"Proyectos"} returns={true} return_to={"/"}/>
            
             <div className="flex flex-row  ml-0 justify-start">
                <Search_input/>
@@ -69,4 +68,4 @@ const ProjectDashboard = () => {
     )
 }
 
-export default ProjectDashboard
+export default My_projects

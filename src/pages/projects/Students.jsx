@@ -8,23 +8,29 @@ import Toggle from 'components/Toggle';
 const Students = () => {
 
 
-    const students_list = [{ "nombre": "Aleja Diaz", "correo": "alejadiaz001@gmail.com", "estado": "No Aprobado" },
-    {
-        "nombre": "Dario Diaz Martinez",
-        "correo": "dariodm@gmail.com", "estado": "Aprobado"
-    }, { "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-    { "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-    { "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },{ "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-    { "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },{ "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-    { "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },{ "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-    { "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },{ "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-    { "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },{ "nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" }]
+    const students_list = [ 
+ 
+    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
+    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
+
+    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
+
+    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
+    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
+
+    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
+
+
+    ]
 
     const [editable, setEditable] = useState(false)
 
     const RowStudentInfo = ({ student }) => {
         return (
             <tr className="hover:bg-gray-100">
+                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
+                    {student.identificacion}
+                </td>
                 <td className="border-t-0 px-6   align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left text-blue-800 
           font-medium   ">
                     {student.nombre}

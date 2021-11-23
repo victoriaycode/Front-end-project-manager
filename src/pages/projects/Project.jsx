@@ -1,14 +1,18 @@
-import ProjectNavbar from 'components/ProjectNavbar'
 import React from 'react'
-import Information from './Information'
+import { useState,useEffect } from 'react';
+import New_date from 'components/New_date';
 
+import ProjectNavbar from 'components/ProjectNavbar';
+import Info from './Info';
 const Project = () => {
+
+
     return (
-        <div className="w-full h-full flex flex-col overflow-y-hidden">
-    <ProjectNavbar></ProjectNavbar>
-       <Information></Information>
+        <div className="w-full h-full overflow-y-hidden">
+         <ProjectNavbar/>
+            <Info/>
+            
         </div>
-    
     )
 }
 
