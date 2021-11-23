@@ -25,7 +25,7 @@ const SidebarLinks = () => {
   
   
 
-const Sidebar1 = () => {
+const SidebarNav = () => {
     return (
 
       <div className="flex flex-col justify-between  items-center flex-none w-20 bg-gray-100 mr-4">
@@ -64,7 +64,7 @@ const SidebarRoute1 = ({ to, title, icon }) => {
             : 'sidebar-route text-gray-400'
         }>
           <div className=" relative flex flex-col w-full h-16 flex justify-center items-center   
-         hover:text-blue-400  cursor-pointer transform transition duration-200 ">
+         hover:text-blue-400  cursor-pointer transform transition duration-100 ">
         <i className={icon} />
         <span className="text-xs mt-1">{title}</span> 
         </div>
@@ -74,4 +74,4 @@ const SidebarRoute1 = ({ to, title, icon }) => {
   );
 };
 
-export default Sidebar1
+export default SidebarNav
