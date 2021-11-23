@@ -3,9 +3,33 @@
 @tailwind utilities;
 
 .sidebar {
-  @apply w-64 bg-gray-200 shadow flex-col justify-between;
+  @apply w-16  bg-gray-100 shadow flex-col justify-between;
 }
-
-.sidebar-route {
+.sidebar-route1 {
   @apply rounded-md flex w-full justify-between cursor-pointer items-center m-3 p-3;
 }
+.sidebar-route {
+  @apply block relative flex flex-col  h-16 w-16 flex justify-center items-center   
+  hover:text-blue-400  cursor-pointer transition duration-300 ease-in-out  ;
+}
+
+.toggle-checkbox:checked {
+  @apply: right-0 border-green-400;
+  right: 0;
+  border-color: #dde4e0;
+}
+.toggle-checkbox:checked + .toggle-label {
+  @apply: bg-green-400;
+  background-color:rgb(122, 231, 122)
+}
+
+@layer base {
+  input, p, label, span{
+    font-family: 'Roboto', sans-serif;
+    font-weight:300;
+    }
+  button,h1,h2{
+    ffont-family: 'Roboto', sans-serif;
+    font-weight:500;
+  }
+  }
