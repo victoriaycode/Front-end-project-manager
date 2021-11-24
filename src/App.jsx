@@ -5,7 +5,7 @@ import { UserContext } from 'context/userContext';
 import Index from 'pages/Index';
 
 import Login from 'pages/auth/Login';
-import Register from 'pages/auth/register';
+import Register from 'pages/auth/Register';
 import 'styles/globals.css';
 import 'styles/tablausuarios.css';
 import Project from 'pages/projects/Project';
