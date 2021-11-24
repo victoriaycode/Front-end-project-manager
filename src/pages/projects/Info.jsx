@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 
 
-const Info = () => {
+const Info = ({_id_project}) => {
     
 const [general_obj_to_add, set_general_obj_list] =useState([]);
 const [specific_obj_to_add ,set_specific_obj_list] =useState([]) 
@@ -110,7 +110,7 @@ const [specific_obj_to_add ,set_specific_obj_list] =useState([])
                 </ul>
             </div>
 
-
+                    <span>{_id_project}</span>
         </div>
         
     )
