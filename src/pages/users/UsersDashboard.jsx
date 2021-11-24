@@ -1,21 +1,28 @@
 
 import React, {useEffect, useState, useRef} from 'react'
 import Switch from 'components/switch'
+import { useQuery } from '@apollo/client';
+import { GET_USUARIOS } from 'graphql/usuarios/queries';
+//import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+//import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 
 const UsersDashboard = () => {
 
-  const [estado, setEstado] = useState(false)
-  const [textoEstado, setTextoEstado] = useState('Pendiente')
+  const { data, error, loading } = useQuery(GET_USUARIOS);
 
-  useEffect(() => {  
-    if (estado){
-      setTextoEstado('Autorizado') 
-    } else if(estado===false){
-      setTextoEstado('No Autorizado') 
-    }else{
-      setTextoEstado('Pendiente') 
+  useEffect(() => {
+    console.log('data servidor', data);
+  }, [data]);
+
+  /*useEffect(() => {
+    if (error) {
+      toast.error('Error consultando los usuarios');
     }
-}, [estado])  
+  }, [error]);*/
+
+  if (loading) return <div>Cargando....</div>;
+
   return (
     <div className="w-full h-full flex flex-col overflow-y-hidden " >
   <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6">
@@ -64,64 +71,38 @@ const UsersDashboard = () => {
                 <table className='tabla'>
                   <thead>
                     <th >Nombre</th>
+                    <th >Apellido</th>
                     <th>Correo</th>
                     <th>Rol</th>
                     <th>Estado</th>
                     <th>Autorizar</th>
                   </thead>
                   <tbody>
-                  <tr>
-                      <td>Yeison Buitrago</td>
-                      <td>yeison_buitragos@hotmail.com</td>
-
-                      <td>Estudiante</td>
-                      <td>{textoEstado}</td>
-                      <td>
-                           <Switch estado={estado} setEstado={setEstado}></Switch>
-                          
-                      </td>
+                  {data &&
+                    data.Usuarios.map((u) => {
+                      return(
+                      <tr key={u._id}>
+                      <td>{u.nombre}</td>
+                      <td>{u.apellido}</td>
+                      <td>{u.correo}</td>
+                      <td>{u.rol}</td>
+                      <td>{u.estado}</td>
+                      
+                      {/*<td>{Enum_EstadoUsuario[u.estado]}</td>
+                     } <td>
+                      <Link to={`/usuarios/editar/${u._id}`}>
+                          <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer' />
+                        </Link>
+                      </td>*/}
                     </tr>
-
-                    <tr>
-                      <td>Laura Rojas</td>
-                      <td>anadiaz99@gmail.com</td>
-
-                      <td>Administrador</td>
-                      <td>Pendiente</td>
-                      <td><Switch ></Switch></td>
-                    </tr>
-
-                    <tr>
-                      <td>Victoria Yuan</td>
-                      <td>anadiaz99@gmail.com</td>
-
-                      <td>Lider</td>
-                      <td>Pendiente</td>
-                      <td><Switch ></Switch></td>
-                    </tr>
-
-                    <tr>
-                      <td>Felipe Sierra</td>
-                      <td>anadiaz99@gmail.com</td>
-
-                      <td>Lider</td>
-                      <td>Pendiente</td>
-                      <td><Switch ></Switch></td>
-                    </tr>
-
-                    <tr>
-                      <td>Juan Diego Pineda</td>
-                      <td>anadiaz99@gmail.com</td>
-
-                      <td>Administrador</td>
-                      <td>Pendiente</td>
-                      <td><Switch ></Switch></td>
-                    </tr>
+                      )  
+                    })}
                   </tbody>
                 </table>
             </div>
   </div>
   )
 }
+
 
 export default UsersDashboard
