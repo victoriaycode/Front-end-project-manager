@@ -2,11 +2,12 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { GET_PROJECT_INFO } from 'graphql/proyectos/queries'
 import { useQuery } from '@apollo/client';
-import { useProject } from 'context/projectContext';
+import ProjectNavbar from 'components/ProjectNavbar';
+import { useParams } from 'react-router';
 
 const Info = () => {
-  const {actualProject, setActualProject}= useProject();
-    const _id= actualProject._id;
+    const { _id } = useParams();
+   
     const { data, error, loading } = useQuery(GET_PROJECT_INFO,{variables:{
         _id},});
 
@@ -18,13 +19,12 @@ const Info = () => {
     
             //setInfoProject(data.filtrarProyecto);
           }, [data]); 
-          const infoProject=data.filtrarProyecto;
+        const infoProject={};
     const [general_obj_to_add, set_general_obj_list] =useState([]);
     //const [infoProject, setInfoProject]= useState(null);
     
      
       
-
 
 
 //const [specific_obj_to_add ,set_specific_obj_list] =useState([]);
@@ -43,7 +43,12 @@ const Info = () => {
     
     if (loading) return <div>Cargando....</div>;
     return (
-       
+        <div className="w-full h-full overflow-y-hidden">
+            <ProjectNavbar _idActual={_id}/>
+            <span>{_id}</span>
+        
+{/**
+ 
         <div className="w-full h-5/6 px-20 overflow-y-scroll">
 
         <div className="bg-white  w-full py-2 px-4 align-center rounded-2xl my-1 flex flex-row gap-2 border-solid border-2 border-gray-300">
@@ -140,10 +145,10 @@ const Info = () => {
                     })}
                 </ul>
             </div>
- */}
+
                     <span>{actualProject}</span>
+        </div>*/}
         </div>
-        
     )
 }
 

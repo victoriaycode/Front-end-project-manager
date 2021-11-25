@@ -4,9 +4,11 @@ import React from 'react'
 import { useState } from 'react'
 import { nanoid } from 'nanoid';
 import Toggle from 'components/Toggle';
+import { useParams } from 'react-router';
 
 const Students = () => {
 
+    const { _id } = useParams();
 
     const students_list = [ 
  
@@ -66,7 +68,8 @@ const Students = () => {
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden " >
 
-            <ProjectNavbar />
+        <ProjectNavbar _idActual={_id}/>
+   
             <div className="w-full h-full flex flex-col overflow-y-hidden " >
             <div className="flex flex-row  ml-0 justify-start mt-8">
               <Search_input></Search_input>
@@ -138,6 +141,7 @@ const Students = () => {
                     </div>
                 </div>
             </div>
+            <span>{_id}</span>
         </div>
 
     )

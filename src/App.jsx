@@ -19,7 +19,7 @@ import Advance from 'pages/projects/advances/Advance';
 import New_project from 'pages/projects/New_project';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import My_projects from 'pages/projects/My_projects';
-import { ProjectContext } from 'context/projectContext';
+import Info from 'pages/projects/Info';
 {/**
   const client = new ApolloClient({
   uri: 'https://backend-dev-ocean.herokuapp.com/graphql', 
@@ -42,7 +42,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
         <UserContext.Provider value={{ userData, setUserData }}>
-          <ProjectContext.Provider value={{actualProject,setActualProject}}>
+        
           <BrowserRouter>
             <Routes>
               <Route path='/' element={<PrivateLayout />}>
@@ -51,12 +51,12 @@ function App() {
                
                 <Route path='/proyectos' element={<ProjectsList />} />
                 <Route path='/proyectos/misproyectos' element={<My_projects/>} />
-                <Route path='/proyectos/proyecto/:_id' element={<Project />} />
+                <Route path='/proyectos/proyecto/:_id' element={<Info />} />
                 <Route path='/proyectos/nuevo' element={<New_project />} /> 
                
                 <Route path='/proyectos/proyecto/avances/:_id' element={<AdvancesDashboard />} />
                 <Route path='/proyectos/proyecto/avances/avance' element={<Advance />} />
-                <Route path='/proyectos/proyecto/info/:_id' element={<Project />} />
+  
                 <Route path='/proyectos/proyecto/estudiantes/:_id' element={<Students />} />
                 
                 <Route path='/mi_perfil' element={< Profile/>} />
@@ -65,7 +65,6 @@ function App() {
                 <Route path='/register' element={<Register/>}/>
             </Routes>
           </BrowserRouter>
-          </ProjectContext.Provider>
         </UserContext.Provider>
     </ApolloProvider>
   );

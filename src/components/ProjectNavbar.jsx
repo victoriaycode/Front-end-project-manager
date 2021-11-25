@@ -1,12 +1,9 @@
 import React from 'react'
 
 import { NavLink } from 'react-router-dom'
-import { useProject } from 'context/projectContext';
 
-const ProjectNavbar = () => {
-  
-  const { actualProject, setActualProject } = useProject();
-  const _id= actualProject._id;
+const ProjectNavbar = ({_idActual}) => {
+  const _id= _idActual;
     
   return (
     <div className="relative h-16 flex flex-row bg-gray-100 w-full align-center justify-start mt-6 border-b-2 ">
@@ -17,12 +14,12 @@ const ProjectNavbar = () => {
           <i className="fas fa-angle-left fa-2x"></i> </button>
       </NavLink>
 
-      <span className="text-lg text-blue-800 text-2xl ml-2 mr-5 pt-2 font-bold "> {actualProject.nombre}
+      <span className="text-lg text-blue-800 text-2xl ml-2 mr-5 pt-2 font-bold "> proyecto
         <span className="text-lg text-blue-800 text-xl ml-2 mr-5 pt-2 font-bold ">     </span></span>
 
 
       <nav class="flex flex-col sm:flex-row ml-5 text-lg gap-1">
-        <NavLink to={`/proyectos/proyecto/${actualProject._id}`}
+        <NavLink to={`/proyectos/proyecto/${_id}`}
           className={({ isActive }) =>
             isActive
               ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
@@ -32,7 +29,7 @@ const ProjectNavbar = () => {
             <i className="fas fa-info-circle"></i> Información
           </button>
         </NavLink>
-        <NavLink to={`/proyectos/proyecto/avances/${actualProject._id}`}
+        <NavLink to={`/proyectos/proyecto/avances/${_id}`}
           className={({ isActive }) =>
             isActive
               ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
@@ -43,7 +40,7 @@ const ProjectNavbar = () => {
           </button>
         </NavLink>
 
-        <NavLink to={`/proyectos/proyecto/estudiantes/${actualProject._id}`}
+        <NavLink to={`/proyectos/proyecto/estudiantes/${_id}`}
           className={({ isActive }) =>
             isActive
               ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
@@ -54,6 +51,7 @@ const ProjectNavbar = () => {
           </button>
         </NavLink>
       </nav>
+      <span>{_id}</span>
     </div>
   )
 }
