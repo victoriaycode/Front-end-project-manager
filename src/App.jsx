@@ -20,24 +20,29 @@ import New_project from 'pages/projects/New_project';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import My_projects from 'pages/projects/My_projects';
 import { ProjectContext } from 'context/projectContext';
-
-const client = new ApolloClient({
+{/**
+  const client = new ApolloClient({
   uri: 'https://backend-dev-ocean.herokuapp.com/graphql', 
   cache: new InMemoryCache(),
 });
+ */}
 
 
+ const client = new ApolloClient({
+  uri: 'http://localhost:4000/graphql',
+  cache: new InMemoryCache(),
+});
 
 
 // import PrivateRoute from 'components/PrivateRoute';
 
 function App() {
   const [userData, setUserData] = useState({});
-  const [actualProjectId, setActualProjectId] = useState("");
+  const [actualProject, setActualProject] = useState([]);
   return (
     <ApolloProvider client={client}>
         <UserContext.Provider value={{ userData, setUserData }}>
-          <ProjectContext.Provider value={{actualProjectId,setActualProjectId}}>
+          <ProjectContext.Provider value={{actualProject,setActualProject}}>
           <BrowserRouter>
             <Routes>
               <Route path='/' element={<PrivateLayout />}>
