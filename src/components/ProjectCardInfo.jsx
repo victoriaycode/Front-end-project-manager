@@ -6,11 +6,11 @@ import { useProject } from 'context/projectContext';
 const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => {
    
    
-  const {actualProjectId, setActualProjectId}= useProject();
+  const {actualProject, setActualProject}= useProject();
 
    useEffect(() => { 
-      console.log("actual: ",actualProjectId)
-   }, [actualProjectId])
+      console.log("actual: ",actualProject)
+   }, [actualProject])
     //const [openModal, setOpenModal] = useState(false);
     const card = project_info;
     
@@ -57,7 +57,7 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => 
                         <button class="p-2 pl-4 pr-4 bg-transparent border-2 border-blue-200
                  text-gray-400 text-xs rounded-lg hover:text-blue-500 
                   hover:border-blue-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300  " onClick={()=>setActualProjectId(card._id)}>Ver</button>
+                 focus:border-4 focus:border-blue-300  " onClick={()=>setActualProject({"_id":card._id,"nombre":card.nombre})}>Ver</button>
                     </NavLink>
                     {user==="ESTUDIANTE" &&
                     <button class="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200

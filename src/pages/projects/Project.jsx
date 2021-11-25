@@ -7,17 +7,17 @@ import { NavLink } from 'react-router-dom';
 import { useProject } from 'context/projectContext';
 import ProjectNavbar from 'components/ProjectNavbar';
 const Project = () => {
-    const _id_actual_project = "23213";
     
-  const {actualProjectId, setActualProjectId}= useProject();
+    
+  const {actualProject, setActualProject}= useProject();
   
     
     return (
         <div className="w-full h-full overflow-y-hidden">
-         <ProjectNavbar _id_project={actualProjectId}/>
-            <Info _id_project={actualProjectId}/>
+         <ProjectNavbar _id_project={actualProject._id}/>
+            <Info id_project={actualProject._id}/>
             
-           <span>{actualProjectId}</span>
+           <span>{actualProject._id}</span>
             
         </div>
     )

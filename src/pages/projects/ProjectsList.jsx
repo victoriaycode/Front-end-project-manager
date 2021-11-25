@@ -6,12 +6,12 @@ import Search_input from '../../components/Search_input'
 import { NavLink } from 'react-router-dom'
 import Edit_proyect_admin_modal from '../../components/Edit_proyect_admin_modal'
 
-import { GET_PROYECTOS_CARDS } from 'graphql/proyectos/queries'
+import { GET_PROJECTS_CARDS } from 'graphql/proyectos/queries'
 import { useQuery } from '@apollo/client';
 
 const ProjectsList = () => {
     
-    const { data, error, loading } = useQuery(GET_PROYECTOS_CARDS);
+    const { data, error, loading } = useQuery(GET_PROJECTS_CARDS);
 
     useEffect(() => {
         console.log('data servidor', data);
