@@ -4,10 +4,12 @@ import New_Commentary from "components/New_Commentary";
 import New_date from "components/New_date";
 import React from "react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink , useParams} from "react-router-dom";
 
 
 const Advance = () => {
+  
+  const { _id } = useParams();
   const avance = {
     _id: "2312321323",
     titulo: "titulo avance 1",
@@ -29,7 +31,7 @@ const Advance = () => {
   return (
     <div className="w-full h-full overflow-y-hidden">
       <div className="relative h-16 flex flex-row bg-gray-100 w-full align-center justify-start mt-6 border-b-2 ">
-        <NavLink to="/proyectos/proyecto/avances">
+        <NavLink to={`/proyectos/proyecto/avances/${_id}`}>
           <button class="text-blue-800 py-4 px-4 block hover:text-blue-400 hover:bg-gray-200 focus:outline-none font-medium border-blue-800 rounded-full h-14 w-14 align-center justify-center">
             <i class="fas fa-angle-left fa-2x"></i>
           </button>

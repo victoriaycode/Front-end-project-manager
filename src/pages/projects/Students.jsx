@@ -68,7 +68,7 @@ const Students = () => {
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden " >
 
-        <ProjectNavbar _idActual={_id}/>
+        <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'}/>
    
             <div className="w-full h-full flex flex-col overflow-y-hidden " >
             <div className="flex flex-row  ml-0 justify-start mt-8">

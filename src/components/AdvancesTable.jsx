@@ -4,14 +4,11 @@ import { NavLink } from 'react-router-dom';
 import New_date from './New_date';
 import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries'
 import { useQuery } from '@apollo/client';
-import { useProject } from 'context/projectContext';
 import { useEffect, useState } from 'react';
-const AdvancesTable = ({setModal}) => {
+const AdvancesTable = ({setModal,idProject}) => {
   
-    
-  const {actualProject, setActualProject}= useProject();
  
-    const filtrarAvanceId= actualProject._id;
+    const filtrarAvanceId= idProject;
     const { data, error, loading } = useQuery(LIST_ADVANCES_OF_PROJECT,{variables:{
       filtrarAvanceId},});
       
@@ -46,7 +43,7 @@ const AdvancesTable = ({setModal}) => {
   const RowAdvanceInfo = ({advanceInfo}) => {
     return (
       <tr className="hover:bg-gray-100">
-           <NavLink to={'/proyectos/proyecto/avances/avance'}>
+           <NavLink to={`/proyectos/proyecto/avances/n/${idProject}`}>
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left text-blue-800 
       hover:text-blue-400 cursor-pointer font-medium hover:font-light  ">
        {advanceInfo.titulo}

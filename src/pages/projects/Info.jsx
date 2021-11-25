@@ -8,18 +8,20 @@ import { useParams } from 'react-router';
 const Info = () => {
     const { _id } = useParams();
    
-    const { data, error, loading } = useQuery(GET_PROJECT_INFO,{variables:{
+    const { data:infoProject, error, loading } = useQuery(GET_PROJECT_INFO,{variables:{
         _id},});
 
 
      
-        //const [infoProject, setInfoProject]= useState("");
+        
         useEffect(() => {
-            console.log('data Proyecto', data);
-    
-            //setInfoProject(data.filtrarProyecto);
-          }, [data]); 
-        const infoProject={};
+            console.log('data Proyecto', infoProject);
+            if(!loading && infoProject!=null){
+
+                let proj= infoProject.filtrarProyecto;
+                console.log("ssd",proj);
+            }
+          }, [infoProject]); 
     const [general_obj_to_add, set_general_obj_list] =useState([]);
     //const [infoProject, setInfoProject]= useState(null);
     
@@ -28,26 +30,15 @@ const Info = () => {
 
 
 //const [specific_obj_to_add ,set_specific_obj_list] =useState([]);
-    const RowObjective = ({ datarow }) => {
-        return (
-            <li className="text-gray-500 font-semibold text-lg font-light mt-2">
-                <div className="w-full flex flex-row mt-5 ">
-                    <input type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none  border-solid border-2 border-gray-300"
-                        defaultValue={datarow} />
-                    <button className="text-green-500 hover:text-green-700 focus"><i className="fas fa-check fa-2x"></i></button>
-                    <button className="text-gray-400 hover:text-gray-700 ml-10"><i className="fas fa-trash fa-2x"></i></button>
-                </div>
-            </li>
-        )
-    }
+   
     
     if (loading) return <div>Cargando....</div>;
     return (
         <div className="w-full h-full overflow-y-hidden">
-            <ProjectNavbar _idActual={_id}/>
+            <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'}/>
             <span>{_id}</span>
         
-{/**
+
  
         <div className="w-full h-5/6 px-20 overflow-y-scroll">
 
@@ -57,7 +48,7 @@ const Info = () => {
                     Titulo Proyecto:
                 </span>
                 <span className="text-blue-800 px-10 py-2 text-2xl font-bold  h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100">
-                {infoProject.nombre} - ID:  {infoProject._id}
+                {infoProject.filtrarProyecto.nombre} - ID:  {infoProject.filtrarProyecto._id}
                 </span> 
             </div>
         </div>
@@ -69,13 +60,13 @@ const Info = () => {
                     </span>
                     
                      <input disabled type="text" className="h-10 w-3/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
-                        placeholder= {infoProject.lider.nombre} ></input>
+                        placeholder= {infoProject.filtrarProyecto.lider.nombre} ></input>
                 </div>
                 <div className="w-full py-2 px-4 flex flex-row text-lg">
                     <span className="text-gray-500 text  font-medium mt-4">
                         ID Lider:
                     </span> <input disabled type="text" className="h-10 w-3/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
-                        placeholder={infoProject.lider.identificacion} />
+                        placeholder= {infoProject.filtrarProyecto.nombre} />
                 </div>
             
            
@@ -87,33 +78,33 @@ const Info = () => {
                     <span className="text-gray-500   font-medium mt-4">
                         Presupuesto :
                     </span> <input  type="number" min="0"className="h-10 w-3/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
-                        placeholder={infoProject.presupuesto} ></input>
+                        placeholder= {infoProject.filtrarProyecto.presupuesto} ></input>
                 </div>
                 <div className="flex flex-row">
                 <div className="w-full py-2 px-4 flex flex-row text-lg">
                     <span className="text-gray-500   font-medium mt-4">
                         Fecha inicio:
                     </span> <input disabled type="text" className="h-10 w-3/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
-                        placeholder={infoProject.fechaInicio}></input>
+                        placeholder={infoProject.filtrarProyecto.fechaInicio}></input>
                 </div>
                 <div className="w-full py-2 px-4 flex flex-row text-lg">
                     <span className="text-gray-500   font-medium mt-4">
                         Fecha fin:
                     </span> <input disabled type="text" className="h-10 w-3/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
-                        placeholder={infoProject.fechaFin}></input>
+                        placeholder={infoProject.filtrarProyecto.fechaFin}></input>
                 </div></div>
                 <div className="flex flex-row">
                 <div className="w-full py-2 px-4 flex flex-row text-lg">
                     <span className="text-gray-500   font-medium mt-4">
                        Estado:
                     </span> <input disabled type="text" className="h-10 w-3/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
-                        placeholder={infoProject.estado} ></input>
+                        placeholder={infoProject.filtrarProyecto.estado} ></input>
                 </div>
                 <div className="w-full py-2 px-4 flex flex-row text-lg">
                     <span className="text-gray-500   font-medium mt-4">
                         Fase:
                     </span> <input disabled type="text" className="h-10 w-3/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
-                        placeholder={infoProject.fase} ></input>
+                        placeholder={infoProject.filtrarProyecto.fase} ></input>
                 </div></div>
             </div>
 
@@ -145,11 +136,23 @@ const Info = () => {
                     })}
                 </ul>
             </div>
-
-                    <span>{actualProject}</span>
-        </div>*/}
+*/}
+                    <span>{_id}</span>
         </div>
-    )
-}
+        </div>
+    );
+};
+const RowObjective = ({ datarow }) => {
+    return (
+        <li className="text-gray-500 font-semibold text-lg font-light mt-2">
+            <div className="w-full flex flex-row mt-5 ">
+                <input type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none  border-solid border-2 border-gray-300"
+                    defaultValue={datarow} />
+                <button className="text-green-500 hover:text-green-700 focus"><i className="fas fa-check fa-2x"></i></button>
+                <button className="text-gray-400 hover:text-gray-700 ml-10"><i className="fas fa-trash fa-2x"></i></button>
+            </div>
+        </li>
+    );
+};
 
 export default Info

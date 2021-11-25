@@ -55,7 +55,7 @@ function App() {
                 <Route path='/proyectos/nuevo' element={<New_project />} /> 
                
                 <Route path='/proyectos/proyecto/avances/:_id' element={<AdvancesDashboard />} />
-                <Route path='/proyectos/proyecto/avances/avance' element={<Advance />} />
+                <Route path='/proyectos/proyecto/avances/n/:_id' element={<Advance />} />
   
                 <Route path='/proyectos/proyecto/estudiantes/:_id' element={<Students />} />
                 

@@ -13,9 +13,9 @@ const AdvancesDashboard = () => {
     const [openNewAdvanceModal, setNewAdvanceModal]= useState(false);
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden " >
-      <ProjectNavbar _idActual={_id}/>
+      <ProjectNavbar _idActual={_id} rutaRetorno={`/proyectos/proyecto/${_id}`}/>
    
-   {/**
+   
    <div className="flex flex-row  ml-0 justify-start mt-8">
               <Search_input></Search_input>
               <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-8 mr-16">
@@ -29,10 +29,10 @@ const AdvancesDashboard = () => {
                     </div>
                 </div>
                 </div>
-    <AdvancesTable setModal={setNewAdvanceModal}></AdvancesTable>
+    <AdvancesTable idProject={_id} setModal={setNewAdvanceModal}></AdvancesTable>
     <span>{_id}</span>
     {openNewAdvanceModal && <New_advance_modal setOpenModal={setNewAdvanceModal}></New_advance_modal>}
-    */}
+   
     </div>
 
     )
