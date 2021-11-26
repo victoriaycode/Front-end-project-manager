@@ -51,7 +51,6 @@ const ProjectNavbar = ({_idActual,rutaRetorno}) => {
           </button>
         </NavLink>
       </nav>
-      <span>{_id}</span>
     </div>
   )
 }

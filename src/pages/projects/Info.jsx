@@ -36,7 +36,6 @@ const Info = () => {
     return (
         <div className="w-full h-full overflow-y-hidden">
             <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'}/>
-            <span>{_id}</span>
         
 
  

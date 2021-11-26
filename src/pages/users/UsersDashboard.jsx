@@ -12,8 +12,13 @@ const UsersDashboard = () => {
   const { data, error, loading } = useQuery(GET_USUARIOS);
 
   useEffect(() => {
-    console.log('data servidor', data);
-  }, [data]);
+    if(loading){
+
+    }else{
+
+      console.log('data servidor', data);
+    }
+  }, [loading]);
 
   /*useEffect(() => {
     if (error) {

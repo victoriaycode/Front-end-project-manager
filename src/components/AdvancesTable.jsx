@@ -43,7 +43,7 @@ const AdvancesTable = ({setModal,idProject}) => {
   const RowAdvanceInfo = ({advanceInfo}) => {
     return (
       <tr className="hover:bg-gray-100">
-           <NavLink to={`/proyectos/proyecto/avances/n/${idProject}`}>
+           <NavLink to={`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}>
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left text-blue-800 
       hover:text-blue-400 cursor-pointer font-medium hover:font-light  ">
        {advanceInfo.titulo}
@@ -54,6 +54,7 @@ const AdvancesTable = ({setModal,idProject}) => {
         <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
         {advanceInfo.fecha}
         </td>
+        <td><span>{`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}</span></td>
        {/**
         * <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
         <New_date></New_date> 

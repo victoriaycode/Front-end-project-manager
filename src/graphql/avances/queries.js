@@ -18,4 +18,20 @@ query($filtrarAvanceId: String!) {
     }
   }
   `;
-  export {LIST_ADVANCES_OF_PROJECT};
+  const  GET_ADVANCE_BY_ID =gql`
+  query ($_idAvance: String!)   {
+    filtrarAvancePorId(_idAvance: $_idAvance) {
+      _id
+      fecha
+      titulo
+      descripcion
+      observaciones
+      creadoPor{
+        _id
+        nombre
+        apellido
+      }
+    }
+  }
+  `;
+  export {LIST_ADVANCES_OF_PROJECT,GET_ADVANCE_BY_ID};
