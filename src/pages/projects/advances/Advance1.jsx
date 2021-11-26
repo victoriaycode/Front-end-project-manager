@@ -99,31 +99,24 @@ const Advance = () => {
 
              
                 <div className=" w-full bg-white   flex flex-col align-center justify-center border-solid border-2 border-gray-300 rounded-xl py-2">
-                <div className="w-full py-2 px-10 flex flex-row ">
-                  
-                  <span className="text-gray-500 text text-lg font-medium mt-4">
+                <div className="w-full py-2 px-10 flex flex-row "><span className="text-gray-500 text text-lg font-medium mt-4">
                         Titulo Avance:
                     </span> 
-                 {editable ? ( <input type="text"    className={`h-10 w-5/6 mx-5 px-10 mt-1  text-xl font-semibold text-blue-800 rounded-2xl z-0 focus:outline-none
-                    ${input_bg}`} defaultValue={advance.titulo} />)
-                    :(<span  className={`h-10 w-5/6 mx-5 px-10 mt-1  text-xl font-semibold text-blue-800 rounded-2xl z-0 focus:outline-none
-                    ${input_bg}`}>  {advance.titulo} </span> )
-
-                 }  
+                    <input type="text" disabled={!editable}  readOnly={!editable} 
+                    className={`h-10 w-5/6 mx-5 px-10 mt-1  text-xl font-semibold text-blue-800 rounded-2xl z-0 focus:outline-none
+                    ${input_bg}`} 
+                        defaultValue={advance.titulo} />
                         
      
                     </div>
                     <div className="w-full py-2 px-10 flex flex-row">
-                        <span className="text-gray-500 text text-lg font-medium mt-4">Descripción </span> 
+                        <span className="text-gray-500 text text-lg font-medium mt-4">      Descripción     </span> 
 
-                  {editable?( <TextareaAutosize  defaultValue= {advance.descripcion} minRows="3 "type="text" 
+
+                    <TextareaAutosize disabled={!editable} defaultValue= {advance.descripcion} minRows="3 "type="text" 
                      className={`h-10 w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 focus:outline-none ${input_bg}`}>
-                        </TextareaAutosize>)
-                        :( 
-                        <p  
-                     className={`h-30 break-all w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 focus:outline-none ${input_bg}`}>
-                        {advance.descripcion} </p>)}
-                  
+                    
+                        </TextareaAutosize>
                     </div>
                     <div className="w-full py-2 px-10 "><span className="text-gray-500 text text-lg font-medium mt-4">
                         Estudiante:
@@ -154,7 +147,7 @@ const Advance = () => {
       </div>
  
  
-      <div className="w-full   my-5 px-4  py-5 px-16 border-solid border-gray-300 border-t-2">
+      <div className="w-full   my-5 px-4  py-5 mx-4 border-solid border-gray-300 border-t-2">
 <div className="w-full flex flex-row justify-start py-2  mx-5">
 <span className="text-lg text-blue-800 text-2xl font-bold  " >Observaciones</span>
 

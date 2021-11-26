@@ -10,20 +10,22 @@ const Commentary = () => {
     return (
        
 
-  <div className="w-full bg-white p-2  pt-4 mt-2  rounded shadow-lg  border-solid border-2 border-gray-300">
-    <div className="flex ml-3">
-      <div className="mr-3">
+  <div className="w-full flex flex-row bg-white p-2  py-4 mt-2  rounded shadow-lg  border-solid border-2 border-gray-300">
+    <div className="flex flex-col mx-2 py-2 px-1 flex-center align-center justify-items ">
+     
       <i className="fas fa-user-circle fa-2x"></i>
-      </div>
+      <h1 className="font-semibold mt-2">{observacion.lider}</h1>
+      
       <div>
-        <h1 className="font-semibold">{observacion.lider}</h1>
-        <p className="text-xs text-gray-500">{timeday}</p>
+      
+
       </div>
 
     </div>
 
-    <div className="mt-3 p-3 w-full">
-      <TextareaAutosize  rows="3" class="border p-2 rounded w-full text-gray-700" >{observacion.comentario}</TextareaAutosize>
+    <div className="mt-3 flex flex-col px-3  w-full">
+      <p   className="border break-all p-2 py-4 rounded w-full text-gray-700" >{observacion.comentario}</p>
+      <p className="text-xs text-gray-500 mt-2 ml-2 ">{timeday}</p>
     </div>
 
     
