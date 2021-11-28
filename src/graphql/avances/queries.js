@@ -34,4 +34,21 @@ query($filtrarAvanceId: String!) {
     }
   }
   `;
-  export {LIST_ADVANCES_OF_PROJECT,GET_ADVANCE_BY_ID};
+
+  const  EDIT_ADVANCE_BY_STUDENT =gql`
+  mutation($_idAvance: String!, $titulo: String!, $descripcion: String!) {
+    editarAvanceEstudiante(_idAvance: $_idAvance, titulo: $titulo, descripcion: $descripcion) {
+      titulo
+      descripcion
+    }
+  }`;
+
+  
+  const  ADD_NEW_OBSERVATION =gql`
+  mutation Mutation($_idAvance: String!, $observacion: String!) {
+    addNewObservacionAvance(_idAvance: $_idAvance, observacion: $observacion) {
+      _id
+      observaciones
+    }
+  }`;
+  export {LIST_ADVANCES_OF_PROJECT,GET_ADVANCE_BY_ID,EDIT_ADVANCE_BY_STUDENT,ADD_NEW_OBSERVATION};

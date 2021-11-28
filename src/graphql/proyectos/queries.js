@@ -40,4 +40,16 @@ query Proyecto($_id: String!) {
   }
 }`;
 
-export { GET_PROJECTS_CARDS,GET_PROJECT_INFO };
+const GET_LIDER = gql`
+
+query Proyecto($_id: String!) {
+  filtrarProyecto(_id: $_id) {
+    lider{
+      nombre
+      apellido
+      identificacion
+    }
+    
+  }
+}`;
+export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,GET_LIDER };

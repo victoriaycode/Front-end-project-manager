@@ -49,19 +49,19 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => 
                     <NavLink
                         to={`/proyectos/proyecto/${card._id}`}  >
 
-                        <button class="p-2 pl-4 pr-4 bg-transparent border-2 border-blue-200
+                        <button className="p-2 pl-4 pr-4 bg-transparent border-2 border-blue-200
                  text-gray-400 text-xs rounded-lg hover:text-blue-500 
                   hover:border-blue-500 text-ms font-bold
                  focus:border-4 focus:border-blue-300  " >Ver</button>
                     </NavLink>
                     {user==="ESTUDIANTE" &&
-                    <button class="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
+                    <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
                  text-gray-400 text-xs rounded-lg  hover:text-blue-500 
                   hover:border-blue-500 text-ms font-bold
                  focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEnroll(true)}>Inscribirse</button>
                 }
                 {user==="ADMINISTRADOR" &&
-                    <button class="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
+                    <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
                  text-gray-400 text-xs rounded-lg  hover:text-blue-500 
                   hover:border-blue-500 text-ms font-bold
                  focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEdit(true)}>Editar</button>
