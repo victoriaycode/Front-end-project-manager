@@ -51,4 +51,14 @@ query($filtrarAvanceId: String!) {
       observaciones
     }
   }`;
-  export {LIST_ADVANCES_OF_PROJECT,GET_ADVANCE_BY_ID,EDIT_ADVANCE_BY_STUDENT,ADD_NEW_OBSERVATION};
+
+  const  CREATE_NEW_ADVANCE =gql`
+  mutation CrearAvance($fecha: String!, $titulo: String!, $descripcion: String!, $proyecto: String!, $creadoPor: String!) {
+    crearAvance(fecha: $fecha, titulo: $titulo, descripcion: $descripcion, proyecto: $proyecto, creadoPor: $creadoPor) {
+      _id
+      descripcion
+      titulo
+    }
+  }`;
+
+  export {LIST_ADVANCES_OF_PROJECT,GET_ADVANCE_BY_ID,EDIT_ADVANCE_BY_STUDENT,ADD_NEW_OBSERVATION,CREATE_NEW_ADVANCE};

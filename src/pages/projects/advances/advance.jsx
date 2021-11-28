@@ -20,20 +20,9 @@ const Advance = () => {
   const { _idAvance } = useParams();
   const [advance, setAdvance] = useState({});
   const [createdBy, setCreatedBy] = useState("");
-  
-  const [editable, setEditable] = useState(false);
-  const { data, error, loading ,refetch} = useQuery(GET_ADVANCE_BY_ID, {
-    variables: {
-      _idAvance
-    },
-  });
 
-  useEffect(() => {
-    if (data) {
-     
-        setAdvance(data.filtrarAvancePorId);
-    }
-  }, [data]);
+  const [editable, setEditable] = useState(false);
+
   const [input_bg, setInputBg] = useState("bg-gray-50");
   const [newCommentary, setNewCommentary] = useState(false);
 
@@ -44,24 +33,24 @@ const Advance = () => {
   const submitForm = (e) => {
     e.preventDefault();
     console.log("formdata", formData);
-    if (formData.titulo!== "" && formData.descripcion !== "") {
+    if (formData.titulo !== "" && formData.descripcion !== "") {
 
-      const edit= editarAvance({
+      const edit = editarAvance({
         variables: { _idAvance, ...formData },
       });
-    
-     
-     setEditable(false);
-      console.log("edit ",edit);
-      
-      
+
+
+      setEditable(false);
+      console.log("edit ", edit);
+
+
 
     }
   };
   useEffect(() => {
     if (mutationData) {
       console.log('Avance modificado correctamente');
-      
+
     }
   }, [mutationData]);
   useEffect(() => {
@@ -72,6 +61,18 @@ const Advance = () => {
 
   }, [mutationError]);
 
+  const { data, error, loading, refetch } = useQuery(GET_ADVANCE_BY_ID, {
+    variables: {
+      _idAvance
+    },
+  });
+
+  useEffect(() => {
+    if (data) {
+
+      setAdvance(data.filtrarAvancePorId);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (loading) {
@@ -81,9 +82,10 @@ const Advance = () => {
       let apellido = data.filtrarAvancePorId.creadoPor.apellido;
       setCreatedBy(nombre + " " + apellido);
       setAdvance(data.filtrarAvancePorId);
-      console.log('data avance', data);
+
     }
   }, [loading]);
+
   useEffect(() => {
     refetch()
     if (editable) {
@@ -98,9 +100,6 @@ const Advance = () => {
 
 
   if (loading) return <div>Cargando....</div>;
-  //if (loading) return <div>Cargando....</div>;
-
-  //const [editAdvance, setEditAdvance] = useState(false);
 
   return (
     <div className="w-full h-full overflow-y-hidden pb-4">
@@ -109,7 +108,7 @@ const Advance = () => {
         onSubmit={submitForm}
         onChange={updateFormData}
         ref={form}>
-         
+
         <div className="sticky h-16 flex flex-row bg-gray-100 w-full align-center justify-start mt-6 border-b-2 ">
           <NavLink to={`/proyectos/proyecto/avances/${_id}`}>
             <button className="text-blue-800 py-4 px-4 block hover:text-blue-400 hover:bg-gray-200 focus:outline-none font-medium border-blue-800 rounded-full 
@@ -131,7 +130,7 @@ const Advance = () => {
               : (<button className="p-1 pl-5 pr-5  ml-10 flex-end m-2 mb-3 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" onClick={() => setEditable(true)} >Editar</button>)}
           </div>
-          
+
         </div>
 
         <div className="w-full  flex flex-col h-full overflow-y-scroll  ">
@@ -142,54 +141,54 @@ const Advance = () => {
 
 
                 <div className=" w-full bg-white   flex flex-col align-center justify-center border-solid border-2 border-gray-300 rounded-xl py-2">
-                {(loading ) ? (<ReactLoading type={"spin"} color="#1260CD" height={'20%'}  />):(<>
-                  <div className="w-full py-2 px-10 flex flex-row ">
+                  {(loading) ? (<ReactLoading type={"spin"} color="#1260CD" height={'20%'} />) : (<>
+                    <div className="w-full py-2 px-10 flex flex-row ">
 
-                    <span className="text-gray-500 text text-lg font-medium mt-4">
-                      Titulo Avance:
-                    </span>
-                    {editable ? (<input name="titulo" type="text" className={`h-10 w-5/6 mx-5 px-10 mt-1  text-xl font-semibold text-blue-800 rounded-2xl z-0 focus:outline-none
+                      <span className="text-gray-500 text text-lg font-medium mt-4">
+                        Titulo Avance:
+                      </span>
+                      {editable ? (<input name="titulo" type="text" className={`h-10 w-5/6 mx-5 px-10 mt-1  text-xl font-semibold text-blue-800 rounded-2xl z-0 focus:outline-none
                     ${input_bg}`} defaultValue={advance.titulo} />)
-                      : (<span className={`h-10 w-5/6 mx-5 px-10 mt-1  text-xl font-semibold text-blue-800 rounded-2xl z-0 focus:outline-none
+                        : (<span className={`h-10 w-5/6 mx-5 px-10 mt-1  text-xl font-semibold text-blue-800 rounded-2xl z-0 focus:outline-none
                     ${input_bg}`}>  {advance.titulo} </span>)
 
-                    }
+                      }
 
 
-                  </div>
-                  <div className="w-full py-2 px-10 flex flex-row">
-                    <span className="text-gray-500 text text-lg font-medium mt-4">Descripción </span>
-
-                    {editable ? (<TextareaAutosize name="descripcion" defaultValue={advance.descripcion} minRows="3 " type="text"
-                      className={`h-10 w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 focus:outline-none ${input_bg}`}>
-                    </TextareaAutosize>)
-                      : (
-                        <p
-                          className={`h-30 break-all w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 focus:outline-none ${input_bg}`}>
-                          {advance.descripcion} </p>)}
-
-                  </div>
-
-                  <div className="w-full py-2 px-10 text-sm flex flex-row align-center justify-end ">
-                    <div>
-                    <span className="text-gray-500 text   font-light mt-4">
-                    Estudiante:
-                  </span>
-
-                    <input type="text" disabled
-                      className={`text-gray-500 bg-white text-lg font-medium p-2 pl-4 mt-4  rounded-2xl z-0 focus:outline-none`}
-                      defaultValue={createdBy} />
                     </div>
-                    
-                    <div>
-                    <span className="text-gray-500  mt-4 ml-20 ">
-                      Fecha de creación:
-                      <input type="text" disabled
-                        className={`text-gray-500 bg-white  text-lg p-2 pl-4 font-medium mt-4  rounded-2xl z-0 focus:outline-none`}
-                        defaultValue={advance.fecha} />
-                    </span>
-                  </div> </div>
-                        </>)}
+                    <div className="w-full py-2 px-10 flex flex-row">
+                      <span className="text-gray-500 text text-lg font-medium mt-4">Descripción : </span>
+
+                      {editable ? (<TextareaAutosize name="descripcion" defaultValue={advance.descripcion} minRows="3 " type="text"
+                        className={`h-10 w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 focus:outline-none ${input_bg}`}>
+                      </TextareaAutosize>)
+                        : (
+                          <p
+                            className={`h-30 break-all w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 focus:outline-none ${input_bg}`}>
+                            {advance.descripcion} </p>)}
+
+                    </div>
+
+                    <div className="w-full py-2 px-10 text-sm flex flex-row align-center justify-end ">
+                      <div>
+                        <span className="text-gray-500 text   font-light mt-4">
+                          Estudiante:
+                        </span>
+
+                        <input type="text" disabled
+                          className={`text-gray-500 bg-white text-lg font-medium p-2 pl-4 mt-4  rounded-2xl z-0 focus:outline-none`}
+                          defaultValue={createdBy} />
+                      </div>
+
+                      <div>
+                        <span className="text-gray-500  mt-4 ml-20 ">
+                          Fecha de creación:
+                          <input type="text" disabled
+                            className={`text-gray-500 bg-white  text-lg p-2 pl-4 font-medium mt-4  rounded-2xl z-0 focus:outline-none`}
+                            defaultValue={advance.fecha} />
+                        </span>
+                      </div> </div>
+                  </>)}
 
                 </div>
 
@@ -234,7 +233,7 @@ focus:border-4 "
           </div>
 
         </div>
-     
+
       </form>
     </div>
 

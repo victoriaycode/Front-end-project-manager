@@ -29,9 +29,10 @@ const AdvancesDashboard = () => {
                     </div>
                 </div>
                 </div>
-    <AdvancesTable idProject={_id} setModal={setNewAdvanceModal}></AdvancesTable>
-    <span>{_id}</span>
-    {openNewAdvanceModal && <New_advance_modal setOpenModal={setNewAdvanceModal}></New_advance_modal>}
+    <AdvancesTable idProject={_id} openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal}></AdvancesTable>
+ 
+    {openNewAdvanceModal &&
+     <New_advance_modal nameStudent="Juan Pineda"  idStudent={"61970a6375f9455c4d328d2c"} idProject={_id} setOpenModal={setNewAdvanceModal}></New_advance_modal>}
    
     </div>
 

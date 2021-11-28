@@ -77,9 +77,11 @@ const New_Commentary = ({_idAvance,setCancel}) => {
       <p className="text-xs text-gray-500 mt-2 ml-2 ">{timeday}</p>
       <div>
         
-        <button className="px-4 py-1 bg-blue-700 text-white rounded font-light hover:bg-blue-800 " onClick={() => addNewObservation()}>Enviar</button>
+        <button className="px-4 py-1 bg-blue-700 text-white rounded font-light
+         hover:bg-blue-800 " onClick={() => addNewObservation()}>Enviar</button>
       
-      <button className="px-4 py-1 bg-gray-400 text-white rounded font-light hover:bg-gray-600 ml-4" onClick={()=>setCancel(false)}>
+      <button className="px-4 py-1 bg-gray-400 text-white rounded
+       font-light hover:bg-gray-600 ml-4" onClick={()=>setCancel(false)}>
       Cancelar</button>
       </div>
      

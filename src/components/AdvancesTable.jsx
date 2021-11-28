@@ -5,11 +5,11 @@ import New_date from './New_date';
 import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries'
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
-const AdvancesTable = ({setModal,idProject}) => {
+const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
   
  
     const filtrarAvanceId= idProject;
-    const { data, error, loading } = useQuery(LIST_ADVANCES_OF_PROJECT,{variables:{
+    const { data, error, loading ,refetch} = useQuery(LIST_ADVANCES_OF_PROJECT,{variables:{
       filtrarAvanceId},});
       
     const [listAdvances,setListAdvances]=useState({});
@@ -26,9 +26,22 @@ const AdvancesTable = ({setModal,idProject}) => {
       console.log('data AVANCES PROYECTO', data);
 
       //console.log("LIST ",listAdvances)
-    }, [loading]); 
+    }, [loading,data]); 
  
       
+  useEffect(() => {
+   
+    refetch()
+    
+  }, [openNewAdvanceModal]);
+  
+  useEffect(() => {
+    if (data) {
+
+      setListAdvances(data.filtrarAvance);
+    }
+  }, [data]);
+
     if (loading) return <div>Cargando....</div>;
    
 
@@ -54,7 +67,7 @@ const AdvancesTable = ({setModal,idProject}) => {
         <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
         {advanceInfo.fecha}
         </td>
-        <td><span>{`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}</span></td>
+        {/* <td><span>{`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}</span></td> */}
        {/**
         * <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
         <New_date></New_date> 
