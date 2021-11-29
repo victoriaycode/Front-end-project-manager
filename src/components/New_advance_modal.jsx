@@ -2,7 +2,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { TextareaAutosize } from '@material-ui/core';
-import New_date from 'components/New_date';
 import { useMutation } from '@apollo/client';
 
 import { CREATE_NEW_ADVANCE } from 'graphql/avances/queries';
@@ -44,29 +43,14 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
         }
     };
  
-    const avance = {
-        _id: "2312321323",
-        titulo: "titulo avance 1",
-        fecha_creado: "nov 17 2021, 11:15 p.m",
-        descripción:
-            "avance sadasadasdasdasdasdasdasdsadasssssssssssssssssssssssssssssssssssssssssssssssssssssadasssssssssssssssssssssssssssssdasdasdassadasdasdasdasdasdasdsadsadasdasdasdasdasdasdsadsadassadasdasdasdasdasdasdsadsadasdasdasdasdasdasdsadsadasdasdasdasdasdasdsadsadasdasdasdasdasdasdsaddasdasdasdasdasdsadsadasdasdasdasdasdasdsaddasdasdsadasadasdasdasdasdasdasdsasadasadasdasdasdasdasdasdsadasadasadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsdasdasdasdasdasdsadasadasdasdasdasdasdasddasadasdasdasdasdasdasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasd,alsd,ñasldalsdasdasldasldlasdlasldladldlsasd ",
-        estudiante: "Lorena Diaz",
-        proyecto: { nombre: "proyecto1 acerca de ", _id: "sdq122q" },
-        observaciones: [
-            {
-                lider: "Fabio Gonzalez",
-                observacion: "sadalsdkaskdasdlasdlalsdlasdlpsadlpdllas",
-            },
-        ],
-    };
- 
+    
   
 
     return (
         
         <div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
        
-        <div className="bg-white rounded shadow-lg w-10/12 ">
+        <div className="bg-white rounded shadow-lg w-4/6 ">
       
           <div className="border-b px-4 py-2 flex justify-between items-center">
             <h3 className="font-semibold text-lg">Nuevo Avance En <span className="text-blue-800 font-bold"> Proyecto # {idProject}</span></h3>
@@ -90,7 +74,8 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
                 <div className=" w-full bg-white  mt-4 flex flex-col align-center justify-center border-solid border-2 border-gray-300 rounded-xl py-2">
                    
                     <div className="w-full py-2 px-10 flex flex-row">
-                        <span className="text-gray-500 text text-lg font-medium mt-4">      Descripción     </span> 
+                        <span className="text-gray-500 text 
+                        text-lg font-medium mt-4">      Descripción:    </span> 
 
 
                     <TextareaAutosize placeholder="Escribe tu avance"
@@ -128,8 +113,8 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
           </div>
           <div className="flex justify-end items-center w-100 border-t p-3">
            
-            <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white"onClick={() => addNewAdvance()}>Guardar</button>
-            <button className="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded text-white mr-1 close-modal ml-2" onClick={()=>setOpenModal(false)}>Cancelar</button>
+            <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-lg text-white"onClick={() => addNewAdvance()}>Guardar</button>
+            <button className="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded ml-3 text-white mr-1 close-modal ml-2" onClick={()=>setOpenModal(false)}>Cancelar</button>
           </div>
         </div>
       </div>
