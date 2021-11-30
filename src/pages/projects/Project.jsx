@@ -1,17 +1,17 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
-import New_date from 'components/New_date';
 
-import ProjectNavbar from 'components/ProjectNavbar';
-import Info from './Info';
 const Project = () => {
-
-
+    
+  
+    
     return (
         <div className="w-full h-full overflow-y-hidden">
-         <ProjectNavbar/>
-            <Info/>
+       {/**   <ProjectNavbar _id_project={actualProject._id}/>
+            <Info id_project={actualProject._id}/>
             
+           <span>{actualProject._id}</span>
+            */}
+            <span>holaa</span>
         </div>
     )
 }

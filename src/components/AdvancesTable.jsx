@@ -2,35 +2,79 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import New_date from './New_date';
-
-const AdvancesTable = ({setModal}) => {
+import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries'
+import { useQuery } from '@apollo/client';
+import { useEffect, useState } from 'react';
+const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
+  
  
-  const numberAdvances = 3;
-  const advanceInfo = {
+    const filtrarAvanceId= idProject;
+    const { data, error, loading ,refetch} = useQuery(LIST_ADVANCES_OF_PROJECT,{variables:{
+      filtrarAvanceId},});
+      
+    const [listAdvances,setListAdvances]=useState({});
+
+     useEffect(() => {
+      if(loading){
+       
+      console.log('data AVANCES PROYECTO', data);
+      }else{
+        setListAdvances(data.filtrarAvance);
+        
+      console.log('data AVANCES ', data.filtrarAvance);
+      }
+      console.log('data AVANCES PROYECTO', data);
+
+      //console.log("LIST ",listAdvances)
+    }, [loading,data]); 
+ 
+      
+  useEffect(() => {
+   
+    refetch()
+    
+  }, [openNewAdvanceModal]);
+  
+  useEffect(() => {
+    if (data) {
+
+      setListAdvances(data.filtrarAvance);
+    }
+  }, [data]);
+
+    if (loading) return <div>Cargando....</div>;
+   
+
+        const numberAdvances = 3;
+  const advanceInfos = {
     title: "advance about design and implementation of diferent structures to the page",
     description: "advance about......sdasdasssssssssssssssssssssssssdasssssssssssssssssssssssssssdasd.",
     student: "Gaby Montez",
    
   }
 
-  const RowAdvanceInfo = () => {
+  const RowAdvanceInfo = ({advanceInfo}) => {
     return (
       <tr className="hover:bg-gray-100">
-           <NavLink to={'/proyectos/proyecto/avances/avance'}>
+           <NavLink to={`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}>
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left text-blue-800 
       hover:text-blue-400 cursor-pointer font-medium hover:font-light  ">
-       {advanceInfo.title}
+       {advanceInfo.titulo}
         </td></NavLink>
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-          {advanceInfo.student}
+          {advanceInfo.creadoPor.nombre}  {advanceInfo.creadoPor.apellido}
         </td>
         <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-         <New_date></New_date>
+        {advanceInfo.fecha}
         </td>
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-        <New_date></New_date>
+        {/* <td><span>{`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}</span></td> */}
+       {/**
+        * <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+        <New_date></New_date> 
+        </td>
+        */}
+       
 
-        </td>
       </tr>
     )
   }
@@ -69,34 +113,20 @@ const AdvancesTable = ({setModal}) => {
                 <th className="sticky top-0 px-6 bg-gray-200 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Creado
                 </th>
-                <th className="sticky top-0 px-6 bg-gray-200 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+               {/**
+                * 
+                 <th className="sticky top-0 px-6 bg-gray-200 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Última modificación
-                </th>
+                </th>*/}
               </tr>
             </thead>
 
             <tbody>
-
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
-              <RowAdvanceInfo />
+            {data.filtrarAvance!={} && data.filtrarAvance.map((avance) => {
+              return (
+                <RowAdvanceInfo advanceInfo={avance} />
+              );
+            })}
             </tbody>
 
           </table>

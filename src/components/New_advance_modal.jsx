@@ -1,29 +1,64 @@
 
 import React from 'react'
+import { useState, useEffect } from 'react';
 import { TextareaAutosize } from '@material-ui/core';
-import New_date from 'components/New_date';
-const New_advance_modal = ({setOpenModal}) => {
+import { useMutation } from '@apollo/client';
 
-  const New_Advance_box = () => {
-    const avance = {
-        _id: "2312321323",
-        titulo: "titulo avance 1",
-        fecha_creado: "nov 17 2021, 11:15 p.m",
-        descripción:
-            "avance sadasadasdasdasdasdasdasdsadasssssssssssssssssssssssssssssssssssssssssssssssssssssadasssssssssssssssssssssssssssssdasdasdassadasdasdasdasdasdasdsadsadasdasdasdasdasdasdsadsadassadasdasdasdasdasdasdsadsadasdasdasdasdasdasdsadsadasdasdasdasdasdasdsadsadasdasdasdasdasdasdsaddasdasdasdasdasdsadsadasdasdasdasdasdasdsaddasdasdsadasadasdasdasdasdasdasdsasadasadasdasdasdasdasdasdsadasadasadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsadasadasdasdasdasdasdasdsdasdasdasdasdasdsadasadasdasdasdasdasdasddasadasdasdasdasdasdasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasdsadasadasdasdasdasdasdasd,dasd,alsd,ñasldalsdasdasldasldlasdlasldladldlsasd ",
-        estudiante: "Lorena Diaz",
-        proyecto: { nombre: "proyecto1 acerca de ", _id: "sdq122q" },
-        observaciones: [
-            {
-                lider: "Fabio Gonzalez",
-                observacion: "sadalsdkaskdasdlasdlalsdlasdlpsadlpdllas",
-            },
-        ],
+import { CREATE_NEW_ADVANCE } from 'graphql/avances/queries';
+import { toast } from 'react-toastify';
+
+const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,setOpenModal}) => {
+    
+    const [titulo, setTitulo]=useState("");
+    const [descripcion, setDescripcion]=useState("");
+    const date = new Date();
+    var options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    let fecha = date.toLocaleDateString("es-US", options);
+
+    const [addAdvance, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
+    useMutation(CREATE_NEW_ADVANCE);
+
+      useEffect(() => {
+
+          console.log("idSt", idStudent);
+          console.log("idProj", idProject);
+
+         
+      }, []);
+
+      const addNewAdvance = async () => {
+        console.log("Guardando")
+        if(titulo!=="" && descripcion!==""){
+            let proyecto=idProject;
+            let creadoPor=idStudent;
+            let g= {  titulo,descripcion,fecha, proyecto,creadoPor };
+            console.log(g);
+            let added= await addAdvance({
+                variables: {  titulo,descripcion,fecha, proyecto,creadoPor },
+              });
+              console.log("added ",added);
+              setOpenModal(false);
+        }else{
+            toast.error("Error creando avance. Escriba de nuevo");
+        }
     };
+ 
+    
+  
+
     return (
         
+        <div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
        
-        <div className="w-full h-full overflow-y-hidden">
+        <div className="bg-white rounded shadow-lg w-4/6 ">
+      
+          <div className="border-b px-4 py-2 flex justify-between items-center">
+            <h3 className="font-semibold text-lg">Nuevo Avance En <span className="text-blue-800 font-bold"> Proyecto # {idProject}</span></h3>
+            <button className="text-black hover:text-blue-700" onClick={()=>setOpenModal(false)}><i className="far fa-times-circle fa-2x"></i></button>
+          </div>
+        
+          <div className="p-3">
+          <div className="w-full h-full overflow-y-hidden">
             
             <div className="w-full h-full px-20 overflow-y-scroll">
 
@@ -31,24 +66,29 @@ const New_advance_modal = ({setOpenModal}) => {
                 <div className="w-full py-2 px-4 flex flex-row "><span className="text-gray-500 text text-lg font-medium mt-4">
                         Titulo Avance:
                     </span> <input type="text"  className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100"
-                        placeholder="Titulo avance" />
+                        placeholder="Titulo avance" onChange={(e) => {
+                            setTitulo(e.target.value)}}/>
                     </div>
                 </div>
 
                 <div className=" w-full bg-white  mt-4 flex flex-col align-center justify-center border-solid border-2 border-gray-300 rounded-xl py-2">
                    
                     <div className="w-full py-2 px-10 flex flex-row">
-                        <span className="text-gray-500 text text-lg font-medium mt-4">      Descripción     </span> 
+                        <span className="text-gray-500 text 
+                        text-lg font-medium mt-4">      Descripción:    </span> 
 
 
-                    <TextareaAutosize placeholder="Escribe tu avance"rows="5 "type="text"  className="h-10 w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 focus:outline-none bg-gray-100">
+                    <TextareaAutosize placeholder="Escribe tu avance"
+                    minRows="5 "type="text"  className="h-10 w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 
+                    focus:outline-none bg-gray-100" onChange={(e) => {
+                        setDescripcion(e.target.value)}}>
                         </TextareaAutosize>
                     </div>
                     <div className="w-full py-2 px-10 "><span className="text-gray-500 text text-lg font-medium mt-4">
                         Estudiante:
                     </span> 
                     <span className="text-gray-500 text text-lg font-medium mt-4 ml-20">
-                        {avance.estudiante}
+                       {nameStudent}
                     </span> 
                     
                     </div>
@@ -56,7 +96,7 @@ const New_advance_modal = ({setOpenModal}) => {
                    
                   
                     <span className="pl-40  text-gray-500 text text-lg font-light mt-4 ml-2">
-                    Fecha de creación: <New_date></New_date>
+                    Fecha de creación: {fecha}
                     </span> 
                     
                     </div>
@@ -70,29 +110,11 @@ const New_advance_modal = ({setOpenModal}) => {
 
 
         </div>
-   
-    )
-}
-  
-  
-    return (
-    
-        <div class="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
-       
-        <div class="bg-white rounded shadow-lg w-10/12 ">
-      
-          <div class="border-b px-4 py-2 flex justify-between items-center">
-            <h3 class="font-semibold text-lg">Nuevo Avance En <span className="text-blue-800 font-bold"> Proyecto # 1</span></h3>
-            <button class="text-black hover:text-blue-700" onClick={()=>setOpenModal(false)}><i class="far fa-times-circle fa-2x"></i></button>
           </div>
-        
-          <div class="p-3">
-          <New_Advance_box></New_Advance_box>
-          </div>
-          <div class="flex justify-end items-center w-100 border-t p-3">
+          <div className="flex justify-end items-center w-100 border-t p-3">
            
-            <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white">Guardar</button>
-            <button class="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded text-white mr-1 close-modal ml-2" onClick={()=>setOpenModal(false)}>Cancelar</button>
+            <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-lg text-white"onClick={() => addNewAdvance()}>Guardar</button>
+            <button className="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded ml-3 text-white mr-1 close-modal ml-2" onClick={()=>setOpenModal(false)}>Cancelar</button>
           </div>
         </div>
       </div>
