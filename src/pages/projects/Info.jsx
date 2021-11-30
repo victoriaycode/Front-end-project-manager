@@ -139,7 +139,6 @@ const Info = () => {
                 </ul>
             </div>
 */}
-                <span>{_id}</span>
             </div>
         </div>
     );

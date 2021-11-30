@@ -20,12 +20,12 @@ const Advance = () => {
   const { _idAvance } = useParams();
   const [advance, setAdvance] = useState({});
   const [createdBy, setCreatedBy] = useState("");
-
+  
   const [editable, setEditable] = useState(false);
 
   const [input_bg, setInputBg] = useState("bg-gray-50");
   const [newCommentary, setNewCommentary] = useState(false);
-
+  const role= "lider";
   const { form, formData, updateFormData } = useFormData(null);
 
   const [editarAvance, { data: mutationData, loading: mutationLoading, error: mutationError }] =
@@ -123,12 +123,12 @@ const Advance = () => {
 
           <div className="flex flex-row align-center ">
 
-            {editable ? (<div >  <button type="submit" className="p-1  pl-5 pr-5 ml-10 flex-end m-2 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
+            {editable  ? (<div >   <button type="submit" className="p-1  pl-5 pr-5 ml-10 flex-end m-2 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" disabled={Object.keys(formData).length === 0}>Guardar</button>
-              <button className="p-1 pl-5 pr-5 ml-10 flex-end m-2 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
+               <button className="p-1 pl-5 pr-5 ml-10 flex-end m-2 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" onClick={() => setEditable(false)}>Cancelar</button></div>)
-              : (<button className="p-1 pl-5 pr-5  ml-10 flex-end m-2 mb-3 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
-             focus:border-4 focus:border-blue-300" onClick={() => setEditable(true)} >Editar</button>)}
+              : (<>{role==="estudiant" && <button className="p-1 pl-5 pr-5  ml-10 flex-end m-2 mb-3 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
+             focus:border-4 focus:border-blue-300" onClick={() => setEditable(true)} >Editar</button>}</>)}
           </div>
 
         </div>

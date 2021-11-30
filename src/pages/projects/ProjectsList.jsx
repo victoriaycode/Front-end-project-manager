@@ -29,9 +29,9 @@ const ProjectsList = () => {
         <div className="w-full h-full flex flex-col overflow-y-hidden overflow-x-hidden pl-20 pr-20" >
               <NavLink to="/proyectos/nuevo">
              <div className="flex flex-row w-full justify-end align-center mr-20 ">
-            
+                {!openModalEdit && 
                 <button className="p-2 pl-5 pr-5 z-30 absolute top-5 right-30 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
-             focus:border-4 focus:border-blue-300" >Nuevo</button>
+             focus:border-4 focus:border-blue-300" >Nuevo</button>}
              </div></NavLink>
              
         <div className="relative h-16  flex flex-row bg-gray-100 w-full align-center justify-start 
