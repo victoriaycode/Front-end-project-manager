@@ -1,55 +1,54 @@
-import React from 'react'
 import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import ButtonLoading from "components/ButtonLoading";
+import { Enum_Rol } from 'utils/enums';
+import DropDown from 'components/DropDown';
+import useFormData from 'hooks/useFormData';
+import { REGISTRO } from 'graphql/auth/mutation';
+import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router';
+import { useAuth } from 'context/authContext';
+import { toast } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 
 const Register = () => {
     
-    /*const form = useRef(null);
-
-    //async trabaja con await axios    
-    const submitForm = async (e) => {
-        e.preventDefault();
-        const fd = new FormData(form.current);
-
-        const nuevoUsuario = {};
-        fd.forEach((value, key) => {
-            nuevoUsuario[key] = value;
-        });
-        console.log('espia',nuevoUsuario)
-        //se define el método POST
-        await registrarUsuarios(
-            
-            {   
-                _id:nuevoUsuario._id,
-                id_usuario: nuevoUsuario.id_usuario,
-                given_name: nuevoUsuario.given_name,
-                family_name: nuevoUsuario.family_name,
-                email: nuevoUsuario.email,
-                rol:nuevoUsuario.rol,
-                estado:nuevoUsuario.estado
-            },
-            (response) => {
-              console.log(response.data);
-              toast.success('Nuevo Usuario agregado con éxito');
-            },
-            (error) => {
-              console.error(error);
-              toast.error('Error agregando el Usuario');
+    const { setToken } = useAuth();
+    const navigate = useNavigate();
+    const { form, formData, updateFormData } = useFormData();
+  
+    const [registro, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
+      useMutation(REGISTRO);
+  
+//La función registro pasa los valores de los inputs que vienen del formulario de registro 
+    const submitForm = (e) => {
+      e.preventDefault();
+      registro({ variables: formData });
+    };
+  
+    useEffect(() => {
+        if (dataMutation) {
+          if (dataMutation.registro.token) {
+            setToken(dataMutation.registro.token);
+            navigate('/login');
+                }
             }
-          );
-    };*/
+        }, [dataMutation, setToken, navigate]);
+        
+    
+        useEffect(()=>{
+            if (errorMutation){
+                console.log("Error creando usuario")
+                toast.error('Error creando usuario');
+                }      
+        },[errorMutation])
     
     return (
     <div>       
         <div className='bg-blue-800 flex flex-col h-screen text-white'>
             <div className='ml-96 pl-80'> 
-                <Link to ='/auth/login'>
-                    <button className='bg-yellow-500 hover:bg-yellow-600 p-2 w-auto border-none text-white rounded-lg h-auto my-8 cursor-pointer text-2xl'>                
-                    Volver a Login
-                    </button>
-                </Link>
-                    <h1 className='text-3xl font-bold '>Registrar nuevo usuario</h1>
-                    <p className='text-2xl'>Ingresa los datos del nuevo usuario →</p>
-                    <form className='flex flex-col mt-12'> 
+                    <h1 className='text-3xl font-bold '>Regístrate → </h1>
+                    <form onSubmit={submitForm} onChange={updateFormData} ref={form} className='flex flex-col mt-12'> 
                         
                         <label className='font-bold text-xl' htmlFor="NombreUsuario">Nombres</label>
                         <input type="text" name="nombre" 
@@ -66,26 +65,31 @@ const Register = () => {
                         className='mt-2 rounded-lg p-2 max-w-lg cursor-auto outline-none text-blue-900 text-xl'
                         required/><br/>
 
+                        <DropDown label='Rol Usuario' name='rol' required={true} options={Enum_Rol} /><br/>
+                        
                         <label className='font-bold text-xl' htmlFor="emailUsuario">Correo</label>
                         <input type="email" id="email" name="correo"
                         className='mt-2 rounded-lg p-2 max-w-lg cursor-auto outline-none text-blue-900 text-xl'
                         placeholder="Ejemplo: hola@hotmail.com" required/><br/>
-                        
-                        <label className='font-bold text-xl' htmlFor="rolUsuario">Rol del Usuario</label>
-                            <select className='mt-2 rounded-lg p-2 max-w-lg cursor-auto outline-none text-blue-900 text-xl'
-                            name="rol" required defaultValue={0} >
-                                <option disabled value={0}> Selecciona un rol</option>
-                                <option>Administrador</option>
-                                <option>Líder</option>
-                                <option>Estudiante</option>
-                            </select><br/>
 
-                        <input id="input_ventas" type="hidden" name="estado" value="Pendiente" required/>
-                        
-                        <button type="submit" className='bg-yellow-500 hover:bg-yellow-600 p-2 max-w-lg border-none text-white rounded-lg h-auto my-8 cursor-pointer text-2xl'
-                        > Registrarme! </button>
-                        </form>
-                    {/* <ToastContainer position='bottom-center' autoClose={4000} />     */}
+                        <label className='font-bold text-xl' htmlFor="contraseñaUsuario">Contraseña</label>
+                        <input type="password" id="password" name="password"
+                        className='mt-2 rounded-lg p-2 max-w-lg cursor-auto outline-none text-blue-900 text-xl'
+                        required/><br/>
+
+                        <ButtonLoading
+                        disabled={Object.keys(formData).length === 0}
+                        loading={loadingMutation}
+                        text='Registrarme!'
+                        /> 
+
+                    </form>
+
+                    <span>¿Ya tienes cuenta?</span><br/>
+                    <Link to ='/Login'>
+                        <span>Inicia sesión</span>
+                    </Link>
+                    <ToastContainer/>
             </div>
         </div>
     </div>

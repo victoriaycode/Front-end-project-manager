@@ -17,4 +17,4 @@ const useFormData = (initial) => {
   return { form, formData, updateFormData };
 };
 
-export default useFormData
+export default useFormData;

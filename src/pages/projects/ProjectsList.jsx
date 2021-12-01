@@ -1,31 +1,17 @@
 import React from 'react'
-import { useState,useEffect } from 'react'
+import { useState } from 'react'
 import Enroll_modal from '../../components/Enroll_modal'
 import ProjectCardInfo from '../../components/ProjectCardInfo'
 import Search_input from '../../components/Search_input'
 import { NavLink } from 'react-router-dom'
 import Edit_proyect_admin_modal from '../../components/Edit_proyect_admin_modal'
-
-import { GET_PROJECTS_CARDS } from 'graphql/proyectos/queries'
-import { useQuery } from '@apollo/client';
-
 const ProjectsList = () => {
-    
-    const { data, error, loading } = useQuery(GET_PROJECTS_CARDS);
-
-    useEffect(() => {
-        console.log('data servidor', data);
-        
-      }, [data]);
-    
-     
     
     const [openModalEnroll, setOpenModalEnroll] = useState(false);
     
     const [openModalEdit, setOpenModalEdit] = useState(false);
  
     return (
-     
         <div className="w-full h-full flex flex-col overflow-y-hidden overflow-x-hidden pl-20 pr-20" >
               <NavLink to="/proyectos/nuevo">
              <div className="flex flex-row w-full justify-end align-center mr-20 ">
@@ -53,12 +39,8 @@ const ProjectsList = () => {
             <div className="flex flex-auto mb-6  overflow-y-scroll justify-center align-center ">
                 <div className="flex-auto grid lg:grid-cols-4 mg:grid-cols-2 sd:grid-cols-1 pt-8  mt-0 gap-y-8  gap-x-5 md:pl-14
                  pt-2 align-center justify-center ">
-                        {data && data.Proyectos.map((project_info) => {
-              return (
-                <ProjectCardInfo key={project_info._id} project_info={project_info}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
-              );
-            })}
- 
+                     <ProjectCardInfo  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit}></ProjectCardInfo>
+                    
 
                 </div>
 
@@ -71,7 +53,6 @@ const ProjectsList = () => {
             }
             
           </div>
-          
     )
 }
 

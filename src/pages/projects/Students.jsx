@@ -4,11 +4,9 @@ import React from 'react'
 import { useState } from 'react'
 import { nanoid } from 'nanoid';
 import Toggle from 'components/Toggle';
-import { useParams } from 'react-router';
 
 const Students = () => {
 
-    const { _id } = useParams();
 
     const students_list = [ 
  
@@ -68,8 +66,7 @@ const Students = () => {
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden " >
 
-        <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'}/>
-   
+            <ProjectNavbar />
             <div className="w-full h-full flex flex-col overflow-y-hidden " >
             <div className="flex flex-row  ml-0 justify-start mt-8">
               <Search_input></Search_input>
@@ -110,11 +107,7 @@ const Students = () => {
                             <table className="items-center bg-transparent w-full border-collapse ">
                                 <thead   >
                                     <tr>
-                                        
-                                    <th className=" sticky  top-0 px-6 bg-gray-200 text-blueGray-500 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                            Identificacion
-                                        </th>
-                                        <th className=" sticky w-auto top-0 px-6 bg-gray-200 text-blueGray-500 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        <th className=" sticky top-0 px-6 bg-gray-200 text-blueGray-500 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Estudiante
                                         </th>
 
@@ -141,7 +134,6 @@ const Students = () => {
                     </div>
                 </div>
             </div>
-            <span>{_id}</span>
         </div>
 
     )
