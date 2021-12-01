@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client';
 import { GET_USUARIOS } from 'graphql/usuarios/queries';
 //import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import PrivateRoute from 'components/PrivateRoute';
 //import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 
 const UsersDashboard = () => {
@@ -24,6 +25,7 @@ const UsersDashboard = () => {
   if (loading) return <div>Cargando....</div>;
 
   return (
+  //  <PrivateRoute roleList={['ESTUDIANTE']}>
     <div className="w-full h-full flex flex-col overflow-y-hidden " >
   <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6">
       <span className="text-lg text-blue-800 text-3xl ml-8  font-bold">Usuarios</span>
@@ -100,7 +102,8 @@ const UsersDashboard = () => {
                   </tbody>
                 </table>
             </div>
-  </div>
+    </div>
+  //  </PrivateRoute>
   )
 }
 

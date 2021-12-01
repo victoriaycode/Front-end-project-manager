@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PrivateLayout from 'layouts/PrivateLayout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContext } from 'context/userContext';
 import { AuthContext } from 'context/authContext';
 import { setContext } from '@apollo/client/link/context';
 import Index from 'pages/Index';
+import jwt_decode from 'jwt-decode';
 
 import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
@@ -29,10 +30,9 @@ const httpLink = createHttpLink({
 });
 
 //doc. apollo client
-//Cada vez que graphql haga un request al back, vaya al local storage, busque el token y lo ponga en los headers
+//Cada vez que graphql haga un request al back, vaya al local storage, busque el token y pongalo en los headers
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  //en cada request, poner el token
+  // get the authentication token from local storage if it exists. En cada request, poner el token
   const token = JSON.parse(localStorage.getItem('token'));
   // return the headers to the context so httpLink can read them
   return {
@@ -63,6 +63,20 @@ function App() {
       localStorage.removeItem('token');
     }
   };
+
+  useEffect(() => {
+    if (authToken) {
+      const decoded = jwt_decode(authToken);
+      setUserData({
+        _id: decoded._id,
+        nombre: decoded.nombre,
+        apellido: decoded.apellido,
+        identificacion: decoded.identificacion,
+        correo: decoded.correo,
+        rol: decoded.rol,
+      });
+    }
+  }, [authToken]);
 
   return (
     <ApolloProvider client={client}>
