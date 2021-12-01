@@ -12,7 +12,7 @@ const ModalAutorizarUsuario = ({setOpenModal,_id}) => {
 
       const [autorizar, setAutorizar] = useState(false);
       const [state, setState] = useState('PENDIENTE');
-      //const [checkedSwitch, setCheckedSwitch] = useState(false);
+      const [checkedSwitch, setCheckedSwitch] = useState(false);
 
       
 
