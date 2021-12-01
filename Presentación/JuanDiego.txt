@@ -1,0 +1,3 @@
+Hola,
+Mi nombre es Juan Diego Pineda, soy ingeniero mecánico, vivo en Valledupar y tengo el rol de
+administrador de la base de datos.
