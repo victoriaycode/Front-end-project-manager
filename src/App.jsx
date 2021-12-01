@@ -7,6 +7,7 @@ import { setContext } from '@apollo/client/link/context';
 import Index from 'pages/Index';
 import jwt_decode from 'jwt-decode';
 
+
 import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
 import 'styles/globals.css';
