@@ -110,14 +110,8 @@ const UsersDashboard = () => {
                   
                 </table>
             </div>
-<<<<<<< HEAD
-                        
-                        
-  </div>
-=======
     </div>
   //  </PrivateRoute>
->>>>>>> development
   )
 }
 
