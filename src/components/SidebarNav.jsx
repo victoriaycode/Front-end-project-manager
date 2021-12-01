@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from 'context/authContext';
+import { useNavigate } from 'react-router';
 
 const SidebarLinks = () => {
+
     return (
       <ul className="flex flex-col space-y-2 w-full items-center pt-5 mt-10">
         
@@ -23,9 +26,12 @@ const SidebarLinks = () => {
     );
   };
   
-  
 
 const SidebarNav = () => {
+
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+
     return (
 
       <div className="flex flex-col justify-between  items-center flex-none w-20 bg-gray-100 mr-4">
@@ -36,16 +42,20 @@ const SidebarNav = () => {
         
       </div>
       <div className="flex flex-col space-y-4 pb-5 pr-2 mt-24">
-      <a className="block relative w-full h-16 w-16 flex justify-center items-center text-gray-400 
-         hover:text-blue-400">
-        <i className="fas fa-user-circle fa-lg"></i>
-          
-        </a>
-        <a className="block relative flex flex-col w-full h-16 w-16 flex justify-center items-center text-gray-400 
-         hover:text-blue-400 cursor-pointer">
-        <i className="fas fa-power-off fa-lg"></i>
-        <span className="text-xs mt-1">Salir</span> 
-        </a>
+
+        <a className="block relative w-full h-16 w-16 flex justify-center items-center text-gray-400 
+          hover:text-blue-400">
+          <i className="fas fa-user-circle fa-lg"></i></a>
+
+          <a className="block relative flex flex-col w-full h-16 w-16 flex justify-center items-center text-gray-400 
+          hover:text-blue-400 cursor-pointer">
+          <i className="fas fa-power-off fa-lg" 
+          onClick={() => {
+            console.log('eliminar token');
+            setToken(null)
+            navigate('/login')}}></i>
+            <span className="text-xs mt-1">Logout</span>
+          </a>
       </div>
     </div>
     </div>
