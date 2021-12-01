@@ -1,19 +1,18 @@
-
-import React, {useEffect, useState, useRef} from 'react'
-import Switch from 'components/switch'
+import React, {useEffect, useState} from 'react'
 import { useQuery } from '@apollo/client';
-import { GET_USUARIOS } from 'graphql/usuarios/queries';
+import { GET_USUARIOS} from 'graphql/usuarios/queries';
 //import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import ModalAutorizarUsuario from 'components/ModalAutorizarUsuario'
 //import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 
 const UsersDashboard = () => {
 
   const { data, error, loading } = useQuery(GET_USUARIOS);
 
-  useEffect(() => {
-    console.log('data servidor', data);
-  }, [data]);
+  const [openModal, setOpenModal] = useState(false);
+  const [idUsuario, setIDUsuario] = useState('');
+  console.log('data usuarios:', data);
+  
 
   /*useEffect(() => {
     if (error) {
@@ -54,11 +53,11 @@ const UsersDashboard = () => {
                 <div className="h-10  text-ms   w-60 font-light text-gray-400  pt-10  ">
                     <span className="h-6 mb-4 ">Mostrando 20 Usuarios</span>
                 </div>
-                <div class="inline-flex mt-8 ">
-                    <button class="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l  ">
+                <div className="inline-flex mt-8 ">
+                    <button className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l  ">
                         Prev
                     </button>
-                    <button class="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                    <button className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
                         Next
                     </button>
                 </div>
@@ -72,6 +71,7 @@ const UsersDashboard = () => {
                   <thead>
                     <th >Nombre</th>
                     <th >Apellido</th>
+                    <th >Identificación</th>
                     <th>Correo</th>
                     <th>Rol</th>
                     <th>Estado</th>
@@ -82,27 +82,36 @@ const UsersDashboard = () => {
                     data.Usuarios.map((u) => {
                       return(
                       <tr key={u._id}>
-                      <td>{u.nombre}</td>
-                      <td>{u.apellido}</td>
-                      <td>{u.correo}</td>
-                      <td>{u.rol}</td>
-                      <td>{u.estado}</td>
-                      
-                      {/*<td>{Enum_EstadoUsuario[u.estado]}</td>
-                     } <td>
-                      <Link to={`/usuarios/editar/${u._id}`}>
-                          <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer' />
-                        </Link>
-                      </td>*/}
+                        <td>{u.nombre}</td>
+                        <td>{u.apellido}</td>
+                        <td>{u.identificacion}</td>
+                        <td>{u.correo}</td>
+                        <td>{u.rol}</td>
+                        <td>{u.estado}</td>
+                        <td> 
+                          <i onClick={() => {
+                            setIDUsuario(u._id) 
+                            setOpenModal(true)} 
+                          }className='fas fa-pen text-yellow-600 justify pl-7 hover:text-yellow-400 cursor-pointer' />
+                          
+                           {
+                                openModal && <ModalAutorizarUsuario setOpenModal={setOpenModal} _id={idUsuario}></ModalAutorizarUsuario>
+                                
+                            }                          
+                        </td>                  
                     </tr>
+                     
                       )  
                     })}
                   </tbody>
+                  
                 </table>
             </div>
+                        
+                        
   </div>
   )
 }
 
 
-export default UsersDashboard
+export default UsersDashboard;
