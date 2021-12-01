@@ -70,7 +70,7 @@ const New_project = () => {
 
                 <div className="w-full h-5/6 px-20 overflow-y-scroll">
 
-                    <div className="bg-white  w-full py-2 align-center rounded-2xl my-1 flex flex-row gap-2 border-solid border-2 border-gray-300">
+                    <div className="bg-white  w-full py-2 px-4 align-center rounded-2xl my-1 flex flex-row gap-2 border-solid border-2 border-gray-300">
                         <div className="w-full py-2 px-4 flex flex-row ">
                             <span className="text-gray-500 text text-lg font-medium mt-4">
                                 Titulo Proyecto:
@@ -78,7 +78,7 @@ const New_project = () => {
                                 placeholder="Titulo proyecto" />
                         </div>
                     </div>
-                    <div className="bg-white  w-full py-2 align-center rounded-2xl my-1 flex flex-col gap-2 border-solid border-2 border-gray-300">
+                    <div className="bg-white  w-full py-2 px-4 align-center rounded-2xl my-1 flex flex-col gap-2 border-solid border-2 border-gray-300">
                         <div className="flex flex-row w-full">
                             <div className="w-full py-2 px-4 flex flex-row text-lg">
                                 <span className="text-gray-500   font-medium mt-4">
@@ -92,16 +92,16 @@ const New_project = () => {
                                 </span> <input disabled type="text" className="h-10 w-3/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
                                     placeholder="wqe213242" />
                             </div>
-
-                        </div>
-
-                        <div className="flex flex-row w-full">
+                            <div className="flex flex-row w-full">
                             <div className="w-full py-2 px-4 flex flex-row text-lg">
                                 <span className="text-gray-500   font-medium mt-4">
                                     Presupuesto :
-                                </span> <input  type="number" className="h-10 w-1/4 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
+                                </span> <input  type="number" min="0"className="h-10 w-3/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
                                     placeholder="Presupuesto a asignar" ></input>
                             </div>
+                        </div>
+
+                       
                           
 
                         </div>
@@ -126,14 +126,17 @@ const New_project = () => {
 
                         <div className="w-full py-2 px-10 flex flex-col">
                             <div className="w-full flex flex-row align-center">
-                                <span className="text-blue-500 px-10 py-2 text-2xl font-bold ">      Objetivos Generales     </span>
-                                <button className="p-1 ml-20 mt-2 h-10 bg-blue-500 border-2 border-blue-500  text-white text-lg rounded-lg hover:bg-blue-600 
-                hover:text-white  focus:border-4 "onClick={() => setaddgeneral(!addgeneral)}>Nuevo objetivo</button>
+                                <span className="text-blue-500 px-10 py-2 text-2xl font-bold ">      Objetivo General      </span>
+                                <button className="p-1 ml-20 mt-2 h-10 bg-transparent border-2 border-blue-500  text-blue-500 text-lg rounded-lg hover:bg-blue-600 
+                hover:text-white  focus:border-4 "onClick={() => setaddgeneral(!addgeneral)}>Nuevo </button>
                             </div>
                             {addgeneral &&
+                             
+                                        
                                 <div className="w-full flex flex-row mt-5">
+                     
                                     <input type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
-                                       defaultValue= {newObjetGen} onChange={(e)=>setNewObjetGen(e.target.value)}/>
+                                       defaultValue= {newObjetGen} placeholder="Objetivo general" onChange={(e)=>setNewObjetGen(e.target.value)}/>
                                     <button className="text-green-500 hover:text-green-700 focus" onClick={() => setCheckObjGen(true)}><i className="fas fa-check fa-2x"></i></button>
                                     <button className="text-gray-400 hover:text-gray-700 ml-10"><i className="fas fa-trash fa-2x"></i></button>
                                 </div>}
@@ -142,7 +145,7 @@ const New_project = () => {
                                     return (<RowObjective  key={nanoid()} datarow={objetivo} />);
                                 })}
                             </ul>
-                        </div>
+                        </div> 
 
 
 
@@ -152,13 +155,13 @@ const New_project = () => {
                         <div className="w-full py-2 px-10 flex flex-col">
                             <div className="w-full flex flex-row align-center">
                                 <span className="text-blue-500 px-10 py-2 text-2xl font-bold ">      Objetivos Especificos     </span>
-                                <button className="p-1 mt-2 ml-20 h-10 bg-blue-500 border-2 border-blue-500  text-white text-lg rounded-lg hover:bg-blue-600 
-        hover:text-white  focus:border-4 "onClick={() => setaddSpecific(!addspecific)}>Nuevo objetivo</button>
+                                <button className="p-1 mt-2 ml-20 h-10 bg-transparent border-2 border-blue-500  text-blue-500 text-lg rounded-lg hover:bg-blue-600 
+        hover:text-white  focus:border-4 "onClick={() => setaddSpecific(!addspecific)}>Nuevo </button>
                             </div>
                             {addspecific &&
                                 <div className="w-full flex flex-row mt-5">
                                     <input type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
-                                        placeholder="Objetivo "   defaultValue= {newObjetEsp} onChange={(e)=>setNewObjetEsp(e.target.value)}/>
+                                        placeholder="Objetivo especifico"   defaultValue= {newObjetEsp} onChange={(e)=>setNewObjetEsp(e.target.value)}/>
                                     <button className="text-green-500 hover:text-green-700 focus" onClick={()=>setCheckObjEsp(true)}><i className="fas fa-check fa-2x"></i></button>
                                     <button className="text-gray-400 hover:text-gray-700 ml-10"><i class="fas fa-trash fa-2x"></i></button>
                                 </div>}
