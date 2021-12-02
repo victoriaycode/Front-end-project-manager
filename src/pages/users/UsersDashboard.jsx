@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client';
 import { GET_USUARIOS} from 'graphql/usuarios/queries';
 //import { toast } from 'react-toastify';
 import ModalAutorizarUsuario from 'components/ModalAutorizarUsuario'
-import { Link } from 'react-router-dom';
 import PrivateRoute from 'components/PrivateRoute';
 //import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 
