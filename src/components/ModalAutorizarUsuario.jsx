@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useEffect, useState } from 'react'
 import { GET_USUARIO} from 'graphql/usuarios/queries';
 import { EDITAR_USUARIO } from 'graphql/usuarios/mutations';
-import Switch from 'components/Switch';
+import Switch from 'components/switch';
 const ModalAutorizarUsuario = ({setOpenModal,_id}) => {
     
      const {data: queryData,error: queryError,loading: queryLoading,} = useQuery(GET_USUARIO, {
