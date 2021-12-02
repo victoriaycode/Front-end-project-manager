@@ -113,8 +113,8 @@ const New_project = () => {
         )
     }
     return (
-        <div className="w-full h-full overflow-y-scroll mb-6">
-            <div className="relative  z-40 h-16 flex flex-row bg-gray-100 w-full  align-center justify-start pt-2 border-b-2 ">
+        <div className="w-full h-full mb-6 ">
+            <div className="sticky top-0 z-50 h-16 flex flex-row bg-gray-100 w-full  align-center justify-start pt-2 mt-4 border-b-2 ">
                 <NavLink to="/proyectos/">
                     <button className="text-blue-800 py-4 px-4 block hover:text-blue-400 hover:bg-gray-200 focus:outline-none font-medium border-blue-800 rounded-full h-14 w-14 align-center justify-center">
                         <i className="fas fa-angle-left fa-2x"></i>
@@ -126,7 +126,7 @@ const New_project = () => {
                 </span>
             </div>
 
-            <div className="w-full h-full  overflow-y-scrollmx-10 ">
+            <div className="w-full   overflow-y-hidden ">
 
                 <div className="w-full h-full px-20 ">
 
@@ -187,7 +187,7 @@ const New_project = () => {
                                 </div>
                             </div>
                         </div>  </div>
-                    <div className=" w-full h-3/6   bg-white  mt-4 flex flex-col align-center justify-center border-solid border-2 border-gray-300 
+                    <div className=" w-full h-3/5   bg-white  mt-4 flex flex-col align-center justify-center border-solid border-2 border-gray-300 
                     rounded-xl py-2">
 
                         <div className="w-full   py-2 px-4 flex flex-col h-full ">
@@ -223,7 +223,7 @@ const New_project = () => {
 
                             }
                             <ul className="list-decimal  h-full mt-5 py-2 px-6 border-t-2 
-                            border-blue-200 overflow-y-scroll">
+                            border-blue-200 pl-10 pr-8">
 
                                 {objectives_list !== {} && objectives_list.map((objetivo) => {
                                     return (<RowObjective key={nanoid()} list={objectives_list} setObjectivesList={setObjectivesList} datarow={objetivo} />);
