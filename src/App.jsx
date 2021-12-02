@@ -9,7 +9,7 @@ import jwt_decode from 'jwt-decode';
 
 
 import Login from 'pages/auth/Login';
-import Register from 'pages/auth/Register';
+import Register from 'pages/auth/register';
 import 'styles/globals.css';
 import 'styles/tablausuarios.css';
 import Project from 'pages/projects/Project';
@@ -19,7 +19,7 @@ import AdvancesDashboard from 'pages/projects/advances/AdvancesDashboard';
 
 import Students from 'pages/projects/Students';
 import ProjectsList from 'pages/projects/ProjectsList';
-import Advance from 'pages/projects/advances/Advance';
+import Advance from 'pages/projects/advances/advance';
 import New_project from 'pages/projects/New_project';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import My_projects from 'pages/projects/My_projects';
