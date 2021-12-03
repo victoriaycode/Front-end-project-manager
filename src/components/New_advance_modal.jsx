@@ -11,9 +11,9 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
     
     const [titulo, setTitulo]=useState("");
     const [descripcion, setDescripcion]=useState("");
-    const date = new Date();
-    var options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    let ds = date.toLocaleDateString("es-US", options);
+    var date = new Date().toISOString().slice(0, 10);
+
+    
 
     const [addAdvance, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
     useMutation(CREATE_NEW_ADVANCE);
@@ -105,7 +105,7 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
                    
                   
                     <span className="pl-40  text-gray-500 text text-lg font-light mt-4 ml-2">
-                    Fecha de creación: {ds}
+                    Fecha de creación: {date}
                     </span> 
                     
                     </div>

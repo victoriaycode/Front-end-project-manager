@@ -40,10 +40,10 @@ query Proyecto($_id: String!) {
   }
 }`;
 
-const GET_LIDER = gql`
+const GET_PROJECTS_BY_LIDER = gql`
 
-query Proyecto($_id: String!) {
-  filtrarProyecto(_id: $_id) {
+query Proyecto($id_lider: String!) {
+  filtrarProyectoPorLider(id_lider: $id_lider) {
     lider{
       nombre
       apellido
@@ -52,4 +52,17 @@ query Proyecto($_id: String!) {
     
   }
 }`;
-export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,GET_LIDER };
+const CREATE_NEW_PROJECT = gql`
+mutation Mutation($nombre: String!, $presupuesto: Float!, $estado: Enum_EstadoProyecto!, $fase: Enum_FaseProyecto!, $lider: String!) {
+  crearProyecto(nombre: $nombre, presupuesto: $presupuesto, estado: $estado, fase: $fase, lider: $lider) {
+    _id
+    nombre
+    presupuesto
+    fechaCreacion
+    objetivos{
+      tipo
+      descripcion
+    }
+  }
+}`;
+export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,GET_PROJECTS_BY_LIDER ,CREATE_NEW_PROJECT};

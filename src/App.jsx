@@ -29,7 +29,7 @@ import Info from 'pages/projects/Info';
 
 
  const client = new ApolloClient({
-  uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
+  uri: 'http://localhost:4000/graphql',
   cache: new InMemoryCache(),
 });
 
