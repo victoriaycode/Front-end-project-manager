@@ -23,6 +23,7 @@ import New_project from 'pages/projects/New_project';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import My_projects from 'pages/projects/My_projects';
 // import PrivateRoute from 'components/PrivateRoute';
+import Inscriptions from 'pages/inscriptions/Inscriptions';
 
 
 const httpLink = createHttpLink({
@@ -97,6 +98,9 @@ function App() {
                 <Route path='/proyectos/proyecto/estudiantes' element={<Students />} />
                 
                 <Route path='/mi_perfil' element={< Profile/>} />
+
+                <Route path='/inscripciones' element={< Inscriptions/>} />
+
               </Route>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/register' element={<Register/>}/>

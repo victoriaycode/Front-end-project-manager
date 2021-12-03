@@ -38,7 +38,6 @@ const Register = () => {
     
         useEffect(()=>{
             if (errorMutation){
-                console.log("Error creando usuario")
                 toast.error('Error creando usuario');
                 }      
         },[errorMutation])

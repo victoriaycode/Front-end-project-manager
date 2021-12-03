@@ -12,6 +12,7 @@ const SidebarLinks = () => {
       <SidebarRoute1 to='/proyectos' title='Proyectos' icon="fas fa-folder fa-lg"/>
       <SidebarRoute1 to='/usuarios' title='Usuarios' icon="fas fa-users fa-lg"/>
       <SidebarRoute1 to='/mi_perfil' title='Mi Perfil' icon="fas fa-user-cog fa-lg"/>
+      <SidebarRoute1 to='/inscripciones' title='Inscripciones' icon="fas fa-clipboard-check fa-lg"/>
      
       </ul>
     );
