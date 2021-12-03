@@ -18,11 +18,19 @@ const ProjectsList = () => {
         
       }, [data]);
     
-     
+      useEffect(() => {
+        if(loading){
+    
+        }else{
+    
+          console.log('data servidor', data);
+        }
+      }, [loading]);
     
     const [openModalEnroll, setOpenModalEnroll] = useState(false);
     
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    if (loading) return <div>Cargando....</div>;
  
     return (
      

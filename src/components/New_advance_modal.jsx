@@ -13,38 +13,47 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
     const [descripcion, setDescripcion]=useState("");
     const date = new Date();
     var options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    let fecha = date.toLocaleDateString("es-US", options);
+    let ds = date.toLocaleDateString("es-US", options);
 
     const [addAdvance, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
     useMutation(CREATE_NEW_ADVANCE);
 
+    useEffect(() => {
+
+      console.log("idSt", idStudent);
+      console.log("idProj", idProject);
+
+     
+  }, []);
       useEffect(() => {
 
-          console.log("idSt", idStudent);
-          console.log("idProj", idProject);
+          console.log("error", errorMutation);
 
          
-      }, []);
+      }, [errorMutation]);
 
       const addNewAdvance = async () => {
         console.log("Guardando")
         if(titulo!=="" && descripcion!==""){
             let proyecto=idProject;
             let creadoPor=idStudent;
+            const fecha=date;
             let g= {  titulo,descripcion,fecha, proyecto,creadoPor };
             console.log(g);
+          
             let added= await addAdvance({
                 variables: {  titulo,descripcion,fecha, proyecto,creadoPor },
               });
               console.log("added ",added);
               setOpenModal(false);
         }else{
-            toast.error("Error creando avance. Escriba de nuevo");
+            console.error("Error creando avance. Escriba de nuevo", errorMutation);
         }
     };
  
     
   
+  if (loadingMutation) return <div>Cargando....</div>;
 
     return (
         
@@ -96,7 +105,7 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
                    
                   
                     <span className="pl-40  text-gray-500 text text-lg font-light mt-4 ml-2">
-                    Fecha de creación: {fecha}
+                    Fecha de creación: {ds}
                     </span> 
                     
                     </div>
