@@ -26,8 +26,12 @@ import My_projects from 'pages/projects/My_projects';
 import Inscriptions from 'pages/inscriptions/Inscriptions';
 
 
-const httpLink = createHttpLink({
+/* const httpLink = createHttpLink({
   uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
+}); */
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:4000/graphql',
 });
 
 //doc. apollo client
@@ -75,6 +79,7 @@ function App() {
         identificacion: decoded.identificacion,
         correo: decoded.correo,
         rol: decoded.rol,
+        estado: decoded.estado,
       });
     }
   }, [authToken]);
