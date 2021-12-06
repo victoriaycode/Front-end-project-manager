@@ -57,14 +57,14 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
     return (
       <tr className="hover:bg-gray-100">
            <NavLink to={`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}>
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left text-blue-800 
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4 text-left text-blue-800 
       hover:text-blue-400 cursor-pointer font-medium hover:font-light  ">
        {advanceInfo.titulo}
         </td></NavLink>
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4 ">
           {advanceInfo.creadoPor.nombre}  {advanceInfo.creadoPor.apellido}
         </td>
-        <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+        <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-base whitespace-nowrap p-4">
         {advanceInfo.fecha}
         </td>
         {/* <td><span>{`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}</span></td> */}
@@ -84,7 +84,7 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-2 max-w-full flex-grow flex-1">
-              <h3 className="font-light text-sm text-gray-500 italic">Mostrando {numberAdvances} avances en el proyecto </h3>
+              <h3 className="font-semibold text-base text-gray-500 italic">Mostrando {data.filtrarAvance.length} avances en el proyecto </h3>
             </div>
             {/*<NavLink to={'/proyectos/proyecto/avances/nuevo'}>
             <button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
@@ -94,7 +94,7 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
   </NavLink>*/}
    <button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
                  text-blue-400 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
-                  hover:border-gray-500 text-ms font-bold
+                  hover:border-gray-500 text-base font-bold
                  focus:border-4 focus:border-blue-300 transform transition duration-300 "onClick={()=>{setModal(true)}}>Nuevo Avance</button>
           </div>
         </div>
@@ -103,14 +103,14 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
           <table className="items-center bg-transparent w-full border-collapse ">
             <thead>
               <tr>
-                <th className="sticky top-0 px-6 bg-gray-200 text-blueGray-500 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                <th className="sticky top-0 px-6 bg-blue-50 text-blue-800 align-middle  py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Avance
                 </th>
 
-                <th className="sticky top-0 px-6 bg-gray-200 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                <th className="sticky top-0 px-6 bg-blue-50 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Hecho por
                 </th>
-                <th className="sticky top-0 px-6 bg-gray-200 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                <th className="sticky top-0 px-6 bg-blue-50 align-middle py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Creado
                 </th>
                {/**

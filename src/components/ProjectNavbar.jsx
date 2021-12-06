@@ -6,7 +6,7 @@ const ProjectNavbar = ({_idActual,rutaRetorno}) => {
   const _id= _idActual;
   
   return (
-    <div className="relative h-16 flex flex-row bg-gray-100 w-full align-center justify-start mt-6 border-b-2 ">
+    <div className="z-20 sticky top-0 h-14 flex flex-row bg-gray-100 w-full align-center justify-start mt-6 border-b-2 ">
      
       <NavLink to={rutaRetorno}
       >

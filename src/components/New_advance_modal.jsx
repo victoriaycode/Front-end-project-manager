@@ -57,9 +57,9 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
 
     return (
         
-        <div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
+        <div className="modal h-screen z-30 w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-20">
        
-        <div className="bg-white rounded shadow-lg w-4/6 ">
+        <div className="bg-white rounded-xl shadow-lg w-4/6 ">
       
           <div className="border-b px-4 py-2 flex justify-between items-center">
             <h3 className="font-semibold text-lg">Nuevo Avance En <span className="text-blue-800 font-bold"> Proyecto # {idProject}</span></h3>
@@ -72,8 +72,9 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
             <div className="w-full h-full px-20 overflow-y-scroll">
 
                 <div className="bg-white  w-full py-2 align-center rounded-2xl my-1 flex flex-row gap-2 border-solid border-2 border-gray-300">
-                <div className="w-full py-2 px-4 flex flex-row "><span className="text-gray-500 text text-lg font-medium mt-4">
-                        Titulo Avance:
+                <div className="w-full py-2 px-4 flex flex-row justify-around">
+                  <span className="text-blue-800 text text-lg font-medium mt-4">
+                        Titulo :
                     </span> <input type="text"  className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100"
                         placeholder="Titulo avance" onChange={(e) => {
                             setTitulo(e.target.value)}}/>
@@ -83,7 +84,7 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
                 <div className=" w-full bg-white  mt-4 flex flex-col align-center justify-center border-solid border-2 border-gray-300 rounded-xl py-2">
                    
                     <div className="w-full py-2 px-10 flex flex-row">
-                        <span className="text-gray-500 text 
+                        <span className="text-blue-800 text 
                         text-lg font-medium mt-4">      Descripción:    </span> 
 
 
@@ -93,22 +94,17 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
                         setDescripcion(e.target.value)}}>
                         </TextareaAutosize>
                     </div>
-                    <div className="w-full py-2 px-10 "><span className="text-gray-500 text text-lg font-medium mt-4">
+                    <div className="w-full py-2 px-10 "><span className="text-blue-800 text text-lg font-medium mt-4">
                         Estudiante:
                     </span> 
                     <span className="text-gray-500 text text-lg font-medium mt-4 ml-20">
                        {nameStudent}
                     </span> 
-                    
-                    </div>
-                    <div className="w-full py-2 px-10 ">
-                   
-                  
-                    <span className="pl-40  text-gray-500 text text-lg font-light mt-4 ml-2">
-                    Fecha de creación: {date}
+                    <span className="pl-40  text-gray-500 text text-lg  mt-4 ml-2">
+                    Creado en: {date}
                     </span> 
-                    
                     </div>
+                 
                    
                     </div>
 
@@ -122,8 +118,8 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
           </div>
           <div className="flex justify-end items-center w-100 border-t p-3">
            
-            <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-lg text-white"onClick={() => addNewAdvance()}>Guardar</button>
-            <button className="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded ml-3 text-white mr-1 close-modal ml-2" onClick={()=>setOpenModal(false)}>Cancelar</button>
+            <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-xl h-10 text-lg text-white"onClick={() => addNewAdvance()}>Guardar</button>
+            <button className="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded-xl h-10 ml-3 text-white mr-1 close-modal ml-2" onClick={()=>setOpenModal(false)}>Cancelar</button>
           </div>
         </div>
       </div>
