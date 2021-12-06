@@ -28,7 +28,7 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => 
             <div className="flex flex-col h-44 w-64 bg-white   shadow-xl p-4  rounded transform transition duration-300 hover:scale-105 ">
 
 
-                <div className="flex flex-row pt-2">
+                <div className="flex flex-row pt-2 ">
 
                     <div className="flex pt-5 ">
                         <div className={`relative flex flex-col  h-16 flex justify-center items-center   
@@ -39,8 +39,8 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => 
 
                         </div>
                     </div>
-                    <div className="flex flex-col pl-2">
-                        <span className="text-lg text-blue-800 text-1xl mx-2 font-bold  ">{card.nombre}</span>
+                    <div className="flex flex-col pl-2 ">
+                        <p className="text-lg text-blue-800 w-30 break-all     overflow-ellipsis   px-2 text-1xl font-bold  ">{card.nombre}</p>
                         <span className=" text-ms text-gray-500 text-xs mx-2 font-light pt-2 ">Lider : <span className="text-blue-800 font-light">{card.lider.nombre} {card.lider.apellido}</span> </span>
                     </div>
                 </div>
