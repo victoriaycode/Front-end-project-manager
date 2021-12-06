@@ -31,6 +31,7 @@ query Proyecto($_id: String!) {
       apellido
       identificacion
     }
+    fechaCreacion
     fechaInicio
     fechaFin
     objetivos {
@@ -65,4 +66,15 @@ mutation Mutation($nombre: String!, $presupuesto: Float!, $estado: Enum_EstadoPr
     }
   }
 }`;
-export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,GET_PROJECTS_BY_LIDER ,CREATE_NEW_PROJECT};
+const CREATE_NEW_OBJECTIVE = gql`
+mutation CrearObjetivo($idProyecto: String!, $campos: camposObjetivo!) {
+  crearObjetivo(idProyecto: $idProyecto, campos: $campos) {
+    _id
+    objetivos {
+      _id
+      descripcion
+      tipo
+    }
+  }
+}`;
+export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,GET_PROJECTS_BY_LIDER ,CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE};

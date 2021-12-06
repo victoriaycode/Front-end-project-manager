@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RowObjective from 'components/RowObjective';
 import { useMutation } from '@apollo/client';
-import { CREATE_NEW_PROJECT } from 'graphql/proyectos/queries';
+import { CREATE_NEW_PROJECT ,CREATE_NEW_OBJECTIVE} from 'graphql/proyectos/queries';
 
 const New_project = () => {
     const [addObjective, setAddObjective] = useState(false)
@@ -23,39 +23,52 @@ const New_project = () => {
     const nombre_lider = "Victoria Yuan";
     const [numRow, setNumberRow] = useState(0);
 
-    const [createProject, { data, loading, error }] =
+    const [createProject, { data:createdata, loading, error }] =
     useMutation(CREATE_NEW_PROJECT);
+    
+    const [createObjetive, { data:dataObjective, loading:loadingObj, error:errorObj }] =
+    useMutation(CREATE_NEW_OBJECTIVE);
     
     const { form, formData, updateFormData } = useFormData(null);
     const submitForm = (e) => {
         e.preventDefault();
-
+        formData.objetivos=[]
+        console.log("obj",formData.objetivos)
         
-
-        if (objectives_list !== {}) {
-            
-            formData.objetivos   = objectives_list.map(function(ele) {
+            let lista   = objectives_list.map(function(ele) {
                 return {"tipo": ele.tipo,"descripcion":ele.descripcion} ;
               });
-              
-            //   console.log("lista",lista);
+              formData.objetivos=[...lista];
+           console.log("obj lista",formData.objetivos);
             // formData.objetivos = objectives_list;
-        }
+        
         formData.lider=lider;
         let presup= parseFloat(formData.presupuesto);
         formData.presupuesto=presup;
         console.log("formdata", formData);
-        createProject({
+        const creado= createProject({
             variables: { ...formData },
-          });  
+          });
+
+        //   if(objectives_list!=[] && !loading){
+        //     let lista= objectives_list.map(function(ele) {
+        //         return {"tipo": ele.tipo,"descripcion":ele.descripcion} ;
+        //       });
+        //       let idProyecto= creado.crearProyecto._id;
+        //       lista.forEach(element => {
+        //         createObjetive({
+        //             variables: { idProyecto,"tipo":element.tipo, "descripcion":element.descripcion },
+        //           });  
+        //       });
+        //   }
        
     };
     useEffect(() => {
-        if (data) {
+        if (createdata) {
           toast.success('Proyecto agregado co éxito');
-          console.log("projecto agregado",data);
+          console.log("projecto agregado",createdata);
         }
-      }, [data]);
+      }, [createdata]);
       
       useEffect(() => {
           if(!loading){
