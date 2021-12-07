@@ -10,6 +10,7 @@ import { GET_PROJECT_INFO ,EDIT_PROJECT_BY_LIDER} from 'graphql/proyectos/querie
 import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
+import { CREATE_NEW_OBJECTIVE } from 'graphql/proyectos/queries';
 
 const Info = () => {
 
@@ -21,13 +22,14 @@ const Info = () => {
     const [newBudget, setNewBudget] = useState(0);
     const [editBudget, setEditBudget] = useState(false);
     const [createModal, setCreateModal] = useState(false);
-    
-    const { data: infoProject, error, loading } = useQuery(GET_PROJECT_INFO, {
+    const [deleteObjModal, setDeletedObjModal] =useState(false);
+    const { data: infoProject, error, loading ,refetch} = useQuery(GET_PROJECT_INFO, {
         variables: {
             _id
         },
     });
     
+
   const [editarProjectName, { data: mutationData, loading: mutationLoading, error: mutationError }] =
   useMutation(EDIT_PROJECT_BY_LIDER);
     const [state_color, changeStateColor] = useState("text-green-500");
@@ -47,6 +49,7 @@ const Info = () => {
             if (infoProject.filtrarProyecto.fase == "DESARROLLO") { changeFaseColor("text-yellow-400") }
             if (infoProject.filtrarProyecto.fase == "TERMINADO") { changeFaseColor("text-red-400") }
             setObjectivesList(proj.objetivos);
+            console.log("objt", objectives_list);
 
             //    let nom=  actualProject.lider.nombre + ""+ actualProject.lider.apellido;
             //    setNomCompletoLider(nom);
@@ -90,6 +93,10 @@ const Info = () => {
     
         }
       }, [mutationData]);
+      useEffect(() => {
+        refetch();
+        setDeletedObjModal(false);
+      }, [createModal,deleteObjModal]);
       useEffect(() => {
         if (mutationError) {
           console.log("error", mutationError);
@@ -248,21 +255,23 @@ const Info = () => {
                                     bg-white border-2 border-blue-500 font-bold h-10 text-blue-500 text-lg rounded-lg hover:bg-blue-500 hover:text-white  
                                     focus:border-4 " onClick={() => setCreateModal(true)}>Añadir</button>
                     </div>
-                    <div className="overflow-y-scroll  ">
+                    <div className="overflow-y-scroll  mb-10  ">
 
 
                         <ul id="lista_obj" className=" h-full  py-2 px-6 
-                             pl-10 pr-8">
+                             pl-10 pr-8 ">
 
-                            {infoProject && objectives_list.map((objetivo) => {
-                                return (<RowObjectiveInfo key={nanoid()} editEnable={editObjective} datarow={objetivo} />);
+                            {infoProject && infoProject.filtrarProyecto.objetivos.map((objetivo) => {
+                                return (<RowObjectiveInfo key={nanoid()}      
+                                  idProyecto={infoProject.filtrarProyecto._id} setDeleted={setDeletedObjModal} editEnable={editObjective} datarow={objetivo} />);
                             })}
                         </ul>
                     </div> </div>
             </div>
 
             <Dialog open={createModal}>
-                <Create_objective_modal setOpenEditObj={setCreateModal}></Create_objective_modal>
+                <Create_objective_modal setOpenEditObj={setCreateModal} 
+                idProyecto={infoProject.filtrarProyecto._id}></Create_objective_modal>
             </Dialog>
             <ToastContainer rtl
         position="top-center"

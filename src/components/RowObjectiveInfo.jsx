@@ -4,16 +4,28 @@ import Edit_objective_modal from 'components/Edit_objective_modal';
 
 import { Dialog } from '@material-ui/core';
 import { useState, useEffect } from 'react';
+import { DELETE_OBJECTIVE } from 'graphql/proyectos/queries';
+import { useMutation } from '@apollo/client';
 
-const RowObjectiveInfo = ({ datarow, list, setObjectivesList }) => {
+const RowObjectiveInfo = ({ datarow, list, setObjectivesList ,idProyecto,setDeleted}) => {
     const [descripcionRow, setDescripcionRow] = useState(datarow.descripcion);
     const [tipo, setTipo] = useState(datarow.tipo);
     const [editRow, setEditRow] = useState(false);
     const [editModal, setEditModal]=useState(false);
     const [deleteModal, setDeleteModal]=useState(false);
    
-    const deleteObjective = () => {
+    const [borrarObjetivo, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
+    useMutation(DELETE_OBJECTIVE);
+    const deleteObjective = async() => {
         console.log("borrando objetivo");
+        console.log("borrar", {datarow});
+        let idObjetivo= datarow._id;
+        let deleted= await borrarObjetivo({
+            variables: { idProyecto, idObjetivo },
+          });
+          console.log("deleted",deleted);
+          setDeleteModal(false);
+          setDeleted(true);
     }
     const editObjective = () => {
         
@@ -35,6 +47,7 @@ const RowObjectiveInfo = ({ datarow, list, setObjectivesList }) => {
        
     }
 
+    
     return (
 
 
@@ -91,7 +104,7 @@ const RowObjectiveInfo = ({ datarow, list, setObjectivesList }) => {
          </div>
        
          <div className="w-full flex flex-col px-4 py-2">
-                                     
+                                      
                                      <span className="text-lg"> Nota: Se borrará de forma permanente.</span>
                                    </div>
          <div class="flex justify-end items-center w-100 border-t p-3">
@@ -101,6 +114,7 @@ const RowObjectiveInfo = ({ datarow, list, setObjectivesList }) => {
          </div>
        </div>
      </div>
+
             </Dialog>
         </li>
     )

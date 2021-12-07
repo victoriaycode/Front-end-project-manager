@@ -35,6 +35,7 @@ query Proyecto($_id: String!) {
     fechaInicio
     fechaFin
     objetivos {
+      _id
       tipo
       descripcion
     }
@@ -61,20 +62,36 @@ mutation Mutation($nombre: String!, $presupuesto: Float!, $estado: Enum_EstadoPr
     presupuesto
     fechaCreacion
     objetivos{
+      
       tipo
       descripcion
     }
   }
 }`;
 const CREATE_NEW_OBJECTIVE = gql`
-mutation CrearObjetivo($idProyecto: String!, $campos: camposObjetivo!) {
-  crearObjetivo(idProyecto: $idProyecto, campos: $campos) {
+mutation Mutation($idProyecto: String!, $tipo: String!, $descripcion: String!) {
+  crearObjetivo(idProyecto: $idProyecto, tipo: $tipo, descripcion: $descripcion) {
     _id
+    
+  }
+}`;
+const EDIT_NEW_OBJECTIVE = gql`
+mutation Mutation($idProyecto: String!, $indexObjetivo: Int!, $campos: camposObjetivo!) {
+  editarObjetivo(idProyecto: $idProyecto, indexObjetivo: $indexObjetivo, campos: $campos) {
+    _id
+    nombre
     objetivos {
       _id
       descripcion
       tipo
     }
+  }
+}`;
+const DELETE_OBJECTIVE = gql`
+mutation Mutation($idProyecto: String!, $idObjetivo: String!) {
+  eliminarObjetivo(idProyecto: $idProyecto, idObjetivo: $idObjetivo) {
+    _id
+    
   }
 }`;
 const EDIT_PROJECT_BY_LIDER = gql`
@@ -86,4 +103,5 @@ mutation EditarProyectoPorLider($idProyecto: String!, $nombre: String, $presupue
   }
 }`;
 
-export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,EDIT_PROJECT_BY_LIDER,GET_PROJECTS_BY_LIDER ,CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE};
+export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,EDIT_PROJECT_BY_LIDER,GET_PROJECTS_BY_LIDER ,
+  CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE,EDIT_NEW_OBJECTIVE,DELETE_OBJECTIVE};

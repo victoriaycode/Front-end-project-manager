@@ -1,15 +1,48 @@
 
+import { useMutation } from '@apollo/client';
 import { TextareaAutosize } from '@material-ui/core';
+import { CREATE_NEW_OBJECTIVE } from 'graphql/proyectos/queries';
 import React from 'react'
 
 import { useState, useEffect } from 'react';
-const Create_objective_modal = ({setOpenEditObj}) => {
+const Create_objective_modal = ({setOpenEditObj, idProyecto}) => {
   const [newType, setnewType] = useState("")
     const [newDescripObj, setNewDescripObj] = useState("")
-    const crearObjective=()=>{
-      console.log("tp", newType);
-      console.log("desc",newDescripObj);
-    }
+    
+    
+
+    const [addNewObjetive, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
+    useMutation(CREATE_NEW_OBJECTIVE);
+
+    const createNewObjetive = async () => {
+      console.log("Guardando")
+      if(newType!=="" && newDescripObj!==""){
+         
+          let tipo=newType;
+          let descripcion= newDescripObj;
+        
+          let g= {  newType,newDescripObj };
+          console.log(g);
+        
+          let added= await addNewObjetive({
+              variables: { idProyecto, tipo,descripcion },
+            });
+            console.log("added objective",added);
+            setOpenEditObj(false);
+      }else{
+          console.error("Error creando avance. Escriba de nuevo", errorMutation);
+      }
+  }; useEffect(() => {
+
+    console.log("error", errorMutation);
+
+   
+}, [errorMutation]);
+
+
+    
+  
+if (loadingMutation) return <div>Cargando....</div>;
     return (
     
         <div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-20">
@@ -41,7 +74,7 @@ const Create_objective_modal = ({setOpenEditObj}) => {
                                     </div>
           <div class="flex justify-end items-center w-100 border-t p-3">
            
-            <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 h-10 rounded-2xl text-white" onClick={()=>crearObjective()}>Confirmar</button>
+            <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 h-10 rounded-2xl text-white" onClick={()=>createNewObjetive()}>Confirmar</button>
             <button className="bg-gray-600 hover:bg-gray-700 px-3 py-1 h-10 rounded-2xl rounded text-white mr-1 close-modal ml-3" onClick={()=>setOpenEditObj(false)}>Cancelar</button>
           </div>
         </div>
