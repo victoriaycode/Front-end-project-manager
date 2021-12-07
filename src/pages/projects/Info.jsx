@@ -1,12 +1,12 @@
-import { useQuery } from '@apollo/client';
+import { useQuery ,useMutation} from '@apollo/client';
 import { Dialog, TextareaAutosize, Tooltip } from '@material-ui/core';
 import Create_objective_modal from 'components/Create_objective_modal';
 import ProjectNavbar from 'components/ProjectNavbar';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
 
 
-import RowObjective from 'components/RowObjective'
 import RowObjectiveInfo from 'components/RowObjectiveInfo';
-import { GET_PROJECT_INFO } from 'graphql/proyectos/queries';
+import { GET_PROJECT_INFO ,EDIT_PROJECT_BY_LIDER} from 'graphql/proyectos/queries';
 import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
@@ -17,13 +17,19 @@ const Info = () => {
     const [objectives_list, setObjectivesList] = useState([]);
     const [editObjective, setEditObjective] = useState(false);
     const [editName, setEditName] = useState(false);
+    const [newName, setNewName] = useState("");
+    const [newBudget, setNewBudget] = useState(0);
     const [editBudget, setEditBudget] = useState(false);
     const [createModal, setCreateModal] = useState(false);
+    
     const { data: infoProject, error, loading } = useQuery(GET_PROJECT_INFO, {
         variables: {
             _id
         },
     });
+    
+  const [editarProjectName, { data: mutationData, loading: mutationLoading, error: mutationError }] =
+  useMutation(EDIT_PROJECT_BY_LIDER);
     const [state_color, changeStateColor] = useState("text-green-500");
     const [fase_color, changeFaseColor] = useState("text-gray-500");
 
@@ -34,7 +40,8 @@ const Info = () => {
             let proj = infoProject.filtrarProyecto;
 
             if (infoProject.filtrarProyecto.estado == "INACTIVO") { changeStateColor("text-red-400") }
-
+            setNewName(infoProject.filtrarProyecto.nombre);
+            setNewBudget(infoProject.filtrarProyecto.presupuesto);
             if (infoProject.filtrarProyecto.fase == "NULO") { changeFaseColor("text-gray-400") }
             if (infoProject.filtrarProyecto.fase == "INICIADO") { changeFaseColor("text-blue-400") }
             if (infoProject.filtrarProyecto.fase == "DESARROLLO") { changeFaseColor("text-yellow-400") }
@@ -46,6 +53,51 @@ const Info = () => {
         }
     }, [infoProject]);
 
+    const editNewTitle=()=>{
+        console.log("editnam", newName);
+        let idProyecto=infoProject.filtrarProyecto._id;
+        console.log("id", idProyecto);
+        
+        if(newName!==""){
+            
+        const edit = editarProjectName({
+            variables: { idProyecto, "nombre":newName },
+          });
+         
+          console.log("edita",edit);
+        }
+        setEditName(false);
+    }
+    const editNewBudget=()=>{
+        console.log("editbudget", newBudget);
+        let idProyecto=infoProject.filtrarProyecto._id;
+        console.log("id", idProyecto);
+        
+        if(newBudget!=="" ){
+            let presup= parseFloat(newBudget);
+        const edit = editarProjectName({
+            variables: { idProyecto, "presupuesto":presup },
+          });
+         
+          console.log("edita",edit);
+        }
+        setEditBudget(false);
+    }
+    useEffect(() => {
+        if (mutationData) {
+            toast.success("Proyecto editado con éxito");
+          console.log('Proyecto editado correctamente');
+    
+        }
+      }, [mutationData]);
+      useEffect(() => {
+        if (mutationError) {
+          console.log("error", mutationError);
+          toast.error('Error modificando el nombre proyecto');
+        }
+    
+      }, [mutationError]);
+    if(mutationLoading) return <div>Cargando...</div>
     if (loading) return <div>Cargando....</div>;
     return (
         <div className="w-full h-screen  ">
@@ -65,7 +117,8 @@ const Info = () => {
                                         <button className="text-blue-600 hover:text-blue-800  py-1 px-2  transform hover:scale-125 focus" >
                                             <i className="fas fa-edit fa-2x" onClick={() => setEditName(true)}></i></button></Tooltip>)
                                         : (<><Tooltip title='GUARDAR NOMBRE' arrow placement="left">
-                                            <button className="text-blue-600 hover:text-blue-800  py-1 px-2  transform hover:scale-125  focus" >
+                                            <button className="text-blue-600 hover:text-blue-800  py-1 px-2  
+                                            transform hover:scale-125  focus" onClick={()=>editNewTitle()} >
                                                 <i className="fas fa-save fa-2x"></i></button></Tooltip>
                                             <Tooltip title='CANCELAR' arrow placement="right">
                                                 <button className="text-gray-500 hover:text-gray-700 ml-5 py-1  px-2  transform hover:scale-125">
@@ -75,9 +128,18 @@ const Info = () => {
                             </div>
                         </div>
 
-                        <TextareaAutosize disabled={!editName} minRows="1" className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-lg  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
-                            {infoProject.filtrarProyecto.nombre}</TextareaAutosize>
-
+                        {/* {!editName &&   <TextareaAutosize disabled={!editName} minRows="1" className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-lg  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
+                            {infoProject.filtrarProyecto.nombre}</TextareaAutosize>}
+                       {editName &&   <TextareaAutosize disabled={!editName} value={newName} 
+                       onChange={(e) => {
+                            setNewName(e.target.value)}}minRows="1" className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-lg  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
+                            </TextareaAutosize>} */}
+                            {!editName ?   (<TextareaAutosize disabled value={infoProject.filtrarProyecto.nombre} minRows="1" className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-lg  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
+                            </TextareaAutosize>):(<TextareaAutosize disabled={!editName} value={newName} 
+                       onChange={(e) => {
+                            setNewName(e.target.value)}}minRows="1" className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-lg  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
+                            </TextareaAutosize>)}
+                       
 
                     </div>
                     <div className="m-2     ">
@@ -107,10 +169,15 @@ const Info = () => {
                         <div>
                             <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                             <i className="fas fa-funnel-dollar fa-lg"></i>   PRESUPUESTO  $</span>
-                            
-                                <input disabled={!editBudget} defaultValue={infoProject.filtrarProyecto.presupuesto}
+
+                                {editBudget ? (   <input  value={newBudget} onChange={(e) => {
+                            setNewBudget(e.target.value)}}
                                 className="px-2 ml-1 rounded-r-lg bg-white w-32 text-lg  text-gray-600 font-bold p-2 
-                                uppercase border-blue-500 border-t border-b  border-r"></input>
+                                uppercase border-blue-500 border-t border-b  border-r"></input>)
+                                :(   <span 
+                                    className="px-2 ml-1 rounded-r-lg bg-white w-32 text-lg  text-gray-600 font-bold p-2 
+                                    uppercase border-blue-500 border-t border-b  border-r">{infoProject.filtrarProyecto.presupuesto}</span>)}
+                             
                         </div>
 
                         <div className="flex flex-row  -mt-2 justify-end ">
@@ -119,7 +186,7 @@ const Info = () => {
                                     <i className="fas fa-edit fa-2x" onClick={() => setEditBudget(true)}></i></button></Tooltip>)
                                 : (<><Tooltip title='GUARDAR PRESUPUESTO' arrow placement="bottom">
                                     <button className="text-blue-600 hover:text-blue-800  py-1 px-2  
-                                    transform hover:scale-125 ml-2 focus" >
+                                    transform hover:scale-125 ml-2 focus" onClick={() => editNewBudget()}>
                                         <i className="fas fa-save fa-2x"></i></button></Tooltip>
                                     <Tooltip title='CANCELAR' arrow placement="right">
                                         <button className="text-gray-500 hover:text-gray-700 ml-2 py-1  px-2  transform hover:scale-125">
@@ -197,6 +264,12 @@ const Info = () => {
             <Dialog open={createModal}>
                 <Create_objective_modal setOpenEditObj={setCreateModal}></Create_objective_modal>
             </Dialog>
+            <ToastContainer rtl
+        position="top-center"
+        autoClose={2000}
+        transition={Zoom}
+        limit={1}
+      />
         </div>
     )
 }

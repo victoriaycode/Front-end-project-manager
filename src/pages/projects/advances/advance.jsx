@@ -30,6 +30,7 @@ const Advance = () => {
 
   const [editarAvance, { data: mutationData, loading: mutationLoading, error: mutationError }] =
     useMutation(EDIT_ADVANCE_BY_STUDENT);
+    
   const submitForm = (e) => {
     e.preventDefault();
     console.log("formdata", formData);

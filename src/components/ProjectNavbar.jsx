@@ -36,7 +36,7 @@ const ProjectNavbar = ({_idActual,rutaRetorno}) => {
               : 'text-gray-600 border-b-4 '
           } >
           <button className="py-4 px-6 mx-2 block hover:text-blue-800 focus:outline-none   font-medium ">
-            <i class="far fa-file-alt"></i>   Avances
+            <i className="far fa-file-alt"></i>   Avances
           </button>
         </NavLink>
 

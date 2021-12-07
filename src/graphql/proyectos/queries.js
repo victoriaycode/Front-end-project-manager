@@ -77,4 +77,13 @@ mutation CrearObjetivo($idProyecto: String!, $campos: camposObjetivo!) {
     }
   }
 }`;
-export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,GET_PROJECTS_BY_LIDER ,CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE};
+const EDIT_PROJECT_BY_LIDER = gql`
+mutation EditarProyectoPorLider($idProyecto: String!, $nombre: String, $presupuesto: Float) {
+  editarProyectoPorLider(idProyecto: $idProyecto, nombre: $nombre, presupuesto: $presupuesto) {
+    _id
+    nombre
+    presupuesto
+  }
+}`;
+
+export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,EDIT_PROJECT_BY_LIDER,GET_PROJECTS_BY_LIDER ,CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE};
