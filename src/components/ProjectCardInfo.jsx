@@ -1,16 +1,19 @@
 import { useMutation } from '@apollo/client';
-import { CardContent, Dialog } from '@material-ui/core';
+import {  Dialog, Zoom } from '@material-ui/core';
 import { EDIT_PROJECT_BY_ADMIN } from 'graphql/proyectos/queries';
 import React from 'react'
 import { useState , useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
+import { ToastContainer,toast } from 'react-toastify';
+import Edit_project_admin_modal from './Edit_project_admin';
 
-const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => {
+const ProjectCardInfo = ({project_info,setOpenModalEnroll}) => {
    
     const [aprobarModal, setAprobarModal]= useState(false);
     
     const [editModal, setEditModal]= useState(false);
 
+    var dateNow = new Date().toISOString().slice(0, 14);
   const [editarProjectAdmin, { data: mutationData, loading: mutationLoading, error: mutationError }] =
   useMutation(EDIT_PROJECT_BY_ADMIN);
 
@@ -29,10 +32,7 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => 
     }
     let user= "ADMINISTRADOR";
     
-    // const [paraAprobar, setParaAprobar]=useState(false);
-    // if (card.estado=="INACTIVO" && card.fase=="NULO"){
-    //     setParaAprobar(true);
-    // }
+    
     
     const aprobarProyecto=async()=>{
         console.log("aprobar");
@@ -40,7 +40,7 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => 
         console.log("idProyecto", idProyecto);
   
         const edit = editarProjectAdmin({
-            variables: { idProyecto, "estado":"ACTIVO","fase":"INICIADO" },
+            variables: { idProyecto, "estado":"ACTIVO","fase":"INICIADO", "fechaInicio":dateNow },
           });
          setAprobarModal(false);
           console.log("edita",edit);
@@ -76,31 +76,30 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => 
                     <NavLink
                         to={`/proyectos/proyecto/${card._id}`}  >
 
-                        <button className="p-2 pl-4 pr-4 bg-transparent border-2 border-blue-200
-                 text-gray-400 text-xs rounded-lg hover:text-blue-500 
-                  hover:border-blue-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300  " >Ver</button>
+<button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
+                    text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
+                    focus:border-4 focus:border-blue-300 font-mono text-sm"  >Ver</button>
                     </NavLink>
                     {user==="ESTUDIANTE" &&
-                    <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
-                 text-gray-400 text-xs rounded-lg  hover:text-blue-500 
-                  hover:border-blue-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEnroll(true)}>Inscribirse</button>
+                    <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
+                    text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
+                    focus:border-4 focus:border-blue-300 font-mono text-sm" onClick={() => setOpenModalEnroll(true)}>Inscribirse</button>
                
             }
                 {user==="ADMINISTRADOR" &&
                 <>
-                    <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
-                    text-gray-400 text-xs rounded-lg  hover:text-blue-500 
-                     hover:border-blue-500 text-ms font-bold
-                    focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEdit(true)}>Editar</button>
-                   { (card.estado==="INACTIVO" && card.fase==="NULO") 
-                   && <button className="p-2 pl-4 pr-4 ml-2 bg-transparent 
-                   border-2 border-blue-200 text-gray-400 text-xs rounded-lg  hover:text-blue-500 
-                 hover:border-blue-500 text-ms font-bold
-                focus:border-4 focus:border-blue-300" onClick={() => setAprobarModal(true)}>APROBAR</button>
-                
+                 { (card.estado==="INACTIVO" && card.fase==="NULO") 
+                   ? (<button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
+                   text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
+                   focus:border-4 focus:border-blue-300 font-mono text-sm"  onClick={() => setAprobarModal(true)}>APROBAR</button>
+                   ):(
+
+                    <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
+                    text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
+                    focus:border-4 focus:border-blue-300 font-mono text-sm" onClick={() => setEditModal(true)}>EDITAR</button>
+                   )
                  }
+                  
             </>
             }
                 </div>
@@ -133,9 +132,13 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => 
         
                     </Dialog>
                     
-                    <Dialog open={editProjectModal}>
+                    <Dialog open={editModal}>
+                        <Edit_project_admin_modal  idProyecto= {card._id} initialState={card.estado}
+                        nombreProyecto={card.nombre} fechaInicio={card.fechaInicio} fechaFin={card.fechaFin} initialFase={card.fase} setOpenModalEdit={setEditModal}/>
+
                         
                     </Dialog>
+           
             </div>
             
            

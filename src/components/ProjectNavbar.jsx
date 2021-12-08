@@ -2,7 +2,7 @@ import React from 'react'
 
 import { NavLink } from 'react-router-dom'
 
-const ProjectNavbar = ({_idActual,rutaRetorno}) => {
+const ProjectNavbar = ({_idActual,rutaRetorno,nombreProject}) => {
   const _id= _idActual;
   
   return (
@@ -10,22 +10,23 @@ const ProjectNavbar = ({_idActual,rutaRetorno}) => {
      
       <NavLink to={rutaRetorno}
       >
-        <button className="text-blue-800 py-4 px-4 block hover:text-blue-400 hover:bg-gray-200 focus:outline-none font-medium border-blue-800 rounded-full h-14 w-14 align-center justify-center">
+        <button className="text-blue-800 py-4 px-4 block hover:text-blue-400 hover:bg-gray-200 focus:outline-none font-medium border-blue-800 rounded-full h-14 w-14 align-center justify-center ">
           <i className="fas fa-angle-left fa-2x"></i> </button>
       </NavLink>
 
-      <span className="text-lg text-blue-800 text-2xl ml-2 mr-5 pt-2 font-bold "> Proyecto  
-        <span className="text-lg text-blue-800 text-sm ml-2 mr-5 pt-2 font-bold "> #    {_idActual} </span></span>
+      <span className="text-lg text-blue-800 text-sm ml-2 mr-5 pt-2 font-bold "> Proyecto  
+        <span className="text-lg text-blue-800 text-2xl ml-2 mr-5 pt-2 font-bold ">{nombreProject}</span></span>
 
 
-      <nav class="flex flex-col sm:flex-row ml-5 text-lg gap-1">
+      <nav className="flex flex-col sm:flex-row ml-5 text-lg gap-1 ml-30">
         <NavLink to={`/proyectos/proyecto/${_id}`}
           className={({ isActive }) =>
             isActive
               ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
               : 'text-gray-600 border-b-4 '
           }>
-          <button className=" py-4 px-6 block hover:text-blue-800 focus:outline-none  font-medium">
+      
+          <button className=" py-4 px-6 block hover:text-blue-800 focus:outline-none  font-medium ">
             <i className="fas fa-info-circle"></i> Información
           </button>
         </NavLink>

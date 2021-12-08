@@ -98,9 +98,12 @@ mutation EditarProyectoPorLider($idProyecto: String!, $nombre: String, $presupue
   }
 }`;
 const EDIT_PROJECT_BY_ADMIN = gql`
-mutation EditarProyectoPorAdmin($idProyecto: String!, $estado: Enum_EstadoProyecto, $fase: Enum_FaseProyecto) {
-  editarProyectoPorAdmin(idProyecto: $idProyecto, estado: $estado, fase: $fase) {
+
+mutation EditarProyectoPorAdmin($idProyecto: String!, $estado: Enum_EstadoProyecto, $fase: Enum_FaseProyecto, $fechaInicio: Date, $fechaFin: Date) {
+  editarProyectoPorAdmin(idProyecto: $idProyecto, estado: $estado, fase: $fase, fechaInicio: $fechaInicio, fechaFin: $fechaFin) {
     _id
+    fechaInicio
+    fechaFin
     estado
     fase
   }

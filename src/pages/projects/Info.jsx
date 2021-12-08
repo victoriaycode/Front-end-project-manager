@@ -107,7 +107,7 @@ const Info = () => {
     if (loading) return <div>Cargando....</div>;
     return (
         <div className="w-full h-screen  ">
-            <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'} />
+            <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'} nombreProject={infoProject.filtrarProyecto.nombre}/>
             <div className=" h-screen flex flex-rows px-2  mb-5 mt-2" >
 
                 <div className="bg-white h-auto   py-2 px-4 align-center rounded-2xl mt-1  flex flex-col
