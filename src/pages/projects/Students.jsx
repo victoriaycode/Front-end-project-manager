@@ -103,7 +103,7 @@ const Students = () => {
                             </div>
                         </div>
                      
-                        <div className=" w-full  h-96  overflow-x-auto overflow-y-scroll ">
+                        <div className=" w-full  h-full  overflow-x-auto overflow-y-scroll ">
                             <table className="items-center bg-transparent w-full border-collapse ">
                                 <thead   >
                                     <tr>
