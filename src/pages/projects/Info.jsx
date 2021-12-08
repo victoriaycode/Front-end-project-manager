@@ -10,7 +10,6 @@ import { GET_PROJECT_INFO ,EDIT_PROJECT_BY_LIDER} from 'graphql/proyectos/querie
 import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
-import { CREATE_NEW_OBJECTIVE } from 'graphql/proyectos/queries';
 
 const Info = () => {
 
@@ -30,7 +29,7 @@ const Info = () => {
     });
     
 
-  const [editarProjectName, { data: mutationData, loading: mutationLoading, error: mutationError }] =
+  const [editarProjectLider, { data: mutationData, loading: mutationLoading, error: mutationError }] =
   useMutation(EDIT_PROJECT_BY_LIDER);
     const [state_color, changeStateColor] = useState("text-green-500");
     const [fase_color, changeFaseColor] = useState("text-gray-500");
@@ -56,14 +55,14 @@ const Info = () => {
         }
     }, [infoProject]);
 
-    const editNewTitle=()=>{
+    const editNewTitle=async()=>{
         console.log("editnam", newName);
         let idProyecto=infoProject.filtrarProyecto._id;
         console.log("id", idProyecto);
         
         if(newName!==""){
             
-        const edit = editarProjectName({
+        const edit = editarProjectLider({
             variables: { idProyecto, "nombre":newName },
           });
          
@@ -71,14 +70,14 @@ const Info = () => {
         }
         setEditName(false);
     }
-    const editNewBudget=()=>{
+    const editNewBudget=async()=>{
         console.log("editbudget", newBudget);
         let idProyecto=infoProject.filtrarProyecto._id;
         console.log("id", idProyecto);
         
         if(newBudget!=="" ){
             let presup= parseFloat(newBudget);
-        const edit = editarProjectName({
+        const edit = editarProjectLider({
             variables: { idProyecto, "presupuesto":presup },
           });
          
@@ -263,7 +262,8 @@ const Info = () => {
 
                             {infoProject && infoProject.filtrarProyecto.objetivos.map((objetivo) => {
                                 return (<RowObjectiveInfo key={nanoid()}      
-                                  idProyecto={infoProject.filtrarProyecto._id} setDeleted={setDeletedObjModal} editEnable={editObjective} datarow={objetivo} />);
+                                  idProyecto={infoProject.filtrarProyecto._id} setDeleted={setDeletedObjModal} editEnable={editObjective} 
+                                  datarow={objetivo}  />);
                             })}
                         </ul>
                     </div> </div>

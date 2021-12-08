@@ -1,15 +1,43 @@
 
+import { useMutation } from '@apollo/client';
 import { TextareaAutosize } from '@material-ui/core';
+import { EDIT_OBJECTIVE } from 'graphql/proyectos/queries';
 import React from 'react'
 
 import { useState, useEffect } from 'react';
-const Edit_objective_modal = ({index,setOpenEditObj,tipo, descrip}) => {
+const Edit_objective_modal = ({index,setOpenEditObj,tipo, descrip,idProyecto}) => {
   const [newType, setnewType] = useState(tipo)
     const [newDescripObj, setNewDescripObj] = useState(descrip)
-    const editarObjective=()=>{
+
+    const [editarObjetivo, { data: mutationData, loading: mutationLoading, error: mutationError }] =
+    useMutation(EDIT_OBJECTIVE);
+
+    const editObjective=()=>{
       console.log("tp", newType);
       console.log("desc",newDescripObj);
+      let indexObjetivo=index;
+      let tipo= newType;
+      let descripcion=newDescripObj;
+      if(newDescripObj!==""){
+      let g={ idProyecto, indexObjetivo,tipo,descripcion};
+      console.log("g",g);
+      const edit = editarObjetivo({
+        variables: { idProyecto, indexObjetivo,tipo,descripcion },
+      });
+      console.log("edit obj", edit);
     }
+  }
+      
+    
+    
+
+  useEffect(() => {
+
+    console.log("error", mutationError);
+
+   
+}, [mutationError]);
+  if (mutationLoading) return <div>Cargando....</div>;
     return (
     
         <div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-20">
@@ -40,7 +68,7 @@ const Edit_objective_modal = ({index,setOpenEditObj,tipo, descrip}) => {
                                     </div>
           <div class="flex justify-end items-center w-100 border-t p-3">
            
-            <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 h-10 rounded-2xl text-white" onClick={()=>editarObjective()}>Confirmar</button>
+            <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 h-10 rounded-2xl text-white" onClick={()=>editObjective()}>Confirmar</button>
             <button className="bg-gray-600 hover:bg-gray-700 px-3 py-1 h-10 rounded-2xl rounded text-white mr-1 close-modal ml-3" onClick={()=>setOpenEditObj(false)}>Cancelar</button>
           </div>
         </div>

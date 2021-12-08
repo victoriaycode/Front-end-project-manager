@@ -1,10 +1,18 @@
+import { useMutation } from '@apollo/client';
+import { CardContent, Dialog } from '@material-ui/core';
+import { EDIT_PROJECT_BY_ADMIN } from 'graphql/proyectos/queries';
 import React from 'react'
 import { useState , useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 
 const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => {
    
-   
+    const [aprobarModal, setAprobarModal]= useState(false);
+    
+    const [editModal, setEditModal]= useState(false);
+
+  const [editarProjectAdmin, { data: mutationData, loading: mutationLoading, error: mutationError }] =
+  useMutation(EDIT_PROJECT_BY_ADMIN);
 
     //const [openModal, setOpenModal] = useState(false);
     const card = project_info;
@@ -20,6 +28,25 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => 
       
     }
     let user= "ADMINISTRADOR";
+    
+    // const [paraAprobar, setParaAprobar]=useState(false);
+    // if (card.estado=="INACTIVO" && card.fase=="NULO"){
+    //     setParaAprobar(true);
+    // }
+    
+    const aprobarProyecto=async()=>{
+        console.log("aprobar");
+        let idProyecto=card._id;
+        console.log("idProyecto", idProyecto);
+  
+        const edit = editarProjectAdmin({
+            variables: { idProyecto, "estado":"ACTIVO","fase":"INICIADO" },
+          });
+         setAprobarModal(false);
+          console.log("edita",edit);
+        }
+       
+   
     return (
         <>
         
@@ -59,14 +86,56 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll,setOpenModalEdit}) => 
                  text-gray-400 text-xs rounded-lg  hover:text-blue-500 
                   hover:border-blue-500 text-ms font-bold
                  focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEnroll(true)}>Inscribirse</button>
-                }
+               
+            }
                 {user==="ADMINISTRADOR" &&
+                <>
                     <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
-                 text-gray-400 text-xs rounded-lg  hover:text-blue-500 
-                  hover:border-blue-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEdit(true)}>Editar</button>
-                }
+                    text-gray-400 text-xs rounded-lg  hover:text-blue-500 
+                     hover:border-blue-500 text-ms font-bold
+                    focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEdit(true)}>Editar</button>
+                   { (card.estado==="INACTIVO" && card.fase==="NULO") 
+                   && <button className="p-2 pl-4 pr-4 ml-2 bg-transparent 
+                   border-2 border-blue-200 text-gray-400 text-xs rounded-lg  hover:text-blue-500 
+                 hover:border-blue-500 text-ms font-bold
+                focus:border-4 focus:border-blue-300" onClick={() => setAprobarModal(true)}>APROBAR</button>
+                
+                 }
+            </>
+            }
                 </div>
+            
+            
+<Dialog open={aprobarModal} >
+                
+                <div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-20">
+               
+               <div className="bg-white rounded shadow-lg w-1/3  ">
+             
+                 <div className="border-b px-4 py-2 flex justify-between items-center">
+                   <h3 className="font-semibold text-blue-800 text-xl"> Proyecto: {card.nombre}</h3>
+                   <button className="text-black hover:text-blue-700" onClick={()=>setAprobarModal(false)}><i class="far fa-times-circle fa-2x"></i></button>
+                 </div>
+               
+                 <div className="w-full flex flex-col px-4 py-2">
+                 <h3 className="font-semibold text-blue-800 text-xl mb-2"> ¿Desea aprobar este proyecto?</h3>
+                                             <span className="text-base "> Su estado será 
+                                             <span className="text-gray-800  font-semibold"> ACTIVO</span> y su fase será 
+                                             <span className="text-gray-800  font-semibold"> INICIADO</span></span>
+                                           </div>
+                 <div class="flex justify-end items-center w-100 border-t p-3">
+                  
+                   <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 h-10 rounded-2xl text-white" onClick={()=>aprobarProyecto()}>Si, aprobar</button>
+                   <button className="bg-gray-600 hover:bg-gray-700 px-3 py-1 h-10 rounded-2xl rounded text-white mr-1 close-modal ml-5" onClick={()=>setAprobarModal(false)}>Cancelar</button>
+                 </div>
+               </div>
+             </div>
+        
+                    </Dialog>
+                    
+                    <Dialog open={editProjectModal}>
+                        
+                    </Dialog>
             </div>
             
            

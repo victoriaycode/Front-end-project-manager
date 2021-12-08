@@ -32,7 +32,8 @@ const Create_objective_modal = ({setOpenEditObj, idProyecto}) => {
       }else{
           console.error("Error creando avance. Escriba de nuevo", errorMutation);
       }
-  }; useEffect(() => {
+  }; 
+  useEffect(() => {
 
     console.log("error", errorMutation);
 

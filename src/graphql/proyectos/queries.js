@@ -75,16 +75,11 @@ mutation Mutation($idProyecto: String!, $tipo: String!, $descripcion: String!) {
     
   }
 }`;
-const EDIT_NEW_OBJECTIVE = gql`
-mutation Mutation($idProyecto: String!, $indexObjetivo: Int!, $campos: camposObjetivo!) {
-  editarObjetivo(idProyecto: $idProyecto, indexObjetivo: $indexObjetivo, campos: $campos) {
+const EDIT_OBJECTIVE = gql`
+mutation Mutation($idProyecto: String!, $indexObjetivo: Int!, $tipo: String!, $descripcion: String!) {
+  editarObjetivo(idProyecto: $idProyecto, indexObjetivo: $indexObjetivo, tipo: $tipo, descripcion: $descripcion) {
     _id
-    nombre
-    objetivos {
-      _id
-      descripcion
-      tipo
-    }
+    
   }
 }`;
 const DELETE_OBJECTIVE = gql`
@@ -102,6 +97,15 @@ mutation EditarProyectoPorLider($idProyecto: String!, $nombre: String, $presupue
     presupuesto
   }
 }`;
-
-export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,EDIT_PROJECT_BY_LIDER,GET_PROJECTS_BY_LIDER ,
-  CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE,EDIT_NEW_OBJECTIVE,DELETE_OBJECTIVE};
+const EDIT_PROJECT_BY_ADMIN = gql`
+mutation EditarProyectoPorAdmin($idProyecto: String!, $estado: Enum_EstadoProyecto, $fase: Enum_FaseProyecto) {
+  editarProyectoPorAdmin(idProyecto: $idProyecto, estado: $estado, fase: $fase) {
+    _id
+    estado
+    fase
+  }
+}`;
+export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,
+  EDIT_PROJECT_BY_LIDER,EDIT_PROJECT_BY_ADMIN,
+  GET_PROJECTS_BY_LIDER ,
+  CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE,EDIT_OBJECTIVE,DELETE_OBJECTIVE};

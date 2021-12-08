@@ -16,6 +16,7 @@ const RowObjectiveInfo = ({ datarow, list, setObjectivesList ,idProyecto,setDele
    
     const [borrarObjetivo, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
     useMutation(DELETE_OBJECTIVE);
+    
     const deleteObjective = async() => {
         console.log("borrando objetivo");
         console.log("borrar", {datarow});
@@ -89,7 +90,7 @@ const RowObjectiveInfo = ({ datarow, list, setObjectivesList ,idProyecto,setDele
                     </>)} */}
 
 <Dialog open={editModal}>
-                <Edit_objective_modal  setOpenEditObj={setEditModal} index= {datarow.row} tipo={tipo} descrip={descripcionRow}></Edit_objective_modal>
+                <Edit_objective_modal  setOpenEditObj={setEditModal} idProyecto= {idProyecto} index= {datarow.row} tipo={tipo} descrip={descripcionRow}></Edit_objective_modal>
             </Dialog>
             
 <Dialog open={deleteModal}>
