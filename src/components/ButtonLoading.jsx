@@ -9,7 +9,7 @@ const ButtonLoading = ({ className, disabled, loading, text, onClick=()=>{} }) =
       type='submit'
       className={className}
     >
-      {loading ? <ReactLoading type='spin' height={30} width={30} /> : text}
+      {loading ? <ReactLoading type='spin' height={20} width={20} /> : text}
     </button>
   );
 };
