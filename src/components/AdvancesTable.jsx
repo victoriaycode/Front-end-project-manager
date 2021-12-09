@@ -81,6 +81,7 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
       setListAdvances(data.filtrarAvance);
       
       setFilteredList(data.filtrarAvance);
+      console.log(filteredList);
     }
   }, [data]);
 
@@ -184,7 +185,7 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
             </thead>
 
             <tbody>
-            {data.filtrarAvance && data.filtrarAvance.map((avance) => {
+            {data && filteredList.map((avance) => {
               return (
                 <RowAdvanceInfo  key={nanoid()} advanceInfo={avance} />
               );
