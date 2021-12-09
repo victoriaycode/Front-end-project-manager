@@ -125,13 +125,7 @@ const ProjectsList = () => {
     if (!loading) {
       setListProjects(dataProjects.Proyectos);
       setFilteredList(dataProjects.Proyectos);
-      // if(role="LIDER"){
-      //   const lista= listProjects.filter((el) => el.lider._id ===idLider );
-      //   setListProjectsLider(lista);
-      //   console.log("listalider",lista);
-      // }else{
-
-      // }
+     
     }
     console.log('data servidor', dataProjects);
 
@@ -157,9 +151,10 @@ const ProjectsList = () => {
     <div className="w-full h-full flex flex-col  overflow-y-hidden overflow-x-hidden pl-20 pr-20" >
       <NavLink to="/proyectos/nuevo">
         <div className="flex flex-row w-full  justify-end align-center mr-20  ">
-          {/* {!openModalEdit && 
-                <button className="p-2 pl-5 pr-5 z-30 absolute top-5 right-30 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
-             focus:border-4 focus:border-blue-300" >Nuevo</button>} */}
+          
+              {!openModalEdit && 
+                <button className="p-2 pl-5 pr-5 z-30 absolute  top-8 right-30 bg-white shadow border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
+             focus:border-4 focus:border-blue-300" >Nuevo</button>}
         </div></NavLink>
 
       <div className="relative h-20 mt-4 pl-8  flex flex-row  w-full align-center  
@@ -197,7 +192,7 @@ const ProjectsList = () => {
               {!viewOnlyStudent || role == "LIDER" &&
                 <div className="relative">
 
-                  <input type="text" className="h-12 w-72 pr-8 pl-5   rounded-2xl z-0 focus:shadow focus:outline-none"
+                  <input type="text" className="h-12 w-72 pr-8 pl-5  border-gray-200 rounded-2xl z-0 focus:shadow focus:outline-none"
                     value={searchBy} onChange={(e) => setSearchBy(e.target.value)} placeholder="Buscar por nombre proyecto" />
                   <div className="absolute top-3 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
                   </div>
@@ -207,11 +202,12 @@ const ProjectsList = () => {
             {!viewOnlyStudent || role === "LIDER" &&
               <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-4 ml-2">
                 <div className="flex flex-rows-2 relative align-center justify-center  bg-white rounded-2xl ">
-                  <select value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg text-gray-400 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-100" defaultValue="recent">
+                  <select value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg 
+                  text-gray-600 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-200" defaultValue="recent">
 
 
-                    <option className="text-gray-400" value="older">Más antiguos</option>
-                    <option className="text-gray-400" value="recent">Más recientes </option>
+                    <option className="text-gray-700" value="older">Más antiguos</option>
+                    <option className="text-gray-700" value="recent">Más recientes </option>
 
                   </select>
                 </div>
@@ -256,6 +252,13 @@ const ProjectsList = () => {
 
 
             </>}
+            {/* {role === "LIDER" &&
+            <div className="flex flex-col  w-70 h-60 bg-white   shadow-xl p-4  rounded-2xl transform transition duration-200 hover:scale-110  ">
+              <div className="flex flex-col  ">
+                <span>Crear nuevo Proyecto</span>
+              </div>
+            </div>
+            } */}
 
           {role === "LIDER" &&
             <>

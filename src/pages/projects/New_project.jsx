@@ -123,7 +123,9 @@ const New_project = () => {
                                 <div className="flex flex-row gap-4 justify-end  py-4 px-10">
                                     <button type="submit" className="p-1 pl-4 pr-4  
                                     bg-blue-500 border-2 border-blue-500 font-bold text-white text-lg rounded-lg hover:bg-blue-600 hover:text-white  focus:border-4 " >Guardar</button>
-                                    <button type="reset" className="p-1 pl-4 pr-4   bg-transparent border-2 border-blue-500 font-bold text-blue-500 text-lg rounded-lg hover:bg-blue-600 hover:text-white  focus:border-4 " >Cancelar</button>
+                                    <NavLink to={`/proyectos/`}>
+                                    <button type="button" className="p-1 pl-4 pr-4   bg-transparent border-2 border-blue-500 font-bold text-blue-500 text-lg rounded-lg hover:bg-blue-600 
+                                    hover:text-white  focus:border-4 " >Cancelar</button></NavLink>
                                 </div></div>
 
                             
