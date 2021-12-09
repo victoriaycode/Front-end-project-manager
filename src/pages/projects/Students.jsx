@@ -27,21 +27,6 @@ const Students = () => {
         }
     }, [data]);
 
-    const students_list = [ 
- 
-    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-
-    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-
-    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-
-    {"identificacion":"23231232","nombre": "Camilo Fausto", "correo": "camilofausto1@gmail.com", "estado": "No Aprobado" },
-
-
-    ]
-
     const [editable, setEditable] = useState(false)
 
     const RowStudentInfo = ({ enroll }) => {
@@ -112,7 +97,7 @@ const Students = () => {
                 <div className="rounded-t mb-0 px-4 py-3 border-0">
                             <div className="flex flex-wrap items-center ">
                                 <div className="relative w-full px-2 max-w-full flex-grow flex-1   ">
-                                    <h3 className="font-semibold text-base text-gray-500">Mostrando {students_list.length}  estudiantes en el proyecto </h3>
+                                    <h3 className="font-semibold text-base text-gray-500">Mostrando {studentsList.length}  estudiantes en el proyecto </h3>
                                 
                                 </div>
                                 {/* {editable ? (<button onClick={() => setEditable(!editable)} className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400

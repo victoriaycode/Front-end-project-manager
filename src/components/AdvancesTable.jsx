@@ -1,7 +1,6 @@
 
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import New_date from './New_date';
 import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries'
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
@@ -20,6 +19,8 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
     const [sortBy, setSortedBy]=useState("older");
     
     const [searchBy, setSearchBy]= useState();
+    
+    const role= "ESTUDIANTE";
     
     useEffect(() => {
 
@@ -155,10 +156,11 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
                   hover:border-gray-500 text-ms font-bold
                  focus:border-4 focus:border-blue-300 transform transition duration-300 ">Nuevo Avance</button>
   </NavLink>*/}
+   {role==="ESTUDIANTE" && <>
    <button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
                  text-blue-400 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
                   hover:border-gray-500 text-base font-bold
-                 focus:border-4 focus:border-blue-300 transform transition duration-300 "onClick={()=>{setModal(true)}}>Nuevo Avance</button>
+                 focus:border-4 focus:border-blue-300 transform transition duration-300 "onClick={()=>{setModal(true)}}>Nuevo Avance</button></>}
           </div>
         </div>
 

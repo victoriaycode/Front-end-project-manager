@@ -25,42 +25,11 @@ const Advance = () => {
 
   const [input_bg, setInputBg] = useState("bg-gray-50");
   const [newCommentary, setNewCommentary] = useState(false);
-  const role= "estudiante";
+  
+  const role= "ESTUDIANTE";
   const { form, formData, updateFormData } = useFormData(null);
 
-  const [editarAvance, { data: mutationData, loading: mutationLoading, error: mutationError }] =
-    useMutation(EDIT_ADVANCE_BY_STUDENT);
-    
-  const submitForm = (e) => {
-    e.preventDefault();
-    console.log("formdata", formData);
-    if (formData.titulo !== "" && formData.descripcion !== "") {
 
-      const edit = editarAvance({
-        variables: { _idAvance, ...formData },
-      });
-
-
-      setEditable(false);
-      console.log("edit ", edit);
-
-
-
-    }
-  };
-  useEffect(() => {
-    if (mutationData) {
-      console.log('Avance modificado correctamente');
-
-    }
-  }, [mutationData]);
-  useEffect(() => {
-    if (mutationError) {
-      console.log("error", mutationError);
-      toast.error('Error modificando el avance');
-    }
-
-  }, [mutationError]);
 
   const { data, error, loading, refetch } = useQuery(GET_ADVANCE_BY_ID, {
     variables: {
@@ -99,8 +68,43 @@ const Advance = () => {
 
   }, [editable])
 
+  const [editarAvance, { data: mutationData, loading: mutationLoading, error: mutationError }] =
+    useMutation(EDIT_ADVANCE_BY_STUDENT);
+    
+  const submitForm = (e) => {
+    e.preventDefault();
+    console.log("formdata", formData);
+    if (formData.titulo !== "" && formData.descripcion !== "") {
 
+      const edit = editarAvance({
+        variables: { _idAvance, ...formData },
+      });
+
+
+      setEditable(false);
+      console.log("edit ", edit);
+
+
+
+    }
+  };
+  useEffect(() => {
+    if (mutationData) {
+      console.log('Avance modificado correctamente');
+
+    }
+  }, [mutationData]);
+  useEffect(() => {
+    if (mutationError) {
+      console.log("error", mutationError);
+      toast.error('Error modificando el avance');
+    }
+
+  }, [mutationError]);
   if (loading) return <div>Cargando....</div>;
+  
+  if (mutationLoading) return <div>Cargando....</div>;
+
 
   return (
     <div className="w-full h-full overflow-y-hidden pb-4">
@@ -122,15 +126,16 @@ const Advance = () => {
             Avance # {_idAvance}
           </span>
 
+          {role==="ESTUDIANTE"  && data && data.filtrarAvancePorId.creadoPor._id==="61a95aebeb450051e9c2dc10" &&
           <div className="flex flex-row align-center ">
 
             {editable  ? (<div >   <button type="submit" className="p-1  pl-5 pr-5 ml-10 flex-end m-2 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" disabled={Object.keys(formData).length === 0}>Guardar</button>
                <button className="p-1 pl-5 pr-5 ml-10 flex-end m-2 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" onClick={() => setEditable(false)}>Cancelar</button></div>)
-              : (<>{role==="estudiante" && <button className="p-1 pl-5 pr-5  ml-10 flex-end m-2 mb-3 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
+              : (<>{<button className="p-1 pl-5 pr-5  ml-10 flex-end m-2 mb-3 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" onClick={() => setEditable(true)} >Editar</button>}</>)}
-          </div>
+          </div>}
 
         </div>
 
@@ -160,17 +165,17 @@ const Advance = () => {
                     <div className="w-full py-2 px-10 flex flex-row">
                       <span className="text-gray-500 text text-lg font-medium mt-4">Descripción : </span>
 
-                      {editable ? (<TextareaAutosize name="descripcion" defaultValue={advance.descripcion} minRows="3 " type="text"
+                      {editable ? (<TextareaAutosize minRows="2" name="descripcion" defaultValue={advance.descripcion} minRows="3 " type="text"
                         className={`h-10 w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 focus:outline-none ${input_bg}`}>
                       </TextareaAutosize>)
                         : (
-                          <p
-                            className={`h-30 break-all w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 focus:outline-none ${input_bg}`}>
+                          <p 
+                            className={`h-24 break-all w-5/6 mx-5 px-10 py-2 ml-10 rounded-2xl z-0 focus:outline-none ${input_bg}`}>
                             {advance.descripcion} </p>)}
 
                     </div>
 
-                    <div className="w-full py-2 px-10 text-sm flex flex-row align-center justify-end ">
+                    <div className="w-full py-2 px-10 text-sm flex flex-row align-center justify-center ">
                       <div>
                         <span className="text-gray-500 text   font-light mt-4">
                           Estudiante:
@@ -182,7 +187,7 @@ const Advance = () => {
                       </div>
 
                       <div>
-                        <span className="text-gray-500  mt-4 ml-20 ">
+                        <span className="text-gray-500  mt-4  ">
                           Fecha de creación:
                           <input type="text" disabled
                             className={`text-gray-500 bg-white  text-lg p-2 pl-4 font-medium mt-4  rounded-2xl z-0 focus:outline-none`}
@@ -206,14 +211,14 @@ const Advance = () => {
           <div className="w-full   my-5 px-4  py-5 px-16 border-solid border-gray-300 border-t-2">
             <div className="w-full flex flex-row justify-start py-2  mx-5">
               <span className="text-lg text-blue-800 text-2xl font-bold  " >Observaciones</span>
-
+                {role==="LIDER" && <>
               {!newCommentary &&
                 <button className="p-1 ml-20 mr-10  bg-transparent border-2 border-blue-500  
 text-blue-500 text-sm rounded-lg hover:bg-blue-600 
   hover:text-white  
 focus:border-4 "
                   onClick={() => setNewCommentary(true)}
-                >Añadir nueva</button>}
+                >Añadir nueva</button>}</>}
             </div>
 
 
