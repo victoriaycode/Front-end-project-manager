@@ -3,12 +3,12 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import useFormData from 'hooks/useFormData';  
+import useFormData from 'hooks/useFormData';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RowObjective from 'components/RowObjective';
 import { useMutation } from '@apollo/client';
-import { CREATE_NEW_PROJECT ,CREATE_NEW_OBJECTIVE} from 'graphql/proyectos/queries';
+import { CREATE_NEW_PROJECT } from 'graphql/proyectos/queries';
 
 const New_project = () => {
     const [addObjective, setAddObjective] = useState(false)
@@ -23,84 +23,60 @@ const New_project = () => {
     const nombre_lider = "Victoria Yuan";
     const [numRow, setNumberRow] = useState(0);
 
-    const [createProject, { data:createdata, loading, error }] =
-    useMutation(CREATE_NEW_PROJECT);
-    
-    const [addNewObjetive, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
-    useMutation(CREATE_NEW_OBJECTIVE);
-    
+    const [createProject, { data: createdata, loading, error }] =
+        useMutation(CREATE_NEW_PROJECT);
+
+
     const { form, formData, updateFormData } = useFormData(null);
-    const submitForm = async(e) => {
+    const submitForm = async (e) => {
         e.preventDefault();
-        
-            const objetivos   = objectives_list.map(function(ele) {
-                return {"descripcion":ele.descripcion,"tipo": ele.tipo} ;
-              });
-              console.log("obj",objetivos);
-         formData.objetivos=[objetivos];
-        //    console.log("obj lista",formData.objetivos);
-         formData.objetivos = Object.values(objetivos);
-        
-        formData.lider=lider;
-        let presup= parseFloat(formData.presupuesto);
-        formData.presupuesto=presup;
+
+        const objetivos = objectives_list.map(function (ele) {
+            return { "descripcion": ele.descripcion, "tipo": ele.tipo };
+        });
+        formData.objetivos = [objetivos];
+        formData.objetivos = Object.values(objetivos);
+
+        formData.lider = lider;
+        let presup = parseFloat(formData.presupuesto);
+        formData.presupuesto = presup;
         console.log("formdata", formData);
-        const creado= createProject({
+         createProject({
             variables: { ...formData },
-          });
-        //   if(!loading){
-        //     let idProyecto= creado.crearProyecto._id;
-        //     crearObjetivos(objetivos,idProyecto);
-        //   }
-        //   if(objectives_list!=[] && !loading){
-        //     let lista= objectives_list.map(function(ele) {
-        //         return {"tipo": ele.tipo,"descripcion":ele.descripcion} ;
-        //       });
-        //       let idProyecto= creado.crearProyecto._id;
-        //       lista.forEach(element => {
-        //         createObjetive({
-        //             variables: { idProyecto,"tipo":element.tipo, "descripcion":element.descripcion },
-        //           });  
-        //       });
-        //   }
-       
+        });
+
+
     };
-    const crearObjetivos=async(objetivos, idProyecto)=>{
-        objetivos.forEach(element => console.log("el",element));
-        console.log("id",idProyecto);
-        // let added= await addNewObjetive({
-        //     variables: { idProyecto, tipo,descripcion },
-        //   });
-    }
+
     useEffect(() => {
         if (createdata) {
-          toast.success('Proyecto agregado co éxito');
-          console.log("projecto agregado",createdata);
+            toast.success('Proyecto agregado co éxito');
+            console.log("projecto agregado", createdata);
         }
-      }, [createdata]);
-      
-      useEffect(() => {
-          if(!loading){
-          }
-          console.log("Error", error);
-      }, [error]);
-    
-      if (loading) return <div>Cargando....</div>;
-   
+    }, [createdata]);
+
+    useEffect(() => {
+        if (!loading) {
+        }
+        console.log("Error", error);
+    }, [error]);
+
+    if (loading) return <div>Cargando....</div>;
 
 
-   
-   
+
+
+
     const AddNewObjective = () => {
 
-       
+
         if (newDescripObj != "" && newType != "") {
             let newRow = numRow;
             let nuevo = { "tipo": newType, "descripcion": newDescripObj, "row": newRow };
             objectives_list.push(nuevo);
             setObjectivesList(objectives_list);
             setNumberRow(numRow + 1);
-           
+
         }
     }
 
@@ -133,11 +109,11 @@ const New_project = () => {
                                     <button type="submit" className="p-1 pl-4 pr-4  
                                     bg-blue-500 border-2 border-blue-500 font-bold text-white text-lg rounded-lg hover:bg-blue-600 hover:text-white  focus:border-4 " >Guardar</button>
                                     <NavLink to={`/proyectos/`}>
-                                    <button type="button" className="p-1 pl-4 pr-4   bg-transparent border-2 border-blue-500 font-bold text-blue-500 text-lg rounded-lg hover:bg-blue-600 
+                                        <button type="button" className="p-1 pl-4 pr-4   bg-transparent border-2 border-blue-500 font-bold text-blue-500 text-lg rounded-lg hover:bg-blue-600 
                                     hover:text-white  focus:border-4 " >Cancelar</button></NavLink>
                                 </div></div>
 
-                            
+
 
                         </div>
                         <div className="bg-white  w-full py-2 px-4 align-center rounded-2xl flex flex-row gap-2 border-solid border-2 border-gray-300">
@@ -159,31 +135,31 @@ const New_project = () => {
                                             <span className="px-2 ml-20 text-blue-500 font-semibold text-lg">ID LIDER</span>
                                             <input disabled type="text" name="lider" className="h-10  ml-10 px-5  rounded-xl z-0 focus:outline-none
                                      bg-white border-2 border-gray-300" defaultValue={id_lider}></input>
-                                        </div> 
-                                        
-                                        
                                         </div>
-                                    
-                                    <div className="flex flex-row justify-around mt-4 pr-8">
-                                <div>
-                                    <span className="px-2 text-blue-500 font-semibold text-lg ml-3">ESTADO</span>
-                                    <input readOnly type="text" name="estado" className="h-10  ml-10 px-10  rounded-xl z-0 focus:outline-none
-                                     bg-white border-2 border-gray-300" defaultValue="INACTIVO"></input>
-                                </div>
-                                <div>
-                                    <span className="px-2 ml-20 text-blue-500 font-semibold text-lg">FASE</span>
-                                    <input readOnly type="text" name="fase" className="h-10  ml-10 px-5  rounded-xl z-0 focus:outline-none
-                                     bg-white border-2 border-gray-300" defaultValue="NULO"></input>
-                                </div>
-                                <div>
-                                    <span className="px-2 ml-20 text-blue-500 font-semibold text-lg">Fecha Creación</span>
-                                    <input readOnly type="text"  className="h-10  ml-10 px-5  rounded-xl z-0 focus:outline-none
-                                     bg-white border-2 border-gray-300" defaultValue={date}></input>
-                                </div>
-                            </div>
-                            <div className="w-full py-2 px-8 flex flex-row  justify-between gap-8 text-lg">
 
-                                    <div className="w-full py-2  flex flex-row  text-lg">
+
+                                    </div>
+
+                                    <div className="flex flex-row justify-around mt-4 pr-8">
+                                        <div>
+                                            <span className="px-2 text-blue-500 font-semibold text-lg ml-3">ESTADO</span>
+                                            <input readOnly type="text" name="estado" className="h-10  ml-10 px-10  rounded-xl z-0 focus:outline-none
+                                     bg-white border-2 border-gray-300" defaultValue="INACTIVO"></input>
+                                        </div>
+                                        <div>
+                                            <span className="px-2 ml-20 text-blue-500 font-semibold text-lg">FASE</span>
+                                            <input readOnly type="text" name="fase" className="h-10  ml-10 px-5  rounded-xl z-0 focus:outline-none
+                                     bg-white border-2 border-gray-300" defaultValue="NULO"></input>
+                                        </div>
+                                        <div>
+                                            <span className="px-2 ml-20 text-blue-500 font-semibold text-lg">Fecha Creación</span>
+                                            <input readOnly type="text" className="h-10  ml-10 px-5  rounded-xl z-0 focus:outline-none
+                                     bg-white border-2 border-gray-300" defaultValue={date}></input>
+                                        </div>
+                                    </div>
+                                    <div className="w-full py-2 px-8 flex flex-row  justify-between gap-8 text-lg">
+
+                                        <div className="w-full py-2  flex flex-row  text-lg">
                                             <label htmlFor="Presupuesto" className="text-gray-500  font-semibold  font-medium ">
                                                 PRESUPUESTO:
                                             </label>
@@ -193,8 +169,8 @@ const New_project = () => {
                                                 value={budget} onChange={(e) => setBudget(e.target.value)} />
 
                                         </div>
-                                     
-                                        
+
+
                                     </div>
                                 </div>
                             </div>  </div>
@@ -257,13 +233,13 @@ const New_project = () => {
 
                 </div>
                 <ToastContainer rtl
-        position="top-center"
-        autoClose={2000}
-        
-        limit={1}
-      />
-                </div>
-                </div>
+                    position="top-center"
+                    autoClose={2000}
+
+                    limit={1}
+                />
+            </div>
+        </div>
     )
 }
 
