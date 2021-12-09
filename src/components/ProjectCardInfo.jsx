@@ -8,7 +8,7 @@ import { ToastContainer,toast } from 'react-toastify';
 import Edit_project_admin_modal from './Edit_project_admin';
 import Enroll_modal from './Enroll_modal';
 
-const ProjectCardInfo = ({project_info}) => {
+const ProjectCardInfo = ({project_info,already_enrolled}) => {
     
     const [aprobarModal, setAprobarModal]= useState(false);
     
@@ -43,7 +43,7 @@ const ProjectCardInfo = ({project_info}) => {
     colorFase="yellow"
   
 }
-    let user= "LIDER";
+    let user= "ADMINISTRADOR";
     
     
     
@@ -97,7 +97,7 @@ const ProjectCardInfo = ({project_info}) => {
                     focus:border-4 focus:border-blue-300 text-base"  ><i className="far fa-eye fa-lg"></i> Ver</button>
                     </NavLink>
 
-                    { user==="ESTUDIANTE" &&
+                    { user==="ESTUDIANTE" && !already_enrolled &&
                     <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
                     focus:border-4 focus:border-blue-300  text-sm" onClick={() => setEnrollModal(true)}><i class="fas fa-check-double"></i> Inscribirse</button>

@@ -22,7 +22,7 @@ const ProjectsList = () => {
 
   const idEstudiante = "61a95aebeb450051e9c2dc10";
   const id_lider = "61a955cf355428fe4ece9225";
-  const role = "LIDER";
+  const role = "ADMINISTRADOR";
   const { data: dataProjects, error, loading, refetch } = useQuery(GET_PROJECTS_CARDS);
   const { data: dataStudent, error: errorStudent, loading: loadingStudent }
     = useQuery(GET_STUDENT_PROJECTS_ENROLLED, {
@@ -239,7 +239,9 @@ const ProjectsList = () => {
 
               {viewOnlyStudent && dataStudent && dataStudent.filtrarInscripcionesPorEstudiante.map((project_info) => {
                 return (
-                  <ProjectCardInfo key={project_info.proyecto._id} project_info={project_info.proyecto} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
+                  <ProjectCardInfo key={project_info.proyecto._id} project_info={project_info.proyecto} 
+                  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit}
+                  already_enrolled={true} ></ProjectCardInfo>
                 );
               })}
 
