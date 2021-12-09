@@ -6,12 +6,15 @@ import { useState , useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import { ToastContainer,toast } from 'react-toastify';
 import Edit_project_admin_modal from './Edit_project_admin';
+import Enroll_modal from './Enroll_modal';
 
 const ProjectCardInfo = ({project_info,setOpenModalEnroll}) => {
     
     const [aprobarModal, setAprobarModal]= useState(false);
     
     const [editModal, setEditModal]= useState(false);
+    
+    const [enrollModal, setEnrollModal]= useState(false);
 
     var dateNow = new Date();
     
@@ -97,7 +100,7 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll}) => {
                     { user==="ESTUDIANTE" &&
                     <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
-                    focus:border-4 focus:border-blue-300  text-sm" onClick={() => setOpenModalEnroll(true)}><i class="fas fa-check-double"></i> Inscribirse</button>
+                    focus:border-4 focus:border-blue-300  text-sm" onClick={() => setEnrollModal(true)}><i class="fas fa-check-double"></i> Inscribirse</button>
                
             }
                 { user==="ADMINISTRADOR" &&
@@ -152,7 +155,9 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll}) => {
 
                         
                     </Dialog>
-           
+                    <Dialog open={enrollModal} >
+                      <Enroll_modal setOpenModalEnroll={setEnrollModal} name_project={card.nombre}></Enroll_modal>
+                    </Dialog>
             </div>
             
            

@@ -2,7 +2,6 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import Enroll_modal from '../../components/Enroll_modal'
 import ProjectCardInfo from '../../components/ProjectCardInfo'
-import Search_input from '../../components/Search_input'
 import { NavLink } from 'react-router-dom'
 import Edit_proyect_admin_modal from '../../components/Edit_proyect_admin_modal'
 
@@ -13,13 +12,14 @@ const ProjectsList = () => {
     
     const [listProjects, setListProjects]= useState([]);
     
+    const [filteredList, setFilteredList]= useState([]);
     const [viewOnlyStudent, setViewOnlyStudent]= useState(true);
     
     const [viewToApprove, setViewToApprove]= useState(false);
     const { data, error, loading } = useQuery(GET_PROJECTS_CARDS);
     const idEstudiante= "61a95aebeb450051e9c2dc10";
     const idLider="61a955cf355428fe4ece9225";
-    const [role, setRole]=useState("ESTUDIANTE");
+    const role="ESTUDIANTE";
     const  { data:dataStudent, error:errorStudent, loading:loadingStudent } 
     = useQuery(GET_STUDENT_PROJECTS_ENROLLED, {
       variables: {
@@ -31,8 +31,8 @@ const ProjectsList = () => {
     const [buttonToApprove, setButtonToApprove]=useState("text-blue-800");
     const [buttonTodos, setButtonTodos]=useState("text-gray-700");
     const [buttonTodos2, setButtonTodos2]=useState("text-gray-700");
-    const [filteredList, setFilteredList]= useState([]);
-    const [searchBy, setSearchBy]= useState("");
+
+    const [searchBy, setSearchBy]= useState();
     // const viewStudentEnrolledProjects=()=>{
     //   if(dataStudent!=null){
     //     console.log(dataStudent.filtrarInscripcionesPorEstudiante.Proyectos)
@@ -40,13 +40,16 @@ const ProjectsList = () => {
       
     // }
     useEffect(() => {
-      if(searchBy!=""){
-        setListProjects(
+        
+
+        
+        setFilteredList(
           listProjects.filter((elemento) => {
             return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
           })
         );
-      }
+    
+    
     }, [searchBy,ProjectsList])
     useEffect(() => {
      
@@ -80,6 +83,7 @@ const ProjectsList = () => {
     useEffect(() => {
       if(!loading){
         setListProjects(data.Proyectos);
+        setFilteredList(data.Proyectos);
         // if(role="LIDER"){
         //   const lista= listProjects.filter((el) => el.lider._id ===idLider );
         //   setListProjectsLider(lista);
@@ -116,9 +120,9 @@ const ProjectsList = () => {
              focus:border-4 focus:border-blue-300" >Nuevo</button>} */}
              </div></NavLink>
              
-        <div className="relative h-20 mt-4 pl-8  flex flex-row  w-full align-center justify-center 
+        <div className="relative h-20 mt-4 pl-8  flex flex-row  w-full align-center  
         pt-6  bg-blue-200 bg-opacity-50 pb-4 ">
-            <span className="text-lg text-blue-800 text-3xl ml-2 mr-5 pt-2 font-bold ">Proyectos</span>
+            <span className="text-lg text-blue-800 text-3xl ml-2 mr-5 pt-2 font-bold justify-start ">Proyectos</span>
             <div className="flex flex-col  sm:flex-row ml-5  text-lg gap-10 ">
             
             {role==="ESTUDIANTE" && <>
@@ -130,7 +134,7 @@ const ProjectsList = () => {
           <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
           border-gray-600   hover:border-blue-800 focus:outline-none border-b-4 transition duration-150 ${buttonTodos}`}
             onClick={()=>setViewOnlyStudent(false)}>
-            <i className="fas fa-info-circle "></i> Ver Todos
+            <i className="fas fa-info-circle "></i> Explorar Otros 
           </button></>}
           {role==="ADMINISTRADOR" && <>
       
@@ -148,18 +152,20 @@ const ProjectsList = () => {
             <div className="flex flex-row  flex-center">
           
         <div className="  flex justify-center items-center px-2 sm:px-4 ml-14">
+        {!viewOnlyStudent && 
             <div className="relative"> 
-            <input type="text" className="h-12 w-70 pr-8 pl-5 rounded-2xl z-0 focus:shadow focus:outline-none"
-              value={searchBy}onChange={(e) => setSearchBy(e.target.value)}  placeholder="Buscar " />
+           
+            <input type="text" className="h-12 w-72 pr-8 pl-5   rounded-2xl z-0 focus:shadow focus:outline-none"
+              value={searchBy}onChange={(e) => setSearchBy(e.target.value)}  placeholder="Buscar por nombre proyecto" />
                 <div className="absolute top-3 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
                 </div>
-            </div>
+            </div>}
 
         </div>
-            
-            <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-8 ml-8">
+        {!viewOnlyStudent && 
+            <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-4 ml-2">
                     <div className="flex flex-rows-2 relative align-center justify-center  bg-white rounded-2xl ">
-                        <select className="h-10 w-48 pr-8 pl-5 text-lg text-gray-400 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-100" defaultValue="recent">
+                        <select   className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg text-gray-400 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-100" defaultValue="recent">
                            
                             <option className="text-gray-400" value="recent">Más recientes </option>
                             <option className="text-gray-400" value="older">Más antiguos</option>
@@ -167,7 +173,7 @@ const ProjectsList = () => {
                         
                         </select>
                     </div>
-                    </div>
+                    </div>}
             </div>
             
             </div>
@@ -180,12 +186,12 @@ const ProjectsList = () => {
                  pt-2 align-center justify-center ">
                    
                    {role==="ADMINISTRADOR" &&  data &&
-                    <> { !viewToApprove && data && listProjects.map((project_info) => {
+                    <> { !viewToApprove && data && filteredList.map((project_info) => {
               return (
                 <ProjectCardInfo key={project_info._id} project_info={project_info}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
               );
             })}
-            { viewToApprove && data && listProjects.filter((el) => (el.estado ==="INACTIVO" && el.fase==="NULO") ).map((project_info) => {
+            { viewToApprove && data && filteredList.filter((el) => (el.estado ==="INACTIVO" && el.fase==="NULO") ).map((project_info) => {
               return (
                 <ProjectCardInfo key={project_info._id} project_info={project_info}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
               );
@@ -200,7 +206,7 @@ const ProjectsList = () => {
               );
             })} 
 
-            { !viewOnlyStudent  && data && listProjects.map((project_info) => {
+            { !viewOnlyStudent  && data && filteredList.map((project_info) => {
               return (
                 <ProjectCardInfo key={project_info._id} project_info={project_info}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
               );
@@ -209,9 +215,9 @@ const ProjectsList = () => {
            
             </>}
             
-                      { role==="LIDER" && data &&
+                      { role==="LIDER" &&
                       <>
-{ listProjects.filter((el) => el.lider._id ===idLider ).map((project_info) => {
+{data && filteredList.filter((el) => el.lider._id ===idLider ).map((project_info) => {
               return (
                 <ProjectCardInfo key={project_info.proyecto._id} project_info={project_info.proyecto}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
               );
@@ -232,9 +238,9 @@ const ProjectsList = () => {
 
                 </div> */}
             </div>
-            {
+            {/* {
                 openModalEnroll && <Enroll_modal project_name={"proyect1"} setOpenModalEnroll={setOpenModalEnroll}></Enroll_modal>
-            }
+            } */}
              {
                 openModalEdit &&  <Edit_proyect_admin_modal project_id={"2312323"} setOpenModalEdit={setOpenModalEdit}></Edit_proyect_admin_modal>
             }
