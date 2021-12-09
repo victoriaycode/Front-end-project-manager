@@ -14,7 +14,37 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
       idProject},});
       
     const [listAdvances,setListAdvances]=useState([]);
+    
+    const [filteredList, setFilteredList]= useState([]);
 
+    const [sortBy, setSortedBy]=useState("older");
+    
+    const [searchBy, setSearchBy]= useState();
+    
+    useEffect(() => {
+
+      if(searchBy!=null){
+
+      setFilteredList(
+        listAdvances.filter((elemento) => {
+          return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
+        })
+      );
+    }
+  
+  }, [searchBy,listAdvances])
+  
+  useEffect(() => {
+    console.log("sort", sortBy);
+      if(filteredList!==null){
+
+    
+      const lista= filteredList.slice(0).reverse();
+      console.log("sort", lista);
+      setFilteredList(lista);  
+    }      
+  
+  }, [sortBy])
     //  useEffect(() => {
     //   if(loading){
        
@@ -49,6 +79,8 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
     if (data) {
 
       setListAdvances(data.filtrarAvance);
+      
+      setFilteredList(data.filtrarAvance);
     }
   }, [data]);
 
@@ -82,6 +114,33 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
     )
   }
   return (
+
+    <div>
+   <div className="flex flex-row  ml-0 justify-start mt-8">
+       
+   <div className="  flex justify-center items-center px-2 sm:px-4 ml-14">
+        
+            <div className="relative"> 
+           
+            <input type="text" className="h-12 w-72 pr-8 pl-5   rounded-2xl z-0 focus:shadow focus:outline-none"
+              value={searchBy}onChange={(e) => setSearchBy(e.target.value)}  placeholder="Buscar por nombre proyecto" />
+                <div className="absolute top-3 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
+                </div>
+            </div>
+
+        </div>
+   <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-8 mr-16">
+         <div className="flex flex-rows-2 relative align-center justify-center  bg-white rounded-2xl ">
+         <select   value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg text-gray-400 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-100" defaultValue="recent">
+                           
+                            
+                           <option className="text-gray-400" value="older">Más antiguos</option>
+                           <option className="text-gray-400" value="recent">Más recientes </option>
+                       
+                       </select>
+         </div>
+     </div>
+     </div>
     <div className="w-full xl:w-12/12 mb-12 xl:mb-0 px-10 mx-auto mt-10">
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
         <div className="rounded-t mb-0 px-4 py-3 border-0">
@@ -136,6 +195,8 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
         </div>
       </div>
     </div>
+    </div>
+    
   )
 }
 

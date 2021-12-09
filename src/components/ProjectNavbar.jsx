@@ -6,7 +6,7 @@ const ProjectNavbar = ({_idActual,rutaRetorno,nombreProject}) => {
   const _id= _idActual;
   
   return (
-    <div className="z-20 sticky top-0 h-14 flex flex-row bg-gray-100 w-full align-center justify-start mt-5 ">
+    <div className="z-20 sticky top-0 h-14 flex flex-row bg-gray-100 w-full align-center  mt-5 ">
      
       <NavLink to={rutaRetorno}
       >
@@ -14,11 +14,11 @@ const ProjectNavbar = ({_idActual,rutaRetorno,nombreProject}) => {
           <i className="fas fa-angle-left fa-2x"></i> </button>
       </NavLink>
 
-      <span className="text-lg text-blue-800 text-sm ml-2 mr-5 pt-4 font-bold "> Proyecto  
-        <span className="text-lg text-blue-800 text-2xl ml-2 mr-5 pt-2 font-bold ">{nombreProject}</span></span>
+      <p className="text-lg truncate w-96 text-blue-800 text-sm ml-2 mr-5 pt-4 font-bold ">  
+        <span className="text-lg  text-blue-800 text-2xl ml-2 mr-5 pt-2 font-bold ">{nombreProject}</span></p>
 
 
-      <nav className="flex flex-col sm:flex-row ml-5 text-lg gap-3 ml-30">
+      <nav className="flex flex-col sm:flex-row ml-5 text-lg gap-3  ml-40">
         <NavLink to={`/proyectos/proyecto/${_id}`}
           className={({ isActive }) =>
             isActive

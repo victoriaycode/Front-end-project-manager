@@ -14,7 +14,7 @@ const ProjectsList = () => {
     
     const [filteredList, setFilteredList]= useState([]);
     const [viewOnlyStudent, setViewOnlyStudent]= useState(true);
-    
+    const [sortBy, setSortedBy]=useState("older");
     const [viewToApprove, setViewToApprove]= useState(false);
     const { data, error, loading } = useQuery(GET_PROJECTS_CARDS);
     const idEstudiante= "61a95aebeb450051e9c2dc10";
@@ -39,8 +39,11 @@ const ProjectsList = () => {
     //   }
       
     // }
+
     useEffect(() => {
         
+
+        if(searchBy!=null){
 
         
         setFilteredList(
@@ -48,9 +51,22 @@ const ProjectsList = () => {
             return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
           })
         );
-    
+      }
     
     }, [searchBy,ProjectsList])
+
+    useEffect(() => {
+      console.log("sort", sortBy);
+        if(filteredList!==null){
+
+      
+        const lista= filteredList.slice(0).reverse();
+        console.log("sort", lista);
+        setFilteredList(lista);  
+      }      
+    
+    }, [sortBy])
+
     useEffect(() => {
      
      if(viewOnlyStudent ){
@@ -76,7 +92,7 @@ const ProjectsList = () => {
        
      }, [viewToApprove]);
     useEffect(() => {
-     
+      
       console.log('data estudiante', dataStudent);
       
     }, [dataStudent]);
@@ -121,7 +137,7 @@ const ProjectsList = () => {
              </div></NavLink>
              
         <div className="relative h-20 mt-4 pl-8  flex flex-row  w-full align-center  
-        pt-6  bg-blue-200 bg-opacity-50 pb-4 ">
+        pt-6  bg-gray-100 bg-opacity-50 pb-4 ">
             <span className="text-lg text-blue-800 text-3xl ml-2 mr-5 pt-2 font-bold justify-start ">Proyectos</span>
             <div className="flex flex-col  sm:flex-row ml-5  text-lg gap-10 ">
             
@@ -165,11 +181,11 @@ const ProjectsList = () => {
         {!viewOnlyStudent && 
             <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-4 ml-2">
                     <div className="flex flex-rows-2 relative align-center justify-center  bg-white rounded-2xl ">
-                        <select   className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg text-gray-400 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-100" defaultValue="recent">
+                        <select   value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg text-gray-400 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-100" defaultValue="recent">
                            
-                            <option className="text-gray-400" value="recent">Más recientes </option>
+                            
                             <option className="text-gray-400" value="older">Más antiguos</option>
-                            <option  className="text-gray-400" value="alfabetic" >Por nombre</option>
+                            <option className="text-gray-400" value="recent">Más recientes </option>
                         
                         </select>
                     </div>
@@ -238,9 +254,7 @@ const ProjectsList = () => {
 
                 </div> */}
             </div>
-            {/* {
-                openModalEnroll && <Enroll_modal project_name={"proyect1"} setOpenModalEnroll={setOpenModalEnroll}></Enroll_modal>
-            } */}
+         
              {
                 openModalEdit &&  <Edit_proyect_admin_modal project_id={"2312323"} setOpenModalEdit={setOpenModalEdit}></Edit_proyect_admin_modal>
             }
