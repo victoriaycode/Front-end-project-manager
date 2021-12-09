@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import Enroll_modal from '../../components/Enroll_modal'
 import ProjectCardInfo from '../../components/ProjectCardInfo'
 import { NavLink } from 'react-router-dom'
 import Edit_proyect_admin_modal from '../../components/Edit_proyect_admin_modal'
