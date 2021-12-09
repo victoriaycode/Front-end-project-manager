@@ -1,30 +1,30 @@
 import React, {useEffect, useState} from 'react'
 import { useQuery } from '@apollo/client';
 import { GET_USUARIOS} from 'graphql/usuarios/queries';
-//import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import ModalAutorizarUsuario from 'components/ModalAutorizarUsuario'
 import PrivateRoute from 'components/PrivateRoute';
-//import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
+import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 
 const UsersDashboard = () => {
-
-  const { data, error, loading } = useQuery(GET_USUARIOS);
-
+  console.log('ANTES DEL QUERY DE USUARIOS');
+  const { data, error, loading } =  useQuery(GET_USUARIOS);
+  console.log('data usuarios:', data);
   const [openModal, setOpenModal] = useState(false);
   const [idUsuario, setIDUsuario] = useState('');
-  console.log('data usuarios:', data);
+  
   
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (error) {
       toast.error('Error consultando los usuarios');
     }
-  }, [error]);*/
+  }, [error]);
 
   if (loading) return <div>Cargando....</div>;
 
   return (
-  //  <PrivateRoute roleList={['ESTUDIANTE']}>
+  <PrivateRoute roleList={['ADMINISTRADOR','LIDER']} stateUser={'AUTORIZADO'}>
     <div className="w-full h-full flex flex-col overflow-y-hidden " >
   <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6">
       <span className="text-lg text-blue-800 text-3xl ml-8  font-bold">Usuarios</span>
@@ -67,7 +67,7 @@ const UsersDashboard = () => {
                
             </div>
 
-            <div className="flex w-full h-full items-start justify-center align-center mt-8 pl-10 pr-10"> 
+            <div className="flex w-full h-full items-start justify-center align-center mt-8 pl-10 pr-10 overflow-x-auto overflow-y-scroll"> 
                 
                 <table className='tabla'>
                   <thead>
@@ -88,8 +88,8 @@ const UsersDashboard = () => {
                         <td>{u.apellido}</td>
                         <td>{u.identificacion}</td>
                         <td>{u.correo}</td>
-                        <td>{u.rol}</td>
-                        <td>{u.estado}</td>
+                        <td>{Enum_Rol[u.rol]}</td>
+                        <td>{Enum_EstadoUsuario[u.estado]}</td>
                         <td> 
                           <i onClick={() => {
                             setIDUsuario(u._id) 
@@ -110,7 +110,7 @@ const UsersDashboard = () => {
                 </table>
             </div>
     </div>
-  //  </PrivateRoute>
+   </PrivateRoute>
   )
 }
 

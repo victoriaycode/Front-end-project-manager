@@ -7,13 +7,13 @@ import Switch from 'components/switch';
 const ModalAutorizarUsuario = ({setOpenModal,_id}) => {
     
      const {data: queryData,error: queryError,loading: queryLoading,} = useQuery(GET_USUARIO, {
+     
         variables: { _id,  },
       });
-
+      console.log('data usuario: ',queryData)
       const [autorizar, setAutorizar] = useState(false);
       const [state, setState] = useState('PENDIENTE');
-      const [checkedSwitch, setCheckedSwitch] = useState(false);
-
+      const [posicionSwitch, setPosicionSwitch] = useState(false);
       
 
       const [editarUsuario, { data: mutationData, loading: mutationLoading, error: mutationError }] =
@@ -31,6 +31,15 @@ const ModalAutorizarUsuario = ({setOpenModal,_id}) => {
             }
         })
     }
+
+    useEffect(() => {
+        if (state==='AUTORIZADO') {
+          setPosicionSwitch(true)
+        }else if(state==='NO_AUTORIZADO'){
+            setPosicionSwitch(false)
+        }
+      }, [state]);
+
     
         useEffect(() => {
         if (autorizar===true){
@@ -62,7 +71,7 @@ const ModalAutorizarUsuario = ({setOpenModal,_id}) => {
                         <label>Rol:{queryData.Usuario.rol}</label>
                         <label>Estado:{queryData.Usuario.estado}</label>
                     </div>
-                    <Switch autorizar={autorizar} setAutorizar={setAutorizar}></Switch>
+                    <Switch autorizar={autorizar} setAutorizar={setAutorizar} posicionSwitch={posicionSwitch}></Switch>
                     
                 </div>
                 <div className="flex justify-end items-center w-100 border-t p-3">

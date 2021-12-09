@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from 'context/authContext';
 import { useNavigate } from 'react-router';
+import PrivateComponent from './PrivateComponent'
 
 const SidebarLinks = () => {
 
     return (
       <ul className="flex flex-col space-y-2 w-full items-center pt-5 mt-10">
         
-      <SidebarRoute1 to='/inicio' title='Inicio' icon="fas fa-home fa-lg"/>
-      <SidebarRoute1 to='/proyectos' title='Proyectos' icon="fas fa-folder fa-lg"/>
-      <SidebarRoute1 to='/usuarios' title='Usuarios' icon="fas fa-users fa-lg"/>
-      <SidebarRoute1 to='/mi_perfil' title='Mi Perfil' icon="fas fa-user-cog fa-lg"/>
+      <PrivateComponent roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE']} stateUser={'AUTORIZADO'}>
+        <SidebarRoute1 to='/inicio' title='Inicio' icon="fas fa-home fa-lg"/>
+        <SidebarRoute1 to='/proyectos' title='Proyectos' icon="fas fa-folder fa-lg"/>
+        <PrivateComponent roleList={['ADMINISTRADOR','LIDER']} stateUser={'AUTORIZADO'}>
+          <SidebarRoute1 to='/usuarios' title='Usuarios' icon="fas fa-users fa-lg"/>
+        </PrivateComponent>
+        <SidebarRoute1 to='/mi_perfil' title='Mi Perfil' icon="fas fa-user-cog fa-lg"/>
+      </PrivateComponent>
      
       </ul>
     );

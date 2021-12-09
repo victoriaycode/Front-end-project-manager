@@ -23,11 +23,15 @@ import Advance from 'pages/projects/advances/Advance';
 import New_project from 'pages/projects/New_project';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import My_projects from 'pages/projects/My_projects';
-// import PrivateRoute from 'components/PrivateRoute';
+import PrivateRoute from 'components/PrivateRoute';
 
+
+//const httpLink = createHttpLink({
+  //uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
+//});
 
 const httpLink = createHttpLink({
-  uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
+  uri: 'http://localhost:4000/graphql',
 });
 
 //doc. apollo client
@@ -75,6 +79,7 @@ function App() {
         identificacion: decoded.identificacion,
         correo: decoded.correo,
         rol: decoded.rol,
+        estado: decoded.estado,
       });
     }
   }, [authToken]);
