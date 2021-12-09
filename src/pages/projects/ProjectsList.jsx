@@ -27,9 +27,10 @@ const ProjectsList = () => {
       },
     });
    
-    const [buttonEstudiante, setButtonEstudiante]=useState("text-blue-800");
+    const [buttonEstudiante, setButtonEstudiante]=useState("text-gray-800");
     const [buttonToApprove, setButtonToApprove]=useState("text-blue-800");
-    const [buttonTodos, setButtonTodos]=useState("text-gray-800");
+    const [buttonTodos, setButtonTodos]=useState("text-gray-700");
+    const [buttonTodos2, setButtonTodos2]=useState("text-gray-700");
     const [filteredList, setFilteredList]= useState([]);
     const [searchBy, setSearchBy]= useState("");
     // const viewStudentEnrolledProjects=()=>{
@@ -50,22 +51,24 @@ const ProjectsList = () => {
     useEffect(() => {
      
      if(viewOnlyStudent ){
-      setButtonEstudiante("text-blue-800 border-blue-800" );
       setButtonTodos("text-gray-800 border-gray-600");
+      setButtonEstudiante("text-blue-800 border-blue-800" );
+     
      }else{
       setButtonEstudiante("text-gray-800 border-gray-600");
       setButtonTodos("text-blue-800 border-blue-800");
      }
       
     }, [viewOnlyStudent]);
+
     useEffect(() => {
      
       if(viewToApprove ){
        setButtonToApprove("text-blue-800 border-blue-800" );
-       setButtonTodos("text-gray-800 border-gray-600");
+       setButtonTodos2("text-gray-800 border-gray-600");
       }else{
         setButtonToApprove("text-gray-800 border-gray-600");
-       setButtonTodos("text-blue-800 border-blue-800");
+       setButtonTodos2("text-blue-800 border-blue-800");
       }
        
      }, [viewToApprove]);
@@ -119,11 +122,12 @@ const ProjectsList = () => {
             <div className="flex flex-col  sm:flex-row ml-5  text-lg gap-10 ">
             
             {role==="ESTUDIANTE" && <>
-          <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium text-gray-600 
-          border-gray-600  focus:outline-none hover:border-blue-800 border-b-4 transition duration-150 ${buttonEstudiante}`} onClick={()=>setViewOnlyStudent(true)}>
+          <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
+          border-gray-600  focus:outline-none hover:border-blue-800 border-b-4 transition duration-150 ${buttonEstudiante}`} 
+          onClick={()=>setViewOnlyStudent(true)}>
             <i className="fas fa-info-circle w-auto" ></i> Mis Inscritos
           </button>
-          <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium text-gray-600 
+          <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
           border-gray-600   hover:border-blue-800 focus:outline-none border-b-4 transition duration-150 ${buttonTodos}`}
             onClick={()=>setViewOnlyStudent(false)}>
             <i className="fas fa-info-circle "></i> Ver Todos
@@ -131,7 +135,7 @@ const ProjectsList = () => {
           {role==="ADMINISTRADOR" && <>
       
           <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium text-gray-600 
-          border-gray-600   hover:border-blue-800 focus:outline-none border-b-4 transition duration-150 ${buttonTodos}`}
+          border-gray-600   hover:border-blue-800 focus:outline-none border-b-4 transition duration-150 ${buttonTodos2}`}
             onClick={()=>setViewToApprove(false)}>
             <i className="fas fa-info-circle "></i> Ver Todos
           </button>
@@ -175,8 +179,8 @@ const ProjectsList = () => {
                 t-0 gap-y-8  gap-x-8
                  pt-2 align-center justify-center ">
                    
-                     
-                   { !viewToApprove && data && listProjects.map((project_info) => {
+                   {role==="ADMINISTRADOR" &&  data &&
+                    <> { !viewToApprove && data && listProjects.map((project_info) => {
               return (
                 <ProjectCardInfo key={project_info._id} project_info={project_info}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
               );
@@ -185,26 +189,36 @@ const ProjectsList = () => {
               return (
                 <ProjectCardInfo key={project_info._id} project_info={project_info}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
               );
-            })}
-
-                {/**For students view all projects and only enrolled */}
-                        {role==="ESTUDIANTE" && !viewOnlyStudent  && data && listProjects.map((project_info) => {
-              return (
-                <ProjectCardInfo key={project_info._id} project_info={project_info}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
-              );
-            })}
-          
-           
- {role==="ESTUDIANTE" && viewOnlyStudent && dataStudent && dataStudent.filtrarInscripcionesPorEstudiante.map((project_info) => {
+            })}  </>}
+    {/**For students view all projects and only enrolled */}
+            {role==="ESTUDIANTE" &&  
+            <>
+            
+ {viewOnlyStudent  && dataStudent &&  dataStudent.filtrarInscripcionesPorEstudiante.map((project_info) => {
               return (
                 <ProjectCardInfo key={project_info.proyecto._id} project_info={project_info.proyecto}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
               );
             })} 
-{(role==="LIDER" && data) && listProjects.filter((el) => el.lider._id ===idLider ).map((project_info) => {
+
+            { !viewOnlyStudent  && data && listProjects.map((project_info) => {
+              return (
+                <ProjectCardInfo key={project_info._id} project_info={project_info}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
+              );
+            })}
+            
+           
+            </>}
+            
+                      { role==="LIDER" && data &&
+                      <>
+{ listProjects.filter((el) => el.lider._id ===idLider ).map((project_info) => {
               return (
                 <ProjectCardInfo key={project_info.proyecto._id} project_info={project_info.proyecto}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
               );
             })}
+                      </>} 
+          
+
                 </div>
 
                 {/* <div className="flex-auto grid lg:grid-cols-4 mg:grid-cols-2 sd:grid-cols-1 pt-8  mt-0 gap-y-8  gap-x-5 md:pl-14
