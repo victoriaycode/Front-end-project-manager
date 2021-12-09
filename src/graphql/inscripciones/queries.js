@@ -6,11 +6,14 @@ const GET_INSCRIPCIONES = gql`
     Inscripciones {
       _id
       estado
+      fechaIngreso
+      fechaEgreso
       estudiante {
         _id
         nombre
         apellido
         correo
+        identificacion
       }
       proyecto {
         _id
