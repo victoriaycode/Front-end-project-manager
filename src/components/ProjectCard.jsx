@@ -1,14 +1,19 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
+import { useUser } from 'context/userContext';
+
+
 const ProjectCard = () => {
+
     const card={"estado":"Activo",
                 "fase":"En desarrollo","lider":"Federico Montoya"};
     let colorState= "green";
     let colorFase="yellow";
+
         return (
 
         <div className="flex flex-col h-60 w-60 bg-white rounded-2xl shadow-xl p-4 transform transition duration-300 hover:scale-105 ">
-            <span className="text-lg text-blue-800 text-2xl mx-2 font-bold mb-2 font-mono">Nombre Proyecto</span>
+            <span className="text-lg text-blue-800 mx-2 font-bold mb-2 font-mono">Nombre Proyecto</span>
 
             
             <div className="h20 flex flex-col bg-white ">
@@ -43,17 +48,19 @@ const ProjectCard = () => {
             <NavLink
                 to={'/proyectos/proyecto'}  >
                
-                <button class="p-2 pl-5 pr-5 bg-transparent border-2 border-blue-100
+                {/* <button class="p-2 pl-5 pr-5 bg-transparent border-2 border-blue-100
                  text-gray-400 text-sm rounded-lg hover:bg-yellow-300 hover:text-gray-500 
                   hover:border-gray-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300">Explorar</button>
-                 </NavLink>
-                 <button class="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-100
-                 text-gray-400 text-sm rounded-lg hover:bg-yellow-300 hover:text-gray-500 
-                  hover:border-gray-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300">Editar</button>
-                 </div>
+                 focus:border-4 focus:border-blue-300">Explorar</button> */}
+            </NavLink>
+            
+                <button class="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-100
+                text-gray-400 text-sm rounded-lg hover:bg-yellow-300 hover:text-gray-500 
+                hover:border-gray-500 text-ms font-bold
+                focus:border-4 focus:border-blue-300">Editar</button>
+           
         </div>
+    </div>
     )
 }
 
