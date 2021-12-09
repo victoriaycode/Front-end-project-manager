@@ -60,6 +60,11 @@ const GET_PROJECTS_BY_LIDER = gql`
 
 query Proyecto($id_lider: String!) {
   filtrarProyectoPorLider(id_lider: $id_lider) {
+    _id
+    nombre
+    estado
+    fase
+    
     lider{
       nombre
       apellido

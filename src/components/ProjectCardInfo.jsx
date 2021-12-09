@@ -8,7 +8,7 @@ import { ToastContainer,toast } from 'react-toastify';
 import Edit_project_admin_modal from './Edit_project_admin';
 import Enroll_modal from './Enroll_modal';
 
-const ProjectCardInfo = ({project_info,setOpenModalEnroll}) => {
+const ProjectCardInfo = ({project_info}) => {
     
     const [aprobarModal, setAprobarModal]= useState(false);
     
@@ -43,7 +43,7 @@ const ProjectCardInfo = ({project_info,setOpenModalEnroll}) => {
     colorFase="yellow"
   
 }
-    let user= "ESTUDIANTE";
+    let user= "LIDER";
     
     
     
