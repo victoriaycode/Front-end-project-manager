@@ -131,7 +131,7 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
         </div>
    <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-8 mr-16">
          <div className="flex flex-rows-2 relative align-center justify-center  bg-white rounded-2xl ">
-         <select   value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg text-gray-400 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-100" defaultValue="recent">
+         <select   value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg text-gray-400 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-100" >
                            
                             
                            <option className="text-gray-400" value="older">Más antiguos</option>
