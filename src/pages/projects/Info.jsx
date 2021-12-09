@@ -212,7 +212,7 @@ const Info = () => {
                     <div className="m-2 ">
 
                         <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
-                            <i class="fas fa-tachometer-alt"></i>FASE</span>
+                            <i className="fas fa-tachometer-alt"></i>FASE</span>
                         <span className={`px-8 rounded-r-lg bg-white w-20  ${fase_color} font-bold p-2 uppercase border-blue-500 border-t border-b  
       border-r`}>
                             {infoProject.filtrarProyecto.fase}</span>
@@ -221,7 +221,7 @@ const Info = () => {
                     <div className="m-2 mt-8">
 
                         <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
-                            <i class="far fa-calendar-alt fa-lg "></i>  FECHA CREACIÓN</span>
+                            <i className="far fa-calendar-alt fa-lg "></i>  FECHA CREACIÓN</span>
                         <span className="px-8 rounded-r-lg bg-white w-20  text-gray-400 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
                             {infoProject.filtrarProyecto.fechaCreacion != "" ? (infoProject.filtrarProyecto.fechaCreacion) : ("SIN FECHA AÚN")}  </span>
 

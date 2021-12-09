@@ -5,30 +5,40 @@ import New_date from './New_date';
 import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries'
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
+import { nanoid } from 'nanoid';
 const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
   
- 
-    const filtrarAvanceId= idProject;
+
+    
     const { data, error, loading ,refetch} = useQuery(LIST_ADVANCES_OF_PROJECT,{variables:{
-      filtrarAvanceId},});
+      idProject},});
       
-    const [listAdvances,setListAdvances]=useState({});
+    const [listAdvances,setListAdvances]=useState([]);
 
-     useEffect(() => {
-      if(loading){
+    //  useEffect(() => {
+    //   if(loading){
        
-      console.log('data AVANCES PROYECTO', data);
-      }else{
-        setListAdvances(data.filtrarAvance);
+    //   console.log('data AVANCES PROYECTO', data);
+    //   }else{
+    //     setListAdvances(data.filtrarAvance);
         
-      console.log('data AVANCES ', data.filtrarAvance);
-      }
-      console.log('data AVANCES PROYECTO', data);
+    //   console.log('data AVANCES ', listAdvances);
+    //   }
+    //   console.log('data AVANCES PROYECTO', data);
 
-      //console.log("LIST ",listAdvances)
-    }, [loading,data]); 
+    //   //console.log("LIST ",listAdvances)
+    // }, [data]); 
  
       
+  useEffect(() => {
+    if(loading){
+
+    }else{
+
+      console.log('data servidor', data);
+    }
+  }, [loading]);
+
   useEffect(() => {
    
     refetch()
@@ -42,18 +52,11 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
     }
   }, [data]);
 
-    if (loading) return <div>Cargando....</div>;
-   
 
-        const numberAdvances = 3;
-  const advanceInfos = {
-    title: "advance about design and implementation of diferent structures to the page",
-    description: "advance about......sdasdasssssssssssssssssssssssssdasssssssssssssssssssssssssssdasd.",
-    student: "Gaby Montez",
-   
-  }
+    if (loading) return <div>Cargando....</div>;
 
   const RowAdvanceInfo = ({advanceInfo}) => {
+    if (loading) return <div>Cargando....</div>;
     return (
       <tr className="hover:bg-gray-100">
            <NavLink to={`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}>
@@ -122,9 +125,9 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
             </thead>
 
             <tbody>
-            {data.filtrarAvance!={} && data.filtrarAvance.map((avance) => {
+            {data.filtrarAvance && data.filtrarAvance.map((avance) => {
               return (
-                <RowAdvanceInfo advanceInfo={avance} />
+                <RowAdvanceInfo  key={nanoid()} advanceInfo={avance} />
               );
             })}
             </tbody>

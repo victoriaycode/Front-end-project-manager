@@ -41,7 +41,21 @@ query Proyecto($_id: String!) {
     }
   }
 }`;
-
+const GET_STUDENT_PROJECTS_ENROLLED = gql`
+query Query($idEstudiante: String!) {
+  filtrarInscripcionesPorEstudiante(id_estudiante: $idEstudiante) {
+    _id
+   
+    proyecto {
+      _id
+      nombre
+      estado
+      fase
+      
+    }
+  }
+}
+`;
 const GET_PROJECTS_BY_LIDER = gql`
 
 query Proyecto($id_lider: String!) {
@@ -111,4 +125,5 @@ mutation EditarProyectoPorAdmin($idProyecto: String!, $estado: Enum_EstadoProyec
 export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,
   EDIT_PROJECT_BY_LIDER,EDIT_PROJECT_BY_ADMIN,
   GET_PROJECTS_BY_LIDER ,
-  CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE,EDIT_OBJECTIVE,DELETE_OBJECTIVE};
+  CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE,EDIT_OBJECTIVE,DELETE_OBJECTIVE,
+  GET_STUDENT_PROJECTS_ENROLLED};

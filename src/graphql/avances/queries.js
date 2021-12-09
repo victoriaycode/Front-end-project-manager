@@ -3,8 +3,8 @@ import { gql } from '@apollo/client';
 // const  NAME =gql``;
 
 const LIST_ADVANCES_OF_PROJECT = gql`
-query($filtrarAvanceId: String!) {
-    filtrarAvance(_id: $filtrarAvanceId) {
+query FiltrarAvance($idProject: String!) {
+  filtrarAvance(idProject: $idProject) {
       _id
       titulo
       creadoPor {
@@ -65,4 +65,6 @@ const CREATE_NEW_ADVANCE = gql`
     }
   }`;
 
-export { LIST_ADVANCES_OF_PROJECT, GET_ADVANCE_BY_ID, EDIT_ADVANCE_BY_STUDENT, ADD_NEW_OBSERVATION, CREATE_NEW_ADVANCE };
+
+export { LIST_ADVANCES_OF_PROJECT, GET_ADVANCE_BY_ID, EDIT_ADVANCE_BY_STUDENT,
+   ADD_NEW_OBSERVATION, CREATE_NEW_ADVANCE };
