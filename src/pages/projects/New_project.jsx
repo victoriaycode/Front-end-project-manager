@@ -26,21 +26,20 @@ const New_project = () => {
     const [createProject, { data:createdata, loading, error }] =
     useMutation(CREATE_NEW_PROJECT);
     
-    const [createObjetive, { data:dataObjective, loading:loadingObj, error:errorObj }] =
+    const [addNewObjetive, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
     useMutation(CREATE_NEW_OBJECTIVE);
     
     const { form, formData, updateFormData } = useFormData(null);
-    const submitForm = (e) => {
+    const submitForm = async(e) => {
         e.preventDefault();
-        formData.objetivos=[]
-        console.log("obj",formData.objetivos)
         
-            let lista   = objectives_list.map(function(ele) {
-                return {"tipo": ele.tipo,"descripcion":ele.descripcion} ;
+            const objetivos   = objectives_list.map(function(ele) {
+                return {"descripcion":ele.descripcion,"tipo": ele.tipo} ;
               });
-              formData.objetivos=[...lista];
-           console.log("obj lista",formData.objetivos);
-            // formData.objetivos = objectives_list;
+              console.log("obj",objetivos);
+         formData.objetivos=[objetivos];
+        //    console.log("obj lista",formData.objetivos);
+         formData.objetivos = Object.values(objetivos);
         
         formData.lider=lider;
         let presup= parseFloat(formData.presupuesto);
@@ -49,7 +48,10 @@ const New_project = () => {
         const creado= createProject({
             variables: { ...formData },
           });
-
+        //   if(!loading){
+        //     let idProyecto= creado.crearProyecto._id;
+        //     crearObjetivos(objetivos,idProyecto);
+        //   }
         //   if(objectives_list!=[] && !loading){
         //     let lista= objectives_list.map(function(ele) {
         //         return {"tipo": ele.tipo,"descripcion":ele.descripcion} ;
@@ -63,6 +65,13 @@ const New_project = () => {
         //   }
        
     };
+    const crearObjetivos=async(objetivos, idProyecto)=>{
+        objetivos.forEach(element => console.log("el",element));
+        console.log("id",idProyecto);
+        // let added= await addNewObjetive({
+        //     variables: { idProyecto, tipo,descripcion },
+        //   });
+    }
     useEffect(() => {
         if (createdata) {
           toast.success('Proyecto agregado co éxito');

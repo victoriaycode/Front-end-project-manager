@@ -74,16 +74,14 @@ query Proyecto($id_lider: String!) {
   }
 }`;
 const CREATE_NEW_PROJECT = gql`
-mutation Mutation($nombre: String!, $presupuesto: Float!, $estado: Enum_EstadoProyecto!, $fase: Enum_FaseProyecto!, $lider: String!) {
-  crearProyecto(nombre: $nombre, presupuesto: $presupuesto, estado: $estado, fase: $fase, lider: $lider) {
+mutation CrearProyecto($nombre: String!, $presupuesto: Float!, $estado: Enum_EstadoProyecto!, $fase: Enum_FaseProyecto!, $lider: String!, $objetivos: [crearObjetivo]) {
+  crearProyecto(nombre: $nombre, presupuesto: $presupuesto, estado: $estado, fase: $fase, lider: $lider, objetivos: $objetivos) {
     _id
     nombre
-    presupuesto
-    fechaCreacion
-    objetivos{
-      
-      tipo
+    objetivos {
+      _id
       descripcion
+      tipo
     }
   }
 }`;
