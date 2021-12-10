@@ -5,12 +5,24 @@ import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries'
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import { useUser } from 'context/userContext';
+import { GET_PROJECT_STATE } from 'graphql/proyectos/queries';
 const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
   
 
+  const { userData } = useUser();
+ 
+    const role = ""+userData.rol;
     
     const { data, error, loading ,refetch} = useQuery(LIST_ADVANCES_OF_PROJECT,{variables:{
       idProject},});
+      let _id= idProject;
+      const { data: infoProject, errorProj, loadingProject } = useQuery(GET_PROJECT_STATE, {
+        variables: {
+            _id
+        },
+    });
+
       
     const [listAdvances,setListAdvances]=useState([]);
     
@@ -19,8 +31,8 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
     const [sortBy, setSortedBy]=useState("older");
     
     const [searchBy, setSearchBy]= useState();
+    const [stateProject, setStateProject]= useState("");
     
-    const role= "LIDER";
     
     useEffect(() => {
 
@@ -46,19 +58,7 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
     }      
   
   }, [sortBy])
-    //  useEffect(() => {
-    //   if(loading){
-       
-    //   console.log('data AVANCES PROYECTO', data);
-    //   }else{
-    //     setListAdvances(data.filtrarAvance);
-        
-    //   console.log('data AVANCES ', listAdvances);
-    //   }
-    //   console.log('data AVANCES PROYECTO', data);
-
-    //   //console.log("LIST ",listAdvances)
-    // }, [data]); 
+  
  
       
   useEffect(() => {
@@ -77,6 +77,15 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
   }, [openNewAdvanceModal]);
   
   useEffect(() => {
+    if ( !loadingProject) {
+      // setStateProject(infoProject.filtrarProyecto.estado);
+      console.log("state",infoProject);
+      console.log("state",stateProject);
+
+    }
+  }, [infoProject]);
+
+  useEffect(() => {
     if (data) {
 
       setListAdvances(data.filtrarAvance);
@@ -87,7 +96,7 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
   }, [data]);
 
 
-    if (loading) return <div>Cargando....</div>;
+    if (loading || loadingProject) return <div>Cargando....</div>;
 
   const RowAdvanceInfo = ({advanceInfo}) => {
     if (loading) return <div>Cargando....</div>;
@@ -148,7 +157,7 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-2 max-w-full flex-grow flex-1">
-              <h3 className="font-semibold text-base text-gray-500 italic">Mostrando {data.filtrarAvance.length} avances en el proyecto </h3>
+              <h3 className="font-semibold text-base text-gray-500 italic">Mostrando {data.filtrarAvance.length>0 ? data.filtrarAvance:"0"} avances en el proyecto </h3>
             </div>
             {/*<NavLink to={'/proyectos/proyecto/avances/nuevo'}>
             <button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
@@ -156,7 +165,7 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
                   hover:border-gray-500 text-ms font-bold
                  focus:border-4 focus:border-blue-300 transform transition duration-300 ">Nuevo Avance</button>
   </NavLink>*/}
-   {role==="ESTUDIANTE" && <>
+   {role==="ESTUDIANTE" && infoProject.filtrarProyecto.estado==="ACTIVO" && <>
    <button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
                  text-blue-400 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
                   hover:border-gray-500 text-base font-bold

@@ -95,7 +95,7 @@ function App() {
             <Routes>
               <Route path='/' element={<PrivateLayout />}>
                 <Route path='/' element={<Index />} />
-                <Route path='/inicio' element={<Index1 />} />
+                <Route path='/inicio' element={<Index />} />
                 <Route path='/usuarios' element={<UsersDashboard />} />
                 <Route path='/proyectos' element={<ProjectsList />} />
                 <Route path='/proyectos/misproyectos' element={<My_projects/>} />

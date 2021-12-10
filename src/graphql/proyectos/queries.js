@@ -41,6 +41,17 @@ query Proyecto($_id: String!) {
     }
   }
 }`;
+
+
+const GET_PROJECT_STATE = gql`
+query Proyecto($_id: String!) {
+  filtrarProyecto(_id: $_id) {
+    _id
+    estado
+  
+    
+  }
+}`;
 const GET_STUDENT_PROJECTS_ENROLLED = gql`
 query Query($idEstudiante: String!) {
   filtrarInscripcionesPorEstudiante(id_estudiante: $idEstudiante) {
@@ -129,4 +140,4 @@ export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,
   EDIT_PROJECT_BY_LIDER,EDIT_PROJECT_BY_ADMIN,
   GET_PROJECTS_BY_LIDER ,
   CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE,EDIT_OBJECTIVE,DELETE_OBJECTIVE,
-  GET_STUDENT_PROJECTS_ENROLLED};
+  GET_STUDENT_PROJECTS_ENROLLED,GET_PROJECT_STATE};

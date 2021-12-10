@@ -25,8 +25,8 @@ const ProjectsList = () => {
 
   const [sortBy, setSortedBy] = useState("older");
 
-  const idEstudiante = "61a95aebeb450051e9c2dc10";
-  const id_lider = userData._id;
+  const idEstudiante = userData._id+"";
+  const id_lider = userData._id+"";
  
   const { data: dataProjects, error, loading, refetch } = useQuery(GET_PROJECTS_CARDS);
   const { data: dataStudent, error: errorStudent, loading: loadingStudent }

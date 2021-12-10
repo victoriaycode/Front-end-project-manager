@@ -6,11 +6,15 @@ import Search_input from 'components/Search_input'
 import New_advance_modal from 'components/New_advance_modal'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useUser } from 'context/userContext'
 
 const AdvancesDashboard = () => {
-    
+  const { userData } = useUser();
     const { _id } = useParams();
-    
+    const name_student= userData.nombre +" "+ userData.apellido;
+    const id_Estudiante= userData._id +" ";  
+ 
+
     const [openNewAdvanceModal, setNewAdvanceModal]= useState(false);
     
     
@@ -23,7 +27,7 @@ const AdvancesDashboard = () => {
     <AdvancesTable idProject={_id} openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal}></AdvancesTable>
      
     {openNewAdvanceModal &&
-     <New_advance_modal nameStudent="Yeison"  idStudent={"61a95aebeb450051e9c2dc10"} 
+     <New_advance_modal nameStudent={name_student}  idStudent={id_Estudiante} 
      idProject={_id} setOpenModal={setNewAdvanceModal}></New_advance_modal>} 
    
     </div>

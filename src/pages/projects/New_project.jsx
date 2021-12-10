@@ -10,6 +10,7 @@ import RowObjective from 'components/RowObjective';
 import { useMutation } from '@apollo/client';
 import { CREATE_NEW_PROJECT } from 'graphql/proyectos/queries';
 import { TextareaAutosize } from '@material-ui/core';
+import { useUser } from 'context/userContext';
 
 const New_project = () => {
     const [addObjective, setAddObjective] = useState(false)
@@ -19,9 +20,12 @@ const New_project = () => {
     const [budget, setBudget] = useState(0);
 
     var date = new Date().toISOString().slice(0, 10);
-    const lider = "61a955cf355428fe4ece9225";
-    const id_lider = "3212312"
-    const nombre_lider = "Victoria Yuan";
+    
+  const { userData } = useUser();
+ 
+    const lider = ""+userData._id;
+    const id_lider = ""+userData.identificacion;
+    const nombre_lider = ""+userData.nombre + " "+ userData.apellido;
     const [numRow, setNumberRow] = useState(0);
 
     const [createProject, { data: createdata, loading, error }] =

@@ -5,7 +5,6 @@ import { EDIT_PROJECT_BY_ADMIN } from 'graphql/proyectos/queries';
 import React from 'react'
 import { useState , useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
-import { ToastContainer,toast } from 'react-toastify';
 import Edit_project_admin_modal from './Edit_project_admin';
 import Enroll_modal from './Enroll_modal';
 

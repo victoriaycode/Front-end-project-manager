@@ -60,8 +60,8 @@ const SidebarNav = () => {
       </div>
       <div className="flex flex-col space-y-4 pb-5 pr-2 mt-20">
       
-        <a className="block relative flex flex-col w-full h-16 w-16 flex justify-center items-center text-blue-800 
-          hover:text-blue-400">
+        <a className="block relative flex flex-col w-full h-16 w-16 flex justify-center items-center 
+         text-blue-400 hover:text-blue-500">
             
             {/* <span>{userData.rol} :</span> */}
             <Tooltip title={usuario} arrow placement="left">
@@ -100,7 +100,7 @@ const SidebarRoute1 = ({ to, title, icon }) => {
             : 'sidebar-route text-gray-400  border-b-2 border-gray-100'
         }>
           <div className=" relative flex flex-col text-center w-full h-16 flex justify-center items-center   
-         hover:text-blue-400  cursor-pointer transform transition duration-50 p-2">
+         hover:text-blue-400  cursor-pointer transform transition duration-50 ">
         <i className={icon} />
         <span className="text-sm mt-1">{title}</span> 
         </div>
