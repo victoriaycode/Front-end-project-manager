@@ -55,27 +55,27 @@ const Enroll_modal = ({name_project,setOpenModalEnroll}) => {
 
     return (
     
-        <div class="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
+        <div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-20">
        
-        <div class="bg-white rounded shadow-lg w-10/12 md:w-1/3">
+        <div className="bg-white rounded-2xl shadow-lg w-10/12 md:w-1/3">
       
-          <div class="border-b px-4 py-2 flex justify-between items-center">
-            <h3 class="font-semibold text-lg">Solicitud de Inscripción</h3>
-            <button class="text-black hover:text-blue-700" onClick={()=>setOpenModalEnroll(false)}><i class="far fa-times-circle fa-2x"></i></button>
+          <div className="border-b px-4 py-2 flex justify-between items-center">
+            <h3 className="font-semibold text-blue-800 text-lg">Solicitud de Inscripción del Estudiante</h3>
+            <button className="text-black hover:text-blue-700" onClick={()=>setOpenModalEnroll(false)}><i className="far fa-times-circle fa-2x"></i></button>
           </div>
         
-          <div class="p-3">
-          {userData.nombre} <br/>
-          ¿Desea inscribirse al proyecto {name_project}?
+          <div className="p-3 flex flex-col text-center">
+            <span className="text-lg  font-light  text-gray-800 pb-2">
+          ¿Desea mandar solicitud de inscripción al proyecto ? 
+            </span>
+            <span className="text-2xl  font-semibold  text-blue-800">
+            {name_project} 
+            </span>
           </div>
-          <div class="flex justify-end items-center w-100 border-t p-3">
+          <div className="flex justify-end items-center w-100 border-t p-3">
            
-            <InscripcionProyecto 
-              // idProyecto={proyecto._id}
-              // estado={proyecto.estado}
-              // inscripciones={proyecto.inscripciones}
-               />
-            <button class="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded text-white mr-1 close-modal ml-2" onClick={()=>setOpenModalEnroll(false)}>Cancelar</button>
+          <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-xl h-10 text-lg text-white">Confirmar</button>
+            <button className="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded-xl h-10 text-white mr-1 close-modal ml-2" onClick={()=>setOpenModalEnroll(false)}>Cancelar</button>
           </div>
         </div>
       </div>
