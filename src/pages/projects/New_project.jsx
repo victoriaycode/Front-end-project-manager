@@ -77,7 +77,8 @@ const New_project = () => {
             objectives_list.push(nuevo);
             setObjectivesList(objectives_list);
             setNumberRow(numRow + 1);
-
+            document.getElementById("descripInput").value="";
+            setNewDescripObj("");
         }
     }
 
@@ -201,7 +202,7 @@ bg-gray-100 border-2 border-gray-300"
                                                 <option className="" value="ESPECIFICO">ESPECIFICO </option>
 
                                             </select>
-                                            <TextareaAutosize type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
+                                            <TextareaAutosize id="descripInput"type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
                                                 defaultValue={newDescripObj} onChange={(e) => setNewDescripObj(e.target.value)} />
 
                                             <button className="text-blue-600 hover:text-blue-800 focus text-base" onClick={() => AddNewObjective()}><i className="fas fa-folder-plus fa-lg"></i>Añadir</button>

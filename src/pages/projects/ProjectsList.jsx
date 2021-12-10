@@ -16,13 +16,15 @@ const ProjectsList = () => {
 
   const [listProjectsLider, setListProjectsLider] = useState([]);
   const [filteredListLider, setFilteredListLider] = useState([]);
+  
+  const [filteredListStudent, setFilteredListStudent] = useState([]);
   const [viewOnlyStudent, setViewOnlyStudent] = useState(true);
   const [sortBy, setSortedBy] = useState("older");
   const [viewToApprove, setViewToApprove] = useState(false);
 
   const idEstudiante = "61a95aebeb450051e9c2dc10";
   const id_lider = "61a955cf355428fe4ece9225";
-  const role = "ADMINISTRADOR";
+  const role = "ESTUDIANTE";
   const { data: dataProjects, error, loading, refetch } = useQuery(GET_PROJECTS_CARDS);
   const { data: dataStudent, error: errorStudent, loading: loadingStudent }
     = useQuery(GET_STUDENT_PROJECTS_ENROLLED, {
@@ -188,7 +190,7 @@ const ProjectsList = () => {
           <div className="flex flex-row  flex-center">
 
             <div className="  flex justify-center items-center px-2 sm:px-4 ml-14">
-              {!viewOnlyStudent || role == "LIDER" &&
+              {
                 <div className="relative">
 
                   <input type="text" className="h-12 w-72 pr-8 pl-5  border-gray-200 rounded-2xl z-0 focus:shadow focus:outline-none"
@@ -198,7 +200,7 @@ const ProjectsList = () => {
                 </div>}
 
             </div>
-            {!viewOnlyStudent || role === "LIDER" &&
+            {
               <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-4 ml-2">
                 <div className="flex flex-rows-2 relative align-center justify-center  bg-white rounded-2xl ">
                   <select value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg 
