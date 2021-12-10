@@ -12,20 +12,34 @@ const Students = () => {
     const { _id } = useParams();
     const idProyecto=_id;
     const [studentsList, setStudentsList]=useState();
-    const [searchBy, setSearchBy]= useState();
+    
+    const [studentsListFiltered, setStudentsListFiltered]=useState([]);
+    const [searchBy, setSearchBy]= useState("");
     const { data,  error, loading, refetch } = useQuery(FILTRAR_INSCRIPCIONES_PROYECTO, {
         variables: {
             idProyecto
         },
     });
     useEffect(() => {
-        if (!loading) {
+        if (!loading && data) {
             
             setStudentsList(data.filtrarInscripcionesPorProyecto);
+            setStudentsListFiltered(data.filtrarInscripcionesPorProyecto);
             console.log("asda",studentsList);
             console.log("data",data);
         }
     }, [data]);
+
+    useEffect(() => {
+        if (!loading ) {
+            setStudentsListFiltered(
+                studentsList.filter((elemento) => {
+                  return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
+                })
+              );
+        }
+      
+      }, [searchBy, studentsList]);
 
     const [editable, setEditable] = useState(false)
 
@@ -50,7 +64,6 @@ const Students = () => {
                    <td>
                        <Toggle></Toggle>
                    </td>
-
                     </>) : (<>
                         <td className="border-t-0 px-6  align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-2 ">
                             {student.estado} </td>
@@ -101,21 +114,14 @@ const Students = () => {
                                     <h3 className="font-semibold text-base text-gray-500">Mostrando {studentsList && studentsList.length}  estudiantes en el proyecto </h3>
                                 
                                 </div>
-                                {/* {editable ? (<button onClick={() => setEditable(!editable)} className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
-                 text-blue-400 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
-                  hover:border-gray-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300 transform transition duration-300 ">Guardar</button>) : 
-                 (<button onClick={() => setEditable(!editable)} className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
-                 text-blue-400 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
-                  hover:border-gray-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300 transform transition duration-300 ">Editar</button>)} */}
+                                
 
                             </div>
                         </div>
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
                     
                      
-                        <div className=" w-full  h-full  overflow-x-auto overflow-y-scroll ">
+                        <div className=" w-full  h-96  overflow-x-auto overflow-y-scroll ">
                             <table className="items-center bg-transparent w-full border-collapse ">
                                 <thead   >
                                     <tr>
@@ -138,7 +144,7 @@ const Students = () => {
                                 </thead>
 
                                 <tbody>
-                                    {data.filtrarInscripcionesPorProyecto.map((enroll) => {
+                                    {studentsListFiltered.map((enroll) => {
                                         return (
                                             <RowStudentInfo key={nanoid()} enroll={enroll} />
                                         );

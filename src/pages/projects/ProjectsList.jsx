@@ -58,7 +58,24 @@ const ProjectsList = () => {
       console.log("datalider", dataLider);
     }
   }, [dataLider])
+  useEffect(() => {
+    if (!loadingStudent) {
+    console.log('data estudiante', dataStudent);
+    setListProjectsStudent(dataStudent.filtrarInscripcionesPorEstudiante);
+  setFilteredListStudent(dataStudent.filtrarInscripcionesPorEstudiante);
+    }
+}, [dataStudent]);
+  
+  useEffect(() => {
+    if (!loading) {
+      setListProjects(dataProjects.Proyectos);
+      setFilteredList(dataProjects.Proyectos);
+     
+    }
+    console.log('data servidor', dataProjects);
 
+  }, [dataProjects]);
+  
   useEffect(() => {
     if (!loading) {
       setFilteredList(
@@ -131,23 +148,7 @@ const ProjectsList = () => {
 
   }, [viewToApprove]);
 
-  useEffect(() => {
-
-    console.log('data estudiante', dataStudent);
-    setListProjectsStudent(dataStudent.filtrarInscripcionesPorEstudiante);
-  setFilteredListStudent(dataStudent.filtrarInscripcionesPorEstudiante);
   
-}, [dataStudent]);
-  
-  useEffect(() => {
-    if (!loading) {
-      setListProjects(dataProjects.Proyectos);
-      setFilteredList(dataProjects.Proyectos);
-     
-    }
-    console.log('data servidor', dataProjects);
-
-  }, [dataProjects]);
 
   useEffect(() => {
     if (loading) {
