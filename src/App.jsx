@@ -22,11 +22,15 @@ import Advance from 'pages/projects/advances/advance';
 import New_project from 'pages/projects/New_project';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import My_projects from 'pages/projects/My_projects';
-// import PrivateRoute from 'components/PrivateRoute';
+import Index1 from 'pages/inicio/Index1';
+import Inscriptions from 'pages/inscriptions/Inscriptions';
 
+// const httpLink = createHttpLink({
+//   uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
+// });
 
 const httpLink = createHttpLink({
-  uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
+  uri: 'http://localhost:4000/graphql',
 });
 
 //doc. apollo client
@@ -74,6 +78,7 @@ function App() {
         identificacion: decoded.identificacion,
         correo: decoded.correo,
         rol: decoded.rol,
+        estado: decoded.estado,
       });
     }
   }, [authToken]);
@@ -86,6 +91,7 @@ function App() {
             <Routes>
               <Route path='/' element={<PrivateLayout />}>
                 <Route path='/' element={<Index />} />
+                <Route path='/inicio' element={<Index1 />} />
                 <Route path='/usuarios' element={<UsersDashboard />} />
                 <Route path='/proyectos' element={<ProjectsList />} />
                 <Route path='/proyectos/misproyectos' element={<My_projects/>} />
@@ -97,6 +103,10 @@ function App() {
                 <Route path='/proyectos/proyecto/estudiantes' element={<Students />} />
                 
                 <Route path='/mi_perfil' element={< Profile/>} />
+              
+
+                <Route path='/inscripciones' element={< Inscriptions/>} />
+
               </Route>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/register' element={<Register/>}/>

@@ -1,8 +1,12 @@
 import React from 'react'
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useUser } from 'context/userContext';
+
+
 const ProjectCardInfo = ({setOpenModalEnroll,setOpenModalEdit}) => {
 
+    const { userData } = useUser();
     //const [openModal, setOpenModal] = useState(false);
     const card = {
         "nombre": "Proyecto App Web Too",
@@ -13,7 +17,8 @@ const ProjectCardInfo = ({setOpenModalEnroll,setOpenModalEdit}) => {
     };
     let colorState = "green";
     let colorFase = "yellow";
-    let user= "ADMINISTRADOR";
+    // let user= "ADMINISTRADOR";
+
     return (
         <>
             <div className="flex flex-col h-44 w-64 bg-white   shadow-xl p-4 rounded transform transition duration-300 hover:scale-105 ">
@@ -22,8 +27,8 @@ const ProjectCardInfo = ({setOpenModalEnroll,setOpenModalEdit}) => {
                 <div className="flex flex-row">
 
                     <div className="flex pt-5">
-                        <div class={`relative flex flex-col  h-16 flex justify-center items-center   
-          text-${colorState}-500 `}>
+                        <div class={`relative flex-col  h-16 flex justify-center items-center   
+                        text-${colorState}-500 `}>
                             <i class="far fa-calendar-check fa-2x"></i>
                             <span className="text-xs mt-1">{card.estado}</span>
                             <span className={` pt-2 text-center text-${colorFase}-500 font-semibold text-xs `}>{card.fase} </span>
@@ -41,22 +46,25 @@ const ProjectCardInfo = ({setOpenModalEnroll,setOpenModalEdit}) => {
                         to={'/proyectos/proyecto/info'}  >
 
                         <button class="p-2 pl-4 pr-4 bg-transparent border-2 border-blue-200
-                 text-gray-400 text-xs rounded-lg hover:text-blue-500 
-                  hover:border-blue-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300  ">Ver</button>
+                        text-gray-400 text-xs rounded-lg hover:text-blue-500 
+                        hover:border-blue-500 text-ms font-bold
+                        focus:border-4 focus:border-blue-300  ">Ver</button>
                     </NavLink>
-                    {user==="ESTUDIANTE" &&
-                    <button class="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
-                 text-gray-400 text-xs rounded-lg  hover:text-blue-500 
-                  hover:border-blue-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEnroll(true)}>Inscribirse</button>
+                    {userData.rol==="ESTUDIANTE" && (
+                        <button class="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
+                        text-gray-400 text-xs rounded-lg  hover:text-blue-500 
+                        hover:border-blue-500 text-ms font-bold
+                        focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEnroll(true)}>Inscribirme</button>
+                    )
                 }
-                {user==="ADMINISTRADOR" &&
-                    <button class="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
-                 text-gray-400 text-xs rounded-lg  hover:text-blue-500 
-                  hover:border-blue-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEdit(true)}>Editar</button>
-                }
+
+                    {userData.rol==="ADMINISTRADOR" &&
+                        <button class="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-200
+                    text-gray-400 text-xs rounded-lg  hover:text-blue-500 
+                    hover:border-blue-500 text-ms font-bold
+                    focus:border-4 focus:border-blue-300" onClick={() => setOpenModalEdit(true)}>Editar</button>
+                    }
+
                 </div>
             </div>
             
