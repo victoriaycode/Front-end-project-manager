@@ -90,7 +90,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path='/' element={<PrivateLayout />}>
-                <Route path='/' element={<Index />} />
+                <Route path='' element={<Index />} />
                 <Route path='/inicio' element={<Index1 />} />
                 <Route path='/usuarios' element={<UsersDashboard />} />
                 <Route path='/proyectos' element={<ProjectsList />} />
