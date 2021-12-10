@@ -4,8 +4,7 @@ import React from 'react';
 const PrivateComponent = ({ roleList,stateUser, children }) => {
   const { userData } = useUser();
   console.log('userData',userData)
-  if (roleList.includes(userData.rol) 
-  // && stateUser.includes(userData.estado)
+  if (roleList.includes(userData.rol) && stateUser.includes(userData.estado)
    ) {
     return children;
 
