@@ -24,11 +24,12 @@ const UsersDashboard = () => {
   if (loading) return <div>Cargando....</div>;
 
   return (
+
   <PrivateRoute roleList={['ADMINISTRADOR','LIDER']} stateUser={'AUTORIZADO'}>
     <div className="w-full h-full flex flex-col overflow-y-hidden " >
-  <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6">
-      <span className="text-lg text-blue-800 text-3xl ml-8  font-bold">Usuarios</span>
-  </div>
+    <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6">
+        <span className="text-lg text-blue-800 text-3xl ml-8  font-bold">Usuarios</span>
+    </div>
   
   <div className="flex flex-row  ml-0 justify-start">
                 <div className="  flex justify-center items-center px-2 sm:px-4 lg:px-8">
