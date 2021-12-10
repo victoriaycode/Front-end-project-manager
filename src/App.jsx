@@ -7,6 +7,7 @@ import { setContext } from '@apollo/client/link/context';
 import Index from 'pages/Index';
 import jwt_decode from 'jwt-decode';
 
+
 import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
 import 'styles/globals.css';
@@ -24,10 +25,16 @@ import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@ap
 import My_projects from 'pages/projects/My_projects';
 import Index1 from 'pages/inicio/Index1';
 import Inscriptions from 'pages/inscriptions/Inscriptions';
+import PrivateRoute from 'components/PrivateRoute';
+
 
 const httpLink = createHttpLink({
   uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
 });
+
+// const httpLink = createHttpLink({
+//   uri: 'http://localhost:4000/graphql',
+// });
 
 // const httpLink = createHttpLink({
 //   uri: 'http://localhost:4000/graphql',

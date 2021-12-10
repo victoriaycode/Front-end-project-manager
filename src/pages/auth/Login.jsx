@@ -16,12 +16,13 @@ function Login() {
 
   const [login, { data: dataMutation, loading: mutationLoading, error: mutationError }] =
     useMutation(LOGIN);
-
+    
   const submitForm = (e) => {
     e.preventDefault();
 
     login({
       variables: formData,
+      
     });
   };
 

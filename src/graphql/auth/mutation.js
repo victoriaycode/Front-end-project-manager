@@ -7,6 +7,7 @@ const REGISTRO = gql`
     $identificacion: String!
     $correo: String!
     $rol: Enum_Rol!
+    $estado: String!
     $password: String!
   ) {
     registro(
@@ -15,6 +16,7 @@ const REGISTRO = gql`
       identificacion: $identificacion
       correo: $correo
       rol: $rol
+      estado: $estado
       password: $password
     ) 
     {
