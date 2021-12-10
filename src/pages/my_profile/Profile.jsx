@@ -12,7 +12,7 @@ const Profile = () => {
   const { form, formData, updateFormData } = useFormData(null);
   const { userData } = useUser();
   const _id = userData._id;
-/*   const estado = userData.estado; */
+  /*   const estado = userData.estado; */
   const {
     data: queryData,
     error: queryError,
@@ -31,10 +31,10 @@ const Profile = () => {
   ] = useMutation(EDIT_MI_USUARIO);
 
   const submitForm = (e) => {
-    console.log(form.data)
+    console.log(form.data);
     e.preventDefault();
     delete formData.rol;
-    
+
     edicion({
       variables: { _id, ...formData },
     });
@@ -65,13 +65,14 @@ const Profile = () => {
         returns={true}
         return_to={"/usuarios"}
       ></Title_page>
+      <div className="flex-col m-auto -my-1"><img src="https://img.icons8.com/bubbles/200/000000/edit-user.png"/></div>
       <form
         class="w-full  max-w-sm self-center"
         onSubmit={submitForm}
         onChange={updateFormData}
         ref={form}
       >
-        <div class="md:flex my-3 md:items-center mb-6 ">
+        <div class="md:flex md:items-center mb-6 ">
           <div class="md:w-1/3">
             <label
               class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
@@ -151,43 +152,36 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* <div class="md:flex md:items-center mb-6">
+        <div class="md:flex md:items-center mb-6">
           <div class="md:w-1/3">
             <label
               class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
               for="inline-full-name"
             >
-              Estado
+              Rol del usuario
             </label>
           </div>
           <div class="md:w-2/3">
-            <input
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              name="estado"
-              type="text"
-              value="APROBADO"
-            />
+            <label
+              class="text-blue-700 py-2 px-4 font-bold md:text-right mb-1 md:mb-0"
+              for="inline-full-name"
+            >
+              {queryData.Usuario.rol}
+            </label>
           </div>
-          <DropDown
-          label='Estado de la persona:'
-          name='estado'
-          defaultValue={queryData.Usuario.estado}
-          required={true}
-          options={Enum_EstadoUsuario}
-        />
-          <br />
-        </div> */}
-        <span>Rol del usuario: {queryData.Usuario.rol}</span>
+        </div>
+
+{/*         <span>Rol del usuario: {queryData.Usuario.rol}</span> */}
 
         <div class="md:flex md:items-center">
           <div class="md:w-1/3"></div>
           <div class="md:w-2/3">
-            <button
+            {/* <button
               class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
               type="submit"
             >
               Editar datos
-            </button>
+            </button> */}
             <ButtonLoading
               disabled={Object.keys(formData).length === 0}
               loading={mutationLoading}
