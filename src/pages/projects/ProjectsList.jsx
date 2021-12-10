@@ -11,16 +11,17 @@ import { GET_PROJECTS_BY_LIDER } from 'graphql/proyectos/queries'
 const ProjectsList = () => {
 
   const [listProjects, setListProjects] = useState([]);
-
   const [filteredList, setFilteredList] = useState([]);
 
   const [listProjectsLider, setListProjectsLider] = useState([]);
   const [filteredListLider, setFilteredListLider] = useState([]);
-  
+  const [viewToApprove, setViewToApprove] = useState(false);
+
+  const [listProjectsStudent, setListProjectsStudent] = useState([]);
   const [filteredListStudent, setFilteredListStudent] = useState([]);
   const [viewOnlyStudent, setViewOnlyStudent] = useState(true);
+
   const [sortBy, setSortedBy] = useState("older");
-  const [viewToApprove, setViewToApprove] = useState(false);
 
   const idEstudiante = "61a95aebeb450051e9c2dc10";
   const id_lider = "61a955cf355428fe4ece9225";
@@ -75,7 +76,15 @@ const ProjectsList = () => {
       );
     }
 
-  }, [searchBy, ProjectsList, listProjectsLider])
+    if (role === "ESTUDIANTE") {
+
+      setFilteredListStudent(
+        listProjectsStudent.filter((elemento) => {
+          return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
+        })
+      );
+    }
+  }, [searchBy, ProjectsList, listProjectsLider,listProjectsStudent])
 
   useEffect(() => {
     console.log("sort", sortBy);
@@ -89,6 +98,10 @@ const ProjectsList = () => {
     if(role=="LIDER"){
       const lista1 = filteredListLider.slice(0).reverse();
       setFilteredListLider(lista1);
+    }
+    if(role=="ESTUDIANTE"){
+      const lista2= filteredListStudent.slice(0).reverse();
+      setFilteredListStudent(lista2);
     }
 
   }, [sortBy])
@@ -117,11 +130,15 @@ const ProjectsList = () => {
     }
 
   }, [viewToApprove]);
+
   useEffect(() => {
 
     console.log('data estudiante', dataStudent);
-
-  }, [dataStudent]);
+    setListProjectsStudent(dataStudent.filtrarInscripcionesPorEstudiante);
+  setFilteredListStudent(dataStudent.filtrarInscripcionesPorEstudiante);
+  
+}, [dataStudent]);
+  
   useEffect(() => {
     if (!loading) {
       setListProjects(dataProjects.Proyectos);
@@ -164,22 +181,23 @@ const ProjectsList = () => {
         <div className="flex flex-col  sm:flex-row ml-5  text-lg gap-10 ">
 
           {role === "ESTUDIANTE" && <>
+
             <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
           border-gray-600  focus:outline-none hover:border-blue-800 border-b-4 transition duration-150 ${buttonEstudiante}`}
               onClick={() => setViewOnlyStudent(true)}>
-              <i className="fas fa-info-circle w-auto" ></i> Mis Inscritos
+              <i className="fas fa-check "></i> Mis Inscritos
             </button>
             <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
           border-gray-600   hover:border-blue-800 focus:outline-none border-b-4 transition duration-150 ${buttonTodos}`}
               onClick={() => setViewOnlyStudent(false)}>
-              <i className="fas fa-info-circle "></i> Explorar Otros
+              <i className="fas fa-clipboard-list "></i> Explorar Otros
             </button></>}
           {role === "ADMINISTRADOR" && <>
 
             <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium text-gray-600 
           border-gray-600   hover:border-blue-800 focus:outline-none border-b-4 transition duration-150 ${buttonTodos2}`}
               onClick={() => setViewToApprove(false)}>
-              <i className="fas fa-info-circle "></i> Ver Todos
+              <i className="fas fa-clipboard-list "></i> Ver Todos
             </button>
             <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium text-gray-600 
           border-gray-600  focus:outline-none hover:border-blue-800 border-b-4 transition duration-150 ${buttonToApprove}`} onClick={() => setViewToApprove(true)}>
@@ -239,7 +257,7 @@ const ProjectsList = () => {
           {role === "ESTUDIANTE" &&
             <>
 
-              {viewOnlyStudent && dataStudent && dataStudent.filtrarInscripcionesPorEstudiante.map((project_info) => {
+              {viewOnlyStudent && dataStudent && filteredListStudent.map((project_info) => {
                 return (
                   <ProjectCardInfo key={project_info.proyecto._id} project_info={project_info.proyecto} 
                   setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit}
@@ -255,13 +273,7 @@ const ProjectsList = () => {
 
 
             </>}
-            {/* {role === "LIDER" &&
-            <div className="flex flex-col  w-70 h-60 bg-white   shadow-xl p-4  rounded-2xl transform transition duration-200 hover:scale-110  ">
-              <div className="flex flex-col  ">
-                <span>Crear nuevo Proyecto</span>
-              </div>
-            </div>
-            } */}
+           
 
           {role === "LIDER" &&
             <>
