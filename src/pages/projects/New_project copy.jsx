@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import RowObjective from 'components/RowObjective';
 import { useMutation } from '@apollo/client';
 import { CREATE_NEW_PROJECT } from 'graphql/proyectos/queries';
-import { TextareaAutosize } from '@material-ui/core';
 
 const New_project = () => {
     const [addObjective, setAddObjective] = useState(false)
@@ -95,21 +94,23 @@ const New_project = () => {
                 </span>
             </div>
 
-            <div className="w-full  overflow-y-hidden mt-2">
+            <div className="w-full  overflow-y-hidden mt-6">
 
-                <div className="w-full h-full px-5 flex flex-row  ">
-                    <form  className=" w-3/6  flex flex-col  "
+                <div className="w-full h-full px-20 ">
+                    <form
                         onSubmit={submitForm}
                         onChange={updateFormData}
                         ref={form}>
                         <div className=" w-full bg-white   mb-2 px-2 flex flex-col align-center justify-center border-solid border-2 border-gray-300 rounded-xl py-2">
                             <div className="flex flex-row gap-4 justify-between  ">
                                 <span className="px-10 py-3 text-blue-800 text text-xl font-medium  ">
-                                   GUARDAR PROYECTO NUEVO:</span>
+                                    SE CREARÁ UN NUEVO PROYECTO CON :</span>
                                 <div className="flex flex-row gap-4 justify-end  py-4 px-10">
-                                    <button type="submit" className="bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded-xl h-10 text-lg text-white" >Guardar</button>
+                                    <button type="submit" className="p-1 pl-4 pr-4  
+                                    bg-blue-500 border-2 border-blue-500 font-bold text-white text-lg rounded-lg hover:bg-blue-600 hover:text-white  focus:border-4 " >Guardar</button>
                                     <NavLink to={`/proyectos/`}>
-                                        <button type="button" className="bg-gray-500 hover:bg-gray-700 px-3 py-1 rounded-xl h-10 text-white mr-1 close-modal ml-2">Cancelar</button></NavLink>
+                                        <button type="button" className="p-1 pl-4 pr-4   bg-transparent border-2 border-blue-500 font-bold text-blue-500 text-lg rounded-lg hover:bg-blue-600 
+                                    hover:text-white  focus:border-4 " >Cancelar</button></NavLink>
                                 </div></div>
 
 
@@ -117,71 +118,71 @@ const New_project = () => {
                         </div>
                         <div className="bg-white  w-full py-2 px-4 align-center rounded-2xl flex flex-row gap-2 border-solid border-2 border-gray-300">
 
-                            <div className="w-full h-full flex flex-col pb-10">
+                            <div className="w-full h-full flex flex-col ">
                                 <div className=" py-2 px-8 flex flex-row ">
-                                    <span className="text-blue-800 font-semibold  text text-lg font-medium mt-4 mr-2">
-                                        NOMBRE 
-                                    </span> <TextareaAutosize minRows="1" type="text" required name="nombre" className="text-blue-800 px-6 py-2 text-2xl font-bold  h-10  w-full mx-4  mt-1 rounded-2xl z-0 focus:outline-none bg-blue-50"
-                                        placeholder="Nombre del proyecto" ></TextareaAutosize>
+                                    <span className="text-blue-800 font-semibold  text text-lg font-medium mt-4">
+                                        NOMBRE PROYECTO:
+                                    </span> <input type="text" required name="nombre" className="text-blue-800 px-10 py-2 text-2xl font-bold  h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100"
+                                        placeholder="Nombre del proyecto" />
                                 </div>
                                 <div className="flex flex-col ">
 
                                     <div className="flex flex-row justify-start my-2"><div>
-                                        <span className="text-blue-500 font-semibold text-lg ml-8"> LIDER</span>
-                                        <div className="flex flex-row">
-                                        <input disabled type="text" className="h-10  ml-10 px-10  rounded-xl z-0 focus:outline-none
-                                     bg-white border-b-2 border-gray-300" defaultValue={nombre_lider}></input>
-                                      <input disabled type="text" name="lider" className="h-10  mx-2 px-5  rounded-xl z-0 focus:outline-none
-                                     bg-white border-b-2 border-gray-300" defaultValue={id_lider}></input>
-                                     </div>
-                                    </div> 
+                                        <span className="text-blue-500 font-semibold text-lg ml-8">NOMBRE LIDER</span>
+                                        <input disabled type="text" className="h-10  ml-16 px-10  rounded-xl z-0 focus:outline-none
+                                     bg-white border-2 border-gray-300" defaultValue={nombre_lider}></input>
+                                    </div> <div>
+                                            <span className="px-2 ml-20 text-blue-500 font-semibold text-lg">ID LIDER</span>
+                                            <input disabled type="text" name="lider" className="h-10  ml-10 px-5  rounded-xl z-0 focus:outline-none
+                                     bg-white border-2 border-gray-300" defaultValue={id_lider}></input>
+                                        </div>
 
 
                                     </div>
-                                    <div className="w-full py-2 px-6 flex flex-row  justify-between gap-8 text-lg">
 
-<div className="w-full py-2  flex flex-row ml-3 text-lg">
-    <label htmlFor="Presupuesto" className="text-gray-500  font-semibold  font-medium ">
-        PRESUPUESTO:
-    </label>
-    <input type="number" required min="1" name="presupuesto" className="h-10 bg-blue-50 w-44 ml-16 px-6  
-rounded-xl z-0 focus:outline-none
-bg-gray-100 border-2 border-gray-300"
-        value={budget} onChange={(e) => setBudget(e.target.value)} />
-
-</div>
-
-
-</div>
-                                    <div className="flex flex-col justify-around mt-4 pr-8 gap-1">
+                                    <div className="flex flex-row justify-around mt-4 pr-8">
                                         <div>
-                                            <span className="px-2 text-blue-500 font-semibold text-base ml-3">ESTADO</span>
+                                            <span className="px-2 text-blue-500 font-semibold text-lg ml-3">ESTADO</span>
                                             <input readOnly type="text" name="estado" className="h-10  ml-10 px-10  rounded-xl z-0 focus:outline-none
-                                     bg-white border-b-2 border-gray-300" defaultValue="INACTIVO"></input>
+                                     bg-white border-2 border-gray-300" defaultValue="INACTIVO"></input>
                                         </div>
                                         <div>
-                                            <span className="px-2 ml-3  text-blue-500 font-semibold text-base">FASE</span>
+                                            <span className="px-2 ml-20 text-blue-500 font-semibold text-lg">FASE</span>
                                             <input readOnly type="text" name="fase" className="h-10  ml-10 px-5  rounded-xl z-0 focus:outline-none
-                                     bg-white border-b-2 border-gray-300" defaultValue="NULO"></input>
+                                     bg-white border-2 border-gray-300" defaultValue="NULO"></input>
                                         </div>
                                         <div>
-                                            <span className="px-2 ml-3 text-blue-500 font-semibold text-base">Fecha Creación</span>
+                                            <span className="px-2 ml-20 text-blue-500 font-semibold text-lg">Fecha Creación</span>
                                             <input readOnly type="text" className="h-10  ml-10 px-5  rounded-xl z-0 focus:outline-none
-                                     bg-white border-b-2 border-gray-300" defaultValue={date}></input>
+                                     bg-white border-2 border-gray-300" defaultValue={date}></input>
                                         </div>
                                     </div>
-                                    
+                                    <div className="w-full py-2 px-8 flex flex-row  justify-between gap-8 text-lg">
+
+                                        <div className="w-full py-2  flex flex-row  text-lg">
+                                            <label htmlFor="Presupuesto" className="text-gray-500  font-semibold  font-medium ">
+                                                PRESUPUESTO:
+                                            </label>
+                                            <input type="number" required min="1" name="presupuesto" className="h-10  w-1/5 ml-16 px-10  
+                                    rounded-xl z-0 focus:outline-none
+                                     bg-gray-100 border-2 border-gray-300"
+                                                value={budget} onChange={(e) => setBudget(e.target.value)} />
+
+                                        </div>
+
+
+                                    </div>
                                 </div>
                             </div>  </div>
 
                     </form>
 
-                    <div className=" w-full h-3/5 flex-auto mb-20 bg-white  ml-2 flex flex-col align-center justify-center border-solid border-2 border-gray-300 
+                    <div className=" w-full h-3/5  mb-20 bg-white  mt-4 flex flex-col align-center justify-center border-solid border-2 border-gray-300 
                     rounded-xl py-2">
 
-                        <div className="w-full   py-2 px-2 flex flex-col h-full ">
+                        <div className="w-full   py-2 px-4 flex flex-col h-full ">
                             <div className="w-full flex flex-row align-center">
-                                <span className="text-blue-800 px-6 py-2 text-2xl font-bold ">      Objetivos      </span>
+                                <span className="text-blue-800 px-10 py-2 text-2xl font-bold ">      Objetivos      </span>
                                 {!addObjective &&
                                     <button className="p-1 ml-20  h-10 bg-transparent border-2 border-blue-500  text-blue-500 text-lg rounded-lg hover:bg-blue-600 
                 hover:text-white  focus:border-4 "onClick={() => setAddObjective(!addObjective)}>Nuevo</button>}
@@ -195,24 +196,24 @@ bg-gray-100 border-2 border-gray-300"
                                             <span>Tipo</span>
                                             <span>Descripción</span></div>
                                         <div className="w-full flex flex-row mt-5 text-gray-600">
-                                            <select className="h-10 w-44 pr-8 pl-5 text-base text-blue-800 rounded-2xl z-0 focus:shadow focus:outline-none 
+                                            <select className="h-10 w-50 pr-8 pl-5 text-lg text-blue-800 rounded-2xl z-0 focus:shadow focus:outline-none 
                       border-gray-400 border-2" defaultValue="GENERAL" defaultValue={newType} onChange={(e) => setnewType(e.target.value)}>
                                                 <option className="" value="GENERAL" >GENERAL</option>
                                                 <option className="" value="ESPECIFICO">ESPECIFICO </option>
 
                                             </select>
-                                            <TextareaAutosize type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
+                                            <input type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
                                                 defaultValue={newDescripObj} onChange={(e) => setNewDescripObj(e.target.value)} />
 
-                                            <button className="text-blue-600 hover:text-blue-800 focus text-base" onClick={() => AddNewObjective()}><i className="fas fa-folder-plus fa-lg"></i>Añadir</button>
-                                            <button className="text-gray-600 hover:text-gray-700 ml-6 text-base" onClick={() => setAddObjective(false)}><i className="fas fa-ban fa-lg"></i>Cancelar</button>
+                                            <button className="text-blue-600 hover:text-blue-800 focus" onClick={() => AddNewObjective()}><i className="fas fa-folder-plus fa-lg"></i>Añadir</button>
+                                            <button className="text-gray-600 hover:text-gray-700 ml-10" onClick={() => setAddObjective(false)}><i className="fas fa-ban fa-lg"></i>Cancelar</button>
                                         </div>
                                     </div>
                                 </li>
 
                             }
-                            <ul id="lista_obj" form={null} className="  h-full mt-5 py-2 px-6 border-t-2 
-                            border-blue-200  pr-8">
+                            <ul id="lista_obj" form={null} className="list-decimal  h-full mt-5 py-2 px-6 border-t-2 
+                            border-blue-200 pl-10 pr-8">
 
                                 {objectives_list !== {} && objectives_list.map((objetivo) => {
                                     return (<RowObjective key={nanoid()} list={objectives_list} setObjectivesList={setObjectivesList} datarow={objetivo} />);

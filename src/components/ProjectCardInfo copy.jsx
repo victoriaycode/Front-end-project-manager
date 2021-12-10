@@ -6,26 +6,23 @@ import { useState , useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import { ToastContainer,toast } from 'react-toastify';
 import Edit_project_admin_modal from './Edit_project_admin';
-import Enroll_modal from './Enroll_modal';
 
-const ProjectCardInfo = ({project_info,already_enrolled}) => {
-    
+const ProjectCardInfo = ({project_info,setOpenModalEnroll}) => {
+   
     const [aprobarModal, setAprobarModal]= useState(false);
     
     const [editModal, setEditModal]= useState(false);
-    
-    const [enrollModal, setEnrollModal]= useState(false);
 
-    var dateNow = new Date();
+    var dateNow = new Date().toISOString().slice(0, 14);
     
   const [editarProjectAdmin, { data: mutationData, loading: mutationLoading, error: mutationError }] =
   useMutation(EDIT_PROJECT_BY_ADMIN);
 
     //const [openModal, setOpenModal] = useState(false);
     const card = project_info;
-    const lidertest= "Lider nombre largo"
+    const lidertest= "Victoria Y"
     let colorState = "green";
-    let colorFase = "gray";
+    let colorFase = "yellow";
     if (project_info.estado==="INACTIVO"){
         colorState="gray"
         
@@ -34,16 +31,7 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
         colorFase="red"
       
     }
-    
-    if (project_info.fase==="INICIADO"){
-      colorFase="blue"
-    
-  }
-  if (project_info.fase==="DESARROLLO"){
-    colorFase="yellow"
-  
-}
-    let user= "ESTUDIANTE";
+    let user= "ADMINISTRADOR";
     
     
     
@@ -65,55 +53,53 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
         
 
          
-            <div className="flex flex-col   w-70 h-60 bg-white   shadow-xl p-4  rounded-2xl transform transition duration-200 hover:scale-110  ">
+            <div className="flex flex-col h-44 w-64 bg-white   shadow-xl p-4  rounded transform transition duration-300 hover:scale-105 ">
 
 
-                <div className="flex flex-col  ">
+                <div className="flex flex-row pt-2 ">
 
-                  
-                    <div className="flex flex-col  justify-center   w-full align-center">
-                        <p className="text-lg text-blue-800 w-30 truncate  text-center pb-1 pt-3 text-2xl font-bold  ">{card.nombre}</p>
-                        {/* <span className=" text-ms text-gray-500 text-xs mx-2 font-light pt-2 ">Lider : <span className="text-blue-800 font-light">{card.lider.nombre} {card.lider.apellido}</span> </span> */}
-                       
-                <span className=" text-gray-500 text-sm mx-2 text-center  font-light align-start pb-1">Lider : <span className="text-gray-800 font-light">{lidertest}</span> </span>
-                   
-                    </div>
-                    <div className="flex flex-row px-2 justify-center mt-2 ">
-                        <div className={`relative flex flex-row  gap-4 h-16 flex justify-center items-center   
+                    <div className="flex pt-5 ">
+                        <div className={`relative flex flex-col  h-16 flex justify-center items-center   
           text-${colorState}-500 `}>
-                          
-                            <span className=" mt-1 w-20 text-center font-semibold mb-1 text-base">  <i className="far fa-calendar-check fa-2x"></i> {card.estado}</span>
-                            <span className={` pt-2 text-center text-${colorFase}-500 font-semibold text-xs`}>   <i className="fas fa-tachometer-alt fa-2x"></i> {card.fase} </span>
+                            <i className="far fa-calendar-check fa-2x"></i>
+                            <span className="text-xs mt-1 font-semibold mb-1">{card.estado}</span>
+                            <span className={` pt-2 text-center text-${colorFase}-500 font-semibold text-xs `}>{card.fase} </span>
 
                         </div>
                     </div>
+                    <div className="flex flex-col pl-2 ">
+                        <p className="text-lg text-blue-800 w-30 break-all     overflow-ellipsis   px-2 text-1xl font-bold  ">{card.nombre}</p>
+                        {/* <span className=" text-ms text-gray-500 text-xs mx-2 font-light pt-2 ">Lider : <span className="text-blue-800 font-light">{card.lider.nombre} {card.lider.apellido}</span> </span> */}
+                        <span className=" text-ms text-gray-500 text-xs mx-2 font-light pt-2 ">Lider : <span className="text-blue-800 font-light">{lidertest}</span> </span>
+                   
+                    </div>
                 </div>
-                <div className="flex flex-rows-2 w-full gap-2 justify-center align-center mt-4 ">
+
+                <div className="flex flex-rows-2 w-full justify-end align-center mt-4 pr-6">
                     <NavLink
                         to={`/proyectos/proyecto/${card._id}`}  >
 
 <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
-                    focus:border-4 focus:border-blue-300 text-base"  ><i className="far fa-eye fa-lg"></i> Ver</button>
+                    focus:border-4 focus:border-blue-300 font-mono text-sm"  >Ver</button>
                     </NavLink>
-
-                    { user==="ESTUDIANTE" && !already_enrolled &&
+                    {user==="ESTUDIANTE" &&
                     <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
-                    focus:border-4 focus:border-blue-300  text-sm" onClick={() => setEnrollModal(true)}><i class="fas fa-check-double"></i> Inscribirse</button>
+                    focus:border-4 focus:border-blue-300 font-mono text-sm" onClick={() => setOpenModalEnroll(true)}>Inscribirse</button>
                
             }
-                { user==="ADMINISTRADOR" &&
+                {user==="ADMINISTRADOR" &&
                 <>
                  { (card.estado==="INACTIVO" && card.fase==="NULO") 
                    ? (<button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
                    text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
-                   focus:border-4 focus:border-blue-300 font-mono text-base"  onClick={() => setAprobarModal(true)}> <i class="far fa-check-circle"></i>APROBAR</button>
+                   focus:border-4 focus:border-blue-300 font-mono text-sm"  onClick={() => setAprobarModal(true)}>APROBAR</button>
                    ):(
 
-                    <button className="p-2 pl-4  pr-4 ml-2 bg-transparent border-2 border-blue-300
+                    <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
-                    focus:border-4 focus:border-blue-300 font-mono text-base" onClick={() => setEditModal(true)}><i class="far fa-edit"></i> EDITAR</button>
+                    focus:border-4 focus:border-blue-300 font-mono text-sm" onClick={() => setEditModal(true)}>EDITAR</button>
                    )
                  }
                   
@@ -155,9 +141,7 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
 
                         
                     </Dialog>
-                    <Dialog open={enrollModal} >
-                      <Enroll_modal setOpenModalEnroll={setEnrollModal} name_project={card.nombre}></Enroll_modal>
-                    </Dialog>
+           
             </div>
             
            

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from 'context/authContext';
 import { useNavigate } from 'react-router';
+import PrivateComponent from './PrivateComponent';
 
 const SidebarLinks = () => {
 
@@ -10,9 +11,11 @@ const SidebarLinks = () => {
         
       <SidebarRoute1 to='/inicio' title='Inicio' icon="fas fa-home fa-lg"/>
       <SidebarRoute1 to='/proyectos' title='Proyectos' icon="fas fa-folder fa-lg"/>
+      <PrivateComponent roleList={["LIDER"]}>
+      <SidebarRoute1 to='/inscripciones' title='Inscripciones' icon="fas fa-clipboard-check fa-lg"/>
+     </PrivateComponent>
       <SidebarRoute1 to='/usuarios' title='Usuarios' icon="fas fa-users fa-lg"/>
       <SidebarRoute1 to='/mi_perfil' title='Mi Perfil' icon="fas fa-user-cog fa-lg"/>
-     
       </ul>
     );
   };
@@ -50,11 +53,13 @@ const SidebarNav = () => {
           <a className="block relative flex flex-col w-full h-16 w-16 flex justify-center items-center text-gray-400 
           hover:text-blue-400 cursor-pointer">
           <i className="fas fa-power-off fa-lg" 
-          onClick={() => {
-            console.log('eliminar token');
+          onClick={
+            () => {
             setToken(null)
-            navigate('/login')}}></i>
-            <span className="text-xs mt-1">Logout</span>
+            navigate('/login')}
+            }>
+            </i>
+            <span className="text-xs mt-1 cursor-none">Logout</span>
           </a>
       </div>
     </div>
