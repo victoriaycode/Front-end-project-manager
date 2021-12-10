@@ -24,8 +24,8 @@ const AdvancesDashboard = () => {
       <ProjectNavbar _idActual={_id} nombreProject={_id} rutaRetorno={`/proyectos/proyecto/${_id}`}/>
    
    
+   {/*<AdvancesTable idProject={_id} openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal}></AdvancesTable>*/ } 
     <AdvancesTable idProject={_id} openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal}></AdvancesTable>
-     
     {openNewAdvanceModal &&
      <New_advance_modal nameStudent={name_student}  idStudent={id_Estudiante} 
      idProject={_id} setOpenModal={setNewAdvanceModal}></New_advance_modal>} 

@@ -2,7 +2,6 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import ProjectCardInfo from '../../components/ProjectCardInfo'
 import { NavLink } from 'react-router-dom'
-import Edit_proyect_admin_modal from '../../components/Edit_proyect_admin_modal'
 
 import { GET_PROJECTS_CARDS, GET_STUDENT_PROJECTS_ENROLLED } from 'graphql/proyectos/queries'
 import { useQuery } from '@apollo/client';
@@ -302,9 +301,6 @@ const ProjectsList = () => {
                 </div> */}
       </div>
 
-      {
-        openModalEdit && <Edit_proyect_admin_modal project_id={"2312323"} setOpenModalEdit={setOpenModalEdit}></Edit_proyect_admin_modal>
-      }
 
     </div>
 

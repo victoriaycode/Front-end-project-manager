@@ -121,6 +121,8 @@ const Info = () => {
                             <div className="flex flex-row justify-between">
                                 <span className="px-8 rounded-r-lg bg-blue-800  text-white  font-bold p-3 uppercase border-blue-800 border-t border-2">
                                     <i className="fas fa-folder fa-lg"></i> Proyecto</span>
+                                
+                                    
                                 <div className="flex flex-row  flex-center justify-end">
                                     {!editName ? (<Tooltip title='EDITAR NOMBRE' arrow placement="left">
                                         <button className="text-blue-600 hover:text-blue-800  py-1 px-2  transform hover:scale-125 focus" >

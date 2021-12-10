@@ -117,7 +117,7 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
 
                     <button className="p-2 pl-4  pr-4 ml-2 bg-transparent border-2 border-blue-300
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
-                    focus:border-4 focus:border-blue-300 font-mono text-base" onClick={() => setEditModal(true)}><i class="far fa-edit"></i> EDITAR</button>
+                    focus:border-4 focus:border-blue-300 font-mono text-base" onClick={() => setEditModal(true)}><i className="far fa-edit"></i> EDITAR</button>
                    )
                  }
                   
