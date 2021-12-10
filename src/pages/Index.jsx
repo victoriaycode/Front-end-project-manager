@@ -1,13 +1,13 @@
 import React from 'react';
+import PrivateRoute from 'components/PrivateRoute';
 
 const Index = () => {
   return (
-    <div>
-      <div className='bg-green-300 h-96'>Index page</div>
-      <div className='bg-green-300 h-96'>Index page</div>
-      <div className='bg-green-300 h-96'>Index page</div>
-      <div className='bg-green-300 h-96'>Index page</div>
-    </div>
+    <div className="w-full h-full flex flex-col overflow-y-hidden " >
+      <PrivateRoute roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE']} stateUser={'AUTORIZADO'}>
+        <Title_page title={"Inicio"}  returns ={false} return_to={"/"}></Title_page>
+      </PrivateRoute>
+        </div>
   );
 };
 
