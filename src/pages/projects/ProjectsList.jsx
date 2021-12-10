@@ -148,14 +148,14 @@ const ProjectsList = () => {
   return (
 
     <div className="w-full h-full flex flex-col  overflow-y-hidden overflow-x-hidden pl-20 pr-20" >
+    {role=="LIDER" && 
       <NavLink to="/proyectos/nuevo">
         <div className="flex flex-row w-full  justify-end align-center mr-20  ">
-          
               {!openModalEdit && 
                 <button className="p-2 pl-5 pr-5 z-30 absolute  top-8 right-30 bg-white shadow border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" >Nuevo</button>}
         </div></NavLink>
-
+      }
       <div className="relative h-20 mt-4 pl-8  flex flex-row  w-full align-center  
         pt-6  bg-gray-100 bg-opacity-50 pb-4 ">
         <span className="text-lg text-blue-800 text-3xl ml-2 mr-5 pt-2 font-bold justify-start ">Proyectos</span>
