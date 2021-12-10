@@ -12,7 +12,6 @@ import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
 import 'styles/globals.css';
 import 'styles/tablausuarios.css';
-import Project from 'pages/projects/Project';
 import Profile from 'pages/my_profile/Profile';
 import UsersDashboard from 'pages/users/UsersDashboard';
 import AdvancesDashboard from 'pages/projects/advances/AdvancesDashboard';
@@ -27,6 +26,7 @@ import Index1 from 'pages/inicio/Index1';
 import Inscriptions from 'pages/inscriptions/Inscriptions';
 import PrivateRoute from 'components/PrivateRoute';
 
+import Info from 'pages/projects/Info';
 
 const httpLink = createHttpLink({
   uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
@@ -99,12 +99,13 @@ function App() {
                 <Route path='/usuarios' element={<UsersDashboard />} />
                 <Route path='/proyectos' element={<ProjectsList />} />
                 <Route path='/proyectos/misproyectos' element={<My_projects/>} />
-                <Route path='/proyectos/proyecto' element={<Project />} />
+                <Route path='/proyectos/proyecto/:_id' element={<Info />} />
                 <Route path='/proyectos/nuevo' element={<New_project />} />
-                <Route path='/proyectos/proyecto/avances' element={<AdvancesDashboard />} />
-                <Route path='/proyectos/proyecto/avances/avance' element={<Advance />} />
-                <Route path='/proyectos/proyecto/info' element={<Project />} />
-                <Route path='/proyectos/proyecto/estudiantes' element={<Students />} />
+                
+                <Route path='/proyectos/proyecto/avances/:_id' element={<AdvancesDashboard />} />
+                <Route path='/proyectos/proyecto/avances/n/:_id/:_idAvance' element={<Advance />} />
+
+                <Route path='/proyectos/proyecto/estudiantes/:_id' element={<Students />} />
                 
                 <Route path='/mi_perfil' element={< Profile/>} />
               
