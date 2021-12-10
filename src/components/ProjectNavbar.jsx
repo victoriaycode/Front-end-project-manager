@@ -41,14 +41,14 @@ const ProjectNavbar = ({_idActual,rutaRetorno,nombreProject}) => {
           </button>
         </NavLink>
         
-        <NavLink to ='/proyectos/proyecto/estudiantes'
+        <NavLink to ={`/proyectos/proyecto/estudiantes/${_id}`}
          className={({ isActive }) =>
          isActive
            ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
            : 'text-gray-600 border-b-4 '
        }>
-        <button class="py-4 px-6  mx-2 block hover:text-blue-800 focus:outline-none  font-medium">
-        <i class="far fa-address-card"></i>  Estudiantes
+        <button className="py-4 px-6  mx-2 block hover:text-blue-800 focus:outline-none  font-medium">
+        <i className="far fa-address-card"></i>  Estudiantes
         </button>
         </NavLink>
     </nav>

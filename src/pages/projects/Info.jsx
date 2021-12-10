@@ -22,13 +22,15 @@ const Info = () => {
     const [editBudget, setEditBudget] = useState(false);
     const [createModal, setCreateModal] = useState(false);
     const [deleteObjModal, setDeletedObjModal] = useState(false);
+    
+    const [actualProject, setActualProject] = useState([]);
     const { data: infoProject, error, loading, refetch } = useQuery(GET_PROJECT_INFO, {
         variables: {
             _id
         },
     });
 
-
+    const [nombreproyecto,setNombreProyecto]=useState("Proyecto");
     const [editarProjectLider, { data: mutationData, loading: mutationLoading, error: mutationError }] =
         useMutation(EDIT_PROJECT_BY_LIDER);
     const [state_color, changeStateColor] = useState("text-green-500");
@@ -36,13 +38,14 @@ const Info = () => {
 
     useEffect(() => {
         console.log('data Proyecto', infoProject);
-        if (!loading && infoProject != null) {
+        if (!loading && infoProject ) {
 
             let proj = infoProject.filtrarProyecto;
-
+            setActualProject(infoProject.filtrarProyecto);
             if (infoProject.filtrarProyecto.estado == "INACTIVO") { changeStateColor("text-red-400") }
             setNewName(infoProject.filtrarProyecto.nombre);
             setNewBudget(infoProject.filtrarProyecto.presupuesto);
+            setNombreProyecto(infoProject.filtrarProyecto.nombre);
             if (infoProject.filtrarProyecto.fase == "NULO") { changeFaseColor("text-gray-400") }
             if (infoProject.filtrarProyecto.fase == "INICIADO") { changeFaseColor("text-blue-400") }
             if (infoProject.filtrarProyecto.fase == "DESARROLLO") { changeFaseColor("text-yellow-400") }
@@ -107,7 +110,7 @@ const Info = () => {
     if (loading) return <div>Cargando....</div>;
     return (
         <div className="w-full h-screen  ">
-            <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'} nombreProject={infoProject.filtrarProyecto.nombre} />
+            <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'} nombreProject={ nombreproyecto} />
             <div className=" h-5/6 flex flex-rows px-2  mb-5 mt-2" >
 
                 <div className="bg-white h-full   py-2 px-4 align-center rounded-2xl mt-1  flex flex-col
@@ -135,7 +138,7 @@ const Info = () => {
                         </div>
 
                         
-                        {!editName ? (<TextareaAutosize maxRows="2" disabled value={infoProject.filtrarProyecto.nombre} minRows="1" className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-lg  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
+                        {!editName ? (<TextareaAutosize maxRows="2" disabled value={actualProject.nombre} minRows="1" className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-lg  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
                         </TextareaAutosize>) : (<input disabled={!editName} value={newName}
                             onChange={(e) => {
                                 setNewName(e.target.value)
