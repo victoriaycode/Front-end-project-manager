@@ -10,7 +10,7 @@ const Enroll_modal = ({name_project,setOpenModalEnroll}) => {
       
           <div className="border-b px-4 py-2 flex justify-between items-center">
             <h3 className="font-semibold text-blue-800 text-lg">Solicitud de Inscripción del Estudiante</h3>
-            <button className="text-black hover:text-blue-700" onClick={()=>setOpenModalEnroll(false)}><i class="far fa-times-circle fa-2x"></i></button>
+            <button className="text-black hover:text-blue-700" onClick={()=>setOpenModalEnroll(false)}><i className="far fa-times-circle fa-2x"></i></button>
           </div>
         
           <div className="p-3 flex flex-col text-center">
