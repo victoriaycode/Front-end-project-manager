@@ -108,4 +108,4 @@ const UsersDashboard = () => {
 }
 
 
-export default UsersDashboard
+export default UsersDashboard;
