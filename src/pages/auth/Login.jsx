@@ -16,12 +16,13 @@ function Login() {
 
   const [login, { data: dataMutation, loading: mutationLoading, error: mutationError }] =
     useMutation(LOGIN);
-
+    
   const submitForm = (e) => {
     e.preventDefault();
 
     login({
       variables: formData,
+      
     });
   };
 
@@ -29,7 +30,7 @@ function Login() {
     if (dataMutation) {
       if (dataMutation.login.token) {
         setToken(dataMutation.login.token);
-        navigate('/inicio');
+        navigate('/');
       }
     }
   }, [dataMutation, setToken, navigate]);

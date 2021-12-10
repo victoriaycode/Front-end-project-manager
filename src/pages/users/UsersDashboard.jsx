@@ -1,31 +1,30 @@
-
-import React, {useEffect, useState, useRef} from 'react'
-import Switch from 'components/switch'
+import React, {useEffect, useState} from 'react'
 import { useQuery } from '@apollo/client';
-import { GET_USUARIOS } from 'graphql/usuarios/queries';
-//import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { GET_USUARIOS} from 'graphql/usuarios/queries';
+import { toast } from 'react-toastify';
+import ModalAutorizarUsuario from 'components/ModalAutorizarUsuario'
 import PrivateRoute from 'components/PrivateRoute';
-//import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
+import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 
 const UsersDashboard = () => {
-
-  const { data, error, loading } = useQuery(GET_USUARIOS);
+  console.log('ANTES DEL QUERY DE USUARIOS');
+  const { data, error, loading } =  useQuery(GET_USUARIOS);
+  console.log('data usuarios:', data);
+  const [openModal, setOpenModal] = useState(false);
+  const [idUsuario, setIDUsuario] = useState('');
+  
+  
 
   useEffect(() => {
-    console.log('data servidor', data);
-  }, [data]);
-
-  /*useEffect(() => {
     if (error) {
       toast.error('Error consultando los usuarios');
     }
-  }, [error]);*/
+  }, [error]);
 
   if (loading) return <div>Cargando....</div>;
 
   return (
-  //  <PrivateRoute roleList={['ESTUDIANTE']}>
+  <PrivateRoute roleList={['ADMINISTRADOR','LIDER']} stateUser={'AUTORIZADO'}>
     <div className="w-full h-full flex flex-col overflow-y-hidden " >
   <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6">
       <span className="text-lg text-blue-800 text-3xl ml-8  font-bold">Usuarios</span>
@@ -56,11 +55,11 @@ const UsersDashboard = () => {
                 <div className="h-10  text-ms   w-60 font-light text-gray-400  pt-10  ">
                     <span className="h-6 mb-4 ">Mostrando 20 Usuarios</span>
                 </div>
-                <div class="inline-flex mt-8 ">
-                    <button class="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l  ">
+                <div className="inline-flex mt-8 ">
+                    <button className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l  ">
                         Prev
                     </button>
-                    <button class="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                    <button className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
                         Next
                     </button>
                 </div>
@@ -68,12 +67,13 @@ const UsersDashboard = () => {
                
             </div>
 
-            <div className="flex w-full h-full items-start justify-center align-center mt-8 pl-10 pr-10"> 
+            <div className="flex w-full h-full items-start justify-center align-center mt-8 pl-10 pr-10 overflow-x-auto overflow-y-scroll"> 
                 
                 <table className='tabla'>
                   <thead>
                     <th >Nombre</th>
                     <th >Apellido</th>
+                    <th >Identificación</th>
                     <th>Correo</th>
                     <th>Rol</th>
                     <th>Estado</th>
@@ -84,26 +84,33 @@ const UsersDashboard = () => {
                     data.Usuarios.map((u) => {
                       return(
                       <tr key={u._id}>
-                      <td>{u.nombre}</td>
-                      <td>{u.apellido}</td>
-                      <td>{u.correo}</td>
-                      <td>{u.rol}</td>
-                      <td>{u.estado}</td>
-                      
-                      {/*<td>{Enum_EstadoUsuario[u.estado]}</td>
-                     } <td>
-                      <Link to={`/usuarios/editar/${u._id}`}>
-                          <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer' />
-                        </Link>
-                      </td>*/}
+                        <td>{u.nombre}</td>
+                        <td>{u.apellido}</td>
+                        <td>{u.identificacion}</td>
+                        <td>{u.correo}</td>
+                        <td>{Enum_Rol[u.rol]}</td>
+                        <td>{Enum_EstadoUsuario[u.estado]}</td>
+                        <td> 
+                          <i onClick={() => {
+                            setIDUsuario(u._id) 
+                            setOpenModal(true)} 
+                          }className='fas fa-pen text-yellow-600 justify pl-7 hover:text-yellow-400 cursor-pointer' />
+                          
+                           {
+                                openModal && <ModalAutorizarUsuario setOpenModal={setOpenModal} _id={idUsuario}></ModalAutorizarUsuario>
+                                
+                            }                          
+                        </td>                  
                     </tr>
+                     
                       )  
                     })}
                   </tbody>
+                  
                 </table>
             </div>
     </div>
-  //  </PrivateRoute>
+   </PrivateRoute>
   )
 }
 
