@@ -7,9 +7,11 @@ import Edit_proyect_admin_modal from '../../components/Edit_proyect_admin_modal'
 import { GET_PROJECTS_CARDS, GET_STUDENT_PROJECTS_ENROLLED } from 'graphql/proyectos/queries'
 import { useQuery } from '@apollo/client';
 import { GET_PROJECTS_BY_LIDER } from 'graphql/proyectos/queries'
+import { useUser } from 'context/userContext'
 
 const ProjectsList = () => {
-
+  const { userData } = useUser();
+  const role = ""+userData.rol;
   const [listProjects, setListProjects] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
 
@@ -24,8 +26,8 @@ const ProjectsList = () => {
   const [sortBy, setSortedBy] = useState("older");
 
   const idEstudiante = "61a95aebeb450051e9c2dc10";
-  const id_lider = "61a955cf355428fe4ece9225";
-  const role = "ESTUDIANTE";
+  const id_lider = userData._id;
+ 
   const { data: dataProjects, error, loading, refetch } = useQuery(GET_PROJECTS_CARDS);
   const { data: dataStudent, error: errorStudent, loading: loadingStudent }
     = useQuery(GET_STUDENT_PROJECTS_ENROLLED, {
@@ -52,7 +54,7 @@ const ProjectsList = () => {
 
   // }
   useEffect(() => {
-    if (!loadingLider) {
+    if (!loadingLider && dataLider) {
       setListProjectsLider(dataLider.filtrarProyectoPorLider);
       setFilteredListLider(dataLider.filtrarProyectoPorLider);
       console.log("datalider", dataLider);
@@ -243,7 +245,7 @@ const ProjectsList = () => {
                 t-0 gap-y-8  gap-x-8
                  pt-2 align-center justify-center ">
 
-          {role === "ADMINISTRADOR" && dataProjects &&
+          {role === "ADMINISTRADOR"&&  
             <> {!viewToApprove && dataProjects && filteredList.map((project_info) => {
               return (
                 <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
