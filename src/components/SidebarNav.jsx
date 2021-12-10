@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from 'context/authContext';
 import { useNavigate } from 'react-router';
 import PrivateComponent from './PrivateComponent';
+import { useUser } from 'context/userContext';
+import { Tooltip } from '@material-ui/core';
 
 const SidebarLinks = () => {
 
@@ -32,7 +34,9 @@ const SidebarLinks = () => {
 
 const SidebarNav = () => {
 
+  const { userData } = useUser();
   const { setToken } = useAuth();
+  const usuario= userData.rol +": "+ userData.nombre +": "+userData.apellido;  
   const navigate = useNavigate();
 
     return (
@@ -45,11 +49,18 @@ const SidebarNav = () => {
         
       </div>
       <div className="flex flex-col space-y-4 pb-5 pr-2 mt-24">
-
-        <a className="block relative w-full h-16 w-16 flex justify-center items-center text-gray-400 
+      
+        <a className="block relative flex flex-col w-full h-16 w-16 flex justify-center items-center text-blue-800 
           hover:text-blue-400">
-          <i className="fas fa-user-circle fa-lg"></i></a>
+            
+            {/* <span>{userData.rol} :</span> */}
+            <Tooltip title={usuario} arrow placement="left">
+            
+            <i className="fas fa-user-circle fa-lg"></i>
+           </Tooltip>
 
+           </a>
+  
           <a className="block relative flex flex-col w-full h-16 w-16 flex justify-center items-center text-gray-400 
           hover:text-blue-400 cursor-pointer">
           <i className="fas fa-power-off fa-lg" 
