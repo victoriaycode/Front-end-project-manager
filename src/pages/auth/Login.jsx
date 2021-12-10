@@ -30,7 +30,7 @@ function Login() {
     if (dataMutation) {
       if (dataMutation.login.token) {
         setToken(dataMutation.login.token);
-        navigate('/inicio');
+        navigate('/');
       }
     }
   }, [dataMutation, setToken, navigate]);

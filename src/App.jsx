@@ -36,9 +36,6 @@ const httpLink = createHttpLink({
 //   uri: 'http://localhost:4000/graphql',
 // });
 
-// const httpLink = createHttpLink({
-//   uri: 'http://localhost:4000/graphql',
-// });
 
 //doc. apollo client
 //Cada vez que graphql haga un request al back, vaya al local storage, busque el token y pongalo en los headers
