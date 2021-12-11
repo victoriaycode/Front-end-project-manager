@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useUser } from 'context/userContext';
 import { GET_PROJECT_STATE } from 'graphql/proyectos/queries';
+import PrivateComponent from './PrivateComponent';
 const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
   
 
@@ -14,14 +15,14 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
  
     const role = ""+userData.rol;
     
-    const { data, error, loading ,refetch} = useQuery(LIST_ADVANCES_OF_PROJECT,{variables:{
+    const { data:datalist, error:errorlist, loading:loadinglist ,refetch} = useQuery(LIST_ADVANCES_OF_PROJECT,{variables:{
       idProject},});
       let _id= idProject;
-      const { data: infoProject, errorProj, loadingProject } = useQuery(GET_PROJECT_STATE, {
-        variables: {
-            _id
-        },
-    });
+    //   const { data: infoProject, error:errorPr, loading:loadingProject } = useQuery(GET_PROJECT_STATE, {
+    //     variables: {
+    //         _id
+    //     },
+    // });
 
       
     const [listAdvances,setListAdvances]=useState([]);
@@ -62,13 +63,13 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
  
       
   useEffect(() => {
-    if(loading){
+    if(loadinglist){
 
     }else{
 
-      console.log('data servidor', data);
+      console.log('data servidor', datalist);
     }
-  }, [loading]);
+  }, [loadinglist]);
 
   useEffect(() => {
    
@@ -76,39 +77,47 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
     
   }, [openNewAdvanceModal]);
   
+  // useEffect(() => {
+  //   if ( !loadingProject) {
+  //     // setStateProject(infoProject.filtrarProyecto.estado);
+  //     console.log("state",infoProject);
+  //     console.log("state",stateProject);
+
+  //   }
+  // }, [infoProject]);
+
   useEffect(() => {
-    if ( !loadingProject) {
-      // setStateProject(infoProject.filtrarProyecto.estado);
-      console.log("state",infoProject);
-      console.log("state",stateProject);
-
-    }
-  }, [infoProject]);
-
-  useEffect(() => {
-    if (data) {
-
-      setListAdvances(data.filtrarAvance);
+   
+      if(!loadinglist ){
+      // setListAdvances(datalist.filtrarAvance);
       
-      setFilteredList(data.filtrarAvance);
-      console.log(filteredList);
+      // setFilteredList(datalist.filtrarAvance);
+      console.log("DATALIST",datalist);
     }
-  }, [data]);
+  }, [datalist]);
 
 
-    if (loading || loadingProject) return <div>Cargando....</div>;
+  useEffect(() => {
+   
+    if(errorlist)
+    console.log("errorl",errorlist);
+    // else  console.log("errorp",errorPr);
 
-  const RowAdvanceInfo = ({advanceInfo}) => {
-    if (loading) return <div>Cargando....</div>;
+}, [errorlist]);
+    if (loadinglist ) return <div>Cargando....</div>;
+    // if (loadingProject) return <div>Cargando....</div>;
+
+  const RowAdvanceInfo1 = ({advanceInfo}) => {
     return (
       <tr className="hover:bg-gray-100">
-           <NavLink to={`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}>
+           {/* <NavLink to={`/proyectos/proyecto/avances/n/${idProject}/${advanceInfo._id}`}>
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4 text-left text-blue-800 
       hover:text-blue-400 cursor-pointer font-medium hover:font-light  ">
        {advanceInfo.titulo}
-        </td></NavLink>
+        </td></NavLink> */}
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4 ">
-          {advanceInfo.creadoPor.nombre}  {advanceInfo.creadoPor.apellido}
+          {/* {advanceInfo.creadoPor.nombre}  {advanceInfo.creadoPor.apellido} */}
+        {advanceInfo.titulo}
         </td>
         <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-base whitespace-nowrap p-4">
         {advanceInfo.fecha}
@@ -123,7 +132,7 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
 
       </tr>
     )
-  }
+  };
   return (
 
     <div>
@@ -157,19 +166,21 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-2 max-w-full flex-grow flex-1">
-              <h3 className="font-semibold text-base text-gray-500 italic">Mostrando {data.filtrarAvance.length>0 ? data.filtrarAvance:"0"} avances en el proyecto </h3>
+              {/* <h3 className="font-semibold text-base text-gray-500 italic">Mostrando {datalist && datalist.filtrarAvance.length>0 ? datalist.filtrarAvance:"0"} avances en el proyecto </h3> */}
             </div>
             {/*<NavLink to={'/proyectos/proyecto/avances/nuevo'}>
             <button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
                  text-blue-400 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
                   hover:border-gray-500 text-ms font-bold
                  focus:border-4 focus:border-blue-300 transform transition duration-300 ">Nuevo Avance</button>
-  </NavLink>*/}
-   {role==="ESTUDIANTE" && infoProject.filtrarProyecto.estado==="ACTIVO" && <>
-   <button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
+  </NavLink>*/}   <PrivateComponent roleList={['ESTUDIANTE']}>
+   {/* { infoProject && infoProject.filtrarProyecto.estado==="ACTIVO" && <> */}
+   {<><button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
                  text-blue-400 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
                   hover:border-gray-500 text-base font-bold
-                 focus:border-4 focus:border-blue-300 transform transition duration-300 "onClick={()=>{setModal(true)}}>Nuevo Avance</button></>}
+                 focus:border-4 focus:border-blue-300 transform transition duration-300 "
+                 onClick={()=>{setModal(true)}}>Nuevo Avance</button></>}
+                 </PrivateComponent>
           </div>
         </div>
 
@@ -196,11 +207,12 @@ const AdvancesTable = ({openNewAdvanceModal,setModal,idProject}) => {
             </thead>
 
             <tbody>
-            {data && filteredList.map((avance) => {
+            {/* {datalist && datalist.filtrarAvance.map((avance) => {
               return (
-                <RowAdvanceInfo  key={nanoid()} advanceInfo={avance} />
+                <RowAdvanceInfo1  key={avance._id} advanceInfo={avance} />
               );
-            })}
+            })} */}
+            
             </tbody>
 
           </table>

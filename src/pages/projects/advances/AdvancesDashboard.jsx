@@ -9,36 +9,69 @@ import { useUser } from 'context/userContext'
 import { useQuery } from '@apollo/client'
 import { GET_INSCRIPCION_ACEPTADA } from 'graphql/inscripciones/queries'
 import TableAdvances from './TableAdvances'
+import { GET_PROJECT_STATE } from 'graphql/proyectos/queries'
 
 const AdvancesDashboard = () => {
   const { userData } = useUser();
     const { _id } = useParams();
     const name_student= userData.nombre +" "+ userData.apellido;
     const idEstudiante= userData._id +"";  
+    const [nombreProyecto,setNombreProyecto]=useState("");
     const idProyecto= _id;
-    const { data,  error, loading } = useQuery(GET_INSCRIPCION_ACEPTADA, {
+    const [inscrito, setInscrito]= useState(false);
+    const { data:dataEnroll,  error:errorEnroll, loading:loadingEnroll } = useQuery(GET_INSCRIPCION_ACEPTADA, {
       variables: {
           idProyecto,idEstudiante
       },
   });
+  
+    const { data: infoProject, error:errorPr, loading:loadingProject } = useQuery(GET_PROJECT_STATE, {
+        variables: {
+            _id
+        },
+    });
   useEffect(() => {
-    if (!loading && data) {
-        if(data.filtrarSiEstaInscrito===null){
-          console.log(" inscripcion null");
-        }else
-        console.log("data",data);
+    if (!loadingEnroll && dataEnroll) {
+        
+          if(dataEnroll.filtrarSiEstaInscrito.length>0){
+            console.log("dataenroll",dataEnroll);
+            setInscrito(true);
+          }else{
+            setInscrito(false);
+            console.log(" inscripcion null");
+          }
+     
     }
-}, [data]);
+}, [dataEnroll]);
+
+useEffect(() => {
+  if (!loadingProject && infoProject) {
+        setNombreProyecto("Avances: " +infoProject.filtrarProyecto.nombre );
+        console.log(" infoPr",infoProject);
+     
+  }
+}, [infoProject]);
+
     const [openNewAdvanceModal, setNewAdvanceModal]= useState(false);
+    if (loadingProject || loadingEnroll) return <div>Cargando...</div>
 
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden  bg-gray-100" >
-      <ProjectNavbar _idActual={_id} nombreProject={_id} rutaRetorno={`/proyectos/proyecto/${_id}`}/>
-   
       
-   {/*<AdvancesTable idProject={_id} openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal}></AdvancesTable>*/ } 
-    {/* <AdvancesTable idProject={_id} openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal}></AdvancesTable> */}
-    <TableAdvances idProject={_id}openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal} ></TableAdvances>
+      <ProjectNavbar _idActual={_id} nombreProject={nombreProyecto} rutaRetorno={`/proyectos/proyecto/${_id}`}/>
+   
+      {inscrito ? 
+     (<div>
+    <TableAdvances idProject={_id}openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal} >
+      </TableAdvances></div>):(<>
+      <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
+      <i className="fas fa-user-lock fa-4x" ></i>
+      <span className='text-blue-600 text-2xl'>No puedes ver estos avances.</span>
+        <span className='text-blue-800 text-2xl'>Aún no estás inscrito en este proyecto.</span>
+
+      </div>
+      </>)}
+
     {openNewAdvanceModal &&
      <New_advance_modal nameStudent={name_student}  idStudent={idEstudiante} 
      idProject={_id} setOpenModal={setNewAdvanceModal}></New_advance_modal>} 

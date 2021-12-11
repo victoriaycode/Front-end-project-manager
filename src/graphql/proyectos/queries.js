@@ -48,7 +48,7 @@ query Proyecto($_id: String!) {
   filtrarProyecto(_id: $_id) {
     _id
     estado
-  
+    nombre
     
   }
 }`;

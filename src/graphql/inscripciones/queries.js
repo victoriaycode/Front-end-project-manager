@@ -47,4 +47,14 @@ query FiltrarInscripcionesPorProyecto($idProyecto: String!) {
     }
   }
 `;
-export {GET_INSCRIPCIONES,FILTRAR_INSCRIPCIONES_PROYECTO};
+const GET_INSCRIPCION_ACEPTADA = gql`
+query FiltrarSiEstaInscrito($idProyecto: String!, $idEstudiante: String!) {
+  filtrarSiEstaInscrito(idProyecto: $idProyecto, idEstudiante: $idEstudiante) {
+    _id
+    estado
+    
+   
+  }
+}
+`;
+export {GET_INSCRIPCIONES,FILTRAR_INSCRIPCIONES_PROYECTO,GET_INSCRIPCION_ACEPTADA};
