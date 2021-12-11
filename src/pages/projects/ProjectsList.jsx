@@ -7,6 +7,7 @@ import { GET_PROJECTS_CARDS, GET_STUDENT_PROJECTS_ENROLLED } from 'graphql/proye
 import { useQuery } from '@apollo/client';
 import { GET_PROJECTS_BY_LIDER } from 'graphql/proyectos/queries'
 import { useUser } from 'context/userContext'
+import PrivateComponent from 'components/PrivateComponent'
 
 const ProjectsList = () => {
   const { userData } = useUser();
@@ -40,7 +41,7 @@ const ProjectsList = () => {
         id_lider
       },
     });
-  const [buttonEstudiante, setButtonEstudiante] = useState("text-gray-800");
+  const [buttonEstudiante, setButtonEstudiante] = useState("text-blue-500");
   const [buttonToApprove, setButtonToApprove] = useState("text-blue-800");
   const [buttonTodos, setButtonTodos] = useState("text-gray-700");
   const [buttonTodos2, setButtonTodos2] = useState("text-gray-700");
@@ -127,12 +128,12 @@ const ProjectsList = () => {
   useEffect(() => {
 
     if (viewOnlyStudent) {
-      setButtonTodos("text-gray-800 border-gray-600");
+      setButtonTodos("text-indigo-400 border-indigo-400  ");
       setButtonEstudiante("text-blue-800 border-blue-800");
 
     } else {
-      setButtonEstudiante("text-gray-800 border-gray-600");
-      setButtonTodos("text-blue-800 border-blue-800");
+      setButtonEstudiante("text-indigo-400 border-indigo-400 ");
+      setButtonTodos("text-blue-800 border-blue-800 ");
     }
 
   }, [viewOnlyStudent]);
@@ -182,19 +183,19 @@ const ProjectsList = () => {
         <span className="text-lg text-blue-800 text-3xl ml-2 mr-5 pt-2 font-bold justify-start ">Proyectos</span>
         <div className="flex flex-col  sm:flex-row ml-5  text-lg gap-10 ">
 
-          {role === "ESTUDIANTE" && <>
-
+        <PrivateComponent roleList={['ESTUDIANTE']}>
+      <>
             <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
-          border-gray-600  focus:outline-none hover:border-blue-800 border-b-4 transition duration-150 ${buttonEstudiante}`}
+          border-gray-600  focus:outline-none hover:border-blue-800 border-b-4  transition duration-150 ${buttonEstudiante}`}
               onClick={() => setViewOnlyStudent(true)}>
               <i className="fas fa-check "></i> Mis Inscritos
             </button>
             <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
-          border-gray-600   hover:border-blue-800 focus:outline-none border-b-4 transition duration-150 ${buttonTodos}`}
+          border-gray-600   hover:border-blue-800 focus:outline-none border-b-4  transition duration-150 ${buttonTodos}`}
               onClick={() => setViewOnlyStudent(false)}>
               <i className="fas fa-clipboard-list "></i> Explorar Otros
-            </button></>}
-          {role === "ADMINISTRADOR" && <>
+            </button></></PrivateComponent>
+            <PrivateComponent roleList={['ADMINISTRADOR']}> <>
 
             <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium text-gray-600 
           border-gray-600   hover:border-blue-800 focus:outline-none border-b-4 transition duration-150 ${buttonTodos2}`}
@@ -204,7 +205,7 @@ const ProjectsList = () => {
             <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium text-gray-600 
           border-gray-600  focus:outline-none hover:border-blue-800 border-b-4 transition duration-150 ${buttonToApprove}`} onClick={() => setViewToApprove(true)}>
               <i className="fas fa-info-circle w-auto" ></i> Sin Aprobar
-            </button></>}
+            </button></></PrivateComponent>
         </div>
         <div className="flex flex-row ml-2">
           <div className="flex flex-row  flex-center">
@@ -244,7 +245,7 @@ const ProjectsList = () => {
                 t-0 gap-y-8  gap-x-8
                  pt-2 align-center justify-center ">
 
-          {role === "ADMINISTRADOR"&&  
+<PrivateComponent roleList={['ADMINISTRADOR']}> 
             <> {!viewToApprove && dataProjects && filteredList.map((project_info) => {
               return (
                 <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
@@ -254,11 +255,17 @@ const ProjectsList = () => {
                 return (
                   <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                 );
-              })}  </>}
-          {/**For students view all projects and only enrolled */}
-          {role === "ESTUDIANTE" &&
-            <>
+              })}  </></PrivateComponent>
 
+          {/**For students view all projects and only enrolled */}
+        
+         <PrivateComponent roleList={['ESTUDIANTE']}> 
+            <>
+              {viewOnlyStudent && filteredListStudent.length===0 && 
+              <div className="flex  ml-2">
+                <span className='ml-3 text-lg text-gray-600'> Querido Estudiante, <br/>Aún NO tienes proyectos inscritos</span>
+    
+              </div> }
               {viewOnlyStudent && dataStudent && filteredListStudent.map((project_info) => {
                 return (
                   <ProjectCardInfo key={project_info.proyecto._id} project_info={project_info.proyecto} 
@@ -273,32 +280,22 @@ const ProjectsList = () => {
                 );
               })}
 
-
-            </>}
+            </></PrivateComponent>
            
 
-          {role === "LIDER" &&
+            <PrivateComponent roleList={['LIDER']}> 
             <>
               {dataLider && filteredListLider.map((project_info) => {
                 return (
                   <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                 );
               })}
-            </>}
+            </></PrivateComponent>
 
 
         </div>
 
-        {/* <div className="flex-auto grid lg:grid-cols-4 mg:grid-cols-2 sd:grid-cols-1 pt-8  mt-0 gap-y-8  gap-x-5 md:pl-14
-                 pt-2 align-center justify-center ">
-                        {dataStudent && dataStudent.filtrarInscripcionesPorEstudiante.map((project_info) => {
-              return (
-                <ProjectCardInfo key={project_info.proyecto._id} project_info={project_info.proyecto}  setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
-              );
-            })}
- 
-
-                </div> */}
+      
       </div>
 
 
