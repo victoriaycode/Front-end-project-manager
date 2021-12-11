@@ -32,6 +32,7 @@ query FiltrarInscripcionesPorProyecto($idProyecto: String!) {
       _id
       fechaIngreso
       fechaEgreso
+      estado
       estudiante {
         _id
         nombre
