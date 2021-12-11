@@ -16,20 +16,18 @@ const AdvancesDashboard = () => {
  
 
     const [openNewAdvanceModal, setNewAdvanceModal]= useState(false);
-    
-    
 
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden " >
       <ProjectNavbar _idActual={_id} nombreProject={_id} rutaRetorno={`/proyectos/proyecto/${_id}`}/>
    
-   
+      <PrivateComponent roleList={['LIDER']}>
    {/*<AdvancesTable idProject={_id} openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal}></AdvancesTable>*/ } 
     <AdvancesTable idProject={_id} openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal}></AdvancesTable>
     {openNewAdvanceModal &&
      <New_advance_modal nameStudent={name_student}  idStudent={id_Estudiante} 
      idProject={_id} setOpenModal={setNewAdvanceModal}></New_advance_modal>} 
-   
+   </PrivateComponent>
     </div>
 
     )
