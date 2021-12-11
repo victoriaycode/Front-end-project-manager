@@ -183,7 +183,8 @@ const ProjectsList = () => {
       <NavLink to="/proyectos/nuevo">
         <div className="flex flex-row w-full  justify-end align-center mr-20  ">
               {!openModalEdit && 
-                <button className="p-2 pl-5 pr-5 z-30 absolute  top-8 right-30 bg-white shadow border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
+                <button className="p-2 pl-5 pr-5 z-30 absolute  top-8 right-30 bg-transparent font-bold shadow border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200
+                 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" >Nuevo</button>}
         </div></NavLink>
       }

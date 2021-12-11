@@ -27,6 +27,7 @@ const Info = () => {
     const [newBudget, setNewBudget] = useState(0);
     const [editBudget, setEditBudget] = useState(false);
     const [createModal, setCreateModal] = useState(false);
+    const [editObjModal, setEditObjModal] = useState(false);
     const [deleteObjModal, setDeletedObjModal] = useState(false);
     
     const [actualProject, setActualProject] = useState([]);
@@ -104,7 +105,8 @@ const Info = () => {
     useEffect(() => {
         refetch();
         setDeletedObjModal(false);
-    }, [createModal, deleteObjModal]);
+        setEditObjModal(false);
+    }, [createModal, deleteObjModal, editObjModal]);
     useEffect(() => {
         if (mutationError) {
             console.log("error", mutationError);
@@ -283,10 +285,13 @@ const Info = () => {
                         <ul id="lista_obj" className=" h-full  py-2 px-6 
                              pl-10 pr-8 ">
 
-                            {infoProject && infoProject.filtrarProyecto.objetivos.map((objetivo) => {
-                                return (<RowObjectiveInfo key={nanoid()}
-                                    idProyecto={infoProject.filtrarProyecto._id} setDeleted={setDeletedObjModal} editEnable={editObjective}
-                                    datarow={objetivo} />);
+                            {infoProject && infoProject.filtrarProyecto.objetivos.map((objetivo,index) => {
+                                return (<>
+                                                         <RowObjectiveInfo key={nanoid()} index={index}
+                                    idProyecto={infoProject.filtrarProyecto._id} setDeleted={setDeletedObjModal} setEditObjModal={setEditObjModal} editEnable={editObjective}
+                                    datarow={objetivo} objectives_list={objectives_list}  /> 
+                                    </>
+     );
                             })}
                         </ul>
                     </div> </div>

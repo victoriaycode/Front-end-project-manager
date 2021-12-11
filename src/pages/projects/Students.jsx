@@ -149,20 +149,20 @@ const Students = () => {
                                 <thead   >
                                     <tr>
                                         
-                                    <th className=" sticky  top-0 px-6  bg-blue-50 text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                    <th className=" sticky  top-0 px-6  bg-blue-100 text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Identificacion
                                         </th>
-                                        <th className=" sticky w-auto top-0 px-6  bg-blue-50  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        <th className=" sticky w-auto top-0 px-6  bg-blue-100  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Estudiante
                                         </th>
 
-                                        <th className="sticky top-0 px-6  bg-blue-50  text-blueGray-500 align-middle py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        <th className="sticky top-0 px-6  bg-blue-100  text-blueGray-500 align-middle py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Correo
                                         </th>
-                                        <th className=" sticky top-0 z-30 px-6  bg-blue-50  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        <th className=" sticky top-0 z-30 px-6  bg-blue-100  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Fecha Ingreso
                                         </th>
-                                        <th className=" sticky top-0 z-30 px-6  bg-blue-50  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        <th className=" sticky top-0 z-30 px-6  bg-blue-100  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Fecha Egreso
                                         </th>
                                     </tr>
