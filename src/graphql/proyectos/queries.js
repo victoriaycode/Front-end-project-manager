@@ -31,6 +31,7 @@ query Proyecto($_id: String!) {
     estado
     fase
     lider{
+      _id
       nombre
       apellido
       identificacion
