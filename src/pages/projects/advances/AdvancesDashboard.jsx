@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom'
 import { useUser } from 'context/userContext'
 import { useQuery } from '@apollo/client'
 import { GET_INSCRIPCION_ACEPTADA } from 'graphql/inscripciones/queries'
-import TableAdvances from './TableAdvances'
+import TableAdvances from '../../../components/TableAdvances'
 import { GET_PROJECT_STATE } from 'graphql/proyectos/queries'
 
 const AdvancesDashboard = () => {

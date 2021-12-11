@@ -13,6 +13,10 @@ query Proyectos {
         apellido
         nombre
       }
+      
+    fechaCreacion
+    fechaInicio
+    fechaFin
     }
 }
 `;

@@ -36,7 +36,7 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin,initialSta
             }
           };
         const finalizarProjecto= async() => {
-            if(initialFase!=="DESARROLLO"){
+            if(initialFase==="DESARROLLO"){
                 const edited= editProjectAdmin({
                     variables: { idProyecto, "fase":"TERMINADO", 
                     "estado":"INACTIVO","fechaFin":dateNow },
@@ -47,8 +47,7 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin,initialSta
   useEffect(() => {
 
     
-    toast.success("Proyecto editado con éxito");
-   
+   console.log("editado",mutationData);
 }, [mutationData]);
   useEffect(() => {
 
@@ -127,15 +126,21 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin,initialSta
                         
                         <div className="flex flex-row justify-start  gap-10 mb-4 px-20 text-lg pb-2 ">
                             <span className="font-bold pt-2">Fase Actual:<span className="text-blue-800 font-bold text-2xl ml-2"> {initialFase}</span></span>
-                           {!terminarProyecto && 
-                            <button type="button" class="text-white bg-blue-700 
-                            hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 mb-3 
-                            dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                           {!terminarProyecto && initialFase=="DESARROLLO" &&
+                            <button type="button"    className="text-white bg-blue-700 
+                            hover:bg-blue-800  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 mb-3 
+                             disabled:opacity-50 disabled:bg-gray-700" 
+                            onClick={()=>setTerminarProyecto(true)}>
+                                 Terminar proyecto</button>}
+                                 {!terminarProyecto && initialFase!=="DESARROLLO" &&
+                            <button type="button" disabled   className="text-white bg-blue-700 
+                            hover:bg-blue-800  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 mb-3 
+                             opacity-30 bg-gray-700" 
                             onClick={()=>setTerminarProyecto(true)}>
                                  Terminar proyecto</button>}
                                  
                                  </div>
-                                 {terminarProyecto &&
+                                 {terminarProyecto && initialFase=="DESARROLLO" &&
                         <div className="flex flex-row border-b-2 border-solid border-gray-300 py-4 border-t-2 border-solid-2 border-blue-300">
                             <div className="flex flex-col justify-center px-20 ">
                                 <span className="text-blue-800 text-2xl font-bold">¿Está seguro de terminar el proyecto? </span>
@@ -157,10 +162,10 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin,initialSta
                         
                         <span className="text-gray-800 ml-4" >Nota: Sólo se podrá terminar un proyecto cuando este en fase de desarrollo. </span>
                         <div className="flex flex-col mt-2">
-                        <span className="text-blue-800 ml-4" >Fecha de Inicio: 
-                        <span >{fechaFin===null ? ("Sin fecha aún"): (fechaInicio)}</span></span> 
-                        <span className="text-blue-800 ml-4" >Fecha de Terminación: 
-                        <span >{fechaFin}</span></span> 
+                        <span className="text-blue-800 ml-4" >Fecha de Inicio:  
+                        <span className="text-gray-700 ml-4">{fechaInicio===null ? (" Sin fecha aún"): (" "+fechaInicio)}</span></span> 
+                        <span className="text-blue-800 ml-4" >Fecha de Terminación:  
+                        <span className="text-gray-700 ml-4">{fechaFin===null ? (" Sin fecha aún"): (" " +fechaFin)}</span></span> 
                         </div>
                        
                         </div>
