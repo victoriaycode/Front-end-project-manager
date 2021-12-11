@@ -84,7 +84,14 @@ const AdvancesDashboard = () => {
 
       <ProjectNavbar _idActual={_id} nombreProject={nombreProyecto} rutaRetorno={`/proyectos/proyecto/${_id}`} />
       {!finishedProject && <>
-     
+        {isLider && idLider!==infoProject.filtrarProyecto &&
+            <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
+            <i className="fas fa-user-lock fa-4x" ></i>
+            <span className='text-blue-600 text-2xl'>No puedes ver esta información.</span>
+            <span className='text-blue-800 text-2xl'>No eres lider de este proyecto. </span>
+          
+          </div>
+           } 
       {(inscrito || isLider) ?
         (<div>
           <TableAdvances idProject={_id}

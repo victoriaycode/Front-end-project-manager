@@ -11,10 +11,14 @@ import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
 import PrivateComponent from 'components/PrivateComponent';
+import { useUser } from 'context/userContext'
 
 const Info = () => {
 
     const { _id } = useParams();
+    const { userData } = useUser();
+    const idLider= userData._id+"";
+    const rolUser= userData.rol+"";
     const [objectives_list, setObjectivesList] = useState([]);
     const [editObjective, setEditObjective] = useState(false);
     const [editName, setEditName] = useState(false);
@@ -114,9 +118,19 @@ const Info = () => {
     // {loading ||mutationLoading && <ReactLoading type='spin' height={20} width={20} />}
     return (
         <div className="w-full h-screen  ">
+          
+          
             <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'} nombreProject={ nombreproyecto} />
             <div className=" h-5/6 flex flex-rows px-2  mb-5 mt-2" >
-
+            {idLider!==infoProject.filtrarProyecto.lider._id &&
+            <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
+            <i className="fas fa-user-lock fa-4x" ></i>
+            <span className='text-blue-600 text-2xl'>No puedes ver esta información.</span>
+            <span className='text-blue-800 text-2xl'>No eres lider de este proyecto. </span>
+          
+          </div>
+           }  
+           {idLider===infoProject.filtrarProyecto &&<>
                 <div className="bg-white h-full   py-2 px-4 align-center rounded-2xl mt-1  flex flex-col
               gap-2 border-solid border-2 border-gray-300 ">
 
@@ -277,7 +291,8 @@ const Info = () => {
                             })}
                         </ul>
                     </div> </div>
-            </div>
+            
+                    </> }  </div>
 
             <Dialog open={createModal}>
                 <Create_objective_modal setOpenEditObj={setCreateModal}
