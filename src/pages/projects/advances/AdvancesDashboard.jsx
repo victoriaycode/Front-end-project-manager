@@ -17,6 +17,7 @@ const AdvancesDashboard = () => {
   const name_student = userData.nombre + " " + userData.apellido;
   const idEstudiante = userData._id + "";
   const idLider = userData._id + "";
+  const rolUser = userData.rol + "";
   const [nombreProyecto, setNombreProyecto] = useState("");
   const idProyecto = _id;
   const [inscrito, setInscrito] = useState(false);
@@ -83,8 +84,7 @@ const AdvancesDashboard = () => {
     <div className="w-full h-full flex flex-col overflow-y-hidden  bg-gray-100" >
 
       <ProjectNavbar _idActual={_id} nombreProject={nombreProyecto} rutaRetorno={`/proyectos/proyecto/${_id}`} />
-      {!finishedProject && <>
-        {isLider && idLider!==infoProject.filtrarProyecto &&
+      {rolUser=="LIDER" && idLider!==infoProject.filtrarProyecto.lider._id &&
             <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
             <i className="fas fa-user-lock fa-4x" ></i>
             <span className='text-blue-600 text-2xl'>No puedes ver esta información.</span>
@@ -92,23 +92,25 @@ const AdvancesDashboard = () => {
           
           </div>
            } 
-      {(inscrito || isLider) ?
-        (<div>
+      {!finishedProject && <>
+        
+      {(inscrito || isLider) &&
+        <div>
           <TableAdvances idProject={_id}
             setModal={setNewAdvanceModal} setNumAdvances={setNumAdvances} activeProject={activo}
             finishedProject={finishedProject} openNewAdvanceModal={openNewAdvanceModal}>
-          </TableAdvances></div>) : (<>
-            <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
-              <i className="fas fa-user-lock fa-4x" ></i>
-              <span className='text-blue-600 text-2xl'>No puedes ver estos avances.</span>
-              <span className='text-blue-800 text-2xl'>Aún no estás inscrito en este proyecto. </span>
-              {/* {finishedProject ? ( <span className='text-blue-800 text-2xl'>El proyecto ha terminado. No se reciben inscripciones. </span>)
-              :
-              (  <span className='text-blue-800 text-2xl'>Aún no estás inscrito en este proyecto. </span>)
-             } */}
-            </div>
-          </>)} </>}
+          </TableAdvances></div>} </>}
 
+          {rolUser==="ESTUDIANTE" && !inscrito && <>
+          <i className="fas fa-user-lock fa-4x" ></i>
+               <span className='text-blue-600 text-2xl'>No puedes ver estos avances.</span>
+               <span className='text-blue-800 text-2xl'>Aún no estás inscrito en este proyecto. </span></>}
+          
+          {/* {rolUser ==="LIDER" && !isLider && <>
+          <i className="fas fa-user-lock fa-4x" ></i>
+               <span className='text-blue-600 text-2xl'>No puedes ver estos avances.</span>
+               <span className='text-blue-800 text-2xl'>No eres lider de este proyecto. </span></>}
+           */}
           {finishedProject && <div>
             <div className='w-full h-full  flex flex-col px-60 py-20 justify-center text-blue-600 '>
               <i className="fas fa-user-lock fa-5x" ></i>

@@ -58,17 +58,16 @@ const Info = () => {
             if (infoProject.filtrarProyecto.fase == "DESARROLLO") { changeFaseColor("text-yellow-400") }
             if (infoProject.filtrarProyecto.fase == "TERMINADO") { changeFaseColor("text-red-400") }
             setObjectivesList(proj.objetivos);
-            console.log("objt", objectives_list);
+            
 
-            //    let nom=  actualProject.lider.nombre + ""+ actualProject.lider.apellido;
-            //    setNomCompletoLider(nom);
         }
+        console.log("infoProject",infoProject);
     }, [infoProject]);
 
     const editNewTitle = async () => {
-        console.log("editnam", newName);
+       
         let idProyecto = infoProject.filtrarProyecto._id;
-        console.log("id", idProyecto);
+      
 
         if (newName !== "") {
 
@@ -76,14 +75,14 @@ const Info = () => {
                 variables: { idProyecto, "nombre": newName },
             });
 
-            console.log("edita", edit);
+            
         }
         setEditName(false);
     }
     const editNewBudget = async () => {
-        console.log("editbudget", newBudget);
+       
         let idProyecto = infoProject.filtrarProyecto._id;
-        console.log("id", idProyecto);
+      
 
         if (newBudget !== "") {
             let presup = parseFloat(newBudget);
@@ -91,7 +90,7 @@ const Info = () => {
                 variables: { idProyecto, "presupuesto": presup },
             });
 
-            console.log("edita", edit);
+         
         }
         setEditBudget(false);
     }
@@ -122,7 +121,7 @@ const Info = () => {
           
             <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'} nombreProject={ nombreproyecto} />
             <div className=" h-5/6 flex flex-rows px-2  mb-5 mt-2" >
-            {idLider!==infoProject.filtrarProyecto.lider._id &&
+            {rolUser=="LIDER" && idLider!==infoProject.filtrarProyecto.lider._id &&
             <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
             <i className="fas fa-user-lock fa-4x" ></i>
             <span className='text-blue-600 text-2xl'>No puedes ver esta información.</span>
@@ -130,7 +129,7 @@ const Info = () => {
           
           </div>
            }  
-           {idLider===infoProject.filtrarProyecto &&<>
+           {rolUser=="LIDER" && idLider===infoProject.filtrarProyecto.lider._id &&<>
                 <div className="bg-white h-full   py-2 px-4 align-center rounded-2xl mt-1  flex flex-col
               gap-2 border-solid border-2 border-gray-300 ">
 

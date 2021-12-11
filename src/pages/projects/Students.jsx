@@ -6,13 +6,21 @@ import { nanoid } from 'nanoid';
 import { useParams } from 'react-router';
 import { useQuery } from '@apollo/client';
 import { FILTRAR_INSCRIPCIONES_PROYECTO } from 'graphql/inscripciones/queries';
+import { useUser } from 'context/userContext';
+import { GET_PROJECT_STATE } from 'graphql/proyectos/queries';
+import { isValidNameError } from 'graphql';
+import PrivateComponent from 'components/PrivateComponent';
 
 const Students = () => {
 
     const { _id } = useParams();
     const idProyecto=_id;
+    const { userData } = useUser();
+    const idLider = userData._id + "";
+    const rolUser = userData.rol + "";
     const [studentsList, setStudentsList]=useState();
-    
+    const [nombreproyecto,setNombreProyecto]=useState("Proyecto");
+    const [isLider, setIsLider]=useState(false);
     const [studentsListFiltered, setStudentsListFiltered]=useState([]);
     const [searchBy, setSearchBy]= useState("");
     const { data,  error, loading, refetch } = useQuery(FILTRAR_INSCRIPCIONES_PROYECTO, {
@@ -20,15 +28,30 @@ const Students = () => {
             idProyecto
         },
     });
+    
+  const { data: infoProject, error: errorPr, loading: loadingProject } = useQuery(GET_PROJECT_STATE, {
+    variables: {
+      _id
+    },
+  });
     useEffect(() => {
         if (!loading && data) {
             
             setStudentsList(data.filtrarInscripcionesPorProyecto);
             setStudentsListFiltered(data.filtrarInscripcionesPorProyecto);
             console.log("asda",studentsList);
-            console.log("data",data);
+            console.log("datainscripciones",data);
         }
     }, [data]);
+
+    useEffect(() => {
+        if (!loadingProject) {
+        console.log("info", infoProject);
+        setNombreProyecto(infoProject.filtrarProyecto.nombre);}
+        if(infoProject && infoProject.filtrarProyecto.lider._id === idLider){
+            setIsLider(true);
+        }else{setIsLider(false);}
+    }, [infoProject]);
 
     useEffect(() => {
         if (!loading && studentsList ) {
@@ -41,7 +64,6 @@ const Students = () => {
       
       }, [searchBy, studentsList]);
 
-    const [editable, setEditable] = useState(false)
 
     const RowStudentInfo = ({ enroll }) => {
         return (
@@ -76,14 +98,21 @@ const Students = () => {
         )
     }
 
-    if (loading) return <div>Cargando....</div>;
+    if (loading || loadingProject) return <div>Cargando....</div>;
 
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden " >
 
-        <ProjectNavbar _idActual={_id} nombreProject={_id} 
+        <ProjectNavbar _idActual={_id} nombreProject={nombreproyecto} 
         rutaRetorno={'/proyectos'}/>
-   
+        <PrivateComponent roleList={['LIDER']}>
+        
+    {!isLider &&    <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
+          <i className="fas fa-user-lock fa-4x" ></i>
+               <span className='text-blue-600 text-2xl'>No puedes ver esta información.</span>
+               <span className='text-blue-800 text-2xl'>No eres lider de este proyecto. </span></div>}
+          
+          { isLider && <>
             <div className="w-full h-full flex flex-col overflow-y-hidden " >
             <div className="flex flex-row  ml-0 justify-start mt-8">
             <div className="  flex justify-center items-center px-2 sm:px-4 ml-14">
@@ -151,8 +180,8 @@ const Students = () => {
                         </div></div>
                     </div>
                 </div>
-            </div>
-        
+            </div></>}
+        </PrivateComponent>
         </div>
 
     )
