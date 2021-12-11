@@ -5,7 +5,7 @@ import { TextareaAutosize } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 
 import { CREATE_NEW_ADVANCE } from 'graphql/avances/queries';
-import { toast } from 'react-toastify';
+
 
 const New_advance_modal = ({nameStudent,idStudent,idProject,setOpenModal,numAdvancesP}) => {
     

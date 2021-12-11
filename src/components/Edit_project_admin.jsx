@@ -4,7 +4,6 @@ import { Zoom } from '@material-ui/core';
 import { EDIT_PROJECT_BY_ADMIN } from 'graphql/proyectos/queries';
 import useFormData from 'hooks/useFormData';
 import React, { useState , useEffect} from 'react'
-import { toast, ToastContainer } from 'react-toastify';
 
 const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin,initialState, initialFase, nombreProyecto, setOpenModalEdit }) => {
         const [cambiarEstado, setCambiarEstado]=useState(false);
@@ -174,12 +173,7 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin,initialSta
 
                        
             </div>
-            <ToastContainer rtl
-        position="top-center"
-        autoClose={2000}
-        transition={Zoom}
-        limit={1}
-      />
+            
         </div>
 
     )

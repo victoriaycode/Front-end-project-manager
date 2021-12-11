@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import useFormData from 'hooks/useFormData';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+
 import RowObjective from 'components/RowObjective';
 import { useMutation } from '@apollo/client';
 import { CREATE_NEW_PROJECT } from 'graphql/proyectos/queries';
