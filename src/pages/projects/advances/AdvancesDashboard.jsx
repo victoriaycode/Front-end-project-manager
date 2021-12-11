@@ -85,7 +85,7 @@ const AdvancesDashboard = () => {
 
       <ProjectNavbar _idActual={_id} nombreProject={nombreProyecto} rutaRetorno={`/proyectos/proyecto/${_id}`} />
       {rolUser=="LIDER" && idLider!==infoProject.filtrarProyecto.lider._id &&
-            <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
+            <div className='w-full h-full  flex flex-col px-60   justify-center text-blue-600 '>
             <i className="fas fa-user-lock fa-4x" ></i>
             <span className='text-blue-600 text-2xl'>No puedes ver esta información.</span>
             <span className='text-blue-800 text-2xl'>No eres lider de este proyecto. </span>
@@ -102,9 +102,10 @@ const AdvancesDashboard = () => {
           </TableAdvances></div>} </>}
 
           {rolUser==="ESTUDIANTE" && !inscrito && <>
+          <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
           <i className="fas fa-user-lock fa-4x" ></i>
                <span className='text-blue-600 text-2xl'>No puedes ver estos avances.</span>
-               <span className='text-blue-800 text-2xl'>Aún no estás inscrito en este proyecto. </span></>}
+               <span className='text-blue-800 text-2xl'>Aún no estás inscrito en este proyecto. </span></div></>}
           
           {/* {rolUser ==="LIDER" && !isLider && <>
           <i className="fas fa-user-lock fa-4x" ></i>

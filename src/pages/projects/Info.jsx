@@ -131,7 +131,9 @@ const Info = () => {
           
           </div>
            }  
-           {rolUser=="LIDER" && idLider===infoProject.filtrarProyecto.lider._id &&<>
+           {/* {(rolUser=="LIDER"  && idLider===infoProject.filtrarProyecto.lider._id ) && rolUser=="ESTUDIANTE" || rolUser=="ADMINISTRADOR" &&<> */}
+           
+           { (idLider===infoProject.filtrarProyecto.lider._id || rolUser==="ESTUDIANTE" || rolUser==="ADMINISTRADOR") &&<>
                 <div className="bg-white h-full   py-2 px-4 align-center rounded-2xl mt-1  flex flex-col
               gap-2 border-solid border-2 border-gray-300 ">
 
