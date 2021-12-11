@@ -59,16 +59,10 @@ const Students = () => {
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
                     {enroll.fechaIngreso}
                 </td>
-                {/* {
-                    editable ? (<>
-                   <td>
-                       <Toggle></Toggle>
-                   </td>
-                    </>) : (<>
-                        <td className="border-t-0 px-6  align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-2 ">
-                            {student.estado} </td>
-                    </>)
-                } */}
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
+                    {enroll.fechaEgreso}
+                </td>
+               
 
 
                 <td>
@@ -139,7 +133,9 @@ const Students = () => {
                                         <th className=" sticky top-0 z-30 px-6  bg-blue-50  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Fecha Ingreso
                                         </th>
-
+                                        <th className=" sticky top-0 z-30 px-6  bg-blue-50  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                            Fecha Egreso
+                                        </th>
                                     </tr>
                                 </thead>
 

@@ -75,7 +75,7 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
                 <div className="w-full py-2 px-4 flex flex-row justify-around">
                   <span className="text-blue-800 text text-lg font-medium mt-4">
                         Titulo :
-                    </span> <input type="text"  className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100"
+                    </span> <input type="text" maxlength="80"  className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100"
                         placeholder="Titulo avance" onChange={(e) => {
                             setTitulo(e.target.value)}}/>
                     </div>
