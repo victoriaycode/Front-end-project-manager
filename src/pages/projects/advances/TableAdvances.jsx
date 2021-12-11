@@ -10,7 +10,7 @@ import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries';
 import { NavLink } from 'react-router-dom';
 import PrivateComponent from 'components/PrivateComponent';
 
-const TableAdvances = ({ idProject ,setModal,openNewAdvanceModal}) => {
+const TableAdvances = ({ idProject ,setModal,activeProject}) => {
 
     const { _id } = useParams();
     const idProyecto = _id;
@@ -141,13 +141,14 @@ const TableAdvances = ({ idProject ,setModal,openNewAdvanceModal}) => {
                                 </div>
                                 <PrivateComponent roleList={['ESTUDIANTE']}>
    {/* { infoProject && infoProject.filtrarProyecto.estado==="ACTIVO" && <> */}
-   {<><button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
+   {activeProject && <><button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
                  text-blue-800 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
                   hover:border-gray-500 text-base font-bold
                  focus:border-4 focus:border-blue-300 transform transition duration-300 "
                  onClick={()=>{setModal(true)}}>Nuevo Avance</button></>}
                  </PrivateComponent>
-
+                 {!activeProject && <span className='ml-2 text-blue-800 p-2 font-semibold bg-gray-200 ' >NOTA: NO se pueden agregar más avances en el momento.
+                                El proyecto está INACTIVO. </span>}
                             </div>
                         </div>
                         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
@@ -189,7 +190,8 @@ const TableAdvances = ({ idProject ,setModal,openNewAdvanceModal}) => {
                                     </tbody>
 
                                 </table>
-                            </div></div>
+                            </div>
+                            </div>
                     </div>
                 </div>
             </div>

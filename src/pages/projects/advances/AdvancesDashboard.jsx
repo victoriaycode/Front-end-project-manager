@@ -19,6 +19,8 @@ const AdvancesDashboard = () => {
     const [nombreProyecto,setNombreProyecto]=useState("");
     const idProyecto= _id;
     const [inscrito, setInscrito]= useState(false);
+    
+    const [activo, setActivo]= useState(false);
     const { data:dataEnroll,  error:errorEnroll, loading:loadingEnroll } = useQuery(GET_INSCRIPCION_ACEPTADA, {
       variables: {
           idProyecto,idEstudiante
@@ -34,7 +36,7 @@ const AdvancesDashboard = () => {
     if (!loadingEnroll && dataEnroll) {
         
           if(dataEnroll.filtrarSiEstaInscrito.length>0){
-            console.log("dataenroll",dataEnroll);
+        
             setInscrito(true);
           }else{
             setInscrito(false);
@@ -48,7 +50,10 @@ useEffect(() => {
   if (!loadingProject && infoProject) {
         setNombreProyecto("Avances: " +infoProject.filtrarProyecto.nombre );
         console.log(" infoPr",infoProject);
-     
+        if(infoProject.filtrarProyecto.estado==="ACTIVO"){
+          setActivo(true);
+        }else{setActivo(false)};
+       
   }
 }, [infoProject]);
 
@@ -62,7 +67,8 @@ useEffect(() => {
    
       {inscrito ? 
      (<div>
-    <TableAdvances idProject={_id}openNewAdvanceModal={openNewAdvanceModal} setModal={setNewAdvanceModal} >
+    <TableAdvances idProject={_id} 
+    setModal={setNewAdvanceModal} activeProject={activo}>
       </TableAdvances></div>):(<>
       <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
       <i className="fas fa-user-lock fa-4x" ></i>
