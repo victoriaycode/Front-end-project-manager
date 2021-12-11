@@ -13,7 +13,7 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin,initialSta
         const { form, formData, updateFormData } = useFormData(null);
 
        
-    var dateNow = new Date().toISOString().slice(0, 10);
+    var dateNow = new Date();
 
 
        

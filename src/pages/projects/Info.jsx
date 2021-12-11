@@ -153,7 +153,7 @@ const Info = () => {
                     <div className="m-2     ">
 
                         <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">ID PROYECTO</span>
-                        <span className="px-8 rounded-r-lg bg-white w-20  text-gray-600 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
+                        <span className="px-8 rounded-r-lg bg-white w-20  text-gray-600 font-bold p-2  border-blue-500 border-t border-b  border-r">
                             {infoProject.filtrarProyecto._id}</span>
 
                     </div>

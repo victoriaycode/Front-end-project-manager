@@ -19,7 +19,7 @@ const AdvancesDashboard = () => {
   const [nombreProyecto, setNombreProyecto] = useState("");
   const idProyecto = _id;
   const [inscrito, setInscrito] = useState(false);
-
+  const [numAdvances, setNumAdvances] = useState(0);
   const [activo, setActivo] = useState(false);
   const { data: dataEnroll, error: errorEnroll, loading: loadingEnroll } = useQuery(GET_INSCRIPCION_ACEPTADA, {
     variables: {
@@ -39,7 +39,7 @@ const AdvancesDashboard = () => {
 
         setInscrito(true);
       } else {
-        setInscrito(false);
+        setInscrito(true);
         console.log(" inscripcion null");
       }
 
@@ -68,7 +68,7 @@ const AdvancesDashboard = () => {
       {inscrito ?
         (<div>
           <TableAdvances idProject={_id}
-            setModal={setNewAdvanceModal} activeProject={activo}>
+            setModal={setNewAdvanceModal} setNumAdvances={setNumAdvances} activeProject={activo}>
           </TableAdvances></div>) : (<>
             <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
               <i className="fas fa-user-lock fa-4x" ></i>
@@ -80,8 +80,8 @@ const AdvancesDashboard = () => {
 
       {openNewAdvanceModal &&
         <New_advance_modal nameStudent={name_student} idStudent={idEstudiante}
-          idProject={_id} setOpenModal={setNewAdvanceModal}></New_advance_modal>}
-
+          idProject={_id} numAdvancesP={numAdvances} setOpenModal={setNewAdvanceModal}></New_advance_modal>}
+    <span>num advances: {numAdvances}</span>
     </div>
 
   )

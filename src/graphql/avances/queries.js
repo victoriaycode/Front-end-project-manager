@@ -55,10 +55,10 @@ const ADD_NEW_OBSERVATION = gql`
 
 const CREATE_NEW_ADVANCE = gql`
   mutation CrearAvance($fecha: Date!, $titulo: String!,
-     $descripcion: String!, $proyecto: String!, $creadoPor: String!) {
+     $descripcion: String!, $proyecto: String!, $creadoPor: String!,$numAdvances: String!) {
     crearAvance(fecha: $fecha, titulo: $titulo, 
       descripcion: $descripcion, proyecto: $proyecto, 
-      creadoPor: $creadoPor) {
+      creadoPor: $creadoPor,numAdvances: $numAdvances) {
       _id
       descripcion
       titulo

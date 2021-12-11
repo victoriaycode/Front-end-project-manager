@@ -10,7 +10,7 @@ import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries';
 import { NavLink } from 'react-router-dom';
 import PrivateComponent from 'components/PrivateComponent';
 
-const TableAdvances = ({ idProject ,setModal,activeProject}) => {
+const TableAdvances = ({ idProject ,setModal,activeProject,setNumAdvances}) => {
 
     const { _id } = useParams();
     const idProyecto = _id;
@@ -33,6 +33,9 @@ const TableAdvances = ({ idProject ,setModal,activeProject}) => {
             setAdListFiltered(datalist.filtrarAvance);
             console.log("asda", listAdvances);
             console.log("datalist", datalist);
+           
+                setNumAdvances(datalist.filtrarAvance.length);
+         
         }
     }, [datalist]);
     useEffect(() => {

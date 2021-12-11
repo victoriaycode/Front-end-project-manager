@@ -102,11 +102,12 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
                     focus:border-4 focus:border-blue-300 text-base"  ><i className="far fa-eye fa-lg"></i> Ver</button>
                     </NavLink>
                     <PrivateComponent roleList={['ESTUDIANTE']}>
-                    { user==="ESTUDIANTE" && !already_enrolled &&
+                    { !already_enrolled && 
+                    <>{(card.estado==="ACTIVO" && (card.fase!="NULO" || card.fase!="TERMINADO" )) &&  
                     <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
                     focus:border-4 focus:border-blue-300  text-xs" onClick={() => setEnrollModal(true)}>
-                      <i className="fas fa-check-double fa-lg"></i> Inscribirse</button> }</PrivateComponent>
+                      <i className="fas fa-check-double fa-lg"></i> Inscribirse</button> }</>}</PrivateComponent>
                 
                       <PrivateComponent roleList={['ADMINISTRADOR']}>
                
