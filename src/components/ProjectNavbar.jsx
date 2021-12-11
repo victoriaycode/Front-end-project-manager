@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { NavLink } from 'react-router-dom'
+import PrivateComponent from './PrivateComponent';
 
 const ProjectNavbar = ({_idActual,rutaRetorno,nombreProject}) => {
   const _id= _idActual;
@@ -30,17 +31,20 @@ const ProjectNavbar = ({_idActual,rutaRetorno,nombreProject}) => {
             <i className="fas fa-info-circle"></i> Información
           </button>
         </NavLink>
+        <PrivateComponent roleList={['LIDER','ESTUDIANTE']}>
+
         <NavLink to={`/proyectos/proyecto/avances/${_id}`}
           className={({ isActive }) =>
             isActive
               ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
               : 'text-gray-600 border-b-4 '
           } >
+            
           <button className="py-4 px-6 mx-2 block hover:text-blue-800 focus:outline-none   font-medium ">
             <i className="far fa-file-alt"></i>   Avances
           </button>
-        </NavLink>
-        
+        </NavLink> </PrivateComponent>
+        <PrivateComponent roleList={['LIDER']}>
         <NavLink to ={`/proyectos/proyecto/estudiantes/${_id}`}
          className={({ isActive }) =>
          isActive
@@ -50,7 +54,7 @@ const ProjectNavbar = ({_idActual,rutaRetorno,nombreProject}) => {
         <button className="py-4 px-6  mx-2 block hover:text-blue-800 focus:outline-none  font-medium">
         <i className="far fa-address-card"></i>  Estudiantes
         </button>
-        </NavLink>
+        </NavLink> </PrivateComponent>
     </nav>
         </div>
     )
