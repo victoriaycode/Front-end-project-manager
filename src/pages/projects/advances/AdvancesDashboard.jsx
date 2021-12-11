@@ -25,6 +25,9 @@ const AdvancesDashboard = () => {
   const [numAdvances, setNumAdvances] = useState(0);
   const [activo, setActivo] = useState(false);
   const [finishedProject, setFinishedProject] = useState(false);
+  
+  const [openNewAdvanceModal, setNewAdvanceModal] = useState(false);
+  
   const { data: dataEnroll, error: errorEnroll, loading: loadingEnroll } = useQuery(GET_INSCRIPCION_ACEPTADA, {
     variables: {
       idProyecto, idEstudiante
@@ -72,7 +75,6 @@ const AdvancesDashboard = () => {
 
   }, [infoProject]);
 
-  const [openNewAdvanceModal, setNewAdvanceModal] = useState(false);
   if (loadingProject || loadingEnroll) return <div>Cargando...</div>
 
   return (
@@ -85,7 +87,7 @@ const AdvancesDashboard = () => {
         (<div>
           <TableAdvances idProject={_id}
             setModal={setNewAdvanceModal} setNumAdvances={setNumAdvances} activeProject={activo}
-            finishedProject={finishedProject}>
+            finishedProject={finishedProject} openNewAdvanceModal={openNewAdvanceModal}>
           </TableAdvances></div>) : (<>
             <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
               <i className="fas fa-user-lock fa-4x" ></i>

@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/client';
 import { GET_PROJECTS_BY_LIDER } from 'graphql/proyectos/queries'
 import { useUser } from 'context/userContext'
 import PrivateComponent from 'components/PrivateComponent'
+import ReactLoading from 'react-loading';
 
 const ProjectsList = () => {
   const { userData } = useUser();
@@ -28,14 +29,18 @@ const ProjectsList = () => {
   const idEstudiante = userData._id+"";
   const id_lider = userData._id+"";
  
+  
+  const [openModalEnroll, setOpenModalEnroll] = useState(false);
+
+  const [openModalEdit, setOpenModalEdit] = useState(false);
   const { data: dataProjects, error, loading, refetch } = useQuery(GET_PROJECTS_CARDS);
-  const { data: dataStudent, error: errorStudent, loading: loadingStudent }
+  const { data: dataStudent, error: errorStudent, loading: loadingStudent, refetch:refetchStudent }
     = useQuery(GET_STUDENT_PROJECTS_ENROLLED, {
       variables: {
         idEstudiante
       },
     });
-  const { data: dataLider, error: errorLider, loading: loadingLider }
+  const { data: dataLider, error: errorLider, loading: loadingLider, refetch:refetchLider }
     = useQuery(GET_PROJECTS_BY_LIDER, {
       variables: {
         id_lider
@@ -160,13 +165,17 @@ const ProjectsList = () => {
       console.log('data servidor', dataProjects);
     }
   }, [loading]);
-
-  const [openModalEnroll, setOpenModalEnroll] = useState(false);
-
-  const [openModalEdit, setOpenModalEdit] = useState(false);
-  if (loading) return <div>Cargando....</div>;
-  if (loadingStudent) return <div>Cargando....</div>;
-  if (loadingLider) return <div>Cargando....</div>;
+  
+  useEffect(() => {
+    refetch();
+    if(openModalEnroll){
+      refetchStudent();
+    }
+  }, [openModalEdit,openModalEnroll]);
+  // if (loading) return <div>Cargando....</div>;
+  // if (loadingStudent) return <div>Cargando....</div>;
+  // if (loadingLider) return <div>Cargando....</div>;
+  if (loading|| loadingStudent || loadingLider) return <div><ReactLoading type='spin' height={20} width={20} />Cargando...</div>
   return (
 
     <div className="w-full h-full flex flex-col  overflow-y-hidden overflow-x-hidden pl-20 pr-20" >

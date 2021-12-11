@@ -5,12 +5,11 @@ import { useState, useEffect } from 'react'
 import { nanoid } from 'nanoid';
 import { useParams } from 'react-router';
 import { useQuery } from '@apollo/client';
-import { FILTRAR_INSCRIPCIONES_PROYECTO } from 'graphql/inscripciones/queries';
 import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries';
 import { NavLink } from 'react-router-dom';
 import PrivateComponent from 'components/PrivateComponent';
 
-const TableAdvances = ({ idProject ,setModal,activeProject,finishedProject,setNumAdvances}) => {
+const TableAdvances = ({ idProject ,setModal,activeProject,finishedProject,setNumAdvances,openNewAdvanceModal}) => {
 
     const { _id } = useParams();
     const idProyecto = _id;
@@ -59,8 +58,12 @@ const TableAdvances = ({ idProject ,setModal,activeProject,finishedProject,setNu
           setAdListFiltered(lista);  
         }      
       
-      }, [sortBy])
-    
+      }, [sortBy]);
+
+      useEffect(() => {
+         refetch()
+      }, [openNewAdvanceModal]);
+     
     const RowAdvance = ({ enroll }) => {
         return (
             <tr className="hover:bg-gray-100">
@@ -150,8 +153,10 @@ const TableAdvances = ({ idProject ,setModal,activeProject,finishedProject,setNu
                  focus:border-4 focus:border-blue-300 transform transition duration-300 "
                  onClick={()=>{setModal(true)}}>Nuevo Avance</button></>}
                  </PrivateComponent>
-                 {!activeProject && <span className='ml-2 text-blue-800 p-2 font-semibold bg-gray-200 ' >NOTA: NO se pueden agregar más avances en el momento.
+                 {!activeProject && <span className='ml-2 text-blue-800 p-2 font-semibold bg-gray-200 ' >NOTA: NO se pueden agregar  avances en el momento.
                                 El proyecto está INACTIVO. </span>}
+                                {!activeProject && finishedProject && <span className='ml-2 text-blue-800 p-2 font-semibold bg-gray-200 ' >NOTA: NO se pueden agregar  avances en el momento.
+                                El proyecto está TERMINADO. </span>}
                             </div>
                         </div>
                         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">

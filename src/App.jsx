@@ -21,7 +21,7 @@ import ProjectsList from 'pages/projects/ProjectsList';
 import Advance from 'pages/projects/advances/Advance';
 import New_project from 'pages/projects/New_project';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-import My_projects from 'pages/projects/My_projects';
+
 import Index1 from 'pages/inicio/Index1';
 import Inscriptions from 'pages/inscriptions/Inscriptions';
 import PrivateRoute from 'components/PrivateRoute';
@@ -99,7 +99,7 @@ function App() {
                 <Route path='/usuarios' element={<UsersDashboard />} />
                 
                 <Route path='/proyectos' element={<ProjectsList />} /> 
-                <Route path='/proyectos/misproyectos' element={<My_projects/>} />
+              
                 <Route path='/proyectos/proyecto/:_id' element={<Info />} />
                 <Route path='/proyectos/nuevo' element={<New_project />} />
                 

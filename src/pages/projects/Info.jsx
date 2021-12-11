@@ -2,8 +2,8 @@ import { useQuery, useMutation } from '@apollo/client';
 import { Dialog, TextareaAutosize, Tooltip } from '@material-ui/core';
 import Create_objective_modal from 'components/Create_objective_modal';
 import ProjectNavbar from 'components/ProjectNavbar';
-import { ToastContainer, toast, Zoom } from 'react-toastify';
 
+import ReactLoading from 'react-loading';
 
 import RowObjectiveInfo from 'components/RowObjectiveInfo';
 import { GET_PROJECT_INFO, EDIT_PROJECT_BY_LIDER } from 'graphql/proyectos/queries';
@@ -19,6 +19,7 @@ const Info = () => {
     const [editObjective, setEditObjective] = useState(false);
     const [editName, setEditName] = useState(false);
     const [newName, setNewName] = useState("");
+    const [liderName, setLiderName] = useState("");
     const [newBudget, setNewBudget] = useState(0);
     const [editBudget, setEditBudget] = useState(false);
     const [createModal, setCreateModal] = useState(false);
@@ -47,6 +48,7 @@ const Info = () => {
             setNewName(infoProject.filtrarProyecto.nombre);
             setNewBudget(infoProject.filtrarProyecto.presupuesto);
             setNombreProyecto(infoProject.filtrarProyecto.nombre);
+            setLiderName(infoProject.filtrarProyecto.lider.nombre + " "+ infoProject.filtrarProyecto.lider.apellido);
             if (infoProject.filtrarProyecto.fase == "NULO") { changeFaseColor("text-gray-400") }
             if (infoProject.filtrarProyecto.fase == "INICIADO") { changeFaseColor("text-blue-400") }
             if (infoProject.filtrarProyecto.fase == "DESARROLLO") { changeFaseColor("text-yellow-400") }
@@ -91,7 +93,7 @@ const Info = () => {
     }
     useEffect(() => {
         if (mutationData) {
-            toast.success("Proyecto editado con éxito");
+            // toast.success("Proyecto editado con éxito");
             console.log('Proyecto editado correctamente');
 
         }
@@ -103,12 +105,13 @@ const Info = () => {
     useEffect(() => {
         if (mutationError) {
             console.log("error", mutationError);
-            toast.error('Error modificando el nombre proyecto');
+            // toast.error('Error modificando el nombre proyecto');
         }
 
     }, [mutationError]);
-    if (mutationLoading) return <div>Cargando...</div>
-    if (loading) return <div>Cargando....</div>;
+    if (mutationLoading || loading) return <div><ReactLoading type='spin' height={20} width={20} />Cargando...</div>
+    // if (loading) return <div>  {loading ? <ReactLoading type='spin' height={20} width={20} /> : <></>}Cargando....</div>;
+    // {loading ||mutationLoading && <ReactLoading type='spin' height={20} width={20} />}
     return (
         <div className="w-full h-screen  ">
             <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'} nombreProject={ nombreproyecto} />
@@ -162,7 +165,8 @@ const Info = () => {
                         <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                             <i className="far fa-user-circle fa-lg"></i> Lider</span>
                         <span className="px-8 rounded-r-lg bg-white w-full  text-gray-600 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
-                            {infoProject.filtrarProyecto.lider.nombre} {infoProject.filtrarProyecto.lider.apellido}</span>
+                            {/* {infoProject.filtrarProyecto.lider.nombre} {infoProject.filtrarProyecto.lider.apellido}</span> */}
+                        {liderName}</span>
 
                     </div>
                     <div className="m-2 ">
@@ -279,12 +283,7 @@ const Info = () => {
                 <Create_objective_modal setOpenEditObj={setCreateModal}
                     idProyecto={infoProject.filtrarProyecto._id}></Create_objective_modal>
             </Dialog>
-            <ToastContainer rtl
-                position="top-center"
-                autoClose={2000}
-                transition={Zoom}
-                limit={1}
-            />
+            
         </div>
     )
 }
