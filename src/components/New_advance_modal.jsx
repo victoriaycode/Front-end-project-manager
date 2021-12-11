@@ -5,9 +5,9 @@ import { TextareaAutosize } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 
 import { CREATE_NEW_ADVANCE } from 'graphql/avances/queries';
-import { toast } from 'react-toastify';
 
-const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,setOpenModal}) => {
+
+const New_advance_modal = ({nameStudent,idStudent,idProject,setOpenModal,numAdvancesP}) => {
     
     const [titulo, setTitulo]=useState("");
     const [descripcion, setDescripcion]=useState("");
@@ -17,6 +17,8 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
 
     const [addAdvance, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
     useMutation(CREATE_NEW_ADVANCE);
+
+       
 
     useEffect(() => {
 
@@ -38,11 +40,12 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
             let proyecto=idProject;
             let creadoPor=idStudent;
             const fecha=date;
+            let numAdvances= numAdvancesP+"";
             let g= {  titulo,descripcion,fecha, proyecto,creadoPor };
             console.log(g);
           
             let added= await addAdvance({
-                variables: {  titulo,descripcion,fecha, proyecto,creadoPor },
+                variables: {  titulo,descripcion,fecha, proyecto,creadoPor,numAdvances },
               });
               console.log("added ",added);
               setOpenModal(false);
@@ -75,7 +78,7 @@ const New_advance_modal = ({nameStudent,idStudent,idProject,openNewAdvanceModal,
                 <div className="w-full py-2 px-4 flex flex-row justify-around">
                   <span className="text-blue-800 text text-lg font-medium mt-4">
                         Titulo :
-                    </span> <input type="text"  className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100"
+                    </span> <input type="text" maxLength="80"  className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100"
                         placeholder="Titulo avance" onChange={(e) => {
                             setTitulo(e.target.value)}}/>
                     </div>

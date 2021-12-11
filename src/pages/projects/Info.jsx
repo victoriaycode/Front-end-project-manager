@@ -2,14 +2,15 @@ import { useQuery, useMutation } from '@apollo/client';
 import { Dialog, TextareaAutosize, Tooltip } from '@material-ui/core';
 import Create_objective_modal from 'components/Create_objective_modal';
 import ProjectNavbar from 'components/ProjectNavbar';
-import { ToastContainer, toast, Zoom } from 'react-toastify';
 
+import ReactLoading from 'react-loading';
 
 import RowObjectiveInfo from 'components/RowObjectiveInfo';
 import { GET_PROJECT_INFO, EDIT_PROJECT_BY_LIDER } from 'graphql/proyectos/queries';
 import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
+import PrivateComponent from 'components/PrivateComponent';
 
 const Info = () => {
 
@@ -18,6 +19,7 @@ const Info = () => {
     const [editObjective, setEditObjective] = useState(false);
     const [editName, setEditName] = useState(false);
     const [newName, setNewName] = useState("");
+    const [liderName, setLiderName] = useState("");
     const [newBudget, setNewBudget] = useState(0);
     const [editBudget, setEditBudget] = useState(false);
     const [createModal, setCreateModal] = useState(false);
@@ -46,6 +48,7 @@ const Info = () => {
             setNewName(infoProject.filtrarProyecto.nombre);
             setNewBudget(infoProject.filtrarProyecto.presupuesto);
             setNombreProyecto(infoProject.filtrarProyecto.nombre);
+            setLiderName(infoProject.filtrarProyecto.lider.nombre + " "+ infoProject.filtrarProyecto.lider.apellido);
             if (infoProject.filtrarProyecto.fase == "NULO") { changeFaseColor("text-gray-400") }
             if (infoProject.filtrarProyecto.fase == "INICIADO") { changeFaseColor("text-blue-400") }
             if (infoProject.filtrarProyecto.fase == "DESARROLLO") { changeFaseColor("text-yellow-400") }
@@ -90,7 +93,7 @@ const Info = () => {
     }
     useEffect(() => {
         if (mutationData) {
-            toast.success("Proyecto editado con éxito");
+            // toast.success("Proyecto editado con éxito");
             console.log('Proyecto editado correctamente');
 
         }
@@ -102,12 +105,13 @@ const Info = () => {
     useEffect(() => {
         if (mutationError) {
             console.log("error", mutationError);
-            toast.error('Error modificando el nombre proyecto');
+            // toast.error('Error modificando el nombre proyecto');
         }
 
     }, [mutationError]);
-    if (mutationLoading) return <div>Cargando...</div>
-    if (loading) return <div>Cargando....</div>;
+    if (mutationLoading || loading) return <div><ReactLoading type='spin' height={20} width={20} />Cargando...</div>
+    // if (loading) return <div>  {loading ? <ReactLoading type='spin' height={20} width={20} /> : <></>}Cargando....</div>;
+    // {loading ||mutationLoading && <ReactLoading type='spin' height={20} width={20} />}
     return (
         <div className="w-full h-screen  ">
             <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'} nombreProject={ nombreproyecto} />
@@ -121,6 +125,8 @@ const Info = () => {
                             <div className="flex flex-row justify-between">
                                 <span className="px-8 rounded-r-lg bg-blue-800  text-white  font-bold p-3 uppercase border-blue-800 border-t border-2">
                                     <i className="fas fa-folder fa-lg"></i> Proyecto</span>
+                                
+                                    <PrivateComponent roleList={['LIDER']}>
                                 <div className="flex flex-row  flex-center justify-end">
                                     {!editName ? (<Tooltip title='EDITAR NOMBRE' arrow placement="left">
                                         <button className="text-blue-600 hover:text-blue-800  py-1 px-2  transform hover:scale-125 focus" >
@@ -133,7 +139,7 @@ const Info = () => {
                                                 <button className="text-gray-500 hover:text-gray-700 ml-5 py-1  px-2  transform hover:scale-125">
                                                     <i className="fas fa-ban fa-lg" onClick={() => setEditName(false)} ></i></button></Tooltip></>)}
 
-                                </div>
+                                </div></PrivateComponent>
                             </div>
                         </div>
 
@@ -150,7 +156,7 @@ const Info = () => {
                     <div className="m-2     ">
 
                         <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">ID PROYECTO</span>
-                        <span className="px-8 rounded-r-lg bg-white w-20  text-gray-600 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
+                        <span className="px-8 rounded-r-lg bg-white w-20  text-gray-600 font-bold p-2  border-blue-500 border-t border-b  border-r">
                             {infoProject.filtrarProyecto._id}</span>
 
                     </div>
@@ -159,7 +165,8 @@ const Info = () => {
                         <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                             <i className="far fa-user-circle fa-lg"></i> Lider</span>
                         <span className="px-8 rounded-r-lg bg-white w-full  text-gray-600 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
-                            {infoProject.filtrarProyecto.lider.nombre} {infoProject.filtrarProyecto.lider.apellido}</span>
+                            {/* {infoProject.filtrarProyecto.lider.nombre} {infoProject.filtrarProyecto.lider.apellido}</span> */}
+                        {liderName}</span>
 
                     </div>
                     <div className="m-2 ">
@@ -186,6 +193,7 @@ const Info = () => {
 
                         </div>
 
+                        <PrivateComponent roleList={['LIDER']}>
                         <div className="flex flex-row  -mt-2 justify-end ">
                             {!editBudget ? (<Tooltip title='EDITAR PRESUPUESTO' arrow placement="top">
                                 <button className="text-blue-600 hover:text-blue-800  px-2  transform hover:scale-125 focus" >
@@ -198,7 +206,7 @@ const Info = () => {
                                         <button className="text-gray-500 hover:text-gray-700 ml-2 py-1  px-2  transform hover:scale-125">
                                             <i className="fas fa-ban fa-lg" onClick={() => setEditBudget(false)} ></i></button></Tooltip></>)}
 
-                        </div>
+                        </div></PrivateComponent>
                     </div>
                     <div className="m-2 mt-4 ">
 
@@ -250,10 +258,12 @@ const Info = () => {
               gap-2 border-solid border-2 border-gray-300  ">
                     <div className="flex flex-row justify-between pt-2 mt-8 border-blue-500 border-b   ">
                         <span className="px-8 my-2 rounded-r-lg  text-blue-800 font-bold p-3 text-xl   uppercase">Objetivos</span>
+                        <PrivateComponent roleList={['LIDER']}>
                         <button type="button" className="p-1 pl-4 pr-4 mt-4 mr-10  
                                     bg-white border-2 border-blue-500 font-bold h-10 text-blue-500 text-lg rounded-lg hover:bg-blue-500 hover:text-white  
-                                    focus:border-4 " onClick={() => setCreateModal(true)}>Añadir</button>
+                                    focus:border-4 " onClick={() => setCreateModal(true)}>Añadir</button></PrivateComponent>
                     </div>
+
                     <div className="overflow-y-scroll  mb-10  ">
 
 
@@ -273,12 +283,7 @@ const Info = () => {
                 <Create_objective_modal setOpenEditObj={setCreateModal}
                     idProyecto={infoProject.filtrarProyecto._id}></Create_objective_modal>
             </Dialog>
-            <ToastContainer rtl
-                position="top-center"
-                autoClose={2000}
-                transition={Zoom}
-                limit={1}
-            />
+            
         </div>
     )
 }

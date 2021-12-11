@@ -31,7 +31,7 @@ const Students = () => {
     }, [data]);
 
     useEffect(() => {
-        if (!loading ) {
+        if (!loading && studentsList ) {
             setStudentsListFiltered(
                 studentsList.filter((elemento) => {
                   return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
@@ -59,16 +59,10 @@ const Students = () => {
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
                     {enroll.fechaIngreso}
                 </td>
-                {/* {
-                    editable ? (<>
-                   <td>
-                       <Toggle></Toggle>
-                   </td>
-                    </>) : (<>
-                        <td className="border-t-0 px-6  align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-2 ">
-                            {student.estado} </td>
-                    </>)
-                } */}
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
+                    {enroll.fechaEgreso}
+                </td>
+               
 
 
                 <td>
@@ -97,7 +91,7 @@ const Students = () => {
         <div className="relative"> 
        
         <input type="text" className="h-12 w-72 pr-8 pl-5   rounded-2xl z-0 focus:shadow focus:outline-none"
-          value={searchBy}onChange={(e) => setSearchBy(e.target.value)}  placeholder="Buscar por nombre proyecto" />
+          value={searchBy}onChange={(e) => setSearchBy(e.target.value)}  placeholder="Buscar por nombre estudiante" />
             <div className="absolute top-3 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
             </div>
         </div>
@@ -139,7 +133,9 @@ const Students = () => {
                                         <th className=" sticky top-0 z-30 px-6  bg-blue-50  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Fecha Ingreso
                                         </th>
-
+                                        <th className=" sticky top-0 z-30 px-6  bg-blue-50  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                            Fecha Egreso
+                                        </th>
                                     </tr>
                                 </thead>
 
