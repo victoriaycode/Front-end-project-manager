@@ -22,15 +22,16 @@ const Advance = () => {
   const { _idAvance } = useParams();
   const [advance, setAdvance] = useState({});
   const [createdBy, setCreatedBy] = useState("");
-  
+
   const [editable, setEditable] = useState(false);
 
+  const [InactiveOrFinishedProject, setInactiveOrFinishedProject] = useState(false);
   const [input_bg, setInputBg] = useState("bg-gray-50");
   const [newCommentary, setNewCommentary] = useState(false);
   const { userData } = useUser();
-  const idEstudiante= useUser._id +"";
-  
-  const role= "ESTUDIANTE";
+  const idEstudiante = useUser._id + "";
+
+  const role = "ESTUDIANTE";
   const { form, formData, updateFormData } = useFormData(null);
 
 
@@ -57,6 +58,10 @@ const Advance = () => {
       let apellido = data.filtrarAvancePorId.creadoPor.apellido;
       setCreatedBy(nombre + " " + apellido);
       setAdvance(data.filtrarAvancePorId);
+      if (data.filtrarAvancePorId.proyecto.estado == "INACTIVO"
+        || data.filtrarAvancePorId.proyecto.fase == "TERMINADO") {
+        setInactiveOrFinishedProject(true);
+      };
 
     }
   }, [loading]);
@@ -75,7 +80,7 @@ const Advance = () => {
 
   const [editarAvance, { data: mutationData, loading: mutationLoading, error: mutationError }] =
     useMutation(EDIT_ADVANCE_BY_STUDENT);
-    
+
   const submitForm = (e) => {
     e.preventDefault();
     console.log("formdata", formData);
@@ -107,7 +112,7 @@ const Advance = () => {
 
   }, [mutationError]);
   if (loading) return <div>Cargando....</div>;
-  
+
   if (mutationLoading) return <div>Cargando....</div>;
 
 
@@ -133,16 +138,16 @@ const Advance = () => {
           <PrivateComponent roleList={['ESTUDIANTE']}>
 
 
-          { data && data.filtrarAvancePorId.creadoPor._id===idEstudiante &&
-          <div className="flex flex-row align-center ">
+            {data && data.filtrarAvancePorId.creadoPor._id === idEstudiante &&
+              <div className="flex flex-row align-center ">
 
-            {editable  ? (<div >   <button type="submit" className="p-1  pl-5 pr-5 ml-10 flex-end m-2 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
+                {editable ? (<div >   <button type="submit" className="p-1  pl-5 pr-5 ml-10 flex-end m-2 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" disabled={Object.keys(formData).length === 0}>Guardar</button>
-               <button className="p-1 pl-5 pr-5 ml-10 flex-end m-2 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
+                  <button className="p-1 pl-5 pr-5 ml-10 flex-end m-2 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" onClick={() => setEditable(false)}>Cancelar</button></div>)
-              : (<>{<button className="p-1 pl-5 pr-5  ml-10 flex-end m-2 mb-3 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
+                  : (<>{<button className="p-1 pl-5 pr-5  ml-10 flex-end m-2 mb-3 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200 hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" onClick={() => setEditable(true)} >Editar</button>}</>)}
-          </div>}
+              </div>}
           </PrivateComponent>
         </div>
 
@@ -162,7 +167,7 @@ const Advance = () => {
                       </span>
                       {editable ? (<TextareaAutosize name="titulo" type="text" minRows="2" className={`h-10 w-5/6 mx-5 px-10 mt-1  text-xl font-semibold text-blue-800 rounded-2xl z-0 focus:outline-none
                     ${input_bg}`} defaultValue={advance.titulo} />)
-                        : (<TextareaAutosize minRows="1" disabled  className={`h-10 w-5/6 py-1 mx-5 px-10 mt-1  text-xl font-semibold text-blue-800 rounded-2xl z-0 focus:outline-none
+                        : (<TextareaAutosize minRows="1" disabled className={`h-10 w-5/6 py-1 mx-5 px-10 mt-1  text-xl font-semibold text-blue-800 rounded-2xl z-0 focus:outline-none
                     ${input_bg}`} value={advance.titulo} >  </TextareaAutosize>)
 
                       }
@@ -219,14 +224,16 @@ const Advance = () => {
           <div className="w-full   my-5 px-4  py-5 px-16 border-solid border-gray-300 border-t-2">
             <div className="w-full flex flex-row justify-start py-2  mx-5">
               <span className="text-lg text-blue-800 text-2xl font-bold  " >Observaciones</span>
-                {role==="LIDER" && <>
-              {!newCommentary &&
-                <button className="p-1 ml-20 mr-10  bg-transparent border-2 border-blue-500  
-text-blue-500 text-sm rounded-lg hover:bg-blue-600 
-  hover:text-white  
-focus:border-4 "
-                  onClick={() => setNewCommentary(true)}
-                >Añadir nueva</button>}</>}
+
+              <PrivateComponent roleList={['LIDER']}>
+                {!InactiveOrFinishedProject && <>
+                  {!newCommentary &&
+                    <button className="p-1 ml-20 mr-10  bg-transparent border-2 border-blue-500  
+                      text-blue-500 text-sm rounded-lg hover:bg-blue-600 
+              hover:text-white  
+                    focus:border-4 "
+                      onClick={() => setNewCommentary(true)}>Añadir nueva</button>}
+                      </>}</PrivateComponent>
             </div>
 
 

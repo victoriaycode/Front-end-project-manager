@@ -53,7 +53,9 @@ query Proyecto($_id: String!) {
     _id
     estado
     nombre
-    
+    lider{
+      _id
+    }
   }
 }`;
 const GET_STUDENT_PROJECTS_ENROLLED = gql`

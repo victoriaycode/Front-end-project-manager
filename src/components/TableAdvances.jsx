@@ -10,7 +10,7 @@ import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries';
 import { NavLink } from 'react-router-dom';
 import PrivateComponent from 'components/PrivateComponent';
 
-const TableAdvances = ({ idProject ,setModal,activeProject,setNumAdvances}) => {
+const TableAdvances = ({ idProject ,setModal,activeProject,finishedProject,setNumAdvances}) => {
 
     const { _id } = useParams();
     const idProyecto = _id;

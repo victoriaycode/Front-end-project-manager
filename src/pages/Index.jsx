@@ -13,15 +13,18 @@ const Index = () => {
     let day = date.toLocaleDateString("es-US", options);
   return (
     <div className="w-full h-full flex flex-col overflow-y-hidden " >
-      <PrivateRoute roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE']} >
+      {/* <PrivateRoute roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE']} > */}
         
-        <Title_page title={"Inicio"}  returns ={false} return_to={"/"}></Title_page>
+        {/* <Title_page title={"Inicio"}  returns ={false} return_to={"/"}></Title_page> */}
+        <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6  ">
+        <span className="text-lg text-blue-800 text-3xl ml-10 mt-8  font-bold">Inicio</span></div>
         <div className="w-full h-auto flex flex-col mt-10 pl-10 ">
         <span className='text-blue-800 text-4xl '>Bienvenido,      
            <span className='text-blue-500 font-bold mt-5 text-3xl ml-5'> {name}</span> </span>
        
-           <span className='text-gray-500 text-xl mt-5 font-semibold'> Rol: {role}</span>
-          <span className='text-gray-800 text-lg italic mt-2'> Sesión: {day}</span>
+           <span className='text-gray-500 text-xl mt-5 font-semibold'> Rol:
+           <span className='text-blue-600 text-xl mt-5  ml-5 font-semibold'>{role}</span> </span>
+          <span className='text-gray-800 text-lg italic mt-10'> Sesión: {day}</span>
         
           {!estado==="AUTORIZADO" && 
           <div>
@@ -30,8 +33,8 @@ const Index = () => {
         </div>} 
         </div>
      
-      
-      </PrivateRoute>
+{/*       
+      </PrivateRoute> */}
         </div>
   );
 };

@@ -128,12 +128,12 @@ const ProjectsList = () => {
   useEffect(() => {
 
     if (viewOnlyStudent) {
-      setButtonTodos("text-indigo-400 border-indigo-400  ");
-      setButtonEstudiante("text-blue-800 border-blue-800");
+      setButtonTodos("text-gray-500 border-gray-500  ");
+      setButtonEstudiante("text-blue-800 border-blue-800 bg-blue-100 rounded-xl");
 
     } else {
-      setButtonEstudiante("text-indigo-400 border-indigo-400 ");
-      setButtonTodos("text-blue-800 border-blue-800 ");
+      setButtonEstudiante("text-gray-500 border-gray-500 ");
+      setButtonTodos("text-blue-800 border-blue-800  bg-blue-100 rounded-xl");
     }
 
   }, [viewOnlyStudent]);
@@ -186,12 +186,12 @@ const ProjectsList = () => {
         <PrivateComponent roleList={['ESTUDIANTE']}>
       <>
             <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
-          border-gray-600  focus:outline-none hover:border-blue-800 border-b-4  transition duration-150 ${buttonEstudiante}`}
+          border-gray-500  focus:outline-none hover:border-blue-800 border-b-4  transition duration-150 ${buttonEstudiante}`}
               onClick={() => setViewOnlyStudent(true)}>
               <i className="fas fa-check "></i> Mis Inscritos
             </button>
             <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
-          border-gray-600   hover:border-blue-800 focus:outline-none border-b-4  transition duration-150 ${buttonTodos}`}
+          border-gray-500   hover:border-blue-800 focus:outline-none border-b-4  transition duration-150 ${buttonTodos}`}
               onClick={() => setViewOnlyStudent(false)}>
               <i className="fas fa-clipboard-list "></i> Explorar Otros
             </button></></PrivateComponent>
@@ -215,7 +215,7 @@ const ProjectsList = () => {
                 <div className="relative">
 
                   <input type="text" className="h-12 w-72 pr-8 pl-5  border-gray-200 rounded-2xl z-0 focus:shadow focus:outline-none"
-                    value={searchBy} onChange={(e) => setSearchBy(e.target.value)} placeholder="Buscar por nombre proyecto" />
+                    value={searchBy} onChange={(e) => setSearchBy(e.target.value)} placeholder="Buscar por nombre o id proyecto" />
                   <div className="absolute top-3 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
                   </div>
                 </div>}
