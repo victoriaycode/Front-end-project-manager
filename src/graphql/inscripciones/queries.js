@@ -52,7 +52,7 @@ query FiltrarSiEstaInscrito($idProyecto: String!, $idEstudiante: String!) {
   filtrarSiEstaInscrito(idProyecto: $idProyecto, idEstudiante: $idEstudiante) {
     _id
     estado
-    
+    fechaEgreso
    
   }
 }

@@ -41,10 +41,12 @@ const AdvancesDashboard = () => {
   });
   useEffect(() => {
     if (!loadingEnroll && dataEnroll) {
-
-      if (dataEnroll.filtrarSiEstaInscrito.length > 0) {
-
-        setInscrito(true);
+      console.log("dataEnroll",dataEnroll);
+      if (dataEnroll.filtrarSiEstaInscrito) {
+        
+        if(dataEnroll.filtrarSiEstaInscrito.fechaEgreso==null){
+          setInscrito(true);
+        }
       } else {
         setInscrito(false);
         console.log(" inscripcion null");
