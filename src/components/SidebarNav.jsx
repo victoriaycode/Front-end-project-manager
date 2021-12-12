@@ -76,8 +76,8 @@ const SidebarNav = () => {
           <i className="fas fa-power-off fa-lg" 
           onClick={
             () => {
-            setToken(null)
-            navigate('/login')}
+            navigate('/login')
+            setToken(null)}
             }>
             </i>
             <span className="text-xs mt-1 cursor-none">Logout</span>

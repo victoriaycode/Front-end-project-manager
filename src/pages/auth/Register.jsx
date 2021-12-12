@@ -28,13 +28,18 @@ const Register = () => {
   
     useEffect(() => {
         if (dataMutation) {
-          if (dataMutation.registro.token) {
-            setToken(dataMutation.registro.token);
-            navigate('/login');
+            if (dataMutation.registro.token) {
+                setToken(dataMutation.registro.token);
                 }
             }
         }, [dataMutation, setToken, navigate]);
         
+    useEffect(() => {
+        if (dataMutation) {
+                toast.success('Usuario registrado con éxito');
+                }
+        },
+         [dataMutation]);
     
         useEffect(()=>{
             if (errorMutation){
