@@ -12,7 +12,6 @@ import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
 import 'styles/globals.css';
 import 'styles/tablausuarios.css';
-import Project from 'pages/projects/Project';
 import Profile from 'pages/my_profile/Profile';
 import UsersDashboard from 'pages/users/UsersDashboard';
 import AdvancesDashboard from 'pages/projects/advances/AdvancesDashboard';
@@ -22,19 +21,20 @@ import ProjectsList from 'pages/projects/ProjectsList';
 import Advance from 'pages/projects/advances/Advance';
 import New_project from 'pages/projects/New_project';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-import My_projects from 'pages/projects/My_projects';
+
 import Index1 from 'pages/inicio/Index1';
 import Inscriptions from 'pages/inscriptions/Inscriptions';
 import PrivateRoute from 'components/PrivateRoute';
 
-
-const httpLink = createHttpLink({
-  uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
-});
+import Info from 'pages/projects/Info';
 
 // const httpLink = createHttpLink({
-//   uri: 'http://localhost:4000/graphql',
+//   uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
 // });
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:4000/graphql',
+});
 
 
 //doc. apollo client
@@ -95,16 +95,18 @@ function App() {
             <Routes>
               <Route path='/' element={<PrivateLayout />}>
                 <Route path='/' element={<Index />} />
-                <Route path='/inicio' element={<Index1 />} />
+                <Route path='/inicio' element={<Index />} />
                 <Route path='/usuarios' element={<UsersDashboard />} />
-                <Route path='/proyectos' element={<ProjectsList />} />
-                <Route path='/proyectos/misproyectos' element={<My_projects/>} />
-                <Route path='/proyectos/proyecto' element={<Project />} />
+                
+                <Route path='/proyectos' element={<ProjectsList />} /> 
+              
+                <Route path='/proyectos/proyecto/:_id' element={<Info />} />
                 <Route path='/proyectos/nuevo' element={<New_project />} />
-                <Route path='/proyectos/proyecto/avances' element={<AdvancesDashboard />} />
-                <Route path='/proyectos/proyecto/avances/avance' element={<Advance />} />
-                <Route path='/proyectos/proyecto/info' element={<Project />} />
-                <Route path='/proyectos/proyecto/estudiantes' element={<Students />} />
+                
+                <Route path='/proyectos/proyecto/avances/:_id' element={<AdvancesDashboard />} />
+                <Route path='/proyectos/proyecto/avances/n/:_id/:_idAvance' element={<Advance />} />
+
+                <Route path='/proyectos/proyecto/estudiantes/:_id' element={<Students />} />
                 
                 <Route path='/mi_perfil' element={< Profile/>} />
               
