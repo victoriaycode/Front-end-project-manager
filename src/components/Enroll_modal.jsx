@@ -6,24 +6,24 @@ import { useMutation, useQuery } from '@apollo/client';
 import { toast } from 'react-toastify';
 import ButtonLoading from 'components/ButtonLoading';
 
-const Enroll_modal = ({name_project,setOpenModalEnroll}) => {
-
-  const { userData } = useUser();
+const Enroll_modal = ({ idProyecto, name_project, setOpenModalEnroll}) => {
   
-  const InscripcionProyecto = ({ idProyecto, estado, inscripciones, userData }) => {
+  const InscripcionProyecto = ({estado, inscripciones}) => {
 
-    const [estadoInscripcion, setEstadoInscripcion] = useState('');
+    const { userData } = useUser();
     const [crearInscripcion, { data, loading, error }] = useMutation(CREAR_INSCRIPCION);
+   
+    // const [estadoInscripcion, setEstadoInscripcion] = useState('');
 
   
-    useEffect(() => {
-      if (userData && inscripciones) {
-        const flt = inscripciones.filter((el) => el.estudiante._id === userData._id);
-        if (flt.length > 0) {
-          setEstadoInscripcion(flt[0].estado);
-        }
-      }
-    }, [userData, inscripciones]);
+    // useEffect(() => {
+    //   if (userData && inscripciones) {
+    //     const flt = inscripciones.filter((el) => el.estudiante._id === userData._id);
+    //     if (flt.length > 0) {
+    //       setEstadoInscripcion(flt[0].estado);
+    //     }
+    //   }
+    // }, [userData, inscripciones]);
   
     useEffect(() => {
       if (data) {
@@ -38,17 +38,16 @@ const Enroll_modal = ({name_project,setOpenModalEnroll}) => {
   
     return (
       <>
-        {estadoInscripcion !== '' ? (
+        {/* {estadoInscripcion !== '' ? (
           <span>Ya estas inscrito en este proyecto y el estado es {estadoInscripcion}</span>
-        ) : (
+        ) : ( */}
           <ButtonLoading
             onClick={() => confirmarInscripcion()}
-            disabled={estado === 'INACTIVO'}
             loading={loading}
             className={'bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white'}
             text='Confirmar'
           />
-        )}
+        {/* )} */}
       </>
     );
   };
@@ -66,15 +65,14 @@ const Enroll_modal = ({name_project,setOpenModalEnroll}) => {
         
           <div className="p-3 flex flex-col text-center">
             <span className="text-lg  font-light  text-gray-800 pb-2">
-          ¿Desea mandar solicitud de inscripción al proyecto ? 
+          ¿Desea enviar solicitud de inscripción al proyecto ? 
             </span>
             <span className="text-2xl  font-semibold  text-blue-800">
             {name_project} 
             </span>
           </div>
           <div className="flex justify-end items-center w-100 border-t p-3">
-           
-          <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-xl h-10 text-lg text-white">Confirmar</button>
+           <InscripcionProyecto></InscripcionProyecto>
             <button className="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded-xl h-10 text-white mr-1 close-modal ml-2" onClick={()=>setOpenModalEnroll(false)}>Cancelar</button>
           </div>
         </div>

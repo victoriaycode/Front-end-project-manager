@@ -101,15 +101,20 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
                     focus:border-4 focus:border-blue-300 text-base"  ><i className="far fa-eye fa-lg"></i> Ver</button>
                     </NavLink>
-                    <PrivateComponent roleList={['ESTUDIANTE']}>
+
+                  <PrivateComponent roleList={['ESTUDIANTE']}>
                     { !already_enrolled && 
                     <>{(card.estado==="ACTIVO" && (card.fase!="NULO" || card.fase!="TERMINADO" )) &&  
+                    
                     <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
                     focus:border-4 focus:border-blue-300  text-xs" onClick={() => setEnrollModal(true)}>
-                      <i className="fas fa-check-double fa-lg"></i> Inscribirse</button> }</>}</PrivateComponent>
+                      <i className="fas fa-check-double fa-lg"></i> Inscribirse</button> }</>}
+                  
+                  </PrivateComponent>
                 
-                      <PrivateComponent roleList={['ADMINISTRADOR']}>
+              
+               <PrivateComponent roleList={['ADMINISTRADOR']}>
                
                 <>
                  { (card.estado==="INACTIVO" && card.fase==="NULO") 
@@ -164,7 +169,7 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
                         
                     </Dialog>
                     <Dialog open={enrollModal} >
-                      <Enroll_modal setOpenModalEnroll={setEnrollModal} name_project={card.nombre}></Enroll_modal>
+                      <Enroll_modal setOpenModalEnroll={setEnrollModal} name_project={card.nombre} idProyecto= {card._id} ></Enroll_modal>
                     </Dialog>
             </div>
             
