@@ -9,6 +9,7 @@ import { GET_PROJECTS_BY_LIDER } from 'graphql/proyectos/queries'
 import { useUser } from 'context/userContext'
 import PrivateComponent from 'components/PrivateComponent'
 import ReactLoading from 'react-loading';
+import PrivateRoute from 'components/PrivateRoute';
 
 const ProjectsList = () => {
   const { userData } = useUser();
@@ -177,6 +178,7 @@ const ProjectsList = () => {
   // if (loadingLider) return <div>Cargando....</div>;
   if (loading|| loadingStudent || loadingLider) return <div><ReactLoading type='spin' height={20} width={20} />Cargando...</div>
   return (
+    <PrivateRoute roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE']} >
 
     <div className="w-full h-full flex flex-col  overflow-y-hidden overflow-x-hidden pl-20 pr-20" >
     {role=="LIDER" && 
@@ -310,6 +312,7 @@ const ProjectsList = () => {
 
 
     </div>
+    </PrivateRoute>
 
   )
 }

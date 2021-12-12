@@ -10,6 +10,7 @@ import { useQuery } from '@apollo/client'
 import { GET_INSCRIPCION_ACEPTADA } from 'graphql/inscripciones/queries'
 import TableAdvances from '../../../components/TableAdvances'
 import { GET_PROJECT_STATE } from 'graphql/proyectos/queries'
+import PrivateRoute from 'components/PrivateRoute'
 
 const AdvancesDashboard = () => {
   const { userData } = useUser();
@@ -81,6 +82,7 @@ const AdvancesDashboard = () => {
   if (loadingProject || loadingEnroll) return <div>Cargando...</div>
 
   return (
+    <PrivateRoute roleList={['LIDER','ESTUDIANTE']} >
     <div className="w-full h-full flex flex-col overflow-y-hidden  bg-gray-100" >
 
       <ProjectNavbar _idActual={_id} nombreProject={nombreProyecto} rutaRetorno={`/proyectos/proyecto/${_id}`} />
@@ -125,7 +127,7 @@ const AdvancesDashboard = () => {
         <New_advance_modal nameStudent={name_student} idStudent={idEstudiante}
           idProject={_id} numAdvancesP={numAdvances} setOpenModal={setNewAdvanceModal}></New_advance_modal>}
 
-    </div>
+    </div></PrivateRoute>
 
   )
 

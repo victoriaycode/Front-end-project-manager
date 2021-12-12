@@ -11,6 +11,8 @@ import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
 import PrivateComponent from 'components/PrivateComponent';
+import PrivateRoute from 'components/PrivateRoute';
+
 import { useUser } from 'context/userContext'
 
 const Info = () => {
@@ -122,6 +124,8 @@ const Info = () => {
     // if (loading) return <div>  {loading ? <ReactLoading type='spin' height={20} width={20} /> : <></>}Cargando....</div>;
     // {loading ||mutationLoading && <ReactLoading type='spin' height={20} width={20} />}
     return (
+    <PrivateRoute roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE']} stateUser={'AUTORIZADO'}>
+        
         <div className="w-full h-screen  ">
           
           
@@ -313,7 +317,7 @@ const Info = () => {
                     idProyecto={infoProject.filtrarProyecto._id}></Create_objective_modal>
             </Dialog>
             
-        </div>
+        </div></PrivateRoute>
     )
 }
 
