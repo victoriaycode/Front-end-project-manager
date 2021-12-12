@@ -1,14 +1,19 @@
 import { useMutation } from '@apollo/client';
 import {  Dialog, Zoom } from '@material-ui/core';
+import { useUser } from 'context/userContext';
 import { EDIT_PROJECT_BY_ADMIN } from 'graphql/proyectos/queries';
 import React from 'react'
 import { useState , useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
-import { ToastContainer,toast } from 'react-toastify';
 import Edit_project_admin_modal from './Edit_project_admin';
 import Enroll_modal from './Enroll_modal';
+import PrivateComponent from './PrivateComponent';
 
 const ProjectCardInfo = ({project_info,already_enrolled}) => {
+    
+  const { userData } = useUser();
+  
+  const user= userData.rol+"";
     
     const [aprobarModal, setAprobarModal]= useState(false);
     
@@ -23,7 +28,7 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
 
     //const [openModal, setOpenModal] = useState(false);
     const card = project_info;
-    const lidertest= "Lider nombre largo"
+   
     let colorState = "green";
     let colorFase = "gray";
     if (project_info.estado==="INACTIVO"){
@@ -43,8 +48,6 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
     colorFase="yellow"
   
 }
-    let user= "ESTUDIANTE";
-    
     
     
     const aprobarProyecto=async()=>{
@@ -65,7 +68,7 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
         
 
          
-            <div className="flex flex-col   w-70 h-60 bg-white   shadow-xl p-4  rounded-2xl transform transition duration-200 hover:scale-110  ">
+            <div className="flex flex-col   w-70 h-64 bg-white   shadow-xl p-4  rounded-2xl transform transition duration-200 hover:scale-110  ">
 
 
                 <div className="flex flex-col  ">
@@ -75,8 +78,10 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
                         <p className="text-lg text-blue-800 w-30 truncate  text-center pb-1 pt-3 text-2xl font-bold  ">{card.nombre}</p>
                         {/* <span className=" text-ms text-gray-500 text-xs mx-2 font-light pt-2 ">Lider : <span className="text-blue-800 font-light">{card.lider.nombre} {card.lider.apellido}</span> </span> */}
                        
-                <span className=" text-gray-500 text-sm mx-2 text-center  font-light align-start pb-1">Lider : <span className="text-gray-800 font-light">{lidertest}</span> </span>
-                   
+                 {already_enrolled ? (<><span className=" text-blue-500 text-sm mx-2 text-center  font-light align-start pb-1"> <i className="far fa-check-circle"></i> Inscrito</span> </>):(
+                <span className=" text-gray-500 text-sm mx-2 text-center  font-light align-start pb-1">Lider : <span className="text-gray-800 font-light">{card.lider.nombre} {card.lider.apellido}</span> </span>
+
+                 )}  
                     </div>
                     <div className="flex flex-row px-2 justify-center mt-2 ">
                         <div className={`relative flex flex-row  gap-4 h-16 flex justify-center items-center   
@@ -96,29 +101,32 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
                     focus:border-4 focus:border-blue-300 text-base"  ><i className="far fa-eye fa-lg"></i> Ver</button>
                     </NavLink>
-
-                    { user==="ESTUDIANTE" && !already_enrolled &&
+                    <PrivateComponent roleList={['ESTUDIANTE']}>
+                    { !already_enrolled && 
+                    <>{(card.estado==="ACTIVO" && (card.fase!="NULO" || card.fase!="TERMINADO" )) &&  
                     <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
                     text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
-                    focus:border-4 focus:border-blue-300  text-sm" onClick={() => setEnrollModal(true)}><i class="fas fa-check-double"></i> Inscribirse</button>
+                    focus:border-4 focus:border-blue-300  text-xs" onClick={() => setEnrollModal(true)}>
+                      <i className="fas fa-check-double fa-lg"></i> Inscribirse</button> }</>}</PrivateComponent>
+                
+                      <PrivateComponent roleList={['ADMINISTRADOR']}>
                
-            }
-                { user==="ADMINISTRADOR" &&
                 <>
                  { (card.estado==="INACTIVO" && card.fase==="NULO") 
                    ? (<button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300
                    text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
-                   focus:border-4 focus:border-blue-300 font-mono text-base"  onClick={() => setAprobarModal(true)}> <i class="far fa-check-circle"></i>APROBAR</button>
+                   focus:border-4 focus:border-blue-300 font-mono text-base"  onClick={() => setAprobarModal(true)}> <i className=''ass="far fa-check-circle"></i>APROBAR</button>
                    ):(
-
-                    <button className="p-2 pl-4  pr-4 ml-2 bg-transparent border-2 border-blue-300
-                    text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
-                    focus:border-4 focus:border-blue-300 font-mono text-base" onClick={() => setEditModal(true)}><i class="far fa-edit"></i> EDITAR</button>
-                   )
+                      <>{(card.estado==="INACTIVO" && card.fase==="TERMINADO") ? (<></>):
+                      ( <button className="p-2 pl-4  pr-4 ml-2 bg-transparent border-2 border-blue-300
+                      text-blue-800 rounded-lg  hover:text-blue-500 hover:border-blue-500 font-bold
+                      focus:border-4 focus:border-blue-300 font-mono text-base" onClick={() => setEditModal(true)}><i className="far fa-edit"></i> EDITAR</button>)}
+                   
+                  </> )
                  }
                   
             </>
-            }
+           </PrivateComponent>
                 </div>
             
             

@@ -194,6 +194,7 @@ const Profile = () => {
               disabled={Object.keys(formData).length === 0}
               loading={mutationLoading}
               text="Editar datos"
+              className={"w-32 h-10 bg-yellow-500 text-white font-semibold text-xl mb-6 rounded-lg hover:bg-yellow-600  shadow-md disabled:opacity-50 disabled:bg-gray-700"}
             />
           </div>
         </div>

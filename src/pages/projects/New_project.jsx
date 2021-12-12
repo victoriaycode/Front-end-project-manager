@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import useFormData from 'hooks/useFormData';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+
 import RowObjective from 'components/RowObjective';
 import { useMutation } from '@apollo/client';
 import { CREATE_NEW_PROJECT } from 'graphql/proyectos/queries';
-import { TextareaAutosize } from '@material-ui/core';
+import { Dialog, TextareaAutosize } from '@material-ui/core';
+import { useUser } from 'context/userContext';
 
 const New_project = () => {
     const [addObjective, setAddObjective] = useState(false)
@@ -17,11 +18,14 @@ const New_project = () => {
     const [newType, setnewType] = useState("GENERAL")
     const [newDescripObj, setNewDescripObj] = useState("")
     const [budget, setBudget] = useState(0);
-
+    const [created, setCreated] = useState(false);
     var date = new Date().toISOString().slice(0, 10);
-    const lider = "61a955cf355428fe4ece9225";
-    const id_lider = "3212312"
-    const nombre_lider = "Victoria Yuan";
+    
+  const { userData } = useUser();
+ 
+    const lider = ""+userData._id;
+    const id_lider = ""+userData.identificacion;
+    const nombre_lider = ""+userData.nombre + " "+ userData.apellido;
     const [numRow, setNumberRow] = useState(0);
 
     const [createProject, { data: createdata, loading, error }] =
@@ -51,7 +55,7 @@ const New_project = () => {
 
     useEffect(() => {
         if (createdata) {
-            toast.success('Proyecto agregado co éxito');
+            setCreated(true);
             console.log("proyecto agregado", createdata);
         }
     }, [createdata]);
@@ -77,7 +81,8 @@ const New_project = () => {
             objectives_list.push(nuevo);
             setObjectivesList(objectives_list);
             setNumberRow(numRow + 1);
-
+            document.getElementById("descripInput").value="";
+            setNewDescripObj("");
         }
     }
 
@@ -201,7 +206,7 @@ bg-gray-100 border-2 border-gray-300"
                                                 <option className="" value="ESPECIFICO">ESPECIFICO </option>
 
                                             </select>
-                                            <TextareaAutosize type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
+                                            <TextareaAutosize id="descripInput"type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
                                                 defaultValue={newDescripObj} onChange={(e) => setNewDescripObj(e.target.value)} />
 
                                             <button className="text-blue-600 hover:text-blue-800 focus text-base" onClick={() => AddNewObjective()}><i className="fas fa-folder-plus fa-lg"></i>Añadir</button>
@@ -231,13 +236,15 @@ bg-gray-100 border-2 border-gray-300"
                 <div>
 
                 </div>
-                <ToastContainer rtl
-                    position="top-center"
-                    autoClose={2000}
-
-                    limit={1}
-                />
+             
             </div>
+            <Dialog open={created}>
+               <div className='h-40 w-70 p-10 flex flex-col gap-4 text-center'>
+                   <span className='text-xl font-semibold '>Proyecto creado con éxito</span>
+                   <NavLink to={`/proyectos/`}>
+                                        <button type="button" className="bg-blue-500 hover:bg-blue-700 px-3 py-1 text-2xl rounded-xl h-10 text-white mr-1 close-modal ml-2">OK</button></NavLink>
+               </div>
+            </Dialog>
         </div>
     )
 }

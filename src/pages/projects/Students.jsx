@@ -6,28 +6,64 @@ import { nanoid } from 'nanoid';
 import { useParams } from 'react-router';
 import { useQuery } from '@apollo/client';
 import { FILTRAR_INSCRIPCIONES_PROYECTO } from 'graphql/inscripciones/queries';
+import { useUser } from 'context/userContext';
+import { GET_PROJECT_STATE } from 'graphql/proyectos/queries';
+import { isValidNameError } from 'graphql';
+import PrivateComponent from 'components/PrivateComponent';
 
 const Students = () => {
 
     const { _id } = useParams();
     const idProyecto=_id;
+    const { userData } = useUser();
+    const idLider = userData._id + "";
+    const rolUser = userData.rol + "";
     const [studentsList, setStudentsList]=useState();
-    const [searchBy, setSearchBy]= useState();
+    const [nombreproyecto,setNombreProyecto]=useState("Proyecto");
+    const [isLider, setIsLider]=useState(false);
+    const [studentsListFiltered, setStudentsListFiltered]=useState([]);
+    const [searchBy, setSearchBy]= useState("");
     const { data,  error, loading, refetch } = useQuery(FILTRAR_INSCRIPCIONES_PROYECTO, {
         variables: {
             idProyecto
         },
     });
+    
+  const { data: infoProject, error: errorPr, loading: loadingProject } = useQuery(GET_PROJECT_STATE, {
+    variables: {
+      _id
+    },
+  });
     useEffect(() => {
-        if (!loading) {
+        if (!loading && data) {
             
             setStudentsList(data.filtrarInscripcionesPorProyecto);
+            setStudentsListFiltered(data.filtrarInscripcionesPorProyecto);
             console.log("asda",studentsList);
-            console.log("data",data);
+            console.log("datainscripciones",data);
         }
     }, [data]);
 
-    const [editable, setEditable] = useState(false)
+    useEffect(() => {
+        if (!loadingProject) {
+        console.log("info", infoProject);
+        setNombreProyecto(infoProject.filtrarProyecto.nombre);}
+        if(infoProject && infoProject.filtrarProyecto.lider._id === idLider){
+            setIsLider(true);
+        }else{setIsLider(false);}
+    }, [infoProject]);
+
+    useEffect(() => {
+        if (!loading && studentsList ) {
+            setStudentsListFiltered(
+                studentsList.filter((elemento) => {
+                  return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
+                })
+              );
+        }
+      
+      }, [searchBy, studentsList]);
+
 
     const RowStudentInfo = ({ enroll }) => {
         return (
@@ -45,17 +81,10 @@ const Students = () => {
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
                     {enroll.fechaIngreso}
                 </td>
-                {/* {
-                    editable ? (<>
-                   <td>
-                       <Toggle></Toggle>
-                   </td>
-
-                    </>) : (<>
-                        <td className="border-t-0 px-6  align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-2 ">
-                            {student.estado} </td>
-                    </>)
-                } */}
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
+                    {enroll.fechaEgreso}
+                </td>
+               
 
 
                 <td>
@@ -69,14 +98,21 @@ const Students = () => {
         )
     }
 
-    if (loading) return <div>Cargando....</div>;
+    if (loading || loadingProject) return <div>Cargando....</div>;
 
     return (
         <div className="w-full h-full flex flex-col overflow-y-hidden " >
 
-        <ProjectNavbar _idActual={_id} nombreProject={_id} 
+        <ProjectNavbar _idActual={_id} nombreProject={nombreproyecto} 
         rutaRetorno={'/proyectos'}/>
-   
+        <PrivateComponent roleList={['LIDER']}>
+        
+    {!isLider &&    <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
+          <i className="fas fa-user-lock fa-4x" ></i>
+               <span className='text-blue-600 text-2xl'>No puedes ver esta información.</span>
+               <span className='text-blue-800 text-2xl'>No eres lider de este proyecto. </span></div>}
+          
+          { isLider && <>
             <div className="w-full h-full flex flex-col overflow-y-hidden " >
             <div className="flex flex-row  ml-0 justify-start mt-8">
             <div className="  flex justify-center items-center px-2 sm:px-4 ml-14">
@@ -84,7 +120,7 @@ const Students = () => {
         <div className="relative"> 
        
         <input type="text" className="h-12 w-72 pr-8 pl-5   rounded-2xl z-0 focus:shadow focus:outline-none"
-          value={searchBy}onChange={(e) => setSearchBy(e.target.value)}  placeholder="Buscar por nombre proyecto" />
+          value={searchBy}onChange={(e) => setSearchBy(e.target.value)}  placeholder="Buscar por nombre estudiante" />
             <div className="absolute top-3 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
             </div>
         </div>
@@ -101,44 +137,39 @@ const Students = () => {
                                     <h3 className="font-semibold text-base text-gray-500">Mostrando {studentsList && studentsList.length}  estudiantes en el proyecto </h3>
                                 
                                 </div>
-                                {/* {editable ? (<button onClick={() => setEditable(!editable)} className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
-                 text-blue-400 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
-                  hover:border-gray-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300 transform transition duration-300 ">Guardar</button>) : 
-                 (<button onClick={() => setEditable(!editable)} className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
-                 text-blue-400 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
-                  hover:border-gray-500 text-ms font-bold
-                 focus:border-4 focus:border-blue-300 transform transition duration-300 ">Editar</button>)} */}
+                                
 
                             </div>
                         </div>
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
                     
                      
-                        <div className=" w-full  h-full  overflow-x-auto overflow-y-scroll ">
+                        <div className=" w-full  h-96  overflow-x-auto overflow-y-scroll ">
                             <table className="items-center bg-transparent w-full border-collapse ">
                                 <thead   >
                                     <tr>
                                         
-                                    <th className=" sticky  top-0 px-6  bg-blue-50 text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                    <th className=" sticky  top-0 px-6  bg-blue-100 text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Identificacion
                                         </th>
-                                        <th className=" sticky w-auto top-0 px-6  bg-blue-50  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        <th className=" sticky w-auto top-0 px-6  bg-blue-100  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Estudiante
                                         </th>
 
-                                        <th className="sticky top-0 px-6  bg-blue-50  text-blueGray-500 align-middle py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        <th className="sticky top-0 px-6  bg-blue-100  text-blueGray-500 align-middle py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Correo
                                         </th>
-                                        <th className=" sticky top-0 z-30 px-6  bg-blue-50  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        <th className=" sticky top-0 z-30 px-6  bg-blue-100  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                             Fecha Ingreso
                                         </th>
-
+                                        <th className=" sticky top-0 z-30 px-6  bg-blue-100  text-blueGray-500 align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                            Fecha Egreso
+                                        </th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    {data.filtrarInscripcionesPorProyecto.map((enroll) => {
+                                    {studentsListFiltered.map((enroll) => {
                                         return (
                                             <RowStudentInfo key={nanoid()} enroll={enroll} />
                                         );
@@ -149,8 +180,8 @@ const Students = () => {
                         </div></div>
                     </div>
                 </div>
-            </div>
-        
+            </div></>}
+        </PrivateComponent>
         </div>
 
     )

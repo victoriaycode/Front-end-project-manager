@@ -1,12 +1,13 @@
 import React from 'react'
 
 import { NavLink } from 'react-router-dom'
+import PrivateComponent from './PrivateComponent';
 
 const ProjectNavbar = ({_idActual,rutaRetorno,nombreProject}) => {
   const _id= _idActual;
   
   return (
-    <div className="z-20 sticky top-0 h-14 flex flex-row bg-gray-100 w-full align-center  mt-5 ">
+    <div className="z-20 sticky top-0 h-14 flex flex-row bg-gray-100 w-full align-center  mt-8 ">
      
       <NavLink to={rutaRetorno}
       >
@@ -22,35 +23,38 @@ const ProjectNavbar = ({_idActual,rutaRetorno,nombreProject}) => {
         <NavLink to={`/proyectos/proyecto/${_id}`}
           className={({ isActive }) =>
             isActive
-              ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
-              : 'text-gray-600 border-b-4 '
+              ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 bg-blue-100 rounded-xl'
+              : 'text-gray-600 border-b-4 border-gray-400 '
           }>
       
           <button className=" py-4 px-6 block hover:text-blue-800 focus:outline-none  font-medium ">
             <i className="fas fa-info-circle"></i> Información
           </button>
         </NavLink>
+        <PrivateComponent roleList={['LIDER','ESTUDIANTE']}>
+
         <NavLink to={`/proyectos/proyecto/avances/${_id}`}
           className={({ isActive }) =>
             isActive
-              ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
-              : 'text-gray-600 border-b-4 '
+              ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 bg-blue-100 rounded-xl'
+              : 'text-gray-600 border-b-4 border-gray-400'
           } >
+            
           <button className="py-4 px-6 mx-2 block hover:text-blue-800 focus:outline-none   font-medium ">
             <i className="far fa-file-alt"></i>   Avances
           </button>
-        </NavLink>
-        
-        <NavLink to ='/proyectos/proyecto/estudiantes'
+        </NavLink> </PrivateComponent>
+        <PrivateComponent roleList={['LIDER']}>
+        <NavLink to ={`/proyectos/proyecto/estudiantes/${_id}`}
          className={({ isActive }) =>
          isActive
-           ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 '
-           : 'text-gray-600 border-b-4 '
+           ? 'text-blue-800 border-blue-800 focus:outline-none border-b-4 bg-blue-100 rounded-xl'
+           : 'text-gray-600 border-b-4 border-gray-400'
        }>
-        <button class="py-4 px-6  mx-2 block hover:text-blue-800 focus:outline-none  font-medium">
-        <i class="far fa-address-card"></i>  Estudiantes
+        <button className="py-4 px-6  mx-2 block hover:text-blue-800 focus:outline-none  font-medium">
+        <i className="far fa-address-card"></i>  Estudiantes
         </button>
-        </NavLink>
+        </NavLink> </PrivateComponent>
     </nav>
         </div>
     )

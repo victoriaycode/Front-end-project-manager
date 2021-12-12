@@ -13,6 +13,10 @@ query Proyectos {
         apellido
         nombre
       }
+      
+    fechaCreacion
+    fechaInicio
+    fechaFin
     }
 }
 `;
@@ -27,6 +31,7 @@ query Proyecto($_id: String!) {
     estado
     fase
     lider{
+      _id
       nombre
       apellido
       identificacion
@@ -38,6 +43,19 @@ query Proyecto($_id: String!) {
       _id
       tipo
       descripcion
+    }
+  }
+}`;
+
+
+const GET_PROJECT_STATE = gql`
+query Proyecto($_id: String!) {
+  filtrarProyecto(_id: $_id) {
+    _id
+    estado
+    nombre
+    lider{
+      _id
     }
   }
 }`;
@@ -129,4 +147,4 @@ export { GET_PROJECTS_CARDS,GET_PROJECT_INFO,
   EDIT_PROJECT_BY_LIDER,EDIT_PROJECT_BY_ADMIN,
   GET_PROJECTS_BY_LIDER ,
   CREATE_NEW_PROJECT,CREATE_NEW_OBJECTIVE,EDIT_OBJECTIVE,DELETE_OBJECTIVE,
-  GET_STUDENT_PROJECTS_ENROLLED};
+  GET_STUDENT_PROJECTS_ENROLLED,GET_PROJECT_STATE};

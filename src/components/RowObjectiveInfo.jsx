@@ -6,8 +6,9 @@ import { Dialog } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import { DELETE_OBJECTIVE } from 'graphql/proyectos/queries';
 import { useMutation } from '@apollo/client';
+import PrivateComponent from './PrivateComponent';
 
-const RowObjectiveInfo = ({ datarow, list, setObjectivesList ,idProyecto,setDeleted}) => {
+const RowObjectiveInfo = ({ datarow ,index,idProyecto,setDeleted,setEditObjModal}) => {
     const [descripcionRow, setDescripcionRow] = useState(datarow.descripcion);
     const [tipo, setTipo] = useState(datarow.tipo);
     const [editRow, setEditRow] = useState(false);
@@ -28,29 +29,9 @@ const RowObjectiveInfo = ({ datarow, list, setObjectivesList ,idProyecto,setDele
           setDeleteModal(false);
           setDeleted(true);
     }
-    const editObjective = () => {
-        
-        const indice = list.findIndex((elemento) => {
-            if (elemento.row === datarow.row) {
-                return true;
-            }
-        });
-        if (descripcionRow !== "" && tipo != "" ) {
-            const changeRow = { "tipo": tipo, "descripcion": descripcionRow, "row": datarow.row }
+   
 
-            let c = [...list]
-            c[indice] = changeRow;
-
-
-            setObjectivesList(c);
-
-        }
-       
-    }
-
-    
     return (
-
 
         <li className="text-gray-500 font-semibold text-lg 
         shadow-md font-light  border-solid border-2 mb-4 border-light-blue-500 ">
@@ -63,13 +44,18 @@ const RowObjectiveInfo = ({ datarow, list, setObjectivesList ,idProyecto,setDele
                    " defaultValue={tipo} onChange={(e) => setTipo(e.target.value)}>
                   {tipo}
                 </span>
-                <TextareaAutosize minRows="1"   className="h-10 w-auto mx-5 p-4  flex-auto rounded-2xl z-0 focus:outline-none   "
+                <TextareaAutosize minRows="1"  disabled className="h-10 w-auto mx-5 p-4  flex-auto rounded-2xl z-0 focus:outline-none   "
                        value={descripcionRow}  >{descripcionRow}</TextareaAutosize>
                        </div>
+
+                <PrivateComponent roleList={['LIDER']}>
+
                 <div className="flex flex-col gap-1 justify-around">
+                {/* <button className="text-blue-600 hover:text-blue-800  py-1 px-2 hover:bg-gray-50 focus" onClick={() => setEditModal(true)} ><i className="fas fa-edit fa-lg"></i></button> */}
                 <button className="text-blue-600 hover:text-blue-800  py-1 px-2 hover:bg-gray-50 focus" onClick={() => setEditModal(true)} ><i className="fas fa-edit fa-lg"></i></button>
+                  
                         <button className="text-gray-500 hover:text-gray-700  py-1  px-2 hover:bg-gray-50"><i className="fas fa-trash fa-lg" onClick={() => setDeleteModal(true)}></i></button>
-                </div>
+                </div></PrivateComponent>
                 </div>
                
               
@@ -90,7 +76,7 @@ const RowObjectiveInfo = ({ datarow, list, setObjectivesList ,idProyecto,setDele
                     </>)} */}
 
 <Dialog open={editModal}>
-                <Edit_objective_modal  setOpenEditObj={setEditModal} idProyecto= {idProyecto} index= {datarow.row} tipo={tipo} descrip={descripcionRow}></Edit_objective_modal>
+                <Edit_objective_modal  setOpenEditObj={setEditModal} setEditObjModal={setEditObjModal} idObjetivo={datarow._id}  index={index} idProyecto= {idProyecto}  tipo={tipo} descrip={descripcionRow}></Edit_objective_modal>
             </Dialog>
             
 <Dialog open={deleteModal}>
