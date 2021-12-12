@@ -6,7 +6,6 @@ import DropDown from 'components/DropDown';
 import useFormData from 'hooks/useFormData';
 import { REGISTRO } from 'graphql/auth/mutation';
 import { useMutation } from '@apollo/client';
-import { useNavigate } from 'react-router';
 import { useAuth } from 'context/authContext';
 import { toast } from 'react-toastify';
 import { ToastContainer } from "react-toastify";
@@ -14,7 +13,6 @@ import { ToastContainer } from "react-toastify";
 const Register = () => {
     
     const { setToken } = useAuth();
-    const navigate = useNavigate();
     const { form, formData, updateFormData } = useFormData();
   
     const [registro, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
@@ -32,7 +30,7 @@ const Register = () => {
                 setToken(dataMutation.registro.token);
                 }
             }
-        }, [dataMutation, setToken, navigate]);
+        }, [dataMutation, setToken]);
         
     useEffect(() => {
         if (dataMutation) {

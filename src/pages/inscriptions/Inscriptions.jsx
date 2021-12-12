@@ -132,7 +132,7 @@ const Inscripcion = ({ inscripcion, refetch }) => {
               estadoRechazadoInscripcion();
             } }
             text='RECHAZAR'
-            loading={loading}
+            loading={loadingData}
             disabled={false}
             className={'w-20 text-sm text-white rounded-md border-none bg-red-500   mt-auto hover:bg-red-700'} />
         </div>
