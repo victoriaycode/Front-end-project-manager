@@ -7,6 +7,8 @@ import { useMutation } from '@apollo/client';
 import { LOGIN } from 'graphql/auth/mutation';
 import { useAuth } from 'context/authContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
+import ReactLoading from 'react-loading';
 
 function Login() {
 
@@ -19,7 +21,7 @@ function Login() {
     
   const submitForm = (e) => {
     e.preventDefault();
-
+    
     login({
       variables: formData,
       
@@ -27,14 +29,21 @@ function Login() {
   };
 
   useEffect(() => {
-    if (dataMutation) {
-      if (dataMutation.login.token) {
+    console.log("data",dataMutation);
+    if (dataMutation !=null) {
+      if (dataMutation.login!=null) {
         setToken(dataMutation.login.token);
         navigate('/');
+      }else{
+        alert("Usuario y/o contraseña incorrecta");
       }
-    }
+      }
   }, [dataMutation, setToken, navigate]);
 
+  
+  useEffect(() => {
+    console.log("error",mutationError);
+  }, [mutationError]);
   return (
     <div className='flex h-screen bg-blue-900'> 
         <div className='flex flex-col h-screen bg-blue-800 text-white'>
@@ -52,7 +61,7 @@ function Login() {
                 <br /> 
                 <ButtonLoading
                         disabled={Object.keys(formData).length === 0}
-                        loading={mutationLoading}
+                       
                         className={"w-96 h-10 bg-yellow-500 text-white font-semibold text-xl mb-6 rounded-lg hover:bg-yellow-600  shadow-md disabled:opacity-50 disabled:bg-gray-700"}
                         text='Iniciar sesión'
                 />
