@@ -12,6 +12,8 @@ import { toast } from 'react-toastify';
 import Badge from '@mui/material/Badge';
 import moment from "moment";
 import 'moment/locale/es';
+import PrivateRoute from 'components/PrivateRoute';
+
 
 const Inscriptions = () => {
 
@@ -24,6 +26,8 @@ const Inscriptions = () => {
     if (loading) return <div>Loading...</div>
 
         return (
+   
+          
         <div className="w-full h-full flex flex-col">
 
                 <Title_page title={"Inscripciones"} returns={true} return_to ={"/inscripciones"}></Title_page>
@@ -107,6 +111,7 @@ const Inscripcion = ({ inscripcion, refetch }) => {
       })};
   
     return (
+      <PrivateRoute roleList={['LIDER']} >
       <div className='  text-gray-700 flex flex-col w-48 h-48 p-2 m-2 rounded-lg shadow-xl  bg-gray-200 border-none'>
         <span className='font-semibold text-sm'>Nombre proyecto:</span>
         <span className='font-ligth text-sm' >{inscripcion.proyecto.nombre}</span>
@@ -152,7 +157,7 @@ const Inscripcion = ({ inscripcion, refetch }) => {
            </>
          )
        }
-      </div>
+      </div></PrivateRoute>
     );
   };
 

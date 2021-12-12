@@ -71,5 +71,11 @@ const EDIT_MI_USUARIO = gql`
     }
   }
 `;
-
-export { GET_USUARIOS, GET_USUARIO, EDIT_USUARIOS, EDIT_MI_USUARIO};
+const EDIT_CONTRASENA = gql`
+  mutation resetPassword($_id: String!, $password: String!) {
+    resetPassword(_id: $_id, password: $password) {
+      _id
+    }
+  }
+`;
+export { GET_USUARIOS, GET_USUARIO, EDIT_USUARIOS, EDIT_MI_USUARIO,EDIT_CONTRASENA};
