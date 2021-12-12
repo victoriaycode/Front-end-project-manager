@@ -4,7 +4,6 @@ import React from 'react';
 const PrivateRoute = ({ roleList, stateUser, children }) => {
   const { userData } = useUser();
   
-  console.log('userData: ',userData)
 
   if (roleList.includes(userData.rol) && userData.estado==="AUTORIZADO") {
     console.log('roleList: ',roleList)
