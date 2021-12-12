@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { GET_USUARIO} from 'graphql/usuarios/queries';
 import { EDITAR_USUARIO } from 'graphql/usuarios/mutations';
 import Switch from 'components/switch';
+import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 const ModalAutorizarUsuario = ({setOpenModal,_id}) => {
     
      const {data: queryData,error: queryError,loading: queryLoading,} = useQuery(GET_USUARIO, {
@@ -66,10 +67,15 @@ const ModalAutorizarUsuario = ({setOpenModal,_id}) => {
                     <i onClick={()=>setOpenModal(false)} className="far fa-times-circle fa-2x hover:text-red-700"></i>
                 </div>
                 <div className='flex items-center justify-between'>
-                    <div className='flex flex-col pl-4 text-2xl'>
-                        <label>Usuario:{queryData.Usuario.nombre}</label>
-                        <label>Rol:{queryData.Usuario.rol}</label>
-                        <label>Estado:{queryData.Usuario.estado}</label>
+                    <div className='flex flex-col pl-4 text-black text-3xl'>
+                        <label className='text-black text-3xl'>Usuario:
+                            <label className='text-gray-500 text-2xl'>{' '+queryData.Usuario.nombre} </label></label>
+                        <label>Rol:
+                        <label className='text-gray-500 text-2xl'>{' '+Enum_Rol[queryData.Usuario.rol]} </label>
+                        </label>
+                        <label>Estado:
+                            <label className='text-gray-500 text-2xl'>{' '+Enum_EstadoUsuario[queryData.Usuario.estado]} </label>
+                        </label>
                     </div>
                     <Switch autorizar={autorizar} setAutorizar={setAutorizar} posicionSwitch={posicionSwitch}></Switch>
                     
