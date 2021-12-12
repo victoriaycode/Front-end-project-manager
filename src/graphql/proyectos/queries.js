@@ -63,7 +63,7 @@ const GET_STUDENT_PROJECTS_ENROLLED = gql`
 query Query($idEstudiante: String!) {
   filtrarInscripcionesPorEstudiante(id_estudiante: $idEstudiante) {
     _id
-   
+    estado
     proyecto {
       _id
       nombre

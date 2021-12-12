@@ -24,6 +24,7 @@ const ProjectsList = () => {
   const [listProjectsStudent, setListProjectsStudent] = useState([]);
   const [filteredListStudent, setFilteredListStudent] = useState([]);
   const [viewOnlyStudent, setViewOnlyStudent] = useState(true);
+  const [already_enrolled, setAlready_enrolled] = useState(false);
 
   const [sortBy, setSortedBy] = useState("older");
 
@@ -69,8 +70,21 @@ const ProjectsList = () => {
   useEffect(() => {
     if (!loadingStudent) {
     console.log('data estudiante', dataStudent);
-    setListProjectsStudent(dataStudent.filtrarInscripcionesPorEstudiante);
-  setFilteredListStudent(dataStudent.filtrarInscripcionesPorEstudiante);
+    if (userData && dataStudent) {
+          const flt = dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado === "ACEPTADO");
+          if (flt.length > 0) {
+           setAlready_enrolled(true);
+          }else{
+            setAlready_enrolled(false);
+          }
+          setListProjectsStudent(flt);
+          setFilteredListStudent(flt);
+          // setListProjectsStudent(dataStudent.filtrarInscripcionesPorEstudiante);
+          // setFilteredListStudent(dataStudent.filtrarInscripcionesPorEstudiante);
+        }
+  
+
+  
     }
 }, [dataStudent]);
   
@@ -181,6 +195,7 @@ const ProjectsList = () => {
     <PrivateRoute roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE']} >
 
     <div className="w-full h-full flex flex-col  overflow-y-hidden overflow-x-hidden pl-20 pr-20" >
+   
     {role=="LIDER" && 
       <NavLink to="/proyectos/nuevo">
         <div className="flex flex-row w-full  justify-end align-center mr-20  ">
@@ -190,7 +205,8 @@ const ProjectsList = () => {
              focus:border-4 focus:border-blue-300" >Nuevo</button>}
         </div></NavLink>
       }
-      <div className="relative h-20 mt-4 pl-8  flex flex-row  w-full align-center  
+
+      <div className="relative h-20  pl-8  flex flex-row  w-full align-center  
         pt-6  bg-gray-100 bg-opacity-50 pb-4 ">
         <span className="text-lg text-blue-800 text-3xl ml-2 mr-5 pt-2 font-bold justify-start ">Proyectos</span>
         <div className="flex flex-col  sm:flex-row ml-5  text-lg gap-10 ">
@@ -251,7 +267,10 @@ const ProjectsList = () => {
         </div>
 
       </div>
-
+ {/* <div className="h-10  text-ms ml-5  w-60 font-light text-gray-400  pt-6  ">
+                    <span className="h-6  ">
+                      if(rol=="LIDER")Mostrando {filteredListLider.length} Proyectos</span>
+                </div> */}
       <div className="flex flex-auto mb-6   overflow-y-scroll justify-center align-center ">
         <div className="flex-auto px-6  grid lg:grid-cols-4 mg:grid-cols-2 sd:grid-cols-1 pt-8  m
                 t-0 gap-y-8  gap-x-8
@@ -275,14 +294,14 @@ const ProjectsList = () => {
             <>
               {viewOnlyStudent && filteredListStudent.length===0 && 
               <div className="flex  ml-2">
-                <span className='ml-3 text-lg text-gray-600'> Querido Estudiante, <br/>Aún NO tienes proyectos inscritos</span>
+                <span className='ml-3 text-lg text-gray-600'> Querido Estudiante, <br/>Aún NO tienes proyectos inscritos y aceptados.</span>
     
               </div> }
               {viewOnlyStudent && dataStudent && filteredListStudent.map((project_info) => {
                 return (
                   <ProjectCardInfo key={project_info.proyecto._id} project_info={project_info.proyecto} 
                   setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit}
-                  already_enrolled={true} ></ProjectCardInfo>
+                  already_enrolled={already_enrolled} ></ProjectCardInfo>
                 );
               })}
 
@@ -296,7 +315,7 @@ const ProjectsList = () => {
            
 
             <PrivateComponent roleList={['LIDER']}> 
-            <>
+            <>  
               {dataLider && filteredListLider.map((project_info) => {
                 return (
                   <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>

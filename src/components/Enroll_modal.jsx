@@ -29,11 +29,13 @@ const Enroll_modal = ({ idProyecto, name_project, setOpenModalEnroll}) => {
       if (data) {
         console.log(data);
         toast.success('Inscripción creada con éxito');
+        setOpenModalEnroll(false);
       }
     }, [data]);
   
     const confirmarInscripcion = () => {
       crearInscripcion({ variables: { proyecto: idProyecto, estudiante: userData._id } });
+      
     };
   
     return (
