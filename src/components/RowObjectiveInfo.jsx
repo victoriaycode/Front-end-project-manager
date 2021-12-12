@@ -8,7 +8,7 @@ import { DELETE_OBJECTIVE } from 'graphql/proyectos/queries';
 import { useMutation } from '@apollo/client';
 import PrivateComponent from './PrivateComponent';
 
-const RowObjectiveInfo = ({ datarow ,index,idProyecto,setDeleted,setEditObjModal}) => {
+const RowObjectiveInfo = ({ datarow ,index,idProyecto,setDeleted,setEditObjModal,isActived}) => {
     const [descripcionRow, setDescripcionRow] = useState(datarow.descripcion);
     const [tipo, setTipo] = useState(datarow.tipo);
     const [editRow, setEditRow] = useState(false);
@@ -49,13 +49,13 @@ const RowObjectiveInfo = ({ datarow ,index,idProyecto,setDeleted,setEditObjModal
                        </div>
 
                 <PrivateComponent roleList={['LIDER']}>
-
+                {isActived && 
                 <div className="flex flex-col gap-1 justify-around">
                 {/* <button className="text-blue-600 hover:text-blue-800  py-1 px-2 hover:bg-gray-50 focus" onClick={() => setEditModal(true)} ><i className="fas fa-edit fa-lg"></i></button> */}
                 <button className="text-blue-600 hover:text-blue-800  py-1 px-2 hover:bg-gray-50 focus" onClick={() => setEditModal(true)} ><i className="fas fa-edit fa-lg"></i></button>
                   
                         <button className="text-gray-500 hover:text-gray-700  py-1  px-2 hover:bg-gray-50"><i className="fas fa-trash fa-lg" onClick={() => setDeleteModal(true)}></i></button>
-                </div></PrivateComponent>
+                </div>}</PrivateComponent>
                 </div>
                
               
