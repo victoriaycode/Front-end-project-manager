@@ -54,21 +54,26 @@ const SidebarNav = () => {
       <div className="flex flex-col justify-between  items-center flex-none w-24 bg-gray-100 mr-2">
         <div className="rounded-2xl ml-5 my-3   w-full h-full bg-white  ">
      
-      <div className="flex flex-col space-y-2 w-full items-center pt-5 mt-10 " >
+      <div className="flex flex-col space-y-2 w-full items-center pt-5 mt-6 " >
       <SidebarLinks/>
         
       </div>
       <div className="flex flex-col space-y-4 pb-5 pr-2 mt-20">
       
-        <a className="block relative flex flex-col w-full h-16 w-16 flex justify-center items-center 
+        <a className="block relative flex flex-col w-full h-16 w-16 mb-2 flex justify-center items-center 
          text-blue-400 hover:text-blue-500">
             
             {/* <span>{userData.rol} :</span> */}
             <Tooltip title={usuario} arrow placement="left">
             
             <i className="fas fa-user-circle fa-lg"></i>
+            
            </Tooltip>
-
+           <span className="text-sm mt-1 font-semibold text-center">{userData.nombre}</span> 
+           {userData.rol=="ESTUDIANTE" && <span className="text-xs mt-1 text-blue-800">{userData.rol}</span> }
+           {userData.rol=="ADMINISTRADOR" && <span className="text-xs mt-1 text-blue-800">ADMIN</span> }
+           {userData.rol=="LIDER" && <span className="text-sm mt-1 text-blue-800">{userData.rol}</span> }
+ 
            </a>
   
           <a className="block relative flex flex-col w-full h-16 w-16 flex justify-center items-center text-gray-400 

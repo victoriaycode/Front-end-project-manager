@@ -28,27 +28,53 @@ const ProjectCardInfo = ({ project_info, already_enrolled }) => {
 
   //const [openModal, setOpenModal] = useState(false);
   const card = project_info;
+  const [colorState, setColorState]= useState("green");
+  const [colorFase, setColorFase]= useState("gray");
 
-  let colorState = "green";
-  let colorFase = "gray";
+  useEffect(() => {
   if (project_info.estado === "INACTIVO") {
-    colorState = "gray"
+    setColorState("gray");
+  }else{
+    setColorState("green");
+  }
+  if (project_info.fase === "NULO") {
+    setColorFase( "gray");
 
   }
   if (project_info.fase === "TERMINADO") {
-    colorFase = "red"
+    setColorFase( "red");
 
   }
 
   if (project_info.fase === "INICIADO") {
-    colorFase = "blue"
+    setColorFase("blue");
 
   }
   if (project_info.fase === "DESARROLLO") {
-    colorFase = "yellow"
+    setColorFase("yellow");
 
   }
+  }, [,project_info])
 
+      // let colorState = "green";
+  // let colorFase = "gray";
+  // if (project_info.estado === "INACTIVO") {
+  //   colorState = "gray"
+
+  // }
+  // if (project_info.fase === "TERMINADO") {
+  //   colorFase = "red"
+
+  // }
+
+  // if (project_info.fase === "INICIADO") {
+  //   colorFase = "blue"
+
+  // }
+  // if (project_info.fase === "DESARROLLO") {
+  //   colorFase = "yellow"
+
+  // }
 
   const aprobarProyecto = async () => {
     console.log("aprobar");
