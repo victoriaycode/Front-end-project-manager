@@ -10,8 +10,11 @@ import 'moment/locale/es';
 const New_Commentary = ({ _idAvance, setCancel }) => {
   const { userData } = useUser();
 
-  let timeday = new Date();
-
+  const date = new Date();
+  // var options = { weekday: 'numeric', year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  // const timeday = date.toLocaleDateString("es-US", options)+"";
+  
+  const timeday= moment(new Date()).format('DD/MM/YY hh:mm a');
   const [comment, setComment] = useState("");
 
 

@@ -3,7 +3,8 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { TextareaAutosize } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
-
+import moment from "moment";
+import 'moment/locale/es';
 import { CREATE_NEW_ADVANCE } from 'graphql/avances/queries';
 
 
@@ -11,7 +12,7 @@ const New_advance_modal = ({ nameStudent, idStudent, idProject, setOpenModal, nu
 
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  var date = new Date().toISOString().slice(0, 10);
+  var date = new Date();
 
 
 
@@ -106,7 +107,7 @@ const New_advance_modal = ({ nameStudent, idStudent, idProject, setOpenModal, nu
                     {nameStudent}
                   </span>
                   <span className="pl-40  text-gray-500 text text-lg  mt-4 ml-2">
-                    Creado en: {date}
+                    Creado en: {moment(date).format('DD/MM/YY hh:mm a')}
                   </span>
                 </div>
 

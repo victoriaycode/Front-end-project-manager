@@ -85,7 +85,7 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
                     {enroll.creadoPor.nombre}     {enroll.creadoPor.apellido}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
-                    {moment(enroll.fecha).format('DD/MM/YY hh:mm:ss a')}
+                    {moment(enroll.fecha).format('DD/MM/YY hh:mm a')}
                 </td>
                 {/* {
                     editable ? (<>

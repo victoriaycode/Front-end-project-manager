@@ -2,7 +2,8 @@ import { useQuery, useMutation } from '@apollo/client';
 import { Dialog, TextareaAutosize, Tooltip } from '@material-ui/core';
 import Create_objective_modal from 'components/Create_objective_modal';
 import ProjectNavbar from 'components/ProjectNavbar';
-
+import moment from "moment";
+import 'moment/locale/es';
 import ReactLoading from 'react-loading';
 
 import RowObjectiveInfo from 'components/RowObjectiveInfo';
@@ -261,7 +262,7 @@ const Info = () => {
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i class="far fa-calendar-alt fa-lg "></i>  FECHA CREACIÓN</span>
                                 <span className="px-8 rounded-r-lg bg-white w-20  text-gray-400 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
-                                    {infoProject.filtrarProyecto.fechaCreacion != "" ? (infoProject.filtrarProyecto.fechaCreacion) : ("SIN FECHA AÚN")}  </span>
+                                    {infoProject.filtrarProyecto.fechaCreacion != "" ?         moment(infoProject.filtrarProyecto.fechaCreacion).format('DD/MM/YY hh:mm a') : ("SIN FECHA AÚN")}  </span>
 
 
                             </div>
@@ -270,7 +271,7 @@ const Info = () => {
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i class="far fa-calendar-alt fa-lg "></i> FECHA INICIO</span>
                                 <span className="px-8 rounded-r-lg bg-white w-20  text-gray-400 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
-                                    {infoProject.filtrarProyecto.fechaInicio != null ? (infoProject.filtrarProyecto.fechaInicio) : ("SIN FECHA AÚN")}  </span>
+                                    {infoProject.filtrarProyecto.fechaInicio != null ? moment(infoProject.filtrarProyecto.fechaInicio).format('DD/MM/YY hh:mm a'): ("SIN FECHA AÚN")}  </span>
 
 
                             </div>
@@ -279,7 +280,7 @@ const Info = () => {
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i class="far fa-calendar-alt fa-lg "></i> FECHA TERMINACIÓN</span>
                                 <span className="px-8 rounded-r-lg bg-white w-40  text-gray-400 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
-                                    {infoProject.filtrarProyecto.fechaFin != null ? (infoProject.filtrarProyecto.fechaFin) : ("SIN FECHA AÚN")}  </span>
+                                    {infoProject.filtrarProyecto.fechaFin != null ?moment(infoProject.filtrarProyecto.fechaFin).format('DD/MM/YY hh:mm a') : ("SIN FECHA AÚN")}  </span>
 
                             </div>
                         </div>
