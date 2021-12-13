@@ -22,14 +22,14 @@ const AdvancesDashboard = () => {
   const [nombreProyecto, setNombreProyecto] = useState("");
   const idProyecto = _id;
   const [inscrito, setInscrito] = useState(false);
-  
+
   const [isLider, setIsLider] = useState(false);
   const [numAdvances, setNumAdvances] = useState(0);
   const [activo, setActivo] = useState(false);
   const [finishedProject, setFinishedProject] = useState(false);
-  
+
   const [openNewAdvanceModal, setNewAdvanceModal] = useState(false);
-  
+
   const { data: dataEnroll, error: errorEnroll, loading: loadingEnroll } = useQuery(GET_INSCRIPCION_ACEPTADA, {
     variables: {
       idProyecto, idEstudiante
@@ -43,10 +43,10 @@ const AdvancesDashboard = () => {
   });
   useEffect(() => {
     if (!loadingEnroll && dataEnroll) {
-      console.log("dataEnroll",dataEnroll);
+      console.log("dataEnroll", dataEnroll);
       if (dataEnroll.filtrarSiEstaInscrito) {
         setInscrito(true);
-        
+
       } else {
         setInscrito(false);
         console.log(" inscripcion null");
@@ -61,16 +61,16 @@ const AdvancesDashboard = () => {
       console.log(" infoPr", infoProject);
       if (infoProject.filtrarProyecto.estado === "ACTIVO") {
         setActivo(true);
-        
+
       } else { setActivo(false) };
       if (infoProject.filtrarProyecto.fase === "TERMINADO") {
         setFinishedProject(true);
-        
+
       } else { setFinishedProject(false) };
-  
-      if (infoProject.filtrarProyecto.lider._id ===idLider ) {
+
+      if (infoProject.filtrarProyecto.lider._id === idLider) {
         setIsLider(true);
-        
+
       } else { setIsLider(false) };
     }
 
@@ -80,52 +80,52 @@ const AdvancesDashboard = () => {
   if (loadingProject || loadingEnroll) return <div>Cargando...</div>
 
   return (
-    <PrivateRoute roleList={['LIDER','ESTUDIANTE']} >
-    <div className="w-full h-full flex flex-col overflow-y-hidden  bg-gray-100" >
+    <PrivateRoute roleList={['LIDER', 'ESTUDIANTE']} >
+      <div className="w-full h-full flex flex-col overflow-y-hidden  bg-gray-100" >
 
-      <ProjectNavbar _idActual={_id} nombreProject={nombreProyecto} rutaRetorno={`/proyectos/proyecto/${_id}`} />
-      {rolUser=="LIDER" && idLider!==infoProject.filtrarProyecto.lider._id &&
-            <div className='w-full h-full  flex flex-col px-60   justify-center text-blue-600 '>
+        <ProjectNavbar _idActual={_id} nombreProject={nombreProyecto} rutaRetorno={`/proyectos/proyecto/${_id}`} />
+        {rolUser == "LIDER" && idLider !== infoProject.filtrarProyecto.lider._id &&
+          <div className='w-full h-full  flex flex-col px-60   justify-center text-blue-600 '>
             <i className="fas fa-user-lock fa-4x" ></i>
             <span className='text-blue-600 text-2xl'>No puedes ver esta información.</span>
             <span className='text-blue-800 text-2xl'>No eres lider de este proyecto. </span>
-          
-          </div>
-           } 
-      {!finishedProject && <>
-        
-      {(inscrito || isLider) &&
-        <div>
-          <TableAdvances idProject={_id}
-            setModal={setNewAdvanceModal} setNumAdvances={setNumAdvances} activeProject={activo}
-            finishedProject={finishedProject} openNewAdvanceModal={openNewAdvanceModal}>
-          </TableAdvances></div>} </>}
 
-          {rolUser==="ESTUDIANTE" && !inscrito && <>
+          </div>
+        }
+        {!finishedProject && <>
+
+          {(inscrito || isLider) &&
+            <div>
+              <TableAdvances idProject={_id}
+                setModal={setNewAdvanceModal} setNumAdvances={setNumAdvances} activeProject={activo}
+                finishedProject={finishedProject} openNewAdvanceModal={openNewAdvanceModal}>
+              </TableAdvances></div>} </>}
+
+        {rolUser === "ESTUDIANTE" && !inscrito && <>
           <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
-          <i className="fas fa-user-lock fa-4x" ></i>
-               <span className='text-blue-600 text-2xl'>No puedes ver estos avances.</span>
-               <span className='text-blue-800 text-2xl'>Aún no estás inscrito en este proyecto. </span></div></>}
-          
-          {/* {rolUser ==="LIDER" && !isLider && <>
+            <i className="fas fa-user-lock fa-4x" ></i>
+            <span className='text-blue-600 text-2xl'>No puedes ver estos avances.</span>
+            <span className='text-blue-800 text-2xl'>Aún no estás inscrito en este proyecto. </span></div></>}
+
+        {/* {rolUser ==="LIDER" && !isLider && <>
           <i className="fas fa-user-lock fa-4x" ></i>
                <span className='text-blue-600 text-2xl'>No puedes ver estos avances.</span>
                <span className='text-blue-800 text-2xl'>No eres lider de este proyecto. </span></>}
            */}
-          {finishedProject && <div>
-            <div className='w-full h-full  flex flex-col px-60 py-20 justify-center text-blue-600 '>
-              <i className="fas fa-user-lock fa-5x" ></i>
-              <span className='text-blue-600 text-3xl mt-5'>No tienes acceso al proyecto.</span>
-              <span className='text-blue-800 text-2xl mb-5 '>EL PROYECTO YA ESTÁ TERMINADO.     <i className="far fa-calendar-times fa-2x"></i></span>
-          
-            </div>
-            </div>}
+        {finishedProject && <div>
+          <div className='w-full h-full  flex flex-col px-60 py-20 justify-center text-blue-600 '>
+            <i className="fas fa-user-lock fa-5x" ></i>
+            <span className='text-blue-600 text-3xl mt-5'>No tienes acceso al proyecto.</span>
+            <span className='text-blue-800 text-2xl mb-5 '>EL PROYECTO YA ESTÁ TERMINADO.     <i className="far fa-calendar-times fa-2x"></i></span>
 
-      {openNewAdvanceModal &&
-        <New_advance_modal nameStudent={name_student} idStudent={idEstudiante}
-          idProject={_id} numAdvancesP={numAdvances} setOpenModal={setNewAdvanceModal}></New_advance_modal>}
+          </div>
+        </div>}
 
-    </div></PrivateRoute>
+        {openNewAdvanceModal &&
+          <New_advance_modal nameStudent={name_student} idStudent={idEstudiante}
+            idProject={_id} numAdvancesP={numAdvances} setOpenModal={setNewAdvanceModal}></New_advance_modal>}
+
+      </div></PrivateRoute>
 
   )
 

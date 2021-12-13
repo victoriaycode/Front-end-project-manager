@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useState, useEffect } from 'react';
 
-const RowObjectiveUpdate = ({ datarow,editEnable }) => {
+const RowObjectiveUpdate = ({ datarow, editEnable }) => {
     const [descripcionRow, setDescripcionRow] = useState(datarow.descripcion);
     const [tipo, setTipo] = useState(datarow.tipo);
     const [editRow, setEditRow] = useState(false);
@@ -12,14 +12,14 @@ const RowObjectiveUpdate = ({ datarow,editEnable }) => {
 
     }
     const editObjective = () => {
-        
-     
-        if (descripcionRow !== "" && tipo != "" ) {
+
+
+        if (descripcionRow !== "" && tipo != "") {
             const changeRow = { "tipo": tipo, "descripcion": descripcionRow }
 
 
         }
-       
+
     }
 
     return (
@@ -35,12 +35,12 @@ const RowObjectiveUpdate = ({ datarow,editEnable }) => {
                     <option className="" value="ESPECIFICO">ESPECIFICO </option>
 
                 </select>
-              
+
                 {editRow ? (<>
 
 
-                    <input  type="text"   className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-50 border-2 border-gray-300"
-                       value={descripcionRow} onChange={(e) => setDescripcionRow(e.target.value)} />
+                    <input type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-50 border-2 border-gray-300"
+                        value={descripcionRow} onChange={(e) => setDescripcionRow(e.target.value)} />
                     <button className="text-blue-600 hover:text-blue-800 focus py-1 hover:bg-gray-50" onClick={() => editObjective()}><i className="far fa-save fa-lg"></i>Guardar</button>
                     <button className="text-gray-500 hover:text-gray-700 ml-10 py-1 hover:bg-gray-50 " onClick={() => setEditRow(false)}><i className="fas fa-ban fa-lg"></i>Cancelar</button></>)
                     : (<>
@@ -48,10 +48,10 @@ const RowObjectiveUpdate = ({ datarow,editEnable }) => {
                         <span className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
                         >{descripcionRow}</span>
                         {editEnable && <>
-                        <button className="text-blue-600 hover:text-blue-800  py-1 hover:bg-gray-50 focus" onClick={() => setEditRow(true)} ><i className="fas fa-edit fa-lg"></i>Editar</button>
-                        <button className="text-gray-500 hover:text-gray-700 ml-10 py-1 hover:bg-gray-50"><i className="fas fa-trash fa-lg" onClick={() => deleteObjective()}></i>Eliminar</button>
-                    </>}
-                    
+                            <button className="text-blue-600 hover:text-blue-800  py-1 hover:bg-gray-50 focus" onClick={() => setEditRow(true)} ><i className="fas fa-edit fa-lg"></i>Editar</button>
+                            <button className="text-gray-500 hover:text-gray-700 ml-10 py-1 hover:bg-gray-50"><i className="fas fa-trash fa-lg" onClick={() => deleteObjective()}></i>Eliminar</button>
+                        </>}
+
                     </>)}
 
             </div>

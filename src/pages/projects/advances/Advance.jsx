@@ -57,12 +57,12 @@ const Advance = () => {
       let apellido = data.filtrarAvancePorId.creadoPor.apellido;
       setCreatedBy(nombre + " " + apellido);
       setAdvance(data.filtrarAvancePorId);
-      console.log("data estado",data.filtrarAvancePorId);
+      console.log("data estado", data.filtrarAvancePorId);
       if (data && data.filtrarAvancePorId.proyecto.estado == "INACTIVO"
         || data.filtrarAvancePorId.proyecto.fase == "TERMINADO") {
         setInactiveOrFinishedProject(true);
       };
-    } 
+    }
   }, [loading]);
 
   useEffect(() => {
@@ -116,7 +116,7 @@ const Advance = () => {
 
 
   return (
-    
+
     <div className="w-full h-full overflow-y-hidden pb-4">
 
       <form className="h-full "
@@ -205,9 +205,9 @@ const Advance = () => {
                           {/* <input type="text" disabled
                             className={`text-gray-500 bg-white  text-lg p-2 pl-4 font-medium mt-4  rounded-2xl z-0 focus:outline-none`}
                             defaultValue={advance.fecha} /> */}
-                           <span className={`text-gray-500 bg-white  text-lg p-2 pl-4 font-medium mt-4  rounded-2xl z-0 focus:outline-none`}>
-                           {moment(advance.fecha).format('DD/MM/YY hh:mm:ss a')}
-                           </span>
+                          <span className={`text-gray-500 bg-white  text-lg p-2 pl-4 font-medium mt-4  rounded-2xl z-0 focus:outline-none`}>
+                            {moment(advance.fecha).format('DD/MM/YY hh:mm:ss a')}
+                          </span>
                         </span>
                       </div> </div>
                   </>)}
@@ -236,7 +236,7 @@ const Advance = () => {
               hover:text-white  
                     focus:border-4 "
                       onClick={() => setNewCommentary(true)}>Añadir nueva</button>}
-                      </>}</PrivateComponent>
+                </>}</PrivateComponent>
             </div>
 
 
