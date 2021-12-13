@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 import ReactLoading from "react-loading";
 
 import New_Commentary from "components/New_Commentary";
-
+import moment from "moment";
+import 'moment/locale/es';
 import React from "react";
 import { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
@@ -115,6 +116,7 @@ const Advance = () => {
 
 
   return (
+    
     <div className="w-full h-full overflow-y-hidden pb-4">
 
       <form className="h-full "
@@ -200,9 +202,12 @@ const Advance = () => {
                       <div>
                         <span className="text-gray-500  mt-4  ">
                           Fecha de creación:
-                          <input type="text" disabled
+                          {/* <input type="text" disabled
                             className={`text-gray-500 bg-white  text-lg p-2 pl-4 font-medium mt-4  rounded-2xl z-0 focus:outline-none`}
-                            defaultValue={advance.fecha} />
+                            defaultValue={advance.fecha} /> */}
+                           <span className={`text-gray-500 bg-white  text-lg p-2 pl-4 font-medium mt-4  rounded-2xl z-0 focus:outline-none`}>
+                           {moment(advance.fecha).format('DD/MM/YY hh:mm:ss a')}
+                           </span>
                         </span>
                       </div> </div>
                   </>)}

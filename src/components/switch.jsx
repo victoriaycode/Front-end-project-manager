@@ -13,7 +13,7 @@ const Switch = ({autorizar,setAutorizar,posicionSwitch}) => {
                     <label  for="toggle" className="toggle-label block overflow-hidden h-8 rounded-full bg-green-300 "></label>
                 </div>
 
-                <label for="toggle" className="text-xs text-gray-700">Autorizado</label>
+                <label for="toggle" className="   text-lg text-blue-800">Autorizado</label>
             </td>
         )
        :(
@@ -23,7 +23,7 @@ const Switch = ({autorizar,setAutorizar,posicionSwitch}) => {
             <label  for="toggle" className="toggle-label block overflow-hidden h-8 rounded-full bg-red-300 "></label>
         </div>
 
-        <label for="toggle" className="text-xs text-gray-700">Autorizado</label>
+        <label for="toggle" className="text-lg text-blue-800">Autorizado</label>
     </td>
        )
       )

@@ -8,6 +8,8 @@ import { useQuery } from '@apollo/client';
 import { LIST_ADVANCES_OF_PROJECT } from 'graphql/avances/queries';
 import { NavLink } from 'react-router-dom';
 import PrivateComponent from 'components/PrivateComponent';
+import moment from "moment";
+import 'moment/locale/es';
 
 const TableAdvances = ({ idProject ,setModal,activeProject,finishedProject,setNumAdvances,openNewAdvanceModal}) => {
 
@@ -81,7 +83,7 @@ const TableAdvances = ({ idProject ,setModal,activeProject,finishedProject,setNu
                     {enroll.creadoPor.nombre}     {enroll.creadoPor.apellido}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
-                    {enroll.fecha}
+                {moment(enroll.fecha).format('DD/MM/YY hh:mm:ss a')}
                 </td>
                 {/* {
                     editable ? (<>

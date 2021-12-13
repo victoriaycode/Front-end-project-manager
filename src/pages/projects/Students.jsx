@@ -8,7 +8,7 @@ import { useQuery } from '@apollo/client';
 import { FILTRAR_INSCRIPCIONES_PROYECTO } from 'graphql/inscripciones/queries';
 import { useUser } from 'context/userContext';
 import { GET_PROJECT_STATE } from 'graphql/proyectos/queries';
-import { isValidNameError } from 'graphql';
+
 import PrivateComponent from 'components/PrivateComponent';
 
 const Students = () => {
@@ -23,6 +23,7 @@ const Students = () => {
     const [isLider, setIsLider]=useState(false);
     const [studentsListFiltered, setStudentsListFiltered]=useState([]);
     const [searchBy, setSearchBy]= useState("");
+    const [inscrito, setInscrito]= useState(false);
     const { data,  error, loading, refetch } = useQuery(FILTRAR_INSCRIPCIONES_PROYECTO, {
         variables: {
             idProyecto
@@ -39,6 +40,7 @@ const Students = () => {
             
             setStudentsList(data.filtrarInscripcionesPorProyecto);
             setStudentsListFiltered(data.filtrarInscripcionesPorProyecto);
+            // if(studentsList.filter((el)=> el.estado ==="PENDIENTE"){}
             console.log("asda",studentsList);
             console.log("datainscripciones",data);
         }
@@ -105,7 +107,7 @@ const Students = () => {
 
         <ProjectNavbar _idActual={_id} nombreProject={nombreproyecto} 
         rutaRetorno={'/proyectos'}/>
-        <PrivateComponent roleList={['LIDER']}>
+        <PrivateComponent roleList={['LIDER','ESTUDIANTE']}>
         
     {!isLider &&    <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
           <i className="fas fa-user-lock fa-4x" ></i>

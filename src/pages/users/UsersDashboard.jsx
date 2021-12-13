@@ -5,11 +5,12 @@ import { toast } from 'react-toastify';
 import ModalAutorizarUsuario from 'components/ModalAutorizarUsuario'
 import PrivateRoute from 'components/PrivateRoute';
 import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
+import { useUser } from 'context/userContext';
 
 const UsersDashboard = () => {
-  console.log('ANTES DEL QUERY DE USUARIOS');
+
   const { data, error, loading } =  useQuery(GET_USUARIOS);
-  console.log('data usuarios:', data);
+
   const [openModal, setOpenModal] = useState(false);
   const [idUsuario, setIDUsuario] = useState('');
   
@@ -18,6 +19,8 @@ const UsersDashboard = () => {
   const [searchBy, setSearchBy] = useState("");
  
   const [sortBy, setSortedBy]=useState("older");
+
+  const { userData } = useUser();
 
   useEffect(() => {
     if (error) {
@@ -117,17 +120,33 @@ useEffect(() => {
                         <td>{u.correo}</td>
                         <td>{Enum_Rol[u.rol]}</td>
                         <td>{Enum_EstadoUsuario[u.estado]}</td>
+
+                      
+                            <td> 
+                            {u.estado !=="AUTORIZADO" && userData.rol=="LIDER" && <>
+                            <i onClick={() => {
+                              setIDUsuario(u._id) 
+                              setOpenModal(true)} 
+                            }className='fas fa-pen text-yellow-600 justify pl-7 hover:text-yellow-400 cursor-pointer' />
+                            
+                             {
+                                  openModal && <ModalAutorizarUsuario setOpenModal={setOpenModal} _id={idUsuario}></ModalAutorizarUsuario>
+                                  
+                              }                          
+                          </>}</td>      
+
+                          { userData.rol=="ADMINISTRADOR" &&
                         <td> 
                           <i onClick={() => {
                             setIDUsuario(u._id) 
                             setOpenModal(true)} 
-                          }className='fas fa-pen text-yellow-600 justify pl-7 hover:text-yellow-400 cursor-pointer' />
+                          }className='fas fa-pen text-yellow-600 justify  hover:text-yellow-400 cursor-pointer' />
                           
                            {
                                 openModal && <ModalAutorizarUsuario setOpenModal={setOpenModal} _id={idUsuario}></ModalAutorizarUsuario>
                                 
                             }                          
-                        </td>                  
+                        </td>     }             
                     </tr>
                      
                       )  

@@ -59,17 +59,17 @@ const ModalAutorizarUsuario = ({setOpenModal,_id}) => {
     
         <div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-10">
        
-            <div className="bg-white rounded shadow-lg w-10/12 md:w-1/3">
+            <div className="bg-white rounded shadow-lg w-5/12 ">
             
                 <div className="border-b px-4 py-2 flex justify-between items-center">
                     <h3 className="font-semibold text-lg">Autorizar Usuario</h3>
                     <i onClick={()=>setOpenModal(false)} className="far fa-times-circle fa-2x hover:text-red-700"></i>
                 </div>
-                <div className='flex items-center justify-between'>
-                    <div className='flex flex-col pl-4 text-2xl'>
-                        <label>Usuario:{queryData.Usuario.nombre}</label>
-                        <label>Rol:{queryData.Usuario.rol}</label>
-                        <label>Estado:{queryData.Usuario.estado}</label>
+                <div className='flex flex-row items-center  justify-around'>
+                    <div className='flex flex-col pl-4 py-2 text-lg'>
+                        <label>Usuario: {queryData.Usuario.nombre}</label>
+                        <label>Rol: {queryData.Usuario.rol}</label>
+                        <label>Estado: {queryData.Usuario.estado}</label>
                     </div>
                     <Switch autorizar={autorizar} setAutorizar={setAutorizar} posicionSwitch={posicionSwitch}></Switch>
                     

@@ -13,10 +13,12 @@ import Badge from '@mui/material/Badge';
 import moment from "moment";
 import 'moment/locale/es';
 import PrivateRoute from 'components/PrivateRoute';
+import { useUser } from 'context/userContext';
 
 
 const Inscriptions = () => {
-
+    const { userData } = useUser();
+    const role= userData.rol+"" ;
     const { data, error, loading, refetch } = useQuery(GET_INSCRIPCIONES);
     
     useEffect(() => {
@@ -27,7 +29,7 @@ const Inscriptions = () => {
 
         return (
    
-          
+          <PrivateRoute roleList={['LIDER',"ESTUDIANTE"]} >
         <div className="w-full h-full flex flex-col">
 
                 <Title_page title={"Inscripciones"} returns={true} return_to ={"/inscripciones"}></Title_page>
@@ -37,17 +39,20 @@ const Inscriptions = () => {
                       titulo='PENDIENTES'
                       data={data.Inscripciones.filter((el)=> el.estado ==="PENDIENTE")}
                       refetch={refetch}
+                      role={role}
                       />
                     <AccordionInscripcion
                         titulo='APROBADAS'
                         data={data.Inscripciones.filter((el)=> el.estado ==="ACEPTADO")}
+                        role={role}
                         />
                     <AccordionInscripcion
                         titulo='RECHAZADAS'
                         data={data.Inscripciones.filter((el)=> el.estado ==="RECHAZADO")}
+                        role={role}
                         />
             </div>
-        </div>
+        </div></PrivateRoute>
         )
 
 };
@@ -79,7 +84,7 @@ const AccordionInscripcion = ({ data, titulo, refetch = () => {} }) => {
     );
   };
 
-const Inscripcion = ({ inscripcion, refetch }) => {
+const Inscripcion = ({ inscripcion, refetch,role }) => {
     const [aprobarInscripcion, { data, loading, error }] = useMutation(APROBAR_INSCRIPCION);
     const [rechazarInscripcion, { data: mutationData, loading: loadingData, error: errorData }] = useMutation(RECHAZAR_INSCRIPCION);
   
@@ -111,15 +116,17 @@ const Inscripcion = ({ inscripcion, refetch }) => {
       })};
   
     return (
-      <PrivateRoute roleList={['LIDER']} >
-      <div className='  text-gray-700 flex flex-col w-48 h-48 p-2 m-2 rounded-lg shadow-xl  bg-gray-200 border-none'>
+      // <PrivateRoute roleList={['LIDER',"ESTUDIANTE"]} >
+      <div className='  text-gray-700 flex flex-col w-48 h-54 p-2 m-2 rounded-lg shadow-xl  bg-gray-200 border-none'>
         <span className='font-semibold text-sm'>Nombre proyecto:</span>
-        <p className='font-ligth text-sm truncate' >{inscripcion.proyecto.nombre}</p>
-
+        <p className='font-semibold text-sm truncate mb-2 text-blue-800' >{inscripcion.proyecto.nombre}</p>
+      
+        <div className='mb-2'>
         <span className='font-semibold text-sm mt-auto'>Estudiante:</span>
-        <span className='font-ligth text-sm'>{`${inscripcion.estudiante.nombre} ${inscripcion.estudiante.apellido}`}</span>
+        <span className='font-ligth text-sm'>{`${inscripcion.estudiante.nombre} ${inscripcion.estudiante.apellido}`}<br/></span>
         <span className='font-ligth text-xs'>{inscripcion.estudiante.correo}</span>
-
+        </div>
+       
         {inscripcion.estado === 'PENDIENTE' && (
         <>
         <div className='flex mt-auto justify-between'>
@@ -144,10 +151,16 @@ const Inscripcion = ({ inscripcion, refetch }) => {
           </>
         )}
          {inscripcion.estado === 'ACEPTADO' && (
-           <>
-           <span className='font-semibold text-sm mt-auto'>Fecha ingreso:</span>
+           
+           <div><>
+           <span className='font-semibold text-sm mt-auto '>Fecha ingreso:</span>
            <span className="text-xs">{moment(inscripcion.fechaIngreso).format('DD/MM/YY hh:mm:ss a')}</span>
            </>
+           <>
+           <span className='font-semibold text-sm mt-auto'><br/>Fecha Egreso:</span>
+           {inscripcion.fechaEgreso!=null ? <span className="text-xs">{moment(inscripcion.fechaEgreso).format('DD/MM/YY hh:mm:ss a')}</span>:(<></>)}
+           </>
+           </div>
          )
        }
        {inscripcion.estado === 'RECHAZADO' && (
@@ -157,7 +170,8 @@ const Inscripcion = ({ inscripcion, refetch }) => {
            </>
          )
        }
-      </div></PrivateRoute>
+      </div>
+      // </PrivateRoute>
     );
   };
 

@@ -24,7 +24,9 @@ const Index = () => {
        
            <span className='text-gray-500 text-xl mt-5 font-semibold'> Rol:
            <span className='text-blue-600 text-xl mt-5  ml-5 font-semibold'>{role}</span> </span>
-          <span className='text-gray-800 text-lg italic mt-10'> Sesión: {day}</span>
+           <span className='text-gray-500 text-xl mt-5 font-semibold'> Acceso al sistema:
+           <span className='text-blue-600 text-base mt-5  ml-5 font-semibold'>{estado}</span> </span>
+          <span className='text-gray-600 text-base italic mt-10'> Sesión: {day}</span>
         
           {!estado==="AUTORIZADO" && 
           <div>
