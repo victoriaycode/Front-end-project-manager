@@ -64,6 +64,7 @@ query Query($idEstudiante: String!) {
   filtrarInscripcionesPorEstudiante(id_estudiante: $idEstudiante) {
     _id
     estado
+    fechaEgreso
     proyecto {
       _id
       nombre

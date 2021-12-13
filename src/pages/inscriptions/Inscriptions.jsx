@@ -114,7 +114,7 @@ const Inscripcion = ({ inscripcion, refetch }) => {
       <PrivateRoute roleList={['LIDER']} >
       <div className='  text-gray-700 flex flex-col w-48 h-48 p-2 m-2 rounded-lg shadow-xl  bg-gray-200 border-none'>
         <span className='font-semibold text-sm'>Nombre proyecto:</span>
-        <span className='font-ligth text-sm' >{inscripcion.proyecto.nombre}</span>
+        <p className='font-ligth text-sm truncate' >{inscripcion.proyecto.nombre}</p>
 
         <span className='font-semibold text-sm mt-auto'>Estudiante:</span>
         <span className='font-ligth text-sm'>{`${inscripcion.estudiante.nombre} ${inscripcion.estudiante.apellido}`}</span>

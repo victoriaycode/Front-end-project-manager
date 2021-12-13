@@ -64,7 +64,7 @@ useEffect(() => {
     </div>
   
   <div className="flex flex-row  ml-0 justify-start">
-                <div className="  flex justify-center items-center px-2 sm:px-4 lg:px-8">
+                <div className="  flex justify-center items-center px-2 sm:px-4 lg:px-10">
                     <div className="relative"> <input type="text" className="h-12 w-72 pr-8 pl-5   rounded-2xl z-0 focus:shadow focus:outline-none"
                                 value={searchBy} onChange={(e) => setSearchBy(e.target.value)} placeholder="Buscar por " />
                         <div className="absolute top-3 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
@@ -75,11 +75,11 @@ useEffect(() => {
 
                 <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-8 mr-16">
                     <div className="flex flex-rows-2 relative align-center justify-center  bg-white rounded-2xl ">
-                    <select   value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg text-gray-400 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-100" >
+                    <select   value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-72 pr-8 pl-5 text-lg text-gray-400 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-100" >
                            
                             
                            <option className="text-gray-400" value="older">Registros Más antiguos</option>
-                           <option className="text-gray-400" value="recent">Tegistros Más recientes </option>
+                           <option className="text-gray-400" value="recent">Registros Más recientes </option>
                        
                        </select>
                     </div>
@@ -87,7 +87,7 @@ useEffect(() => {
 
                 <div className="flex flex-rows-2 align-center ml-40   ">
                 <div className="h-10  text-ms   w-60 font-light text-gray-400  pt-10  ">
-                    <span className="h-6 mb-4 ">Mostrando {listFiltered.length} Usuarios</span>
+                    <span className="h-6 mb-4 ">Mostrando {listFiltered!=null ? listFiltered.length :0  } Usuarios</span>
                 </div>
                
             </div>

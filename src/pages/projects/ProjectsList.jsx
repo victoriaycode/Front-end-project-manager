@@ -71,8 +71,8 @@ const ProjectsList = () => {
     if (!loadingStudent) {
     console.log('data estudiante', dataStudent);
     if (userData && dataStudent) {
-          const flt = dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado === "ACEPTADO");
-          if (flt.length > 0) {
+          const flt = dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado === "ACEPTADO" && el.fechaEgreso==null);
+          if (flt.length > 0 ) {
            setAlready_enrolled(true);
           }else{
             setAlready_enrolled(false);
@@ -293,8 +293,8 @@ const ProjectsList = () => {
          <PrivateComponent roleList={['ESTUDIANTE']}> 
             <>
               {viewOnlyStudent && filteredListStudent.length===0 && 
-              <div className="flex  ml-2">
-                <span className='ml-3 text-lg text-gray-600'> Querido Estudiante, <br/>Aún NO tienes proyectos inscritos y aceptados.</span>
+              <div className="flex  ml-5">
+                <span className='ml-3 text-lg text-gray-600'> Querido Estudiante, <br/>NO TIENES INSCRIPCIONES APROBADAS NI VIGENTES.</span>
     
               </div> }
               {viewOnlyStudent && dataStudent && filteredListStudent.map((project_info) => {

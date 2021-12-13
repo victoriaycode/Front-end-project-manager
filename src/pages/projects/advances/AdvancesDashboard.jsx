@@ -45,10 +45,8 @@ const AdvancesDashboard = () => {
     if (!loadingEnroll && dataEnroll) {
       console.log("dataEnroll",dataEnroll);
       if (dataEnroll.filtrarSiEstaInscrito) {
+        setInscrito(true);
         
-        if(dataEnroll.filtrarSiEstaInscrito.fechaEgreso==null){
-          setInscrito(true);
-        }
       } else {
         setInscrito(false);
         console.log(" inscripcion null");

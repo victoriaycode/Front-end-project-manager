@@ -78,7 +78,7 @@ const ProjectCardInfo = ({project_info,already_enrolled}) => {
                         <p className="text-lg text-blue-800 w-30 truncate  text-center pb-1 pt-3 text-2xl font-bold  ">{card.nombre}</p>
                         {/* <span className=" text-ms text-gray-500 text-xs mx-2 font-light pt-2 ">Lider : <span className="text-blue-800 font-light">{card.lider.nombre} {card.lider.apellido}</span> </span> */}
                        
-                 {already_enrolled ? (<><span className=" text-blue-500 text-sm mx-2 text-center  font-light align-start pb-1"> <i className="far fa-check-circle"></i> Inscrito</span> </>):(
+                 {already_enrolled ? (<><span className=" text-blue-500 text-sm mx-2 text-center  font-light align-start pb-1"> <i className="far fa-check-circle"></i> Inscripción Aceptada</span> </>):(
                 <span className=" text-gray-500 text-sm mx-2 text-center  font-light align-start pb-1">Lider : <span className="text-gray-800 font-light">{card.lider.nombre} {card.lider.apellido}</span> </span>
 
                  )}  

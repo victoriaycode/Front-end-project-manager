@@ -29,6 +29,11 @@ const GET_ADVANCE_BY_ID = gql`
         nombre
         apellido
       }
+      proyecto{
+        _id
+        estado
+        fase
+      }
     }
   }
   `;

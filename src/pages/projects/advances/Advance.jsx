@@ -29,7 +29,7 @@ const Advance = () => {
   const [input_bg, setInputBg] = useState("bg-gray-50");
   const [newCommentary, setNewCommentary] = useState(false);
   const { userData } = useUser();
-  const idEstudiante = useUser._id + "";
+  const idEstudiante = userData._id + "";
 
   const role = "ESTUDIANTE";
   const { form, formData, updateFormData } = useFormData(null);
@@ -51,19 +51,17 @@ const Advance = () => {
   }, [data]);
 
   useEffect(() => {
-    if (loading) {
-
-    } else {
+    if (!loading && data) {
       let nombre = data.filtrarAvancePorId.creadoPor.nombre;
       let apellido = data.filtrarAvancePorId.creadoPor.apellido;
       setCreatedBy(nombre + " " + apellido);
       setAdvance(data.filtrarAvancePorId);
-      if (data.filtrarAvancePorId.proyecto.estado == "INACTIVO"
+      console.log("data estado",data.filtrarAvancePorId);
+      if (data && data.filtrarAvancePorId.proyecto.estado == "INACTIVO"
         || data.filtrarAvancePorId.proyecto.fase == "TERMINADO") {
         setInactiveOrFinishedProject(true);
       };
-
-    }
+    } 
   }, [loading]);
 
   useEffect(() => {
