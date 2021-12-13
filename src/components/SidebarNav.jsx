@@ -13,7 +13,7 @@ const SidebarLinks = () => {
         
 
 
-      <PrivateComponent roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE']} stateUser={['AUTORIZADO']}>
+      <PrivateComponent roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE','AUTORIZADO']}>
           <SidebarRoute1 to='/inicio' title='Inicio' icon="fas fa-home fa-lg"/>
           <SidebarRoute1 to='/proyectos' title='Proyectos' icon="fas fa-folder fa-lg"/>
 
@@ -21,7 +21,7 @@ const SidebarLinks = () => {
           <SidebarRoute1 to='/inscripciones' title='Inscripciones' icon="fas fa-clipboard-check fa-lg"/>
         </PrivateComponent>
 
-          <PrivateComponent roleList={['ADMINISTRADOR','LIDER']}>
+          <PrivateComponent roleList={['ADMINISTRADOR','LIDER','AUTORIZADO']}>
             <SidebarRoute1 to='/usuarios' title='Usuarios' icon="fas fa-users fa-lg"/>
           </PrivateComponent>
 

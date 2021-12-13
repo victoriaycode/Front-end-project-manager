@@ -13,7 +13,7 @@ const Index = () => {
     let day = date.toLocaleDateString("es-US", options);
   return (
     <div className="w-full h-full flex flex-col overflow-y-hidden " >
-      {/* <PrivateRoute roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE']} > */}
+      <PrivateRoute roleList={['ADMINISTRADOR','LIDER','ESTUDIANTE']} >
         
         {/* <Title_page title={"Inicio"}  returns ={false} return_to={"/"}></Title_page> */}
         <div className="relative h-16 flex flex-row bg-gray-100 w-full justify-start mt-6  ">
@@ -25,16 +25,9 @@ const Index = () => {
            <span className='text-gray-500 text-xl mt-5 font-semibold'> Rol:
            <span className='text-blue-600 text-xl mt-5  ml-5 font-semibold'>{role}</span> </span>
           <span className='text-gray-800 text-lg italic mt-10'> Sesión: {day}</span>
-        
-          {!estado==="AUTORIZADO" && 
-          <div>
-           <span className='text-blue-400 text-3xl font-bold mt-8 '> NO ESTÁS AUTORIZADO AÚN</span> 
-         <span className='text-gray-800 text-lg italic mt-2'> Intenta más tarde. </span>
-        </div>} 
         </div>
-     
-{/*       
-      </PrivateRoute> */}
+      </PrivateRoute> 
+        
         </div>
   );
 };
