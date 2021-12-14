@@ -9,7 +9,7 @@ import Edit_project_admin_modal from './Edit_project_admin';
 import Enroll_modal from './Enroll_modal';
 import PrivateComponent from './PrivateComponent';
 
-const ProjectCardInfo = ({ project_info, already_enrolled }) => {
+const ProjectCardInfo = ({ project_info, already_enrolled,sent_enroll }) => {
 
   const { userData } = useUser();
 
@@ -129,7 +129,7 @@ const ProjectCardInfo = ({ project_info, already_enrolled }) => {
           </NavLink>
 
           <PrivateComponent roleList={['ESTUDIANTE']}>
-            {!already_enrolled &&
+            {(!already_enrolled) &&
               <>{(card.estado === "ACTIVO" && (card.fase != "NULO" || card.fase != "TERMINADO")) &&
 
                 <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300

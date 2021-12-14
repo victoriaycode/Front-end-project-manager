@@ -11,6 +11,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_NEW_PROJECT } from 'graphql/proyectos/queries';
 import { Dialog, TextareaAutosize } from '@material-ui/core';
 import { useUser } from 'context/userContext';
+import { GET_PROJECTS_CARDS } from 'graphql/proyectos/queries';
 
 const New_project = () => {
     const [addObjective, setAddObjective] = useState(false)
@@ -29,7 +30,7 @@ const New_project = () => {
     const [numRow, setNumberRow] = useState(0);
 
     const [createProject, { data: createdata, loading, error }] =
-        useMutation(CREATE_NEW_PROJECT);
+        useMutation(CREATE_NEW_PROJECT,{refetchQueries:[{ query: GET_PROJECTS_CARDS }]});
 
 
     const { form, formData, updateFormData } = useFormData(null);

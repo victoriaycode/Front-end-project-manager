@@ -109,7 +109,6 @@ function App() {
                 <Route path='/proyectos/proyecto/estudiantes/:_id' element={<Students />} />
                 
                 <Route path='/mi_perfil' element={< Profile/>} />
-              
 
                 <Route path='/inscripciones' element={< Inscriptions/>} />
 

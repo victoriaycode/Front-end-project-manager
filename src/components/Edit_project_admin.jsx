@@ -1,6 +1,7 @@
 
 import { useMutation } from '@apollo/client';
 import { Zoom } from '@material-ui/core';
+import { GET_PROJECTS_BY_LIDER } from 'graphql/proyectos/queries';
 import { EDIT_PROJECT_BY_ADMIN } from 'graphql/proyectos/queries';
 import useFormData from 'hooks/useFormData';
 import React, { useState, useEffect } from 'react'
@@ -14,8 +15,11 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin, initialSt
 
     var dateNow = new Date();
 
-    const [editProjectAdmin, { data: mutationData, loading: mutationLoading, error: mutationError }] =
-        useMutation(EDIT_PROJECT_BY_ADMIN);
+    // const [editProjectAdmin, { data: mutationData, loading: mutationLoading, error: mutationError }] =
+    //     useMutation(EDIT_PROJECT_BY_ADMIN);
+
+        const [editProjectAdmin, { data: mutationData, loading: mutationLoading, error: mutationError }] =
+        useMutation(EDIT_PROJECT_BY_ADMIN,{refetchQueries:[{ query: GET_PROJECTS_BY_LIDER }]});
 
     const submitChangeState = (e) => {
         e.preventDefault();

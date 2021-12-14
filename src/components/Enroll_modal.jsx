@@ -5,14 +5,17 @@ import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { toast } from 'react-toastify';
 import ButtonLoading from 'components/ButtonLoading';
+import { GET_STUDENT_PROJECTS_ENROLLED } from 'graphql/proyectos/queries';
+import { GET_PROJECTS_CARDS } from 'graphql/proyectos/queries';
 
 const Enroll_modal = ({ idProyecto, name_project, setOpenModalEnroll }) => {
 
   const InscripcionProyecto = ({ estado, inscripciones }) => {
 
     const { userData } = useUser();
-    const [crearInscripcion, { data, loading, error }] = useMutation(CREAR_INSCRIPCION);
-
+    const [crearInscripcion, { data, loading, error }] = useMutation(CREAR_INSCRIPCION,{refetchQueries:[{ query: GET_STUDENT_PROJECTS_ENROLLED, query: GET_PROJECTS_CARDS }]});
+    // const [crearInscripcion, { data, loading, error }] = useMutation(CREAR_INSCRIPCION);
+   
     // const [estadoInscripcion, setEstadoInscripcion] = useState('');
 
 

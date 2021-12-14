@@ -10,6 +10,7 @@ import { useUser } from 'context/userContext'
 import PrivateComponent from 'components/PrivateComponent'
 import ReactLoading from 'react-loading';
 import PrivateRoute from 'components/PrivateRoute';
+import { nanoid } from 'nanoid'
 
 const ProjectsList = () => {
   const { userData } = useUser();
@@ -25,7 +26,7 @@ const ProjectsList = () => {
   const [filteredListStudent, setFilteredListStudent] = useState([]);
   const [viewOnlyStudent, setViewOnlyStudent] = useState(true);
   const [already_enrolled, setAlready_enrolled] = useState(false);
-
+  const [sent_enroll, set_Sent_enroll] = useState(false);
   const [sortBy, setSortedBy] = useState("older");
 
   const idEstudiante = userData._id + "";
@@ -67,6 +68,31 @@ const ProjectsList = () => {
       console.log("datalider", dataLider);
     }
   }, [dataLider])
+  // useEffect(() => {
+  //   if (!loadingStudent) {
+  //     console.log('data estudiante', dataStudent);
+  //     if (userData && dataStudent) {
+  //       const flt = dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado === "ACEPTADO" && el.fechaEgreso == null);
+  //       if (flt.length > 0) {
+  //         setAlready_enrolled(true);
+  //       } else {
+  //         setAlready_enrolled(false);
+  //       }
+  //       if(dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado !== "ACEPTADO" )){
+  //         set_Sent_enroll(true);
+
+  //       }else{ set_Sent_enroll(false);};
+  //       setListProjectsStudent(flt);
+  //       setFilteredListStudent(flt);
+  //       // setListProjectsStudent(dataStudent.filtrarInscripcionesPorEstudiante);
+  //       // setFilteredListStudent(dataStudent.filtrarInscripcionesPorEstudiante);
+  //     }
+
+
+
+  //   }
+  // }, [dataStudent]);
+  
   useEffect(() => {
     if (!loadingStudent) {
       console.log('data estudiante', dataStudent);
@@ -77,6 +103,10 @@ const ProjectsList = () => {
         } else {
           setAlready_enrolled(false);
         }
+        // if(dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado !== "ACEPTADO" )){
+        //   set_Sent_enroll(true);
+
+        // }else{ set_Sent_enroll(false);};
         setListProjectsStudent(flt);
         setFilteredListStudent(flt);
         // setListProjectsStudent(dataStudent.filtrarInscripcionesPorEstudiante);
@@ -87,13 +117,24 @@ const ProjectsList = () => {
 
     }
   }, [dataStudent]);
-
   useEffect(() => {
-    if (!loading) {
+    if (!loading ) {
+      if(role==="ESTUDIANTE"  ){
+        let filtrarNoInscripciones= 
+        dataProjects.Proyectos.filter(proj=>
+        proj.inscripciones.some(i=>i.estudiante._id!==userData._id)
+        ).map(proj =>proj);
+        console.log("filtrar", filtrarNoInscripciones);
+      }
+      // else{
+      //   setListProjects(dataProjects.Proyectos);
+      //   setFilteredList(dataProjects.Proyectos);
+      // }
       setListProjects(dataProjects.Proyectos);
       setFilteredList(dataProjects.Proyectos);
+      }
+     
 
-    }
     console.log('data servidor', dataProjects);
 
   }, [dataProjects]);
@@ -253,7 +294,7 @@ const ProjectsList = () => {
                 <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-4 ml-2">
                   <div className="flex flex-rows-2 relative align-center justify-center  bg-white rounded-2xl ">
                     <select value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg 
-                  text-gray-600 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-200" defaultValue="recent">
+                  text-gray-600 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-200" >
 
 
                       <option className="text-gray-700" value="older">Más antiguos</option>
@@ -279,12 +320,12 @@ const ProjectsList = () => {
             <PrivateComponent roleList={['ADMINISTRADOR']}>
               <> {!viewToApprove && dataProjects && filteredList.map((project_info) => {
                 return (
-                  <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
+                  <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                 );
               })}
                 {viewToApprove && dataProjects && filteredList.filter((el) => (el.estado === "INACTIVO" && el.fase === "NULO")).map((project_info) => {
                   return (
-                    <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
+                    <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
                 })}  </></PrivateComponent>
 
@@ -299,15 +340,15 @@ const ProjectsList = () => {
                   </div>}
                 {viewOnlyStudent && dataStudent && filteredListStudent.map((project_info) => {
                   return (
-                    <ProjectCardInfo key={project_info.proyecto._id} project_info={project_info.proyecto}
+                    <ProjectCardInfo key={nanoid()} project_info={project_info.proyecto}
                       setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit}
-                      already_enrolled={already_enrolled} ></ProjectCardInfo>
+                      already_enrolled={already_enrolled}  ></ProjectCardInfo>
                   );
                 })}
 
                 {!viewOnlyStudent && dataProjects && filteredList.map((project_info) => {
                   return (
-                    <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
+                    <ProjectCardInfo key={project_info._id} sent_enroll={false} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
                 })}
 
@@ -318,7 +359,7 @@ const ProjectsList = () => {
               <>
                 {dataLider && filteredListLider.map((project_info) => {
                   return (
-                    <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
+                    <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
                 })}
               </></PrivateComponent>
