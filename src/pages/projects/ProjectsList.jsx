@@ -94,7 +94,7 @@ const ProjectsList = () => {
   // }, [dataStudent]);
   
   useEffect(() => {
-    if (!loadingStudent) {
+    if (!loadingStudent && dataStudent)  {
       console.log('data estudiante', dataStudent);
       if (userData && dataStudent) {
         const flt = dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado === "ACEPTADO" && el.fechaEgreso == null);
@@ -118,18 +118,15 @@ const ProjectsList = () => {
     }
   }, [dataStudent]);
   useEffect(() => {
-    if (!loading ) {
-      if(role==="ESTUDIANTE"  ){
-        let filtrarNoInscripciones= 
-        dataProjects.Proyectos.filter(proj=>
-        proj.inscripciones.some(i=>i.estudiante._id!==userData._id)
-        ).map(proj =>proj);
-        console.log("filtrar", filtrarNoInscripciones);
-      }
-      // else{
-      //   setListProjects(dataProjects.Proyectos);
-      //   setFilteredList(dataProjects.Proyectos);
+    if (!loading  && dataProjects) {
+      // if(role==="ESTUDIANTE"  ){
+      //   let filtrarNoInscripciones= 
+      //   dataProjects.Proyectos.filter(proj=>
+      //   proj.inscripciones.some(i=>i.estudiante._id!==userData._id)
+      //   ).map(proj =>proj);
+      //   console.log("filtrar", filtrarNoInscripciones);
       // }
+     
       setListProjects(dataProjects.Proyectos);
       setFilteredList(dataProjects.Proyectos);
       }
@@ -140,7 +137,7 @@ const ProjectsList = () => {
   }, [dataProjects]);
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading  && listProjects ) {
       setFilteredList(
         listProjects.filter((elemento) => {
           return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
@@ -148,22 +145,22 @@ const ProjectsList = () => {
       );
     }
     if (role === "LIDER") {
-
+      if (!loadingLider  && listProjectsLider ) {
       setFilteredListLider(
         listProjectsLider.filter((elemento) => {
           return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
         })
       );
-    }
+    }}
 
     if (role === "ESTUDIANTE") {
-
+      if (!loadingStudent  && listProjectsStudent ) {
       setFilteredListStudent(
         listProjectsStudent.filter((elemento) => {
           return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
         })
       );
-    }
+    }}
   }, [searchBy, ProjectsList, listProjectsLider, listProjectsStudent])
 
   useEffect(() => {
@@ -318,12 +315,12 @@ const ProjectsList = () => {
                  pt-2 align-center justify-center ">
 
             <PrivateComponent roleList={['ADMINISTRADOR']}>
-              <> {!viewToApprove && dataProjects && filteredList.map((project_info) => {
+              <> {!viewToApprove && filteredList!=null && filteredList.map((project_info) => {
                 return (
                   <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                 );
               })}
-                {viewToApprove && dataProjects && filteredList.filter((el) => (el.estado === "INACTIVO" && el.fase === "NULO")).map((project_info) => {
+                {viewToApprove && filteredList!=null  && filteredList.filter((el) => (el.estado === "INACTIVO" && el.fase === "NULO")).map((project_info) => {
                   return (
                     <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
@@ -338,7 +335,7 @@ const ProjectsList = () => {
                     <span className='ml-3 text-lg text-gray-600'> Querido Estudiante, <br />NO TIENES INSCRIPCIONES APROBADAS NI VIGENTES.</span>
 
                   </div>}
-                {viewOnlyStudent && dataStudent && filteredListStudent.map((project_info) => {
+                {viewOnlyStudent && filteredListStudent!=null && filteredListStudent.map((project_info) => {
                   return (
                     <ProjectCardInfo key={nanoid()} project_info={project_info.proyecto}
                       setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit}
@@ -346,7 +343,7 @@ const ProjectsList = () => {
                   );
                 })}
 
-                {!viewOnlyStudent && dataProjects && filteredList.map((project_info) => {
+                {!viewOnlyStudent && filteredList!=null && filteredList.map((project_info) => {
                   return (
                     <ProjectCardInfo key={project_info._id} sent_enroll={false} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
@@ -357,7 +354,7 @@ const ProjectsList = () => {
 
             <PrivateComponent roleList={['LIDER']}>
               <>
-                {dataLider && filteredListLider.map((project_info) => {
+                {dataLider &&filteredListLider!=null && filteredListLider.map((project_info) => {
                   return (
                     <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
