@@ -11,6 +11,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_NEW_PROJECT } from 'graphql/proyectos/queries';
 import { Dialog, TextareaAutosize } from '@material-ui/core';
 import { useUser } from 'context/userContext';
+import { GET_PROJECTS_CARDS } from 'graphql/proyectos/queries';
 
 const New_project = () => {
     const [addObjective, setAddObjective] = useState(false)
@@ -20,16 +21,16 @@ const New_project = () => {
     const [budget, setBudget] = useState(0);
     const [created, setCreated] = useState(false);
     var date = new Date().toISOString().slice(0, 10);
-    
-  const { userData } = useUser();
- 
-    const lider = ""+userData._id;
-    const id_lider = ""+userData.identificacion;
-    const nombre_lider = ""+userData.nombre + " "+ userData.apellido;
+
+    const { userData } = useUser();
+
+    const lider = "" + userData._id;
+    const id_lider = "" + userData.identificacion;
+    const nombre_lider = "" + userData.nombre + " " + userData.apellido;
     const [numRow, setNumberRow] = useState(0);
 
     const [createProject, { data: createdata, loading, error }] =
-        useMutation(CREATE_NEW_PROJECT);
+        useMutation(CREATE_NEW_PROJECT,{refetchQueries:[{ query: GET_PROJECTS_CARDS }]});
 
 
     const { form, formData, updateFormData } = useFormData(null);
@@ -46,7 +47,7 @@ const New_project = () => {
         let presup = parseFloat(formData.presupuesto);
         formData.presupuesto = presup;
         console.log("formdata", formData);
-         createProject({
+        createProject({
             variables: { ...formData },
         });
 
@@ -81,7 +82,7 @@ const New_project = () => {
             objectives_list.push(nuevo);
             setObjectivesList(objectives_list);
             setNumberRow(numRow + 1);
-            document.getElementById("descripInput").value="";
+            document.getElementById("descripInput").value = "";
             setNewDescripObj("");
         }
     }
@@ -103,14 +104,14 @@ const New_project = () => {
             <div className="w-full  overflow-y-hidden mt-2">
 
                 <div className="w-full h-full px-5 flex flex-row  ">
-                    <form  className=" w-3/6  flex flex-col  "
+                    <form className=" w-3/6  flex flex-col  "
                         onSubmit={submitForm}
                         onChange={updateFormData}
                         ref={form}>
                         <div className=" w-full bg-white   mb-2 px-2 flex flex-col align-center justify-center border-solid border-2 border-gray-300 rounded-xl py-2">
                             <div className="flex flex-row gap-4 justify-between  ">
                                 <span className="px-10 py-3 text-blue-800 text text-xl font-medium  ">
-                                   GUARDAR PROYECTO NUEVO:</span>
+                                    GUARDAR PROYECTO NUEVO:</span>
                                 <div className="flex flex-row gap-4 justify-end  py-4 px-10">
                                     <button type="submit" className="bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded-xl h-10 text-lg text-white" >Guardar</button>
                                     <NavLink to={`/proyectos/`}>
@@ -125,7 +126,7 @@ const New_project = () => {
                             <div className="w-full h-full flex flex-col pb-10">
                                 <div className=" py-2 px-8 flex flex-row ">
                                     <span className="text-blue-800 font-semibold  text text-lg font-medium mt-4 mr-2">
-                                        NOMBRE 
+                                        NOMBRE
                                     </span> <TextareaAutosize minRows="1" type="text" required name="nombre" className="text-blue-800 px-6 py-2 text-2xl font-bold  h-10  w-full mx-4  mt-1 rounded-2xl z-0 focus:outline-none bg-blue-50"
                                         placeholder="Nombre del proyecto" ></TextareaAutosize>
                                 </div>
@@ -134,30 +135,30 @@ const New_project = () => {
                                     <div className="flex flex-row justify-start my-2"><div>
                                         <span className="text-blue-500 font-semibold text-lg ml-8"> LIDER</span>
                                         <div className="flex flex-row">
-                                        <input disabled type="text" className="h-10  ml-10 px-10  rounded-xl z-0 focus:outline-none
+                                            <input disabled type="text" className="h-10  ml-10 px-10  rounded-xl z-0 focus:outline-none
                                      bg-white border-b-2 border-gray-300" defaultValue={nombre_lider}></input>
-                                      <input disabled type="text" name="lider" className="h-10  mx-2 px-5  rounded-xl z-0 focus:outline-none
+                                            <input disabled type="text" name="lider" className="h-10  mx-2 px-5  rounded-xl z-0 focus:outline-none
                                      bg-white border-b-2 border-gray-300" defaultValue={id_lider}></input>
-                                     </div>
-                                    </div> 
+                                        </div>
+                                    </div>
 
 
                                     </div>
                                     <div className="w-full py-2 px-6 flex flex-row  justify-between gap-8 text-lg">
 
-<div className="w-full py-2  flex flex-row ml-3 text-lg">
-    <label htmlFor="Presupuesto" className="text-gray-500  font-semibold  font-medium ">
-        PRESUPUESTO:
-    </label>
-    <input type="number" required min="1" name="presupuesto" className="h-10 bg-blue-50 w-44 ml-16 px-6  
+                                        <div className="w-full py-2  flex flex-row ml-3 text-lg">
+                                            <label htmlFor="Presupuesto" className="text-gray-500  font-semibold  font-medium ">
+                                                PRESUPUESTO:
+                                            </label>
+                                            <input type="number" required min="1" name="presupuesto" className="h-10 bg-blue-50 w-44 ml-16 px-6  
 rounded-xl z-0 focus:outline-none
 bg-gray-100 border-2 border-gray-300"
-        value={budget} onChange={(e) => setBudget(e.target.value)} />
+                                                value={budget} onChange={(e) => setBudget(e.target.value)} />
 
-</div>
+                                        </div>
 
 
-</div>
+                                    </div>
                                     <div className="flex flex-col justify-around mt-4 pr-8 gap-1">
                                         <div>
                                             <span className="px-2 text-blue-500 font-semibold text-base ml-3">ESTADO</span>
@@ -175,7 +176,7 @@ bg-gray-100 border-2 border-gray-300"
                                      bg-white border-b-2 border-gray-300" defaultValue={date}></input>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>  </div>
 
@@ -206,7 +207,7 @@ bg-gray-100 border-2 border-gray-300"
                                                 <option className="" value="ESPECIFICO">ESPECIFICO </option>
 
                                             </select>
-                                            <TextareaAutosize id="descripInput"type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
+                                            <TextareaAutosize id="descripInput" type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
                                                 defaultValue={newDescripObj} onChange={(e) => setNewDescripObj(e.target.value)} />
 
                                             <button className="text-blue-600 hover:text-blue-800 focus text-base" onClick={() => AddNewObjective()}><i className="fas fa-folder-plus fa-lg"></i>Añadir</button>
@@ -236,14 +237,14 @@ bg-gray-100 border-2 border-gray-300"
                 <div>
 
                 </div>
-             
+
             </div>
             <Dialog open={created}>
-               <div className='h-40 w-70 p-10 flex flex-col gap-4 text-center'>
-                   <span className='text-xl font-semibold '>Proyecto creado con éxito</span>
-                   <NavLink to={`/proyectos/`}>
-                                        <button type="button" className="bg-blue-500 hover:bg-blue-700 px-3 py-1 text-2xl rounded-xl h-10 text-white mr-1 close-modal ml-2">OK</button></NavLink>
-               </div>
+                <div className='h-40 w-70 p-10 flex flex-col gap-4 text-center'>
+                    <span className='text-xl font-semibold '>Proyecto creado con éxito</span>
+                    <NavLink to={`/proyectos/`}>
+                        <button type="button" className="bg-blue-500 hover:bg-blue-700 px-3 py-1 text-2xl rounded-xl h-10 text-white mr-1 close-modal ml-2">OK</button></NavLink>
+                </div>
             </Dialog>
         </div>
     )

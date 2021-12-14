@@ -14,6 +14,7 @@ import moment from "moment";
 import 'moment/locale/es';
 import PrivateRoute from 'components/PrivateRoute';
 import { useUser } from 'context/userContext';
+import { nanoid } from 'nanoid';
 
 
 const Inscriptions = () => {
@@ -36,17 +37,20 @@ const Inscriptions = () => {
         
                 <div className="ml-8 mt-8 max-w-screen-2xl">
                   <AccordionInscripcion
+                      key={nanoid()}
                       titulo='PENDIENTES'
                       data={data.Inscripciones.filter((el)=> el.estado ==="PENDIENTE")}
                       refetch={refetch}
                       role={role}
                       />
                     <AccordionInscripcion
+                       key={nanoid()}
                         titulo='APROBADAS'
                         data={data.Inscripciones.filter((el)=> el.estado ==="ACEPTADO")}
                         role={role}
                         />
                     <AccordionInscripcion
+                       key={nanoid()}
                         titulo='RECHAZADAS'
                         data={data.Inscripciones.filter((el)=> el.estado ==="RECHAZADO")}
                         role={role}

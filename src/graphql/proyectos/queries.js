@@ -17,6 +17,12 @@ query Proyectos {
     fechaCreacion
     fechaInicio
     fechaFin
+
+    inscripciones{
+      estudiante{
+        _id
+      }
+    }
     }
 }
 `;

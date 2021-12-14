@@ -6,8 +6,7 @@ const PrivateRoute = ({ roleList, stateUser, children }) => {
   
 
   if (roleList.includes(userData.rol) && userData.estado==="AUTORIZADO") {
-    console.log('roleList: ',roleList)
-    console.log('Estado: ',stateUser)
+   
     return children;
     
   }else if(roleList.includes(userData.rol) && userData.estado ==='PENDIENTE' || userData.estado ==='NO_AUTORIZADO'){

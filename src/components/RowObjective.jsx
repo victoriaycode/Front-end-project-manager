@@ -17,13 +17,13 @@ const RowObjective = ({ datarow, list, setObjectivesList }) => {
         setObjectivesList(listaNueva);
     }
     const editObjective = () => {
-        
+
         const indice = list.findIndex((elemento) => {
             if (elemento.row === datarow.row) {
                 return true;
             }
         });
-        if (descripcionRow !== "" && tipo != "" ) {
+        if (descripcionRow !== "" && tipo != "") {
             const changeRow = { "tipo": tipo, "descripcion": descripcionRow, "row": datarow.row }
 
             let c = [...list]
@@ -33,7 +33,7 @@ const RowObjective = ({ datarow, list, setObjectivesList }) => {
             setObjectivesList(c);
 
         }
-       
+
     }
 
     return (
@@ -49,25 +49,25 @@ const RowObjective = ({ datarow, list, setObjectivesList }) => {
                     <option className="" value="ESPECIFICO">ESPECIFICO </option>
 
                 </select>
-              
+
                 {editRow ? (<>
 
 
-                    <TextareaAutosize  type="text"   className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-50 border-2 border-gray-300"
-                       value={descripcionRow} onChange={(e) => setDescripcionRow(e.target.value)} />
-                   <Tooltip title='GUARDAR ' arrow placement="top">
-                    <button className="text-blue-600 hover:text-blue-800 focus py-1 " onClick={() => editObjective()}><i className="far fa-save fa-lg"></i></button></Tooltip>
+                    <TextareaAutosize type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-50 border-2 border-gray-300"
+                        value={descripcionRow} onChange={(e) => setDescripcionRow(e.target.value)} />
+                    <Tooltip title='GUARDAR ' arrow placement="top">
+                        <button className="text-blue-600 hover:text-blue-800 focus py-1 " onClick={() => editObjective()}><i className="far fa-save fa-lg"></i></button></Tooltip>
                     <Tooltip title='CANCELAR ' arrow placement="top">
-                    <button className="text-gray-500 hover:text-gray-700 ml-10 py-1  " onClick={() => setEditRow(false)}><i className="fas fa-ban fa-lg"></i></button></Tooltip></>)
+                        <button className="text-gray-500 hover:text-gray-700 ml-10 py-1  " onClick={() => setEditRow(false)}><i className="fas fa-ban fa-lg"></i></button></Tooltip></>)
                     : (<>
 
                         <TextareaAutosize disabled className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
                         >{descripcionRow}</TextareaAutosize>
-<Tooltip title='EDITAR ' arrow placement="top">
-<button className="text-blue-600 hover:text-blue-800  py-1  focus" onClick={() => setEditRow(true)} ><i className="fas fa-edit fa-lg"></i></button>
-</Tooltip>
-<Tooltip title='ELIMINAR ' arrow placement="top">
-                        <button className="text-gray-500 hover:text-gray-700 ml-10 py-1 "><i className="fas fa-trash fa-lg" onClick={() => deleteObjective()}></i></button>
+                        <Tooltip title='EDITAR ' arrow placement="top">
+                            <button className="text-blue-600 hover:text-blue-800  py-1  focus" onClick={() => setEditRow(true)} ><i className="fas fa-edit fa-lg"></i></button>
+                        </Tooltip>
+                        <Tooltip title='ELIMINAR ' arrow placement="top">
+                            <button className="text-gray-500 hover:text-gray-700 ml-10 py-1 "><i className="fas fa-trash fa-lg" onClick={() => deleteObjective()}></i></button>
                         </Tooltip>    </>)}
 
             </div>
