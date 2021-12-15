@@ -13,9 +13,16 @@ const RowObjective = ({ datarow, list, setObjectivesList }) => {
         const listaNueva = list.filter((elem) => {
             return elem.row !== datarow.row;
         });
-
+        
         setObjectivesList(listaNueva);
     }
+    
+    useEffect(() => {
+       if(descripcionRow==="" && !editRow){
+        deleteObjective();
+       }
+      
+    }, [editRow])
     const editObjective = () => {
 
         const indice = list.findIndex((elemento) => {
@@ -53,8 +60,8 @@ const RowObjective = ({ datarow, list, setObjectivesList }) => {
                 {editRow ? (<>
 
 
-                    <TextareaAutosize type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-50 border-2 border-gray-300"
-                        value={descripcionRow} onChange={(e) => setDescripcionRow(e.target.value)} />
+                    <TextareaAutosize type="text" required className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-50 border-2 border-gray-300"
+                        value={descripcionRow} onChange={(e) => {setDescripcionRow(e.target.value)}} />
                     <Tooltip title='GUARDAR ' arrow placement="top">
                         <button className="text-blue-600 hover:text-blue-800 focus py-1 " onClick={() => editObjective()}><i className="far fa-save fa-lg"></i></button></Tooltip>
                     <Tooltip title='CANCELAR ' arrow placement="top">

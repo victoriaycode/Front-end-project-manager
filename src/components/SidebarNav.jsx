@@ -52,7 +52,7 @@ const SidebarNav = () => {
     return (
 
       <div className="flex flex-col justify-between  items-center flex-none w-24 bg-gray-100 mr-2">
-        <div className="rounded-2xl ml-5 my-3   w-full h-full bg-white  ">
+        <div className="rounded-2xl ml-5 my-3   w-full h-full bg-white  shadow-lg ">
      
       <div className="flex flex-col space-y-2 w-full items-center pt-5 mt-6 " >
       <SidebarLinks/>

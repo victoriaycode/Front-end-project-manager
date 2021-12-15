@@ -25,7 +25,7 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin, initialSt
     const submitChangeState = (e) => {
         e.preventDefault();
         if (formData.estado != null) {
-            if (formData.estado == "INACTIVO") {
+            if (formData.estado == "INACTIVO" && initialState!=="INACTIVO") {
                 formData.fechaFin = dateNow;
             }
             const edited = editProjectAdmin({

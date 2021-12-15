@@ -44,7 +44,7 @@ const ProjectNavbar = ({ _idActual, rutaRetorno, nombreProject }) => {
               <i className="far fa-file-alt"></i>   Avances
             </button>
           </NavLink> </PrivateComponent>
-        <PrivateComponent roleList={['LIDER']}>
+        <PrivateComponent roleList={['LIDER','ESTUDIANTE']}>
           <NavLink to={`/proyectos/proyecto/estudiantes/${_id}`}
             className={({ isActive }) =>
               isActive

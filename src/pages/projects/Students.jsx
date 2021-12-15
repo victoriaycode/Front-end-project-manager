@@ -10,6 +10,7 @@ import { useUser } from 'context/userContext';
 import { GET_PROJECT_STATE } from 'graphql/proyectos/queries';
 
 import PrivateComponent from 'components/PrivateComponent';
+import moment from 'moment';
 
 const Students = () => {
 
@@ -36,10 +37,19 @@ const Students = () => {
         },
     });
     useEffect(() => {
-        if (!loading && data) {
+        if (!loading && data.filtrarInscripcionesPorProyecto!=null) {
 
-            setStudentsList(data.filtrarInscripcionesPorProyecto);
-            setStudentsListFiltered(data.filtrarInscripcionesPorProyecto);
+            setStudentsList(data.filtrarInscripcionesPorProyecto.filter((p)=>p.estado==="ACEPTADO"));
+            setStudentsListFiltered(data.filtrarInscripcionesPorProyecto.filter((p)=>p.estado==="ACEPTADO"));
+            
+            if(rolUser=="ESTUDIANTE"){
+                const estudianteInscrito= data.filtrarInscripcionesPorProyecto.
+                filter((p)=>p.estudiante._id===userData._id && p.fechaEgreso==null && p.estado=="ACEPTADO");
+                console.log("wws",estudianteInscrito);
+                if(estudianteInscrito.length>0){
+                    setInscrito(true);
+                }
+            }
             // if(studentsList.filter((el)=> el.estado ==="PENDIENTE"){}
             console.log("asda", studentsList);
             console.log("datainscripciones", data);
@@ -82,10 +92,10 @@ const Students = () => {
                     {enroll.estudiante.correo}
                 </td>
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
-                    {enroll.fechaIngreso}
+                {enroll.fechaIngreso!=null ? moment(enroll.fechaIngreso).format('DD/MM/YY hh:mm a') : ("SIN FECHA AÚN")}
                 </td>
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
-                    {enroll.fechaEgreso}
+                    {enroll.fechaEgreso!=null ? moment(enroll.fechaEgreso).format('DD/MM/YY hh:mm a') : ("SIN FECHA AÚN")}
                 </td>
 
 
@@ -110,12 +120,19 @@ const Students = () => {
                 rutaRetorno={'/proyectos'} />
             <PrivateComponent roleList={['LIDER', 'ESTUDIANTE']}>
 
-                {!isLider && <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
+                {!isLider &&  rolUser==="LIDER" && <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
                     <i className="fas fa-user-lock fa-4x" ></i>
                     <span className='text-blue-600 text-2xl'>No puedes ver esta información.</span>
                     <span className='text-blue-800 text-2xl'>No eres lider de este proyecto. </span></div>}
 
-                {isLider && <>
+                    {(!inscrito && rolUser=="ESTUDIANTE") && <>
+          <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
+            <i className="fas fa-user-lock fa-4x" ></i>
+            <span className='text-blue-600 text-2xl'>No puedes ver estos avances.</span>
+            <span className='text-blue-800 text-2xl'>Aún no estás inscrito en este proyecto. </span>
+            <span className='text-gray-500 text-lg'>O  el proyecto está inactivo. </span></div></>}
+          
+                {(isLider || (inscrito && rolUser=="ESTUDIANTE")) &&<>
                     <div className="w-full h-full flex flex-col overflow-y-hidden " >
                         <div className="flex flex-row  ml-0 justify-start mt-8">
                             <div className="  flex justify-center items-center px-2 sm:px-4 ml-14">
