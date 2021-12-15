@@ -121,22 +121,37 @@ useEffect(() => {
                         <td>{Enum_Rol[u.rol]}</td>
                         <td>{Enum_EstadoUsuario[u.estado]}</td>
 
-                      
-                            <td> 
+                         
+                            <td > 
                             {u.estado !=="AUTORIZADO" && userData.rol=="LIDER" && <>
                             <i onClick={() => {
                               setIDUsuario(u._id) 
                               setOpenModal(true)} 
-                            }className='fas fa-pen text-yellow-600 justify pl-7 hover:text-yellow-400 cursor-pointer' />
+                            }className='fas fa-pen text-yellow-600  pl-6 hover:text-yellow-400 align-center cursor-pointer' />
                             
                              {
                                   openModal && <ModalAutorizarUsuario setOpenModal={setOpenModal} _id={idUsuario}></ModalAutorizarUsuario>
                                   
                               }                          
-                          </>}</td>      
+                          </>}
+                          
+                          { userData.rol=="ADMINISTRADOR" &&<>
+                          <i onClick={() => {
+                            setIDUsuario(u._id) 
+                            setOpenModal(true)} 
+                          }className='fas fa-pen text-yellow-600 justify-center pl-6 hover:text-yellow-400  cursor-pointer' />
+                          
+                           {
+                                openModal && <ModalAutorizarUsuario setOpenModal={setOpenModal} _id={idUsuario}></ModalAutorizarUsuario>
+                                
+                            }                          
+                        </> }
+                          
+                          </td>      
 
-                          { userData.rol=="ADMINISTRADOR" &&
-                        <td> 
+                        
+                        {/* <td> 
+                        { userData.rol=="ADMINISTRADOR" &&<>
                           <i onClick={() => {
                             setIDUsuario(u._id) 
                             setOpenModal(true)} 
@@ -146,7 +161,7 @@ useEffect(() => {
                                 openModal && <ModalAutorizarUsuario setOpenModal={setOpenModal} _id={idUsuario}></ModalAutorizarUsuario>
                                 
                             }                          
-                        </td>     }             
+                        </> }</td>                  */}
                     </tr>
                      
                       )  
