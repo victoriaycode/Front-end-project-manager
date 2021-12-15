@@ -15,6 +15,8 @@ import 'moment/locale/es';
 import PrivateRoute from 'components/PrivateRoute';
 import { useUser } from 'context/userContext';
 import { nanoid } from 'nanoid';
+import PrivateComponent from 'components/PrivateComponent'
+
 
 
 const Inscriptions = () => {
@@ -131,8 +133,8 @@ const Inscripcion = ({ inscripcion, refetch, role }) => {
         <span className='font-ligth text-xs'>{inscripcion.estudiante.correo}</span>
         </div>
        
-        {inscripcion.estado === 'PENDIENTE' && role==='LIDER' && (
-        <>
+        {inscripcion.estado === 'PENDIENTE'  && (
+        <>  <PrivateComponent roleList={['LIDER']}>
         <div className='flex mt-auto justify-between'>
           <ButtonLoading
             onClick={() => {
@@ -152,7 +154,7 @@ const Inscripcion = ({ inscripcion, refetch, role }) => {
             disabled={false}
             className={'w-20 text-sm text-white rounded-md border-none bg-red-500   mt-auto hover:bg-red-700'} />
         </div>
-          </>
+         </PrivateComponent> </>
         )}
          {inscripcion.estado === 'ACEPTADO' && (
            

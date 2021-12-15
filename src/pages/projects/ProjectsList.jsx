@@ -15,15 +15,18 @@ import { nanoid } from 'nanoid'
 const ProjectsList = () => {
   const { userData } = useUser();
   const role = "" + userData.rol;
+  
   const [listProjects, setListProjects] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+  
+  const [listProjectsForApprove, setListProjectsForApprove] = useState([]);
+  const [filteredListApprove, setFilteredListApprove] = useState([]);
 
   const [listProjectsLider, setListProjectsLider] = useState([]);
   const [filteredListLider, setFilteredListLider] = useState([]);
   const [viewToApprove, setViewToApprove] = useState(false);
 
   const [listProjectsStudent, setListProjectsStudent] = useState([]);
-
   const [filteredListStudent, setFilteredListStudent] = useState([]);
   const [viewOnlyStudent, setViewOnlyStudent] = useState(true);
   const [already_enrolled, setAlready_enrolled] = useState(false);
@@ -91,7 +94,6 @@ const ProjectsList = () => {
     
       }
      
-
     console.log('data servidor', dataProjects);
 
   }, [dataProjects]);
@@ -277,12 +279,12 @@ const ProjectsList = () => {
             <PrivateComponent roleList={['ADMINISTRADOR']}>
               <> {!viewToApprove && filteredList!=null && filteredList.map((project_info) => {
                 return (
-                  <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
+                  <ProjectCardInfo key={nanoid()} project_info={project_info}  setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                 );
               })}
                 {viewToApprove && filteredList!=null  && filteredList.filter((el) => (el.estado === "INACTIVO" && el.fase === "NULO")).map((project_info) => {
                   return (
-                    <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
+                    <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
                 })}  </></PrivateComponent>
 
@@ -291,8 +293,8 @@ const ProjectsList = () => {
             <PrivateComponent roleList={['ESTUDIANTE']}>
               <>
                 {viewOnlyStudent && filteredListStudent.length === 0 &&
-                  <div className="flex  ml-5 mt-10 bg-white h-48 flex flex-col">
-                    <span className='ml-3 text-lg text-gray-500 my-4 font-bold'> Querido Estudiante, 
+                  <div className="rounded-2xl  ml-5 mt-10 bg-white h-48 flex flex-col">
+                    <span className='ml-3 text-lg text-gray-500 my-4 font-bold '> Querido Estudiante, 
                    </span> 
                    <span className='ml-3 text-lg text-blue-600 '><br />NO TIENES PROYECTOS  <br/>con inscripciones <br/>aceptadas o vigentes.</span>
 
