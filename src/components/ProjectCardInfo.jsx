@@ -9,7 +9,7 @@ import Edit_project_admin_modal from './Edit_project_admin';
 import Enroll_modal from './Enroll_modal';
 import PrivateComponent from './PrivateComponent';
 
-const ProjectCardInfo = ({ project_info, already_enrolled,sent_enroll }) => {
+const ProjectCardInfo = ({ project_info, already_enrolled }) => {
 
   const { userData } = useUser();
 
@@ -18,6 +18,7 @@ const ProjectCardInfo = ({ project_info, already_enrolled,sent_enroll }) => {
   const [aprobarModal, setAprobarModal] = useState(false);
 
   const [editModal, setEditModal] = useState(false);
+  const [has_enroll, set_has_enroll]=  useState();
 
   const [enrollModal, setEnrollModal] = useState(false);
 
@@ -32,6 +33,41 @@ const ProjectCardInfo = ({ project_info, already_enrolled,sent_enroll }) => {
   const [colorFase, setColorFase]= useState("gray");
 
   useEffect(() => {
+    // console.log("project_info",project_info);
+    // if(userData.rol=="ESTUDIANTE" && project_info.inscripciones!=null  
+    // && project_info.inscripciones.length>0){
+
+    //   const filtrado= project_info.inscripciones.filter((p)=>p.estudiante._id=== (userData._id+"")); 
+     
+    //   if(filtrado.length>0){
+    //     console.log("filtrado",filtrado);
+    //     let enviada= filtrado.filter((i)=> i.estado==="PENDIENTE");
+    //     console.log("recha", enviada);
+    //     if(enviada.length==0){
+    //       set_has_enroll(true);
+    //     }
+        
+    //   }
+    //  }
+    if(userData.rol=="ESTUDIANTE" && project_info.inscripciones!=null  
+    && project_info.inscripciones.length>0){
+
+      const filtrado= project_info.inscripciones.filter((p)=>p.estudiante._id===(userData._id+"")); 
+     
+      if(filtrado.length>0){
+        console.log("filtrado",filtrado);
+        let enviada= filtrado.filter((i)=> i.estado==="PENDIENTE" ||(i.estado==="ACEPTADO" && i.fechaEgreso==null) );
+        console.log("enviada", enviada);
+        if(enviada.length>0){
+          set_has_enroll(true);
+        }else{
+          set_has_enroll(false);
+        }
+        
+      }else{
+        set_has_enroll(false);
+      }
+     }
   if (project_info.estado === "INACTIVO") {
     setColorState("gray");
   }else{
@@ -56,25 +92,7 @@ const ProjectCardInfo = ({ project_info, already_enrolled,sent_enroll }) => {
   }
   }, [,project_info])
 
-      // let colorState = "green";
-  // let colorFase = "gray";
-  // if (project_info.estado === "INACTIVO") {
-  //   colorState = "gray"
 
-  // }
-  // if (project_info.fase === "TERMINADO") {
-  //   colorFase = "red"
-
-  // }
-
-  // if (project_info.fase === "INICIADO") {
-  //   colorFase = "blue"
-
-  // }
-  // if (project_info.fase === "DESARROLLO") {
-  //   colorFase = "yellow"
-
-  // }
 
   const aprobarProyecto = async () => {
     console.log("aprobar");
@@ -129,7 +147,7 @@ const ProjectCardInfo = ({ project_info, already_enrolled,sent_enroll }) => {
           </NavLink>
 
           <PrivateComponent roleList={['ESTUDIANTE']}>
-            {(!already_enrolled) &&
+            {(!has_enroll && !already_enrolled) &&
               <>{(card.estado === "ACTIVO" && (card.fase != "NULO" || card.fase != "TERMINADO")) &&
 
                 <button className="p-2 pl-4 pr-4 ml-2 bg-transparent border-2 border-blue-300

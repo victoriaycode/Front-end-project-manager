@@ -23,10 +23,11 @@ const ProjectsList = () => {
   const [viewToApprove, setViewToApprove] = useState(false);
 
   const [listProjectsStudent, setListProjectsStudent] = useState([]);
+
   const [filteredListStudent, setFilteredListStudent] = useState([]);
   const [viewOnlyStudent, setViewOnlyStudent] = useState(true);
   const [already_enrolled, setAlready_enrolled] = useState(false);
-  const [sent_enroll, set_Sent_enroll] = useState(false);
+  
   const [sortBy, setSortedBy] = useState("older");
 
   const idEstudiante = userData._id + "";
@@ -55,12 +56,7 @@ const ProjectsList = () => {
   const [buttonTodos2, setButtonTodos2] = useState("text-gray-700");
 
   const [searchBy, setSearchBy] = useState("");
-  // const viewStudentEnrolledProjects=()=>{
-  //   if(dataStudent!=null){
-  //     console.log(dataStudent.filtrarInscripcionesPorEstudiante.Proyectos)
-  //   }
-
-  // }
+ 
   useEffect(() => {
     if (!loadingLider && dataLider) {
       setListProjectsLider(dataLider.filtrarProyectoPorLider);
@@ -68,30 +64,7 @@ const ProjectsList = () => {
       console.log("datalider", dataLider);
     }
   }, [dataLider])
-  // useEffect(() => {
-  //   if (!loadingStudent) {
-  //     console.log('data estudiante', dataStudent);
-  //     if (userData && dataStudent) {
-  //       const flt = dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado === "ACEPTADO" && el.fechaEgreso == null);
-  //       if (flt.length > 0) {
-  //         setAlready_enrolled(true);
-  //       } else {
-  //         setAlready_enrolled(false);
-  //       }
-  //       if(dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado !== "ACEPTADO" )){
-  //         set_Sent_enroll(true);
 
-  //       }else{ set_Sent_enroll(false);};
-  //       setListProjectsStudent(flt);
-  //       setFilteredListStudent(flt);
-  //       // setListProjectsStudent(dataStudent.filtrarInscripcionesPorEstudiante);
-  //       // setFilteredListStudent(dataStudent.filtrarInscripcionesPorEstudiante);
-  //     }
-
-
-
-  //   }
-  // }, [dataStudent]);
   
   useEffect(() => {
     if (!loadingStudent && dataStudent)  {
@@ -103,32 +76,19 @@ const ProjectsList = () => {
         } else {
           setAlready_enrolled(false);
         }
-        // if(dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado !== "ACEPTADO" )){
-        //   set_Sent_enroll(true);
-
-        // }else{ set_Sent_enroll(false);};
+    
         setListProjectsStudent(flt);
         setFilteredListStudent(flt);
-        // setListProjectsStudent(dataStudent.filtrarInscripcionesPorEstudiante);
-        // setFilteredListStudent(dataStudent.filtrarInscripcionesPorEstudiante);
       }
-
-
 
     }
   }, [dataStudent]);
   useEffect(() => {
     if (!loading  && dataProjects) {
-      // if(role==="ESTUDIANTE"  ){
-      //   let filtrarNoInscripciones= 
-      //   dataProjects.Proyectos.filter(proj=>
-      //   proj.inscripciones.some(i=>i.estudiante._id!==userData._id)
-      //   ).map(proj =>proj);
-      //   console.log("filtrar", filtrarNoInscripciones);
-      // }
      
       setListProjects(dataProjects.Proyectos);
       setFilteredList(dataProjects.Proyectos);
+    
       }
      
 
@@ -331,8 +291,10 @@ const ProjectsList = () => {
             <PrivateComponent roleList={['ESTUDIANTE']}>
               <>
                 {viewOnlyStudent && filteredListStudent.length === 0 &&
-                  <div className="flex  ml-5">
-                    <span className='ml-3 text-lg text-gray-600'> Querido Estudiante, <br />NO TIENES INSCRIPCIONES APROBADAS NI VIGENTES.</span>
+                  <div className="flex  ml-5 mt-10 bg-white h-48 flex flex-col">
+                    <span className='ml-3 text-lg text-gray-500 my-4 font-bold'> Querido Estudiante, 
+                   </span> 
+                   <span className='ml-3 text-lg text-blue-600 '><br />NO TIENES PROYECTOS  <br/>con inscripciones <br/>aceptadas o vigentes.</span>
 
                   </div>}
                 {viewOnlyStudent && filteredListStudent!=null && filteredListStudent.map((project_info) => {
@@ -345,7 +307,7 @@ const ProjectsList = () => {
 
                 {!viewOnlyStudent && filteredList!=null && filteredList.map((project_info) => {
                   return (
-                    <ProjectCardInfo key={project_info._id} sent_enroll={false} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
+                    <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
                 })}
 

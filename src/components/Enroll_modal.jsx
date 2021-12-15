@@ -49,7 +49,7 @@ const Enroll_modal = ({ idProyecto, name_project, setOpenModalEnroll }) => {
         <ButtonLoading
           onClick={() => confirmarInscripcion()}
           loading={loading}
-          className={'bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white'}
+          className={'bg-blue-600 hover:bg-blue-700 px-3 py-1 h-10 mr-2 rounded-xl text-white'}
           text='Confirmar'
         />
         {/* )} */}

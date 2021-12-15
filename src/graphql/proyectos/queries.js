@@ -19,6 +19,8 @@ query Proyectos {
     fechaFin
 
     inscripciones{
+      estado
+      fechaEgreso
       estudiante{
         _id
       }
