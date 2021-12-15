@@ -24,17 +24,17 @@ import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@ap
 
 import Index1 from 'pages/inicio/Index1';
 import Inscriptions from 'pages/inscriptions/Inscriptions';
-import PrivateRoute from 'components/PrivateRoute';
+
 
 import Info from 'pages/projects/Info';
 
-//  const httpLink = createHttpLink({
-//    uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
-//  });
+ const httpLink = createHttpLink({
+   uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
+ });
 
-const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
-});
+// const httpLink = createHttpLink({
+//   uri: 'http://localhost:4000/graphql',
+// });
 
 
 //doc. apollo client
