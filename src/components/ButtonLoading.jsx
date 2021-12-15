@@ -8,8 +8,9 @@ const ButtonLoading = ({ className, disabled, loading, text, onClick=()=>{} }) =
       disabled={disabled}
       type='submit'
       className={className}
+      data-testid='button-loading'
     >
-      {loading ? <ReactLoading type='spin' height={20} width={20} /> : text}
+      {loading ? <ReactLoading data-testid='loading-in-button' type='spin' height={20} width={20} /> : text}
     </button>
   );
 };

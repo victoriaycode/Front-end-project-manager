@@ -88,7 +88,7 @@ const AccordionInscripcion = ({ data, titulo, refetch = () => {} }) => {
     );
   };
 
-const Inscripcion = ({ inscripcion, refetch,role }) => {
+const Inscripcion = ({ inscripcion, refetch, role }) => {
     const [aprobarInscripcion, { data, loading, error }] = useMutation(APROBAR_INSCRIPCION);
     const [rechazarInscripcion, { data: mutationData, loading: loadingData, error: errorData }] = useMutation(RECHAZAR_INSCRIPCION);
   
@@ -131,7 +131,7 @@ const Inscripcion = ({ inscripcion, refetch,role }) => {
         <span className='font-ligth text-xs'>{inscripcion.estudiante.correo}</span>
         </div>
        
-        {inscripcion.estado === 'PENDIENTE' && (
+        {inscripcion.estado === 'PENDIENTE' && role==='LIDER' && (
         <>
         <div className='flex mt-auto justify-between'>
           <ButtonLoading
