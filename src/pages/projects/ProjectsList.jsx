@@ -15,12 +15,9 @@ import { nanoid } from 'nanoid'
 const ProjectsList = () => {
   const { userData } = useUser();
   const role = "" + userData.rol;
-  
+
   const [listProjects, setListProjects] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
-  
-  const [listProjectsForApprove, setListProjectsForApprove] = useState([]);
-  const [filteredListApprove, setFilteredListApprove] = useState([]);
 
   const [listProjectsLider, setListProjectsLider] = useState([]);
   const [filteredListLider, setFilteredListLider] = useState([]);
@@ -30,7 +27,7 @@ const ProjectsList = () => {
   const [filteredListStudent, setFilteredListStudent] = useState([]);
   const [viewOnlyStudent, setViewOnlyStudent] = useState(true);
   const [already_enrolled, setAlready_enrolled] = useState(false);
-  
+
   const [sortBy, setSortedBy] = useState("older");
 
   const idEstudiante = userData._id + "";
@@ -40,7 +37,7 @@ const ProjectsList = () => {
   const [openModalEnroll, setOpenModalEnroll] = useState(false);
 
   const [openModalEdit, setOpenModalEdit] = useState(false);
-  const { data: dataProjects, error, loading, refetch } = useQuery(GET_PROJECTS_CARDS);
+  const { data: dataProjects, error, loading, refetch:refetchProjects } = useQuery(GET_PROJECTS_CARDS);
   const { data: dataStudent, error: errorStudent, loading: loadingStudent, refetch: refetchStudent }
     = useQuery(GET_STUDENT_PROJECTS_ENROLLED, {
       variables: {
@@ -59,7 +56,7 @@ const ProjectsList = () => {
   const [buttonTodos2, setButtonTodos2] = useState("text-gray-700");
 
   const [searchBy, setSearchBy] = useState("");
- 
+
   useEffect(() => {
     if (!loadingLider && dataLider) {
       setListProjectsLider(dataLider.filtrarProyectoPorLider);
@@ -68,9 +65,9 @@ const ProjectsList = () => {
     }
   }, [dataLider])
 
-  
+
   useEffect(() => {
-    if (!loadingStudent && dataStudent)  {
+    if (!loadingStudent && dataStudent) {
       console.log('data estudiante', dataStudent);
       if (userData && dataStudent) {
         const flt = dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado === "ACEPTADO" && el.fechaEgreso == null);
@@ -79,27 +76,38 @@ const ProjectsList = () => {
         } else {
           setAlready_enrolled(false);
         }
-    
+
         setListProjectsStudent(flt);
         setFilteredListStudent(flt);
       }
 
     }
   }, [dataStudent]);
+
   useEffect(() => {
-    if (!loading  && dataProjects) {
-     
+    refetchStudent();
+    
+  }, [viewOnlyStudent]);
+
+  useEffect(() => {
+    refetchLider();
+    refetchProjects();
+  }, [viewToApprove]);
+  useEffect(() => {
+    if (!loading && dataProjects) {
+
       setListProjects(dataProjects.Proyectos);
       setFilteredList(dataProjects.Proyectos);
-    
-      }
-     
+
+    }
+
     console.log('data servidor', dataProjects);
 
   }, [dataProjects]);
 
+
   useEffect(() => {
-    if (!loading  && listProjects ) {
+    if (!loading && listProjects) {
       setFilteredList(
         listProjects.filter((elemento) => {
           return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
@@ -107,22 +115,24 @@ const ProjectsList = () => {
       );
     }
     if (role === "LIDER") {
-      if (!loadingLider  && listProjectsLider ) {
-      setFilteredListLider(
-        listProjectsLider.filter((elemento) => {
-          return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
-        })
-      );
-    }}
+      if (!loadingLider && listProjectsLider) {
+        setFilteredListLider(
+          listProjectsLider.filter((elemento) => {
+            return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
+          })
+        );
+      }
+    }
 
     if (role === "ESTUDIANTE") {
-      if (!loadingStudent  && listProjectsStudent ) {
-      setFilteredListStudent(
-        listProjectsStudent.filter((elemento) => {
-          return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
-        })
-      );
-    }}
+      if (!loadingStudent && listProjectsStudent) {
+        setFilteredListStudent(
+          listProjectsStudent.filter((elemento) => {
+            return JSON.stringify(elemento).toLowerCase().includes(searchBy.toLowerCase());
+          })
+        );
+      }
+    }
   }, [searchBy, ProjectsList, listProjectsLider, listProjectsStudent])
 
   useEffect(() => {
@@ -182,9 +192,14 @@ const ProjectsList = () => {
   }, [loading]);
 
   useEffect(() => {
-    refetch();
+  
     if (openModalEnroll) {
       refetchStudent();
+      refetchProjects();
+    }
+    if (openModalEdit) {
+      refetchLider();
+      refetchProjects();
     }
   }, [openModalEdit, openModalEnroll]);
   // if (loading) return <div>Cargando....</div>;
@@ -277,12 +292,12 @@ const ProjectsList = () => {
                  pt-2 align-center justify-center ">
 
             <PrivateComponent roleList={['ADMINISTRADOR']}>
-              <> {!viewToApprove && filteredList!=null && filteredList.map((project_info) => {
+              <> {!viewToApprove && filteredList != null && filteredList.map((project_info) => {
                 return (
-                  <ProjectCardInfo key={nanoid()} project_info={project_info}  setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
+                  <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                 );
               })}
-                {viewToApprove && filteredList!=null  && filteredList.filter((el) => (el.estado === "INACTIVO" && el.fase === "NULO")).map((project_info) => {
+                {viewToApprove && filteredList != null && filteredList.filter((el) => (el.estado === "INACTIVO" && el.fase === "NULO")).map((project_info) => {
                   return (
                     <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
@@ -294,12 +309,12 @@ const ProjectsList = () => {
               <>
                 {viewOnlyStudent && filteredListStudent.length === 0 &&
                   <div className="rounded-2xl  ml-5 mt-10 bg-white h-48 flex flex-col">
-                    <span className='ml-3 text-lg text-gray-500 my-4 font-bold '> Querido Estudiante, 
-                   </span> 
-                   <span className='ml-3 text-lg text-blue-600 '><br />NO TIENES PROYECTOS  <br/>con inscripciones <br/>aceptadas o vigentes.</span>
+                    <span className='ml-3 text-lg text-gray-500 my-4 font-bold '> Querido Estudiante,
+                    </span>
+                    <span className='ml-3 text-lg text-blue-600 '><br />NO TIENES PROYECTOS  <br />con inscripciones <br />aceptadas o vigentes.</span>
 
                   </div>}
-                {viewOnlyStudent && filteredListStudent!=null && filteredListStudent.map((project_info) => {
+                {viewOnlyStudent && filteredListStudent != null && filteredListStudent.map((project_info) => {
                   return (
                     <ProjectCardInfo key={nanoid()} project_info={project_info.proyecto}
                       setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit}
@@ -307,7 +322,7 @@ const ProjectsList = () => {
                   );
                 })}
 
-                {!viewOnlyStudent && filteredList!=null && filteredList.map((project_info) => {
+                {!viewOnlyStudent && filteredList != null && filteredList.map((project_info) => {
                   return (
                     <ProjectCardInfo key={project_info._id} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
@@ -318,7 +333,7 @@ const ProjectsList = () => {
 
             <PrivateComponent roleList={['LIDER']}>
               <>
-                {dataLider &&filteredListLider!=null && filteredListLider.map((project_info) => {
+                {dataLider && filteredListLider != null && filteredListLider.map((project_info) => {
                   return (
                     <ProjectCardInfo key={nanoid()} project_info={project_info} setOpenModalEnroll={setOpenModalEnroll} setOpenModalEdit={setOpenModalEdit} ></ProjectCardInfo>
                   );
