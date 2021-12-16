@@ -14,19 +14,6 @@ const Enroll_modal = ({ idProyecto, name_project, setOpenModalEnroll }) => {
 
     const { userData } = useUser();
     const [crearInscripcion, { data, loading, error }] = useMutation(CREAR_INSCRIPCION,{refetchQueries:[{ query: GET_STUDENT_PROJECTS_ENROLLED, query: GET_PROJECTS_CARDS }]});
-    // const [crearInscripcion, { data, loading, error }] = useMutation(CREAR_INSCRIPCION);
-   
-    // const [estadoInscripcion, setEstadoInscripcion] = useState('');
-
-
-    // useEffect(() => {
-    //   if (userData && inscripciones) {
-    //     const flt = inscripciones.filter((el) => el.estudiante._id === userData._id);
-    //     if (flt.length > 0) {
-    //       setEstadoInscripcion(flt[0].estado);
-    //     }
-    //   }
-    // }, [userData, inscripciones]);
 
     useEffect(() => {
       if (data) {
@@ -43,23 +30,21 @@ const Enroll_modal = ({ idProyecto, name_project, setOpenModalEnroll }) => {
 
     return (
       <>
-        {/* {estadoInscripcion !== '' ? (
-          <span>Ya estas inscrito en este proyecto y el estado es {estadoInscripcion}</span>
-        ) : ( */}
+
         <ButtonLoading
           onClick={() => confirmarInscripcion()}
           loading={loading}
           className={'bg-blue-600 hover:bg-blue-700 px-3 py-1 h-10 mr-2 rounded-xl text-white'}
           text='Confirmar'
         />
-        {/* )} */}
+
       </>
     );
   };
 
   return (
 
-    <div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-20">
+    <div data-testid='enroll-modal' className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-20">
 
       <div className="bg-white rounded-2xl shadow-lg w-10/12 md:w-1/3">
 
