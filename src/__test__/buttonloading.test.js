@@ -1,7 +1,8 @@
 import React from 'react';
 import ButtonLoading from 'components/ButtonLoading';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 
+afterEach(cleanup);
 
 it('renders okay', () => {
   render(<ButtonLoading text='hola' loading={false} disabled={false} />);
