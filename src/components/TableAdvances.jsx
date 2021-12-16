@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom';
 import PrivateComponent from 'components/PrivateComponent';
 import moment from "moment";
 import 'moment/locale/es';
+import { TextareaAutosize } from '@material-ui/core';
 
 const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, setNumAdvances, openNewAdvanceModal }) => {
 
@@ -67,7 +68,31 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
     useEffect(() => {
         refetch()
     }, [openNewAdvanceModal]);
-
+    
+    const AdvanceCard = ({enroll}) => {
+        return (
+            <div className="flex flex-col h-36 rounded-2xl transform transition duration-200  shadow-xl  hover:scale-110 ">
+              <NavLink to={`/proyectos/proyecto/avances/n/${idProject}/${enroll._id}`}>
+            
+              <div className="flex flex-row gap-2 justify-center    px-4 py-2  align-center bg-blue-600 hover:bg-blue-800">
+              <span className='text-yellow-300'><i className="fas fa-paperclip fa-lg"></i></span>
+                <p className="text-base text-white -w30 truncate font-mono text-center pb-1 font-bold   ">{enroll.titulo} </p>
+                </div>
+              </NavLink>
+                
+            <div className="flex flex-col   bg-white  p-2   ">
+           <p className="bg-blue-50 px-2 py-4 truncate text-sm "  disabled>
+               {enroll.descripcion}
+           </p>
+            <div className='border-t-2 flex-row mt-2 text-center'>
+            <span className='text-xs text-blue-800'>Por: {enroll.creadoPor.nombre}     {enroll.creadoPor.apellido}</span>
+            <span className='text-xs ml-4 italic truncate'>    {moment(enroll.fecha).format('DD/MM/YY hh:mm a')}</span>
+            </div>
+            
+            </div>
+            </div>
+        )
+    }
     const RowAdvance = ({ enroll }) => {
         return (
             <tr className="hover:bg-gray-100">
@@ -142,7 +167,7 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
                 </div>
 
                 <div className="h-full w-ful px-0 px-5 ">
-                    <div className="w-full xl:w-12/12 mb-12 xl:mb-0 px-4 mx-auto mt-10">
+                    <div className="w-full xl:w-12/12 mb-4 xl:mb-0 px-4 mx-auto mt-6">
                         <div className="rounded-t mb-0 px-4 py-3 border-0">
                             <div className="flex flex-wrap items-center ">
                                 <div className="relative w-full px-2 max-w-full flex-grow flex-1   ">
@@ -163,11 +188,11 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
                                     El proyecto está TERMINADO. </span>}
                             </div>
                         </div>
-                        <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
+                      {/*    <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
 
 
                             <div className=" w-full  h-96  overflow-x-auto overflow-y-scroll ">
-                                <table className="items-center bg-transparent w-full border-collapse   ">
+                               <table className="items-center bg-transparent w-full border-collapse   ">
                                     <thead   >
                                         <tr>
                                             <th className="sticky top-0 px-6 bg-blue-100  text-blue-800 align-middle py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
@@ -188,7 +213,7 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
                 * 
                  <th className="sticky top-0 px-6 bg-gray-200 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Última modificación
-                </th>*/}
+                </th>
                                         </tr>
                                     </thead>
 
@@ -201,9 +226,21 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
                                         })}
                                     </tbody>
 
-                                </table>
+                                </table> 
                             </div>
-                        </div>
+                        </div>*/}
+                          <div className="relative flex flex-col min-w-0 break-words  w-full  mb-6  rounded ">
+                        <div className="flex flex-auto    overflow-y-scroll justify-center align-center w-full  h-96  overflow-x-auto overflow-y-scroll ">
+          <div className="flex-auto px-6  grid lg:grid-cols-4 mg:grid-cols-2 sd:grid-cols-1 pt-8  
+                t-0 gap-y-8  gap-x-8
+                 pt-2  pb-2 align-center justify-center ">
+                    {AdListFiltered.map((enroll) => {
+                                            return (
+                                                <AdvanceCard key={nanoid()} enroll={enroll} />
+                                            );
+                                        })}
+                     </div></div>
+                     </div>
                     </div>
                 </div>
             </div>

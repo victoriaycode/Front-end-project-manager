@@ -133,7 +133,7 @@ const Info = () => {
 
 
                 <ProjectNavbar _idActual={_id} rutaRetorno={'/proyectos'} nombreProject={nombreproyecto} />
-                <div className=" h-5/6 flex flex-rows px-2  mb-5 mt-2" >
+                <div className=" h-5/6 flex flex-rows px-2   mt-2" >
                     {rolUser == "LIDER" && idLider !== infoProject.filtrarProyecto.lider._id &&
                         <div className='w-full h-full  flex flex-col px-60  justify-center text-blue-600 '>
                             <i className="fas fa-user-lock fa-4x" ></i>
@@ -145,7 +145,7 @@ const Info = () => {
                     {/* {(rolUser=="LIDER"  && idLider===infoProject.filtrarProyecto.lider._id ) && rolUser=="ESTUDIANTE" || rolUser=="ADMINISTRADOR" &&<> */}
 
                     {(idLider === infoProject.filtrarProyecto.lider._id || rolUser === "ESTUDIANTE" || rolUser === "ADMINISTRADOR") && <>
-                        <div className="bg-white h-full   py-2 px-4 align-center rounded-2xl mt-1  flex flex-col
+                        <div className="bg-white h-screen   py-2 px-4 align-center rounded-2xl mt-1  flex flex-col
               gap-2 border-solid border-2 border-gray-300 ">
 
                             <div className=" m-2  ">
@@ -183,7 +183,7 @@ const Info = () => {
 
 
                             </div>
-                            <div className="m-2     ">
+                            <div className="mb-2  mt-0 mx-2  ">
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">ID PROYECTO</span>
                                 <span className="px-8 rounded-r-lg bg-white w-20  text-gray-600 font-bold p-2  border-blue-500 border-t border-b  border-r">
@@ -285,7 +285,7 @@ const Info = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white flex-auto py-2 px-4 align-center rounded-2xl my-1 flex flex-col
+                        <div className="bg-white h-screen flex-auto py-2 px-4 align-center rounded-2xl my-1 flex flex-col
               gap-2 border-solid border-2 border-gray-300  ">
                             <div className="flex flex-row justify-between pt-2 mt-8 border-blue-500 border-b   ">
                                 <span className="px-8 my-2 rounded-r-lg  text-blue-800 font-bold p-3 text-xl   uppercase">Objetivos</span>
