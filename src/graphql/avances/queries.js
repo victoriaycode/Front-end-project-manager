@@ -7,6 +7,7 @@ query FiltrarAvance($idProject: String!) {
   filtrarAvance(idProject: $idProject) {
       _id
       titulo
+      descripcion
       creadoPor {
         nombre
         apellido
