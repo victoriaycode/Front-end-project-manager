@@ -209,7 +209,7 @@ const ProjectsList = () => {
   return (
     <PrivateRoute roleList={['ADMINISTRADOR', 'LIDER', 'ESTUDIANTE']} >
 
-      <div className="w-full h-full flex flex-col  overflow-y-hidden overflow-x-hidden pl-20 pr-20" >
+      <div className="w-full h-full flex flex-col  overflow-y-hidden overflow-x-hidden p-10 pr-10" >
 
         {role == "LIDER" &&
           <NavLink to="/proyectos/nuevo">
@@ -250,10 +250,10 @@ const ProjectsList = () => {
                 <i className="fas fa-info-circle w-auto" ></i> Sin Aprobar
               </button></></PrivateComponent>
           </div>
-          <div className="flex flex-row ml-2">
+          <div className="flex flex-row ml-4">
             <div className="flex flex-row  flex-center">
 
-              <div className="  flex justify-center items-center px-2 sm:px-4 ml-14">
+              <div className="  flex justify-center items-center px-2 sm:px-4 ">
                 {
                   <div className="relative">
 
