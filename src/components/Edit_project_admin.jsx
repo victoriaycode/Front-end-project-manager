@@ -4,6 +4,7 @@ import { Zoom } from '@material-ui/core';
 import { GET_PROJECTS_BY_LIDER } from 'graphql/proyectos/queries';
 import { EDIT_PROJECT_BY_ADMIN } from 'graphql/proyectos/queries';
 import useFormData from 'hooks/useFormData';
+import moment from 'moment';
 import React, { useState, useEffect } from 'react'
 
 const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin, initialState, initialFase, nombreProyecto, setOpenModalEdit }) => {
@@ -24,7 +25,7 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin, initialSt
     const submitChangeState = (e) => {
         e.preventDefault();
         if (formData.estado != null) {
-            if (formData.estado == "INACTIVO") {
+            if (formData.estado == "INACTIVO" && initialState!=="INACTIVO") {
                 formData.fechaFin = dateNow;
             }
             const edited = editProjectAdmin({
@@ -75,7 +76,7 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin, initialSt
                         <div className="flex flex-row justify-start  gap-10 mb-4 px-20 text-lg pb-2">
                             <span className="font-bold pt-2">Estado Actual:<span className="text-blue-800 font-bold text-2xl ml-2"> {initialState}</span></span>
                             {!cambiarEstado &&
-                                <button type="button" class="text-white bg-blue-700 
+                                <button type="button" className="text-white bg-blue-700 
                             hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 mb-3 
                             dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     onClick={() => setCambiarEstado(true)}>
@@ -163,9 +164,9 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin, initialSt
                         <span className="text-gray-800 ml-4" >Nota: Sólo se podrá terminar un proyecto cuando este en fase de desarrollo. </span>
                         <div className="flex flex-col mt-2">
                             <span className="text-blue-800 ml-4" >Fecha de Inicio:
-                                <span className="text-gray-700 ml-4">{fechaInicio === null ? (" Sin fecha aún") : (" " + fechaInicio)}</span></span>
+                                <span className="text-gray-700 ml-4">{fechaInicio === null ? (" Sin fecha aún") : (" " + moment(fechaInicio).format('DD/MM/YY hh:mm a'))}</span></span>
                             <span className="text-blue-800 ml-4" >Fecha de Terminación:
-                                <span className="text-gray-700 ml-4">{fechaFin === null ? (" Sin fecha aún") : (" " + fechaFin)}</span></span>
+                                <span className="text-gray-700 ml-4">{fechaFin === null ? (" Sin fecha aún") : (" " + moment(fechaFin).format('DD/MM/YY hh:mm a'))}</span></span>
                         </div>
 
                     </div>

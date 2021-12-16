@@ -261,7 +261,7 @@ const Info = () => {
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i class="far fa-calendar-alt fa-lg "></i>  FECHA CREACIÓN</span>
-                                <span className="px-8 rounded-r-lg bg-white w-20  text-gray-400 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
+                                <span className="px-8 rounded-r-lg bg-white w-20  text-gray-500 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
                                     {infoProject.filtrarProyecto.fechaCreacion != "" ?         moment(infoProject.filtrarProyecto.fechaCreacion).format('DD/MM/YY hh:mm a') : ("SIN FECHA AÚN")}  </span>
 
 
@@ -270,7 +270,7 @@ const Info = () => {
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i class="far fa-calendar-alt fa-lg "></i> FECHA INICIO</span>
-                                <span className="px-8 rounded-r-lg bg-white w-20  text-gray-400 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
+                                <span className="px-8 rounded-r-lg bg-white w-20  text-gray-500 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
                                     {infoProject.filtrarProyecto.fechaInicio != null ? moment(infoProject.filtrarProyecto.fechaInicio).format('DD/MM/YY hh:mm a'): ("SIN FECHA AÚN")}  </span>
 
 
@@ -279,7 +279,7 @@ const Info = () => {
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i class="far fa-calendar-alt fa-lg "></i> FECHA TERMINACIÓN</span>
-                                <span className="px-8 rounded-r-lg bg-white w-40  text-gray-400 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
+                                <span className="px-8 rounded-r-lg bg-white w-40  text-gray-500 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
                                     {infoProject.filtrarProyecto.fechaFin != null ?moment(infoProject.filtrarProyecto.fechaFin).format('DD/MM/YY hh:mm a') : ("SIN FECHA AÚN")}  </span>
 
                             </div>

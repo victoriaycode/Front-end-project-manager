@@ -15,6 +15,8 @@ import 'moment/locale/es';
 import PrivateRoute from 'components/PrivateRoute';
 import { useUser } from 'context/userContext';
 import { nanoid } from 'nanoid';
+import PrivateComponent from 'components/PrivateComponent'
+
 
 
 const Inscriptions = () => {
@@ -131,8 +133,8 @@ const Inscripcion = ({ inscripcion, refetch, role }) => {
         <span className='font-ligth text-xs'>{inscripcion.estudiante.correo}</span>
         </div>
        
-        {inscripcion.estado === 'PENDIENTE' && role==='LIDER' && (
-        <>
+        {inscripcion.estado === 'PENDIENTE'  && (
+        <>  <PrivateComponent roleList={['LIDER']}>
         <div className='flex mt-auto justify-between'>
           <ButtonLoading
             onClick={() => {
@@ -152,28 +154,28 @@ const Inscripcion = ({ inscripcion, refetch, role }) => {
             disabled={false}
             className={'w-20 text-sm text-white rounded-md border-none bg-red-500   mt-auto hover:bg-red-700'} />
         </div>
-          </>
+         </PrivateComponent> </>
         )}
          {inscripcion.estado === 'ACEPTADO' && (
            
            <div><>
            <span className='font-semibold text-sm mt-auto '>Fecha ingreso:</span>
-           <span className="text-xs">{moment(inscripcion.fechaIngreso).format('DD/MM/YY hh:mm:ss a')}</span>
+           <span className="text-xs">{inscripcion.fechaIngreso!=null ?  moment(inscripcion.fechaIngreso).format('DD/MM/YY hh:mm:ss a'):""}</span>
            </>
            <>
            <span className='font-semibold text-sm mt-auto'><br/>Fecha Egreso:</span>
-           {inscripcion.fechaEgreso!=null ? <span className="text-xs">{moment(inscripcion.fechaEgreso).format('DD/MM/YY hh:mm:ss a')}</span>:(<></>)}
+           {inscripcion.fechaEgreso!=null ? <span className="text-xs">{inscripcion.fechaEgreso!=null ? moment(inscripcion.fechaEgreso).format('DD/MM/YY hh:mm:ss a'):""}</span>:(<></>)}
            </>
            </div>
          )
        }
-       {inscripcion.estado === 'RECHAZADO' && (
-           <>
-           <span className='font-semibold text-sm mt-auto'>Fecha gestión:</span>
-           <span className="text-xs">{moment(inscripcion.fechaEgreso).format('DD/MM/YY hh:mm:ss a')}</span>
-           </>
+       {/* {inscripcion.estado === 'RECHAZADO' && (
+          //  <>
+          //  <span className='font-semibold text-sm mt-auto'>Fecha gestión:</span>
+          //  <span className="text-xs">{moment(new Date()).format('DD/MM/YY hh:mm:ss a')}</span>
+          //  </>
          )
-       }
+       } */}
       </div>
       // </PrivateRoute>
     );

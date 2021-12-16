@@ -14,7 +14,7 @@ const New_Commentary = ({ _idAvance, setCancel }) => {
   // var options = { weekday: 'numeric', year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
   // const timeday = date.toLocaleDateString("es-US", options)+"";
   
-  const timeday= moment(new Date()).format('DD/MM/YY hh:mm a');
+  const timeday= moment(date).format('DD/MM/YY hh:mm a');
   const [comment, setComment] = useState("");
 
 
@@ -81,7 +81,7 @@ const New_Commentary = ({ _idAvance, setCancel }) => {
 
             <div className="flex mt-2 justify-between mx-3">
 
-              <p className="text-xs text-gray-500">{moment(timeday).format('DD/MM/YY hh:mm:ss a')}</p>
+              <p className="text-xs text-gray-500">{moment(date).format('DD/MM/YY hh:mm:ss a')}</p>
               <div>
 
                 <button className="px-4 py-1 bg-blue-700 text-white rounded font-light
