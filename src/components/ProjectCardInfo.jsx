@@ -70,23 +70,24 @@ const ProjectCardInfo = ({ project_info, already_enrolled }) => {
      }
   if (project_info.estado === "INACTIVO") {
     setColorState("gray");
-  }else{
+  }else if(project_info.estado === "ACTIVO"){
     setColorState("green");
   }
+  
   if (project_info.fase === "NULO") {
     setColorFase( "gray");
 
   }
-  if (project_info.fase === "TERMINADO") {
+  else if (project_info.fase === "TERMINADO") {
     setColorFase( "red");
 
   }
 
-  if (project_info.fase === "INICIADO") {
+  else if (project_info.fase === "INICIADO") {
     setColorFase("blue");
 
   }
-  if (project_info.fase === "DESARROLLO") {
+  else if (project_info.fase === "DESARROLLO") {
     setColorFase("yellow");
 
   }
