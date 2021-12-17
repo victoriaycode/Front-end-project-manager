@@ -47,7 +47,6 @@ const Advance = () => {
     if (data) {
 
       setAdvance(data.filtrarAvancePorId);
-      console.log("data avance", data);
     }
   }, [data]);
 
@@ -57,7 +56,7 @@ const Advance = () => {
       let apellido = data.filtrarAvancePorId.creadoPor.apellido;
       setCreatedBy(nombre + " " + apellido);
       setAdvance(data.filtrarAvancePorId);
-      console.log("data estado", data.filtrarAvancePorId);
+   
       if (data && data.filtrarAvancePorId.proyecto.estado == "INACTIVO"
         || data.filtrarAvancePorId.proyecto.fase == "TERMINADO") {
         setInactiveOrFinishedProject(true);
@@ -82,7 +81,7 @@ const Advance = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log("formdata", formData);
+   
     if (formData.titulo !== "" && formData.descripcion !== "") {
 
       const edit = editarAvance({
@@ -91,7 +90,7 @@ const Advance = () => {
 
 
       setEditable(false);
-      console.log("edit ", edit);
+   
 
 
 
@@ -99,13 +98,11 @@ const Advance = () => {
   };
   useEffect(() => {
     if (mutationData) {
-      console.log('Avance modificado correctamente');
 
     }
   }, [mutationData]);
   useEffect(() => {
     if (mutationError) {
-      console.log("error", mutationError);
       toast.error('Error modificando el avance');
     }
 

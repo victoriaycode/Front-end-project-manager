@@ -29,7 +29,6 @@ function Login() {
   };
 
   useEffect(() => {
-    console.log("data",dataMutation);
     if (dataMutation !=null) {
       if (dataMutation.login!=null) {
         setToken(dataMutation.login.token);
@@ -45,7 +44,7 @@ function Login() {
     console.log("error",mutationError);
   }, [mutationError]);
   return (
-    <div className='flex h-screen bg-blue-900'> 
+    <div  data-testid='login-page' className='flex h-screen bg-blue-900'> 
         <div className='flex flex-col h-screen bg-blue-800 text-white'>
             <form onSubmit={submitForm} onChange={updateFormData} ref={form} className='mx-24 mt-20'>
                 <h1 className='text-2xl font-bold'>¡Bienvenido!</h1>

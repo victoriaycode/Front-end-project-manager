@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 
 
 const Switch = ({autorizar,setAutorizar,posicionSwitch}) => {
-    console.log('posicionSwitch',posicionSwitch)
     
     return (
         posicionSwitch ?(

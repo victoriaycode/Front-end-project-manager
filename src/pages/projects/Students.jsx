@@ -45,20 +45,16 @@ const Students = () => {
             if(rolUser=="ESTUDIANTE"){
                 const estudianteInscrito= data.filtrarInscripcionesPorProyecto.
                 filter((p)=>p.estudiante._id===userData._id && p.fechaEgreso==null && p.estado=="ACEPTADO");
-                console.log("wws",estudianteInscrito);
                 if(estudianteInscrito.length>0){
                     setInscrito(true);
                 }
             }
-            // if(studentsList.filter((el)=> el.estado ==="PENDIENTE"){}
-            console.log("asda", studentsList);
-            console.log("datainscripciones", data);
         }
     }, [data]);
 
     useEffect(() => {
         if (!loadingProject) {
-            console.log("info", infoProject);
+          
             setNombreProyecto(infoProject.filtrarProyecto.nombre);
         }
         if (infoProject && infoProject.filtrarProyecto.lider._id === idLider) {

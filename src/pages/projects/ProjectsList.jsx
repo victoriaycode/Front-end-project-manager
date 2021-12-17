@@ -61,14 +61,14 @@ const ProjectsList = () => {
     if (!loadingLider && dataLider) {
       setListProjectsLider(dataLider.filtrarProyectoPorLider);
       setFilteredListLider(dataLider.filtrarProyectoPorLider);
-      console.log("datalider", dataLider);
+    
     }
   }, [dataLider])
 
 
   useEffect(() => {
     if (!loadingStudent && dataStudent) {
-      console.log('data estudiante', dataStudent);
+    
       if (userData && dataStudent) {
         const flt = dataStudent.filtrarInscripcionesPorEstudiante.filter((el) => el.estado === "ACEPTADO" && el.fechaEgreso == null);
         if (flt.length > 0) {
@@ -101,7 +101,6 @@ const ProjectsList = () => {
 
     }
 
-    console.log('data servidor', dataProjects);
 
   }, [dataProjects]);
 
@@ -136,12 +135,11 @@ const ProjectsList = () => {
   }, [searchBy, ProjectsList, listProjectsLider, listProjectsStudent])
 
   useEffect(() => {
-    console.log("sort", sortBy);
     if (filteredList !== null) {
 
 
       const lista = filteredList.slice(0).reverse();
-      console.log("sort", lista);
+ 
       setFilteredList(lista);
     }
     if (role == "LIDER") {
@@ -187,7 +185,7 @@ const ProjectsList = () => {
 
     } else {
 
-      console.log('data servidor', dataProjects);
+     
     }
   }, [loading]);
 
@@ -202,9 +200,6 @@ const ProjectsList = () => {
       refetchProjects();
     }
   }, [openModalEdit, openModalEnroll]);
-  // if (loading) return <div>Cargando....</div>;
-  // if (loadingStudent) return <div>Cargando....</div>;
-  // if (loadingLider) return <div>Cargando....</div>;
   if (loading || loadingStudent || loadingLider) return <div><ReactLoading type='spin' height={20} width={20} />Cargando...</div>
   return (
     <PrivateRoute roleList={['ADMINISTRADOR', 'LIDER', 'ESTUDIANTE']} >

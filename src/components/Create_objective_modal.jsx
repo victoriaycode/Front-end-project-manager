@@ -15,27 +15,22 @@ const Create_objective_modal = ({ setOpenEditObj, idProyecto }) => {
     useMutation(CREATE_NEW_OBJECTIVE);
 
   const createNewObjetive = async () => {
-    console.log("Guardando")
     if (newType !== "" && newDescripObj !== "") {
 
       let tipo = newType;
       let descripcion = newDescripObj;
 
       let g = { newType, newDescripObj };
-      console.log(g);
 
       let added = await addNewObjetive({
         variables: { idProyecto, tipo, descripcion },
       });
-      console.log("added objective", added);
       setOpenEditObj(false);
     } else {
-      console.error("Error creando avance. Escriba de nuevo", errorMutation);
     }
   };
   useEffect(() => {
 
-    console.log("error", errorMutation);
 
 
   }, [errorMutation]);

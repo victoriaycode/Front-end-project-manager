@@ -43,13 +43,11 @@ const AdvancesDashboard = () => {
   });
   useEffect(() => {
     if (!loadingEnroll && dataEnroll) {
-      console.log("dataEnroll", dataEnroll);
       if (dataEnroll.filtrarSiEstaInscrito) {
         setInscrito(true);
 
       } else {
         setInscrito(false);
-        console.log(" inscripcion null");
       }
 
     }
@@ -58,7 +56,6 @@ const AdvancesDashboard = () => {
   useEffect(() => {
     if (!loadingProject && infoProject) {
       setNombreProyecto("Avances: " + infoProject.filtrarProyecto.nombre);
-      console.log(" infoPr", infoProject);
       if (infoProject.filtrarProyecto.estado === "ACTIVO") {
         setActivo(true);
 

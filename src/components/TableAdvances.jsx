@@ -35,8 +35,7 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
 
             setAdvancesList(datalist.filtrarAvance);
             setAdListFiltered(datalist.filtrarAvance);
-            console.log("asda", listAdvances);
-            console.log("datalist", datalist);
+
 
             setNumAdvances(datalist.filtrarAvance.length);
 
@@ -54,12 +53,11 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
     }, [searchBy, listAdvances]);
 
     useEffect(() => {
-        console.log("sort", sortBy);
+       
         if (AdListFiltered !== null) {
 
 
             const lista = AdListFiltered.slice(0).reverse();
-            console.log("sort", lista);
             setAdListFiltered(lista);
         }
 

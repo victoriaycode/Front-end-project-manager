@@ -25,7 +25,6 @@ const Inscriptions = () => {
     const { data, error, loading, refetch } = useQuery(GET_INSCRIPCIONES);
     
     useEffect(() => {
-        console.log('data inscripciones', data);
     }, [data]);
     
     if (loading) return <div>Loading...</div>
