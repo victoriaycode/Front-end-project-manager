@@ -48,7 +48,6 @@ const Info = () => {
 
     const [isActived, setIsActive] = useState(false);
     useEffect(() => {
-        console.log('data Proyecto', infoProject);
         if (!loading && infoProject) {
 
             let proj = infoProject.filtrarProyecto;
@@ -71,7 +70,6 @@ const Info = () => {
 
 
         }
-        console.log("infoProject", infoProject);
     }, [infoProject]);
 
     const editNewTitle = async () => {
@@ -107,7 +105,6 @@ const Info = () => {
     useEffect(() => {
         if (mutationData) {
             // toast.success("Proyecto editado con éxito");
-            console.log('Proyecto editado correctamente');
 
         }
     }, [mutationData]);
@@ -118,7 +115,6 @@ const Info = () => {
     }, [createModal, deleteObjModal, editObjModal]);
     useEffect(() => {
         if (mutationError) {
-            console.log("error", mutationError);
             // toast.error('Error modificando el nombre proyecto');
         }
 

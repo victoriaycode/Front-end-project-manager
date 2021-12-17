@@ -46,7 +46,6 @@ const New_project = () => {
         formData.lider = lider;
         let presup = parseFloat(formData.presupuesto);
         formData.presupuesto = presup;
-        console.log("formdata", formData);
         createProject({
             variables: { ...formData },
         });
@@ -57,14 +56,12 @@ const New_project = () => {
     useEffect(() => {
         if (createdata) {
             setCreated(true);
-            console.log("proyecto agregado", createdata);
         }
     }, [createdata]);
 
     useEffect(() => {
         if (!loading) {
         }
-        console.log("Error", error);
     }, [error]);
 
     if (loading) return <div>Cargando....</div>;

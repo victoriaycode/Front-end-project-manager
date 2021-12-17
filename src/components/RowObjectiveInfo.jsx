@@ -19,13 +19,12 @@ const RowObjectiveInfo = ({ datarow, index, idProyecto, setDeleted, setEditObjMo
     useMutation(DELETE_OBJECTIVE);
 
   const deleteObjective = async () => {
-    console.log("borrando objetivo");
-    console.log("borrar", { datarow });
+   
     let idObjetivo = datarow._id;
     let deleted = await borrarObjetivo({
       variables: { idProyecto, idObjetivo },
     });
-    console.log("deleted", deleted);
+   
     setDeleteModal(false);
     setDeleted(true);
   }

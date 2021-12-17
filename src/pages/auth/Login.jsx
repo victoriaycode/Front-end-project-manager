@@ -29,7 +29,6 @@ function Login() {
   };
 
   useEffect(() => {
-    console.log("data",dataMutation);
     if (dataMutation !=null) {
       if (dataMutation.login!=null) {
         setToken(dataMutation.login.token);

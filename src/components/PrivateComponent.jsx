@@ -9,7 +9,7 @@ const PrivateComponent = ({ roleList, children }) => {
 
   } 
 
-  return <div data-testid='private-component-noauth'>NO ESTAS AUTORIZADO</div>;
+  return<></>;
 };
 
 export default PrivateComponent;

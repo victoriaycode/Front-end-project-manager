@@ -10,7 +10,6 @@ const ModalAutorizarUsuario = ({setOpenModal,_id}) => {
      
         variables: { _id,  },
       });
-      console.log('data usuario: ',queryData)
       const [autorizar, setAutorizar] = useState(false);
       const [state, setState] = useState('PENDIENTE');
       const [posicionSwitch, setPosicionSwitch] = useState(false);

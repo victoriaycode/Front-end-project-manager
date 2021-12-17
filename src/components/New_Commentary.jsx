@@ -22,7 +22,6 @@ const New_Commentary = ({ _idAvance, setCancel }) => {
     useMutation(ADD_NEW_OBSERVATION);
 
   const addNewObservation = async () => {
-    console.log("Guardando")
 
     if (comment !== "") {
 
@@ -31,11 +30,9 @@ const New_Commentary = ({ _idAvance, setCancel }) => {
         variables: { _idAvance, observacion },
       });
       setCancel(false);
-      console.log("data comentario ", dataMutation)
     }
   };
   useEffect(() => {
-    console.log("commentary ", comment)
   }, [comment])
 
   useEffect(() => {

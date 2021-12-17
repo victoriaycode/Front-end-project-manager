@@ -23,35 +23,24 @@ const New_advance_modal = ({ nameStudent, idStudent, idProject, setOpenModal, nu
 
   useEffect(() => {
 
-    console.log("idSt", idStudent);
-    console.log("idProj", idProject);
-
-
-  }, []);
-  useEffect(() => {
-
-    console.log("error", errorMutation);
 
 
   }, [errorMutation]);
 
   const addNewAdvance = async () => {
-    console.log("Guardando")
     if (titulo !== "" && descripcion !== "") {
       let proyecto = idProject;
       let creadoPor = idStudent;
       const fecha = date;
       let numAdvances = numAdvancesP + "";
       let g = { titulo, descripcion, fecha, proyecto, creadoPor };
-      console.log(g);
 
       let added = await addAdvance({
         variables: { titulo, descripcion, fecha, proyecto, creadoPor, numAdvances },
       });
-      console.log("added ", added);
       setOpenModal(false);
     } else {
-      console.error("Error creando avance. Escriba de nuevo", errorMutation);
+    
     }
   };
 

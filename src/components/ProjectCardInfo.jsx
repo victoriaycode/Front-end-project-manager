@@ -33,31 +33,14 @@ const ProjectCardInfo = ({ project_info, already_enrolled }) => {
   const [colorFase, setColorFase]= useState("gray");
 
   useEffect(() => {
-    // console.log("project_info",project_info);
-    // if(userData.rol=="ESTUDIANTE" && project_info.inscripciones!=null  
-    // && project_info.inscripciones.length>0){
-
-    //   const filtrado= project_info.inscripciones.filter((p)=>p.estudiante._id=== (userData._id+"")); 
-     
-    //   if(filtrado.length>0){
-    //     console.log("filtrado",filtrado);
-    //     let enviada= filtrado.filter((i)=> i.estado==="PENDIENTE");
-    //     console.log("recha", enviada);
-    //     if(enviada.length==0){
-    //       set_has_enroll(true);
-    //     }
-        
-    //   }
-    //  }
+  
     if(userData.rol=="ESTUDIANTE" && project_info.inscripciones!=null  
     && project_info.inscripciones.length>0){
 
       const filtrado= project_info.inscripciones.filter((p)=>p.estudiante._id===(userData._id+"")); 
      
       if(filtrado.length>0){
-        console.log("filtrado",filtrado);
         let enviada= filtrado.filter((i)=> i.estado==="PENDIENTE" ||(i.estado==="ACEPTADO" && i.fechaEgreso==null) );
-        console.log("enviada", enviada);
         if(enviada.length>0){
           set_has_enroll(true);
         }else{
@@ -95,15 +78,12 @@ const ProjectCardInfo = ({ project_info, already_enrolled }) => {
 
 
   const aprobarProyecto = async () => {
-    console.log("aprobar");
     let idProyecto = card._id;
-    console.log("idProyecto", idProyecto);
 
     const edit = editarProjectAdmin({
       variables: { idProyecto, "estado": "ACTIVO", "fase": "INICIADO", "fechaInicio": dateNow },
     });
     setAprobarModal(false);
-    console.log("edita", edit);
   }
 
 

@@ -48,11 +48,9 @@ const Edit_project_admin_modal = ({ idProyecto, fechaInicio, fechaFin, initialSt
     useEffect(() => {
 
 
-        console.log("editado", mutationData);
     }, [mutationData]);
     useEffect(() => {
 
-        console.log("error", mutationError);
 
 
     }, [mutationError]);

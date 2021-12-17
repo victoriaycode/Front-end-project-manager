@@ -13,27 +13,22 @@ const Edit_objective_modal = ({ setOpenEditObj, tipo, descrip, idProyecto, setEd
     useMutation(EDIT_OBJECTIVE);
 
   const editObjective = () => {
-    console.log("tp", newType);
-    console.log("desc", newDescripObj);
 
 
 
 
-    console.log("index aa", index);
 
     let tipo = newType;
     let descripcion = newDescripObj;
     let indexObjetivo = index;
     if (newDescripObj !== "") {
       let g = { idProyecto, indexObjetivo, tipo, descripcion };
-      console.log("g", g);
       const edit = editarObjetivo({
         variables: { idProyecto, indexObjetivo, tipo, descripcion },
       });
       setOpenEditObj(false);
       setEditObjModal(true);
 
-      console.log("edit obj", edit);
     }
   }
 
@@ -42,7 +37,6 @@ const Edit_objective_modal = ({ setOpenEditObj, tipo, descrip, idProyecto, setEd
 
   useEffect(() => {
 
-    console.log("error", mutationError);
 
   }, [mutationError]);
   if (mutationLoading) return <div>Cargando....</div>;

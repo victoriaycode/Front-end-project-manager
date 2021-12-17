@@ -17,7 +17,6 @@ const Enroll_modal = ({ idProyecto, name_project, setOpenModalEnroll }) => {
 
     useEffect(() => {
       if (data) {
-        console.log(data);
         toast.success('Inscripción creada con éxito');
         setOpenModalEnroll(false);
       }

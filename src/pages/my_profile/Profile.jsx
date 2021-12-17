@@ -27,9 +27,6 @@ const Profile = () => {
     variables: { _id },
   });
 
-  useEffect(() => {
-    console.log("data servidor", queryData);
-  }, [queryData]);
 
   const [
     edicion,
@@ -52,7 +49,6 @@ const Profile = () => {
   }; */
 
   const editarContrasena = () => {
-    console.log("Passs", nuevaPass);
     if (nuevaPass != "") {
       let password = nuevaPass;
       edicionContrasena({
@@ -63,7 +59,6 @@ const Profile = () => {
   };
 
   const submitForm = (e) => {
-    console.log("form data", formData);
 
     e.preventDefault();
     delete formData.rol;
