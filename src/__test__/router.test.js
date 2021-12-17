@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
 import { AuthContext } from 'context/authContext';
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router, Routes, Route } from 'react-router-dom';
-import Login from '../pages/auth/login';
+import Login from '../../pages/auth/login';
 import { ApolloProvider, ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 

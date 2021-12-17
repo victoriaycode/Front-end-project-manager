@@ -40,7 +40,7 @@ const Inscriptions = () => {
                   <AccordionInscripcion
                       key={nanoid()}
                       titulo='PENDIENTES'
-                      data={data.Inscripciones.filter((el)=> el.estado ==="PENDIENTE")}
+                      data={data.Inscripciones.filter((el)=> el.estado ==="PENDIENTE" && el.fechaEgreso===null)}
                       refetch={refetch}
                       role={role}
                       />
