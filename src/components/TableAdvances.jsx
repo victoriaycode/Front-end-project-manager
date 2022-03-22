@@ -69,7 +69,7 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
     
     const AdvanceCard = ({enroll}) => {
         return (
-            <div className="flex flex-col h-36 rounded-2xl transform transition duration-200  shadow-xl  hover:scale-110 ">
+            <div className="flex flex-col h-36 rounded-2xl transform transition duration-200  shadow-xl    hover:scale-110 ">
               <NavLink to={`/proyectos/proyecto/avances/n/${idProject}/${enroll._id}`}>
             
               <div className="flex flex-row gap-2 justify-center    px-4 py-2  align-center bg-blue-600 hover:bg-blue-800">
@@ -110,16 +110,7 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 ">
                     {moment(enroll.fecha).format('DD/MM/YY hh:mm a')}
                 </td>
-                {/* {
-                    editable ? (<>
-                   <td>
-                       <Toggle></Toggle>
-                   </td>
-                    </>) : (<>
-                        <td className="border-t-0 px-6  align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-2 ">
-                            {student.estado} </td>
-                    </>)
-                } */}
+          
 
 
                 <td>
@@ -139,12 +130,12 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
 
 
             <div className="w-full h-full flex flex-col overflow-y-hidden " >
-                <div className="flex flex-row  ml-0 justify-start mt-8">
-                    <div className="  flex justify-center items-center px-2 sm:px-4 ml-14">
+                <div className="flex flex-row  ml-0 justify-start mt-4">
+                    <div className="  flex justify-center items-center px-2 sm:px-4 ">
 
                         <div className="relative">
 
-                            <input type="text" className="h-12 w-72 pr-8 pl-5   rounded-2xl z-0 focus:shadow focus:outline-none"
+                            <input type="text" className="h-10 w-72 px-5  rounded-2xl z-0 focus:shadow focus:outline-none"
                                 value={searchBy} onChange={(e) => setSearchBy(e.target.value)} placeholder="Buscar por titulo avance" />
                             <div className="absolute top-3 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
                             </div>
@@ -164,8 +155,8 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
                     </div>
                 </div>
 
-                <div className="h-full w-ful px-0 px-5 ">
-                    <div className="w-full xl:w-12/12 mb-4 xl:mb-0 px-4 mx-auto mt-6">
+                <div className="h-full w-ful  px-5 ">
+                    <div className="w-full xl:w-12/12 mb-4 xl:mb-0 px-2 mx-auto ">
                         <div className="rounded-t mb-0 px-4 py-3 border-0">
                             <div className="flex flex-wrap items-center ">
                                 <div className="relative w-full px-2 max-w-full flex-grow flex-1   ">
@@ -174,8 +165,8 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
                                 </div>
                                 <PrivateComponent roleList={['ESTUDIANTE']}>
                                     {/* { infoProject && infoProject.filtrarProyecto.estado==="ACTIVO" && <> */}
-                                    {activeProject && <><button className="p-2 pl-5 pr-5 ml-2 bg-transparent border-2 border-blue-400
-                 text-blue-800 text-sm rounded-lg hover:bg-gray-100 hover:text-blue-800 
+                                    {activeProject && <><button className="p-2 px-5 ml-2 bg-transparent border-2 border-blue-400
+                 text-blue-800  rounded-lg hover:bg-gray-100 hover:text-blue-800 
                   hover:border-gray-500 text-base font-bold
                  focus:border-4 focus:border-blue-300 transform transition duration-300 "
                                         onClick={() => { setModal(true) }}>Nuevo Avance</button></>}
@@ -186,52 +177,12 @@ const TableAdvances = ({ idProject, setModal, activeProject, finishedProject, se
                                     El proyecto está TERMINADO. </span>}
                             </div>
                         </div>
-                      {/*    <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
-
-
-                            <div className=" w-full  h-96  overflow-x-auto overflow-y-scroll ">
-                               <table className="items-center bg-transparent w-full border-collapse   ">
-                                    <thead   >
-                                        <tr>
-                                            <th className="sticky top-0 px-6 bg-blue-100  text-blue-800 align-middle py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                                Id
-                                            </th>
-                                            <th className="sticky top-0 px-6 bg-blue-100  text-blue-800 align-middle flex-auto  py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                                Avance
-                                            </th>
-
-                                            <th className="sticky top-0 px-3 bg-blue-100  text-blue-800   align-middle  py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                                Creado por
-                                            </th>
-                                            <th className="sticky top-0 px-6 bg-blue-100 text-blue-800  align-middle py-3 text-base uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                                Fecha de creación
-                                            </th>
-
-                                            {/**
-                * 
-                 <th className="sticky top-0 px-6 bg-gray-200 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Última modificación
-                </th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                        {AdListFiltered.map((enroll) => {
-                                            return (
-                                                <RowAdvance key={nanoid()} enroll={enroll} />
-                                            );
-                                        })}
-                                    </tbody>
-
-                                </table> 
-                            </div>
-                        </div>*/}
+              
                           <div className="relative flex flex-col min-w-0 break-words  w-full  mb-6  rounded ">
-                        <div className="flex flex-auto    overflow-y-scroll justify-center align-center w-full  h-96  overflow-x-auto overflow-y-scroll ">
-          <div className="flex-auto px-6  grid lg:grid-cols-4 mg:grid-cols-2 sd:grid-cols-1 pt-8  
-                t-0 gap-y-8  gap-x-8
-                 pt-2  pb-2 align-center justify-center ">
+                        <div className="flex flex-auto   pt-2 justify-center align-center w-full    overflow-x-auto overflow-y-scroll ">
+          <div className="flex-auto px-6  grid lg:grid-cols-4 mg:grid-cols-2 sd:grid-cols-1
+                t-0 gap-x-8 gap-y-10
+                 pb-2 align-center justify-center ">
                     {AdListFiltered.map((enroll) => {
                                             return (
                                                 <AdvanceCard key={nanoid()} enroll={enroll} />

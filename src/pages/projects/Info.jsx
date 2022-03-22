@@ -144,10 +144,10 @@ const Info = () => {
                         <div className="bg-white h-screen   py-2 px-4 align-center rounded-2xl mt-1  flex flex-col
               gap-2 border-solid border-2 border-gray-300 ">
 
-                            <div className=" m-2  ">
+                            <div className=" m-2 mb-0  ">
                                 <div>
                                     <div className="flex flex-row justify-between">
-                                        <span className="px-8 rounded-r-lg bg-blue-800  text-white  font-bold p-3 uppercase border-blue-800 border-t border-2">
+                                        <span className="px-8 rounded-r-lg bg-blue-800  text-white  font-bold p-2 uppercase border-blue-800 border-t border-2">
                                             <i className="fas fa-folder fa-lg"></i> Proyecto</span>
 
                                         <PrivateComponent roleList={['LIDER']}>
@@ -170,23 +170,23 @@ const Info = () => {
                                 </div>
 
 
-                                {!editName ? (<TextareaAutosize maxRows="2" disabled value={actualProject.nombre} minRows="1" className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-lg  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
+                                {!editName ? (<TextareaAutosize maxRows="2" disabled value={actualProject.nombre} minRows="1" className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-sm  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
                                 </TextareaAutosize>) : (<input disabled={!editName} value={newName}
                                     onChange={(e) => {
                                         setNewName(e.target.value)
-                                    }} className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-lg  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
+                                    }} className="p-2  w-full mt-1 rounded-r-lg bg-blue-100 bg-opacity-75  text-sm  text-blue-800 font-bold   uppercase border-blue-500 border-t border-b   border-r">
                                 </input>)}
 
 
                             </div>
-                            <div className="mb-2  mt-0 mx-2  ">
+                            <div className="mb-2   mx-2  ">
 
-                                <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">ID PROYECTO</span>
-                                <span className="px-8 rounded-r-lg bg-white w-20  text-gray-600 font-bold p-2  border-blue-500 border-t border-b  border-r">
+                                <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300  border-t border-2">ID PROYECTO</span>
+                                <span className="px-8 rounded-r-lg bg-blue-50 w-20  text-gray-600 font-bold p-2  border-blue-500 border-t border-b  border-r">
                                     {infoProject.filtrarProyecto._id}</span>
 
                             </div>
-                            <div className="m-2  ">
+                            <div className="mx-2 text-sm  ">
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i className="far fa-user-circle fa-lg"></i> Lider</span>
@@ -195,7 +195,7 @@ const Info = () => {
                                     {liderName}</span>
 
                             </div>
-                            <div className="m-2 ">
+                            <div className="m-2 text-sm">
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">ID Lider</span>
                                 <span className="px-8 rounded-r-lg bg-white w-20  text-gray-500 font-bold p-2 uppercase border-blue-500 border-t border-b  border-r">
@@ -203,7 +203,7 @@ const Info = () => {
 
                             </div>
 
-                            <div className="m-2 mt-3 flex flex-row justify-between">
+                            <div className="m-2 mt-2 flex flex-row justify-between text-sm">
                                 <div>
                                     <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                         <i className="fas fa-funnel-dollar fa-lg"></i>   PRESUPUESTO  $</span>
@@ -211,10 +211,10 @@ const Info = () => {
                                     {editBudget ? (<input value={newBudget} onChange={(e) => {
                                         setNewBudget(e.target.value)
                                     }}
-                                        className="px-2 ml-1 rounded-r-lg bg-white w-32 text-lg  text-gray-600 font-bold p-2 
+                                        className="px-2 ml-1 rounded-r-lg bg-white w-32 text-sm  text-gray-600 font-bold p-2 
                                 uppercase border-blue-500 border-t border-b  border-r"></input>)
                                         : (<span
-                                            className="px-2 ml-1 rounded-r-lg bg-white w-32 text-lg  text-gray-600 font-bold p-2 
+                                            className="px-2 ml-1 rounded-r-lg bg-white w-32 text-sm text-gray-600 font-bold p-2 
                                     uppercase border-blue-500 border-t border-b  border-r">{infoProject.filtrarProyecto.presupuesto}</span>)}
 
                                 </div>
@@ -235,7 +235,7 @@ const Info = () => {
 
                                         </div>}</PrivateComponent>
                             </div>
-                            <div className="m-2 mt-4 ">
+                            <div className="m-2 mt-4 text-sm">
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i class="far fa-calendar"></i> ESTADO</span>
@@ -244,7 +244,7 @@ const Info = () => {
                                     {infoProject.filtrarProyecto.estado === "ACTIVO" ? (<i className="far fa-calendar-check"></i>) : (<i className="far fa-calendar-minus"></i>)} {infoProject.filtrarProyecto.estado}</span>
 
                             </div>
-                            <div className="m-2 ">
+                            <div className="m-2 text-sm ">
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i className="fas fa-tachometer-alt"></i>FASE</span>
@@ -253,7 +253,7 @@ const Info = () => {
                                     {infoProject.filtrarProyecto.fase}</span>
 
                             </div>
-                            <div className="m-2 mt-2">
+                            <div className="mx-2 mt-2 text-sm">
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i class="far fa-calendar-alt fa-lg "></i>  FECHA CREACIÓN</span>
@@ -262,7 +262,7 @@ const Info = () => {
 
 
                             </div>
-                            <div className="m-2 ">
+                            <div className="mx-2  mt-2 text-sm ">
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i class="far fa-calendar-alt fa-lg "></i> FECHA INICIO</span>
@@ -271,7 +271,7 @@ const Info = () => {
 
 
                             </div>
-                            <div className="m-2  ">
+                            <div className="mx-2 mt-2 text-sm ">
 
                                 <span className="px-8 rounded-r-lg bg-white-100  text-blue-800 font-bold p-2 uppercase border-blue-300 border-t border-2">
                                     <i class="far fa-calendar-alt fa-lg "></i> FECHA TERMINACIÓN</span>
@@ -283,12 +283,12 @@ const Info = () => {
 
                         <div className="bg-white h-screen flex-auto py-2 px-4 align-center rounded-2xl my-1 flex flex-col
               gap-2 border-solid border-2 border-gray-300  ">
-                            <div className="flex flex-row justify-between pt-2 mt-8 border-blue-500 border-b   ">
+                            <div className="flex flex-row justify-between  border-blue-500 border-b   ">
                                 <span className="px-8 my-2 rounded-r-lg  text-blue-800 font-bold p-3 text-xl   uppercase">Objetivos</span>
                                 <PrivateComponent roleList={['LIDER']}>
                                     {isActived &&
                                         <button type="button" className="p-1 pl-4 pr-4 mt-4 mr-10  
-                                    bg-white border-2 border-blue-500 font-bold h-10 text-blue-500 text-lg rounded-lg hover:bg-blue-500 hover:text-white  
+                                    bg-white border-2 border-blue-500 font-bold h-10 text-blue-500 text-sm rounded-lg hover:bg-blue-500 hover:text-white  
                                     focus:border-4 " onClick={() => setCreateModal(true)}>Añadir</button>}</PrivateComponent>
                             </div>
 
@@ -296,7 +296,7 @@ const Info = () => {
 
 
                                 <ul id="lista_obj" className=" h-full  py-2 px-6 
-                             pl-10 pr-8 ">
+                             pl-10 pr-8 font-mono">
 
                                     {infoProject && infoProject.filtrarProyecto.objetivos.map((objetivo, index) => {
                                         return (<>

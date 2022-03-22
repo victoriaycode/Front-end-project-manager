@@ -46,11 +46,11 @@ const RowObjective = ({ datarow, list, setObjectivesList }) => {
     return (
 
 
-        <li className="text-gray-500 font-semibold text-lg font-light mt-2">
+        <li className="text-gray-500 font-semibold text-lg  mt-2 font-mono ">
 
-            <div className="w-full flex flex-row mt-5 px-2 text-gray-600">
+            <div className="w-full flex flex-row mt-5  text-gray-600">
 
-                <select disabled={!editRow} className="h-10 w-50 pr-8 pl-5 text-base text-blue-800 rounded-2xl z-0 focus:shadow focus:outline-none 
+                <select disabled={!editRow} className="h-10 w-50 px-5  text-sm text-blue-800 rounded-2xl z-0 focus:shadow focus:outline-none 
                     border-gray-400 border-2" defaultValue={tipo} onChange={(e) => setTipo(e.target.value)}>
                     <option className="" value="GENERAL" >GENERAL</option>
                     <option className="" value="ESPECIFICO">ESPECIFICO </option>
@@ -60,7 +60,7 @@ const RowObjective = ({ datarow, list, setObjectivesList }) => {
                 {editRow ? (<>
 
 
-                    <TextareaAutosize type="text" required className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-50 border-2 border-gray-300"
+                    <TextareaAutosize type="text" required className="h-10 w-5/6 mx-5 px-4  rounded-2xl z-0 focus:outline-none bg-blue-50 border-2 border-gray-300"
                         value={descripcionRow} onChange={(e) => {setDescripcionRow(e.target.value)}} />
                     <Tooltip title='GUARDAR ' arrow placement="top">
                         <button className="text-blue-600 hover:text-blue-800 focus py-1 " onClick={() => editObjective()}><i className="far fa-save fa-lg"></i></button></Tooltip>
@@ -68,7 +68,7 @@ const RowObjective = ({ datarow, list, setObjectivesList }) => {
                         <button className="text-gray-500 hover:text-gray-700 ml-10 py-1  " onClick={() => setEditRow(false)}><i className="fas fa-ban fa-lg"></i></button></Tooltip></>)
                     : (<>
 
-                        <TextareaAutosize disabled className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
+                        <TextareaAutosize disabled className="h-10 w-5/6 mx-5 px-4 mt-1 rounded-2xl z-0 focus:outline-none bg-white border-2 border-gray-300"
                         >{descripcionRow}</TextareaAutosize>
                         <Tooltip title='EDITAR ' arrow placement="top">
                             <button className="text-blue-600 hover:text-blue-800  py-1  focus" onClick={() => setEditRow(true)} ><i className="fas fa-edit fa-lg"></i></button>

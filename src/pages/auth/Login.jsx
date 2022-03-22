@@ -28,6 +28,32 @@ function Login() {
     });
   };
 
+  const testUsers=(tryUser)=>{
+
+    if(tryUser==="admin"){
+     // document.getElementById('email').value = "testadmin@gmail.com";
+     // document.getElementById('password').value = "testadmin100";
+      formData.correo = "testadmin@gmail.com";
+      formData.password="testadmin100";
+      
+    }
+    else if(tryUser==="lider"){
+      formData.correo = "testlider@gmail.com";
+      formData.password="testadmin100";
+      
+    }
+    else if(tryUser==="student"){
+      formData.correo = "teststudent@gmail.com";
+      formData.password="testadmin100";
+      
+    }
+    login({
+      variables: formData,
+      
+    });
+   
+  }
+  
   useEffect(() => {
     if (dataMutation !=null) {
       if (dataMutation.login!=null) {
@@ -44,17 +70,17 @@ function Login() {
     console.log("error",mutationError);
   }, [mutationError]);
   return (
-    <div  data-testid='login-page' className='flex h-screen bg-blue-900'> 
-        <div className='flex flex-col h-screen bg-blue-800 text-white'>
-            <form onSubmit={submitForm} onChange={updateFormData} ref={form} className='mx-24 mt-20'>
+    <div  data-testid='login-page' className='flex h-screen w-screen bg-blue-900'> 
+        <div className='flex flex-col  bg-blue-800 text-white'>
+            <form onSubmit={submitForm} onChange={updateFormData} ref={form} className='mx-24 mt-10'>
                 <h1 className='text-2xl font-bold'>¡Bienvenido!</h1>
-                <p className='mt-2 mb-8 text-base'>Ingresa tus datos →</p>
+                <p className='mt-2 mb-6 text-base'>Ingresa tus datos →</p>
                 <label className='font-medium text-lg'>Correo</label><br/>
-                <input name='correo' type="email"  placeholder="nombre@ejemplo.com"
-                className='mt-2 rounded-lg p-2 h-10 w-96 mb-4 cursor-auto outline-none text-blue-900 text-base'>
+                <input name='correo' id="email"type="email"  placeholder="nombre@ejemplo.com"
+                className='mt-2 rounded-lg p-2 h-10 w-96 mb-4 cursor-auto outline-none text-blue-900 font-normal text-base'>
                 </input><br/>
                 <label className='font-medium text-lg' >Contraseña</label><br /> 
-                <input type="password" name='password'
+                <input type="password" name='password' id="password"
                 className='mt-2 rounded-lg p-2 h-10 w-96 mb-4 cursor-auto outline-none text-blue-900 text-xl'></input>
                 <br /> 
                 <br /> 
@@ -66,15 +92,29 @@ function Login() {
                 />
             </form>  
                
-            <span className='ml-52 mb-0 text-base'>¿Aun no tienes cuenta?</span><br/>
+            <span className='ml-52 mb-2 text-base'>¿Aun no tienes cuenta?</span>
              <Link to ='/register'>
                 <button className='bg-none hover:bg-yellow-600 hover:text-white border-2 border-white text-white rounded-lg h-10 w-36 ml-52 cursor-pointer text-xl' type="submit">
                 Regístrate</button>
               </Link>
-          <p className='absolut mt-12 mx-40 text-xs'>Equipo devOcean/Ciclo4/UdeA/MisionTic 2022</p>            
+              <div className="mt-6 mx-4 border-t-2 font-mono border-yellow-600 p-2">
+        <span className='ml-52 mb-2 text-2xl font-mono'>Try Users</span>
+        <div className="flex flex-row  justify-around mt-1">
+        <button className='bg-none hover:bg-yellow-600 hover:text-white border-2 border-white text-white rounded-lg h-10 w-32 cursor-pointer text-md' type="button" onClick={()=>testUsers("admin")}>
+                Admin</button>
+                <button className='bg-none hover:bg-yellow-600 hover:text-white border-2 border-white text-white rounded-lg h-10 w-32  cursor-pointer text-md' type="button" onClick={()=>testUsers("lider")}>
+                Lider</button>
+                <button className='bg-none hover:bg-yellow-600 hover:text-white border-2 border-white text-white rounded-lg h-10 w-32 cursor-pointer text-md' type="button" onClick={()=>testUsers("student")}s>
+                Estudiante</button>
         </div>
-        <div className='flex pt-52'>
-          <img className='h-40 w-40 ml-60' src={logo} alt="devOcean" />
+       
+        
+        </div>
+          <p className=' fixed bottom-4 right-28 text-xs'>Equipo devOcean/Ciclo4/UdeA/MisionTic 2022</p>            
+        </div>
+      
+        <div className='flex pt-52 pl-32'>
+          <img className='h-40 w-40 ' src={logo} alt="devOcean" />
           <h1 className='text-white text-center mt-10 text-7xl'>devOcean</h1>
         </div>
     </div>

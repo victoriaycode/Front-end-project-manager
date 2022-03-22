@@ -19,7 +19,7 @@ const ProjectNavbar = ({ _idActual, rutaRetorno, nombreProject }) => {
         <span className="text-lg  text-blue-800 text-2xl ml-2 mr-5 pt-2 font-bold ">{nombreProject}</span></p>
 
 
-      <nav className="flex flex-col sm:flex-row ml-5 text-lg gap-3  ml-40">
+      <nav className="flex flex-col sm:flex-row  text-lg gap-3  ml-36">
         <NavLink to={`/proyectos/proyecto/${_id}`}
           className={({ isActive }) =>
             isActive

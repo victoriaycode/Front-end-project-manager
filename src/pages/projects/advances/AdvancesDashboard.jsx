@@ -106,11 +106,7 @@ const AdvancesDashboard = () => {
             <span className='text-gray-500 text-lg'>O  el proyecto está inactivo. </span>
             </div></>}
 
-        {/* {rolUser ==="LIDER" && !isLider && <>
-          <i className="fas fa-user-lock fa-4x" ></i>
-               <span className='text-blue-600 text-2xl'>No puedes ver estos avances.</span>
-               <span className='text-blue-800 text-2xl'>No eres lider de este proyecto. </span></>}
-           */}
+ 
         {finishedProject && <div>
           <div className='w-full h-full  flex flex-col px-60 py-20 justify-center text-blue-600 '>
             <i className="fas fa-user-lock fa-5x" ></i>

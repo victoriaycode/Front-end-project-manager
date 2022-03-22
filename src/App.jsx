@@ -29,7 +29,7 @@ import Inscriptions from 'pages/inscriptions/Inscriptions';
 import Info from 'pages/projects/Info';
 
  const httpLink = createHttpLink({
-   uri: 'https://backend-dev-ocean.herokuapp.com/graphql',
+   uri: 'https://backend-project-manager.herokuapp.com/graphql',
  });
 
 // const httpLink = createHttpLink({

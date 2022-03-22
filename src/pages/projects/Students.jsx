@@ -140,19 +140,20 @@ const Students = () => {
                                     <div className="absolute top-3 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
                                     </div>
                                 </div>
+                                <div className="relative w-full px-2 max-w-full flex-grow flex-1 ml-20   ">
+                                            <h3 className="font-semibold text-base text-gray-500">Mostrando {studentsList && studentsList.length}  estudiantes en el proyecto </h3>
+
+                                        </div>
 
                             </div>
 
                         </div>
 
-                        <div className="h-full w-ful px-0 px-5 ">
-                            <div className="w-full xl:w-12/12 mb-12 xl:mb-0 px-4 mx-auto mt-10">
+                        <div className="h-full w-ful px-5 ">
+                            <div className="w-full xl:w-12/12 mb-12 xl:mb-0 px-4 mx-auto ">
                                 <div className="rounded-t mb-0 px-4 py-3 border-0">
                                     <div className="flex flex-wrap items-center ">
-                                        <div className="relative w-full px-2 max-w-full flex-grow flex-1   ">
-                                            <h3 className="font-semibold text-base text-gray-500">Mostrando {studentsList && studentsList.length}  estudiantes en el proyecto </h3>
-
-                                        </div>
+                                      
 
 
                                     </div>
