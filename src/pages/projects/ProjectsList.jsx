@@ -204,13 +204,13 @@ const ProjectsList = () => {
   return (
     <PrivateRoute roleList={['ADMINISTRADOR', 'LIDER', 'ESTUDIANTE']} >
 
-      <div className="w-full h-full flex flex-col  overflow-y-hidden overflow-x-hidden p-10 pr-10" >
+      <div className="w-full h-full flex flex-col  overflow-y-hidden overflow-x-hidden pt-4 p-2" >
 
         {role == "LIDER" &&
           <NavLink to="/proyectos/nuevo">
             <div className="flex flex-row w-full  justify-end align-center mr-20  ">
               {!openModalEdit &&
-                <button className="p-2 pl-5 pr-5 z-30 absolute  top-8 right-30 bg-transparent font-bold shadow border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200
+                <button className="p-2 pl-5 pr-5 z-30 absolute  top-8 right-40 bg-transparent font-bold shadow border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-yellow-200
                  hover:text-gray-500  hover:border-gray-500
              focus:border-4 focus:border-blue-300" >Nuevo</button>}
             </div></NavLink>
@@ -218,41 +218,43 @@ const ProjectsList = () => {
 
         <div className="relative h-20  pl-8  flex flex-row  w-full align-center  
         pt-6  bg-gray-100 bg-opacity-50 pb-4 ">
-          <span className="text-lg text-blue-800 text-3xl ml-2 mr-5 pt-2 font-bold justify-start ">Proyectos</span>
+          <span className="text-blue-800 text-3xl ml-2 mr-5 pt-2 font-bold justify-start ">Proyectos</span>
           <div className="flex flex-col  sm:flex-row ml-5  text-lg gap-10 ">
 
             <PrivateComponent roleList={['ESTUDIANTE']}>
-              <>
-                <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
-          border-gray-500  focus:outline-none hover:border-blue-800 border-b-4  transition duration-150 ${buttonEstudiante}`}
+              <>  <div className='border-gray-600 font-mono  hover:border-blue-800 '>
+                <button className={` py-2 px-2 block hover:text-blue-800 focus:outline-none  font-medium 
+          border-gray-500   hover:border-blue-800 border-b-4  transition duration-150 ${buttonEstudiante}`}
                   onClick={() => setViewOnlyStudent(true)}>
                   <i className="fas fa-check "></i> Mis Inscritos
-                </button>
-                <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium 
-          border-gray-500   hover:border-blue-800 focus:outline-none border-b-4  transition duration-150 ${buttonTodos}`}
+                </button></div>
+                <div className='border-gray-600 font-mono  hover:border-blue-800 '>
+                <button className={` py-2 px-2 block hover:text-blue-800 focus:outline-none   font-medium 
+          border-gray-500   hover:border-blue-800  border-b-4  transition duration-150 ${buttonTodos}`}
                   onClick={() => setViewOnlyStudent(false)}>
-                  <i className="fas fa-clipboard-list "></i> Explorar Otros
-                </button></></PrivateComponent>
+                  <i className="fas fa-clipboard-list "></i> Explorar 
+                </button></div></></PrivateComponent>
             <PrivateComponent roleList={['ADMINISTRADOR']}> <>
-
-              <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium text-gray-600 
-          border-gray-600   hover:border-blue-800 focus:outline-none border-b-4 transition duration-150 ${buttonTodos2}`}
+              <div className='border-gray-600 font-mono  hover:border-blue-800 '>
+              <button className={` py-2 px-1 block hover:text-blue-800 font-medium text-gray-600 
+           focus:outline-none border-b-4 transition duration-150 ${buttonTodos2}`}
                 onClick={() => setViewToApprove(false)}>
                 <i className="fas fa-clipboard-list "></i> Ver Todos
-              </button>
-              <button className={` py-4 px-6 block hover:text-blue-800 focus:outline-none pb-8  font-medium text-gray-600 
+              </button> </div>
+              <div className='border-gray-600 font-mono  hover:border-blue-800 '>
+              <button className={` py-2 px-1 block hover:text-blue-800  font-medium text-gray-600 
           border-gray-600  focus:outline-none hover:border-blue-800 border-b-4 transition duration-150 ${buttonToApprove}`} onClick={() => setViewToApprove(true)}>
                 <i className="fas fa-info-circle w-auto" ></i> Sin Aprobar
-              </button></></PrivateComponent>
+              </button></div></></PrivateComponent>
           </div>
           <div className="flex flex-row ml-4">
             <div className="flex flex-row  flex-center">
 
               <div className="  flex justify-center items-center px-2 sm:px-4 ">
                 {
-                  <div className="relative">
+                  <div className="relative mt-2">
 
-                    <input type="text" className="h-12 w-72 pr-8 pl-5  border-gray-200 rounded-2xl z-0 focus:shadow focus:outline-none"
+                    <input type="text" className="h-10 w-72 px-4  border-gray-200 rounded-2xl z-0  text-sm focus:shadow focus:outline-none"
                       value={searchBy} onChange={(e) => setSearchBy(e.target.value)} placeholder="Buscar por nombre o id proyecto" />
                     <div className="absolute top-3 right-3"> <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
                     </div>
@@ -260,9 +262,9 @@ const ProjectsList = () => {
 
               </div>
               {
-                <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-4 ml-2">
+                <div className="  flex justify-center items-center px-4 sm:px-6 lg:px-4 ml-2 mt-2">
                   <div className="flex flex-rows-2 relative align-center justify-center  bg-white rounded-2xl ">
-                    <select value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-lg 
+                    <select value={sortBy} onChange={(e) => setSortedBy(e.target.value)} className="disabled:bg-opacity-0 h-10 w-48 pr-8 pl-5 text-sm 
                   text-gray-600 rounded-2xl z-0 focus:shadow focus:outline-none border-gray-200" >
 
 
@@ -282,9 +284,9 @@ const ProjectsList = () => {
                       if(rol=="LIDER")Mostrando {filteredListLider.length} Proyectos</span>
                 </div> */}
         <div className="flex flex-auto mb-6   overflow-y-scroll justify-center align-center ">
-          <div className="flex-auto px-6  grid lg:grid-cols-4 mg:grid-cols-2 sd:grid-cols-1 pt-8  m
+          <div className="flex-auto px-6  grid lg:grid-cols-4 mg:grid-cols-2 sd:grid-cols-1 pt-8  
                 t-0 gap-y-8  gap-x-8
-                 pt-2 align-center justify-center ">
+                  align-center justify-center ">
 
             <PrivateComponent roleList={['ADMINISTRADOR']}>
               <> {!viewToApprove && filteredList != null && filteredList.map((project_info) => {

@@ -93,7 +93,7 @@ const New_project = () => {
                     </button>
                 </NavLink>
 
-                <span className="text-lg text-blue-800 text-3xl ml-2 mr-5 pt-2 font-bold ">
+                <span className=" text-blue-800 text-3xl ml-2 mr-5 pt-2 font-bold ">
                     Nuevo Proyecto
                 </span>
             </div>
@@ -105,12 +105,12 @@ const New_project = () => {
                         onSubmit={submitForm}
                         onChange={updateFormData}
                         ref={form}>
-                        <div className=" w-full bg-white   mb-2 px-2 flex flex-col align-center justify-center border-solid border-2 border-gray-300 rounded-xl py-2">
-                            <div className="flex flex-row gap-4 justify-between  ">
-                                <span className="px-10 py-3 text-blue-800 text text-xl font-medium  ">
+                        <div className=" w-full bg-white   mb-1 px-2 flex flex-col align-center justify-center border-solid border-2 border-blue-400 rounded-xl py-1">
+                        <span className="px-10 pt-2 text-blue-800 text text-lg font-medium  ">
                                     GUARDAR PROYECTO NUEVO:</span>
-                                <div className="flex flex-row gap-4 justify-end  py-4 px-10">
-                                    <button type="submit" className="bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded-xl h-10 text-lg text-white" >Guardar</button>
+                            <div className="flex flex-row   ">
+                                <div className="flex flex-row gap-4 justify-center  ml-64 py-4 px-10">
+                                    <button type="submit" className="bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded-xl h-10 text-md text-white" >Guardar</button>
                                     <NavLink to={`/proyectos/`}>
                                         <button type="button" className="bg-gray-500 hover:bg-gray-700 px-3 py-1 rounded-xl h-10 text-white mr-1 close-modal ml-2">Cancelar</button></NavLink>
                                 </div></div>
@@ -118,33 +118,35 @@ const New_project = () => {
 
 
                         </div>
-                        <div className="bg-white  w-full py-2 px-4 align-center rounded-2xl flex flex-row gap-2 border-solid border-2 border-gray-300">
+                        <div className="bg-white font-mono w-full py-2  align-center rounded-2xl flex flex-row gap-2 border-dotted border-2 border-blue-300 ">
 
-                            <div className="w-full h-full flex flex-col pb-10">
-                                <div className=" py-2 px-8 flex flex-row ">
-                                    <span className="text-blue-800 font-semibold  text text-lg font-medium mt-4 mr-2">
+                            <div className="w-full h-full flex flex-col pb-10 ">
+                                <div className=" py-2 px-4 flex flex-row ">
+                                    <span className="text-blue-800 font-semibold  text text-lg  mt-4 ">
                                         NOMBRE
                                     </span> <TextareaAutosize minRows="1" type="text" required name="nombre" className="text-blue-800 px-6 py-2 text-2xl font-bold  h-10  w-full mx-4  mt-1 rounded-2xl z-0 focus:outline-none bg-blue-50"
                                         placeholder="Nombre del proyecto" ></TextareaAutosize>
                                 </div>
                                 <div className="flex flex-col ">
 
-                                    <div className="flex flex-row justify-start my-2"><div>
-                                        <span className="text-blue-500 font-semibold text-lg ml-8"> LIDER</span>
+                                    <div className="flex flex-row justify-start my-2">
+                                        
+                                      
+                                        <span className="text-blue-500 font-semibold text-md ml-4"> LIDER</span>
                                         <div className="flex flex-row">
-                                            <input disabled type="text" className="h-10  ml-10 px-10  rounded-xl z-0 focus:outline-none
+                                            <input disabled type="text" className="h-10  ml-8 px-8  rounded-xl z-0 focus:outline-none
                                      bg-white border-b-2 border-gray-300" defaultValue={nombre_lider}></input>
-                                            <input disabled type="text" name="lider" className="h-10  mx-2 px-5  rounded-xl z-0 focus:outline-none
-                                     bg-white border-b-2 border-gray-300" defaultValue={id_lider}></input>
-                                        </div>
+                                            <input disabled type="text" name="lider" className="h-10 w-32 mx-2 px-2  rounded-xl z-0 focus:outline-none
+                                     bg-white border-b-2 border-gray-300 text-sm" defaultValue={id_lider}></input>
+                                        </div>  <div>
                                     </div>
 
 
                                     </div>
-                                    <div className="w-full py-2 px-6 flex flex-row  justify-between gap-8 text-lg">
+                                    <div className="w-full py-2 px-4 flex flex-row  justify-between gap-8 text-lg">
 
-                                        <div className="w-full py-2  flex flex-row ml-3 text-lg">
-                                            <label htmlFor="Presupuesto" className="text-gray-500  font-semibold  font-medium ">
+                                        <div className="w-full py-2  flex flex-row  text-lg">
+                                            <label htmlFor="Presupuesto" className="text-gray-500    font-medium ">
                                                 PRESUPUESTO:
                                             </label>
                                             <input type="number" required min="1" name="presupuesto" className="h-10 bg-blue-50 w-44 ml-16 px-6  
@@ -179,36 +181,36 @@ bg-gray-100 border-2 border-gray-300"
 
                     </form>
 
-                    <div className=" w-full h-3/5 flex-auto mb-20 bg-white  ml-2 flex flex-col align-center justify-center border-solid border-2 border-gray-300 
+                    <div className=" w-full h-3/5 flex-auto mb-20 bg-white  ml-2 flex flex-col align-center justify-center border-solid border-2 border-blue-200 
                     rounded-xl py-2">
 
                         <div className="w-full   py-2 px-2 flex flex-col h-full ">
                             <div className="w-full flex flex-row align-center">
                                 <span className="text-blue-800 px-6 py-2 text-2xl font-bold ">      Objetivos      </span>
                                 {!addObjective &&
-                                    <button className="p-1 ml-20  h-10 bg-transparent border-2 border-blue-500  text-blue-500 text-lg rounded-lg hover:bg-blue-600 
+                                    <button className="p-1 ml-16  h-10 bg-transparent border-2 border-blue-500  text-blue-500 text-lg rounded-lg hover:bg-blue-600 
                 hover:text-white  focus:border-4 "onClick={() => setAddObjective(!addObjective)}>Nuevo</button>}
                             </div>
 
                             {addObjective &&
 
-                                <li className="text-gray-500 font-semibold list-none text-lg font-light  px-8 mt-2">
+                                <li className="text-gray-500 font-semibold list-none  px-4 mt-2">
                                     <div className="w-full flex flex-col ">
-                                        <div className="w-full flex flex-row gap-40  text-xl font-semibold text-blue-800">
+                                        <div className="w-full flex flex-row gap-40  text-lg font-semibold text-blue-800">
                                             <span>Tipo</span>
                                             <span>Descripción</span></div>
-                                        <div className="w-full flex flex-row mt-5 text-gray-600">
-                                            <select className="h-10 w-44 pr-8 pl-5 text-base text-blue-800 rounded-2xl z-0 focus:shadow focus:outline-none 
-                      border-gray-400 border-2" defaultValue="GENERAL" defaultValue={newType} onChange={(e) => setnewType(e.target.value)}>
+                                        <div className="w-full flex flex-row mt-5 text-gray-600 font-mono">
+                                            <select className="h-10 w-38 px-2 text-base text-blue-800 rounded-2xl z-0 focus:shadow focus:outline-none 
+                      border-gray-400 border-2" defaultValue="GENERAL" value={newType} onChange={(e) => setnewType(e.target.value)}>
                                                 <option className="" value="GENERAL" >GENERAL</option>
                                                 <option className="" value="ESPECIFICO">ESPECIFICO </option>
 
                                             </select>
-                                            <TextareaAutosize id="descripInput" type="text" className="h-10 w-5/6 mx-5 px-10 mt-1 rounded-2xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
+                                            <TextareaAutosize id="descripInput" type="text" className="h-10 w-5/6 mx-2 px-2 mt-1 rounded-xl z-0 focus:outline-none bg-gray-100 border-2 border-gray-300"
                                                 defaultValue={newDescripObj} onChange={(e) => setNewDescripObj(e.target.value)} />
 
-                                            <button className="text-blue-600 hover:text-blue-800 focus text-base" onClick={() => AddNewObjective()}><i className="fas fa-folder-plus fa-lg"></i>Añadir</button>
-                                            <button className="text-gray-600 hover:text-gray-700 ml-6 text-base" onClick={() => setAddObjective(false)}><i className="fas fa-ban fa-lg"></i>Cancelar</button>
+                                            <button className="text-blue-600 hover:text-blue-800 focus text-sm" onClick={() => AddNewObjective()}><i className="fas fa-folder-plus fa-lg"></i>Añadir</button>
+                                            <button className="text-gray-600 hover:text-gray-700 ml-6 text-sm" onClick={() => setAddObjective(false)}><i className="fas fa-ban fa-lg"></i>Cancelar</button>
                                         </div>
                                     </div>
                                 </li>

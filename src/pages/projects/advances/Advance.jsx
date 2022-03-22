@@ -129,7 +129,7 @@ const Advance = () => {
             </button>
           </NavLink>
 
-          <span className="text-lg text-blue-800 text-2xl ml-2 mr-5 pt-2 font-bold ">
+          <span className=" text-blue-800 text-2xl ml-2 mr-5 pt-2 font-bold ">
             Avance # {_idAvance}
           </span>
           <PrivateComponent roleList={['ESTUDIANTE']}>
