@@ -17,3 +17,5 @@ Tecnologías:
 -	React JS
 -	Node.Js
 -	GraphQL
+
+BACKEND: https://github.com/victoriaycode/Back-end-project-manager
